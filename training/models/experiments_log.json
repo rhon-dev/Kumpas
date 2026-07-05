@@ -1,0 +1,118 @@
+[
+ {
+  "run_id": "20260705_192720_baseline",
+  "run_notes": "baseline",
+  "timestamp": "2026-07-05 19:27:20",
+  "environment": "local M1 (tensorflow 2.19.0)",
+  "model_name": "cnnlstm_c64-128_l128-64",
+  "params": 540402,
+  "seq_len": 30,
+  "features": 1662,
+  "augmented": true,
+  "drop_face": false,
+  "conv_filters": [
+   64,
+   128
+  ],
+  "lstm_units": [
+   128,
+   64
+  ],
+  "dense": 128,
+  "dropout": 0.4,
+  "lr": 0.001,
+  "batch": 32,
+  "epochs_run": 83,
+  "seed": 20260705,
+  "best_val_accuracy": 0.9611,
+  "test_accuracy": 0.8571,
+  "train_seconds": 314
+ },
+ {
+  "run_id": "20260705_194813_no_face",
+  "run_notes": "no_face",
+  "timestamp": "2026-07-05 19:48:13",
+  "environment": "local M1 (tensorflow 2.19.0)",
+  "model_name": "cnnlstm_c64-128_l128-64",
+  "params": 270834,
+  "seq_len": 30,
+  "features": 258,
+  "augmented": true,
+  "drop_face": true,
+  "conv_filters": [
+   64,
+   128
+  ],
+  "lstm_units": [
+   128,
+   64
+  ],
+  "dense": 128,
+  "dropout": 0.4,
+  "lr": 0.001,
+  "batch": 32,
+  "epochs_run": 63,
+  "seed": 20260705,
+  "best_val_accuracy": 1.0,
+  "test_accuracy": 0.9507,
+  "train_seconds": 166
+ },
+ {
+  "run_id": "20260705_195312_no_face_wider",
+  "run_notes": "no_face_wider",
+  "timestamp": "2026-07-05 19:53:12",
+  "environment": "local M1 (tensorflow 2.19.0)",
+  "model_name": "cnnlstm_c64-128_l256-128",
+  "params": 689394,
+  "seq_len": 30,
+  "features": 258,
+  "augmented": true,
+  "drop_face": true,
+  "conv_filters": [
+   64,
+   128
+  ],
+  "lstm_units": [
+   256,
+   128
+  ],
+  "dense": 128,
+  "dropout": 0.4,
+  "lr": 0.001,
+  "batch": 32,
+  "epochs_run": 64,
+  "seed": 20260705,
+  "best_val_accuracy": 1.0,
+  "test_accuracy": 0.9409,
+  "train_seconds": 290
+ },
+ {
+  "run_id": "20260705_200027_full_dropout05",
+  "run_notes": "full_dropout05",
+  "timestamp": "2026-07-05 20:00:27",
+  "environment": "local M1 (tensorflow 2.19.0)",
+  "model_name": "cnnlstm_c64-128_l128-64",
+  "params": 540402,
+  "seq_len": 30,
+  "features": 1662,
+  "augmented": true,
+  "drop_face": false,
+  "conv_filters": [
+   64,
+   128
+  ],
+  "lstm_units": [
+   128,
+   64
+  ],
+  "dense": 128,
+  "dropout": 0.5,
+  "lr": 0.001,
+  "batch": 32,
+  "epochs_run": 106,
+  "seed": 20260705,
+  "best_val_accuracy": 0.9221,
+  "test_accuracy": 0.8325,
+  "train_seconds": 426
+ }
+]

@@ -1,0 +1,27 @@
+[
+ {
+  "timestamp": "2026-07-05 20:27:39",
+  "run_id": "20260705_194813_no_face",
+  "input_shape": [
+   30,
+   258
+  ],
+  "note": "local M1 latency is informational; Phase 4 gate requires real mid-range Android measurement",
+  "exports": [
+   {
+    "quant": "dynamic",
+    "file": "kumpas_50sign_20260705_194813_no_face_dynamic.tflite",
+    "size_mb": 0.32,
+    "local_m1_latency_ms_median": 0.34,
+    "local_m1_latency_ms_p95": 0.37
+   },
+   {
+    "quant": "float16",
+    "file": "kumpas_50sign_20260705_194813_no_face_float16.tflite",
+    "size_mb": 0.57,
+    "local_m1_latency_ms_median": 0.5,
+    "local_m1_latency_ms_p95": 0.64
+   }
+  ]
+ }
+]

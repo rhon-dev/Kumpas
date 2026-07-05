@@ -1,0 +1,255 @@
+{
+  "description": "Approved 50-sign everyday subset of FSL-105 (see docs/selected-50-signs.md)",
+  "selected": [
+    {
+      "id": 0,
+      "label": "GOOD MORNING",
+      "category": "GREETING"
+    },
+    {
+      "id": 1,
+      "label": "GOOD AFTERNOON",
+      "category": "GREETING"
+    },
+    {
+      "id": 2,
+      "label": "GOOD EVENING",
+      "category": "GREETING"
+    },
+    {
+      "id": 3,
+      "label": "HELLO",
+      "category": "GREETING"
+    },
+    {
+      "id": 4,
+      "label": "HOW ARE YOU",
+      "category": "GREETING"
+    },
+    {
+      "id": 5,
+      "label": "IM FINE",
+      "category": "GREETING"
+    },
+    {
+      "id": 6,
+      "label": "NICE TO MEET YOU",
+      "category": "GREETING"
+    },
+    {
+      "id": 7,
+      "label": "THANK YOU",
+      "category": "GREETING"
+    },
+    {
+      "id": 8,
+      "label": "YOURE WELCOME",
+      "category": "GREETING"
+    },
+    {
+      "id": 9,
+      "label": "SEE YOU TOMORROW",
+      "category": "GREETING"
+    },
+    {
+      "id": 10,
+      "label": "UNDERSTAND",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 11,
+      "label": "DON’T UNDERSTAND",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 12,
+      "label": "KNOW",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 13,
+      "label": "DON’T KNOW",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 14,
+      "label": "NO",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 15,
+      "label": "YES",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 16,
+      "label": "WRONG",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 17,
+      "label": "CORRECT",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 18,
+      "label": "SLOW",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 19,
+      "label": "FAST",
+      "category": "SURVIVAL"
+    },
+    {
+      "id": 20,
+      "label": "ONE",
+      "category": "NUMBER"
+    },
+    {
+      "id": 21,
+      "label": "TWO",
+      "category": "NUMBER"
+    },
+    {
+      "id": 22,
+      "label": "THREE",
+      "category": "NUMBER"
+    },
+    {
+      "id": 23,
+      "label": "FOUR",
+      "category": "NUMBER"
+    },
+    {
+      "id": 24,
+      "label": "FIVE",
+      "category": "NUMBER"
+    },
+    {
+      "id": 49,
+      "label": "TODAY",
+      "category": "DAYS"
+    },
+    {
+      "id": 50,
+      "label": "TOMORROW",
+      "category": "DAYS"
+    },
+    {
+      "id": 51,
+      "label": "YESTERDAY",
+      "category": "DAYS"
+    },
+    {
+      "id": 52,
+      "label": "FATHER",
+      "category": "FAMILY"
+    },
+    {
+      "id": 53,
+      "label": "MOTHER",
+      "category": "FAMILY"
+    },
+    {
+      "id": 54,
+      "label": "SON",
+      "category": "FAMILY"
+    },
+    {
+      "id": 55,
+      "label": "DAUGHTER",
+      "category": "FAMILY"
+    },
+    {
+      "id": 56,
+      "label": "GRANDFATHER",
+      "category": "FAMILY"
+    },
+    {
+      "id": 57,
+      "label": "GRANDMOTHER",
+      "category": "FAMILY"
+    },
+    {
+      "id": 62,
+      "label": "BOY",
+      "category": "RELATIONSHIPS"
+    },
+    {
+      "id": 63,
+      "label": "GIRL",
+      "category": "RELATIONSHIPS"
+    },
+    {
+      "id": 64,
+      "label": "MAN",
+      "category": "RELATIONSHIPS"
+    },
+    {
+      "id": 65,
+      "label": "WOMAN",
+      "category": "RELATIONSHIPS"
+    },
+    {
+      "id": 66,
+      "label": "DEAF",
+      "category": "RELATIONSHIPS"
+    },
+    {
+      "id": 67,
+      "label": "HARD OF HEARING",
+      "category": "RELATIONSHIPS"
+    },
+    {
+      "id": 72,
+      "label": "BLUE",
+      "category": "COLOR"
+    },
+    {
+      "id": 74,
+      "label": "RED",
+      "category": "COLOR"
+    },
+    {
+      "id": 76,
+      "label": "BLACK",
+      "category": "COLOR"
+    },
+    {
+      "id": 77,
+      "label": "WHITE",
+      "category": "COLOR"
+    },
+    {
+      "id": 85,
+      "label": "BREAD",
+      "category": "FOOD"
+    },
+    {
+      "id": 86,
+      "label": "EGG",
+      "category": "FOOD"
+    },
+    {
+      "id": 89,
+      "label": "CHICKEN",
+      "category": "FOOD"
+    },
+    {
+      "id": 91,
+      "label": "RICE",
+      "category": "FOOD"
+    },
+    {
+      "id": 95,
+      "label": "HOT",
+      "category": "DRINK"
+    },
+    {
+      "id": 96,
+      "label": "COLD",
+      "category": "DRINK"
+    }
+  ]
+}

@@ -1,0 +1,848 @@
+{
+  "audit_date": "2026-07-05",
+  "dataset_dir": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/FSL-105 A dataset for recognizing 105 Filipino sign language videos",
+  "num_classes": 105,
+  "num_clips": 2130,
+  "num_train": 1704,
+  "num_test": 426,
+  "zip_video_entries": 2130,
+  "duplicate_csv_paths": [],
+  "csv_clips_missing_in_zip": [],
+  "zip_clips_not_in_csv": [],
+  "label_metadata_mismatches": [],
+  "median_clips_per_class": 20,
+  "imbalance_tolerance": 0.25,
+  "imbalanced_classes": {},
+  "classes_without_test_samples": {},
+  "category_distribution": {
+    "GREETING": {
+      "classes": 10,
+      "clips": 206
+    },
+    "SURVIVAL": {
+      "classes": 10,
+      "clips": 208
+    },
+    "NUMBER": {
+      "classes": 10,
+      "clips": 202
+    },
+    "CALENDAR": {
+      "classes": 12,
+      "clips": 247
+    },
+    "DAYS": {
+      "classes": 10,
+      "clips": 201
+    },
+    "FAMILY": {
+      "classes": 10,
+      "clips": 200
+    },
+    "RELATIONSHIPS": {
+      "classes": 10,
+      "clips": 202
+    },
+    "COLOR": {
+      "classes": 13,
+      "clips": 261
+    },
+    "FOOD": {
+      "classes": 10,
+      "clips": 200
+    },
+    "DRINK": {
+      "classes": 10,
+      "clips": 203
+    }
+  },
+  "per_class": {
+    "0": {
+      "label": "GOOD MORNING",
+      "category": "GREETING",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "1": {
+      "label": "GOOD AFTERNOON",
+      "category": "GREETING",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "2": {
+      "label": "GOOD EVENING",
+      "category": "GREETING",
+      "train": 17,
+      "test": 5,
+      "total": 22
+    },
+    "3": {
+      "label": "HELLO",
+      "category": "GREETING",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "4": {
+      "label": "HOW ARE YOU",
+      "category": "GREETING",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "5": {
+      "label": "IM FINE",
+      "category": "GREETING",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "6": {
+      "label": "NICE TO MEET YOU",
+      "category": "GREETING",
+      "train": 17,
+      "test": 5,
+      "total": 22
+    },
+    "7": {
+      "label": "THANK YOU",
+      "category": "GREETING",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "8": {
+      "label": "YOURE WELCOME",
+      "category": "GREETING",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "9": {
+      "label": "SEE YOU TOMORROW",
+      "category": "GREETING",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "10": {
+      "label": "UNDERSTAND",
+      "category": "SURVIVAL",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "11": {
+      "label": "DON’T UNDERSTAND",
+      "category": "SURVIVAL",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "12": {
+      "label": "KNOW",
+      "category": "SURVIVAL",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "13": {
+      "label": "DON’T KNOW",
+      "category": "SURVIVAL",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "14": {
+      "label": "NO",
+      "category": "SURVIVAL",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "15": {
+      "label": "YES",
+      "category": "SURVIVAL",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "16": {
+      "label": "WRONG",
+      "category": "SURVIVAL",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "17": {
+      "label": "CORRECT",
+      "category": "SURVIVAL",
+      "train": 17,
+      "test": 5,
+      "total": 22
+    },
+    "18": {
+      "label": "SLOW",
+      "category": "SURVIVAL",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "19": {
+      "label": "FAST",
+      "category": "SURVIVAL",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "20": {
+      "label": "ONE",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "21": {
+      "label": "TWO",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "22": {
+      "label": "THREE",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "23": {
+      "label": "FOUR",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "24": {
+      "label": "FIVE",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "25": {
+      "label": "SIX",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "26": {
+      "label": "SEVEN",
+      "category": "NUMBER",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "27": {
+      "label": "EIGHT",
+      "category": "NUMBER",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "28": {
+      "label": "NINE",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "29": {
+      "label": "TEN",
+      "category": "NUMBER",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "30": {
+      "label": "JANUARY",
+      "category": "CALENDAR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "31": {
+      "label": "FEBRUARY",
+      "category": "CALENDAR",
+      "train": 15,
+      "test": 4,
+      "total": 19
+    },
+    "32": {
+      "label": "MARCH",
+      "category": "CALENDAR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "33": {
+      "label": "APRIL",
+      "category": "CALENDAR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "34": {
+      "label": "MAY",
+      "category": "CALENDAR",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "35": {
+      "label": "JUNE",
+      "category": "CALENDAR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "36": {
+      "label": "JULY",
+      "category": "CALENDAR",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "37": {
+      "label": "AUGUST",
+      "category": "CALENDAR",
+      "train": 17,
+      "test": 5,
+      "total": 22
+    },
+    "38": {
+      "label": "SEPTEMBER",
+      "category": "CALENDAR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "39": {
+      "label": "OCTOBER",
+      "category": "CALENDAR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "40": {
+      "label": "NOVEMBER",
+      "category": "CALENDAR",
+      "train": 17,
+      "test": 5,
+      "total": 22
+    },
+    "41": {
+      "label": "DECEMBER",
+      "category": "CALENDAR",
+      "train": 17,
+      "test": 5,
+      "total": 22
+    },
+    "42": {
+      "label": "MONDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "43": {
+      "label": "TUESDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "44": {
+      "label": "WEDNESDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "45": {
+      "label": "THURSDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "46": {
+      "label": "FRIDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "47": {
+      "label": "SATURDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "48": {
+      "label": "SUNDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "49": {
+      "label": "TODAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "50": {
+      "label": "TOMORROW",
+      "category": "DAYS",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "51": {
+      "label": "YESTERDAY",
+      "category": "DAYS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "52": {
+      "label": "FATHER",
+      "category": "FAMILY",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "53": {
+      "label": "MOTHER",
+      "category": "FAMILY",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "54": {
+      "label": "SON",
+      "category": "FAMILY",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "55": {
+      "label": "DAUGHTER",
+      "category": "FAMILY",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "56": {
+      "label": "GRANDFATHER",
+      "category": "FAMILY",
+      "train": 14,
+      "test": 4,
+      "total": 18
+    },
+    "57": {
+      "label": "GRANDMOTHER",
+      "category": "FAMILY",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "58": {
+      "label": "UNCLE",
+      "category": "FAMILY",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "59": {
+      "label": "AUNTIE",
+      "category": "FAMILY",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "60": {
+      "label": "COUSIN",
+      "category": "FAMILY",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "61": {
+      "label": "PARENTS",
+      "category": "FAMILY",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "62": {
+      "label": "BOY",
+      "category": "RELATIONSHIPS",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "63": {
+      "label": "GIRL",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "64": {
+      "label": "MAN",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "65": {
+      "label": "WOMAN",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "66": {
+      "label": "DEAF",
+      "category": "RELATIONSHIPS",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "67": {
+      "label": "HARD OF HEARING",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "68": {
+      "label": "WEELCHAIR PERSON",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "69": {
+      "label": "BLIND",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "70": {
+      "label": "DEAF BLIND",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "71": {
+      "label": "MARRIED",
+      "category": "RELATIONSHIPS",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "72": {
+      "label": "BLUE",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "73": {
+      "label": "GREEN",
+      "category": "COLOR",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "74": {
+      "label": "RED",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "75": {
+      "label": "BROWN",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "76": {
+      "label": "BLACK",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "77": {
+      "label": "WHITE",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "78": {
+      "label": "YELLOW",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "79": {
+      "label": "ORANGE",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "80": {
+      "label": "GRAY",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "81": {
+      "label": "PINK",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "82": {
+      "label": "VIOLET",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "83": {
+      "label": "LIGHT",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "84": {
+      "label": "DARK",
+      "category": "COLOR",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "85": {
+      "label": "BREAD",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "86": {
+      "label": "EGG",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "87": {
+      "label": "FISH",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "88": {
+      "label": "MEAT",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "89": {
+      "label": "CHICKEN",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "90": {
+      "label": "SPAGHETTI",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "91": {
+      "label": "RICE",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "92": {
+      "label": "LONGANISA",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "93": {
+      "label": "SHRIMP",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "94": {
+      "label": "CRAB",
+      "category": "FOOD",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "95": {
+      "label": "HOT",
+      "category": "DRINK",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "96": {
+      "label": "COLD",
+      "category": "DRINK",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "97": {
+      "label": "JUICE",
+      "category": "DRINK",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "98": {
+      "label": "MILK",
+      "category": "DRINK",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "99": {
+      "label": "COFFEE",
+      "category": "DRINK",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "100": {
+      "label": "TEA",
+      "category": "DRINK",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "101": {
+      "label": "BEER",
+      "category": "DRINK",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "102": {
+      "label": "WINE",
+      "category": "DRINK",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    },
+    "103": {
+      "label": "SUGAR",
+      "category": "DRINK",
+      "train": 17,
+      "test": 4,
+      "total": 21
+    },
+    "104": {
+      "label": "NO SUGAR",
+      "category": "DRINK",
+      "train": 16,
+      "test": 4,
+      "total": 20
+    }
+  },
+  "candidate_subset": [
+    73,
+    37,
+    17,
+    2,
+    96,
+    26,
+    62,
+    50,
+    58,
+    85,
+    72,
+    40,
+    11,
+    6,
+    97,
+    27,
+    66,
+    42,
+    60,
+    86,
+    74,
+    41,
+    12,
+    1,
+    103,
+    20,
+    63,
+    43,
+    52,
+    87,
+    75,
+    34,
+    14,
+    4,
+    95,
+    21,
+    64,
+    44,
+    53,
+    88,
+    76,
+    36,
+    16,
+    0,
+    98,
+    22,
+    65,
+    45,
+    54,
+    89
+  ]
+}

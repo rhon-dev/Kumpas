@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Model artifacts — trained models live in Colab/Drive, only export summaries get committed
+*.tflite
+*.h5
+*.keras
+*.pb
+*.onnx
+
+# Dataset — never commit video or archives (PRD §9)
+*.zip
+*.MOV
+*.mov
+*.mp4
+*.avi
+clips/
+datasets/
+landmarks_raw/
+
+# Notebook noise
+.ipynb_checkpoints/
+
+# IDE
+.idea/
+.vscode/

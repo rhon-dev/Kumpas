@@ -129,12 +129,12 @@ Deliverable: accuracy/precision/recall/F1 report, per-gesture error analysis (wh
 ▶ Gate: Must hit or have a plan to hit ≥90% accuracy before moving to quantization.
 
 **Phase 4 — TFLite conversion & on-device benchmarking**
-Deliverable: quantized .tflite model, latency benchmark report on actual mid-range device (not emulator), FPS test.
-▶ Gate: <150ms latency and 24–30 FPS confirmed on real hardware before mobile integration starts.
+Deliverable: quantized .tflite model, latency benchmark report on an actual mid-range device when available; if no real Android device is available, use an emulator and install/download one if needed, then test FPS.
+▶ Gate: <150ms latency and 24–30 FPS confirmed on real hardware when available, or via an emulator fallback if no physical device is present, before mobile integration starts.
 
 **Phase 5 — Mobile app skeleton**
 Deliverable: Flutter app with working camera feed + MediaPipe landmark extraction + model inference running end-to-end (no feedback logic yet, just "predicted: gesture X").
-▶ Gate: Runs on real device without crashing, at target FPS.
+▶ Gate: Runs on a real device without crashing at target FPS; if no physical device is available, use an emulator and install/download one if needed.
 
 **Phase 6 — Corrective feedback engine**
 Deliverable: algorithm comparing learner's landmark sequence against gold-standard (e.g., per-joint angle/position deltas or DTW-based alignment), producing structured feedback objects (which dimension is wrong: handshape / orientation / motion / timing).
@@ -224,6 +224,6 @@ kumpas/
 ## 11. Risks to Watch
 
 - **Class imbalance** across the 50 gestures if some signers contributed more samples than others — audit this in Phase 1, don't discover it in Phase 3.
-- **Hardware fragmentation** — "mid-range Android" spans a wide performance range; benchmark on at least 2-3 distinct real devices, not one.
+- **Hardware fragmentation** — "mid-range Android" spans a wide performance range; benchmark on at least 2-3 distinct real devices when possible, and use an emulator fallback if real devices are unavailable.
 - **Timeline pressure** — 11 months total, and if dataset work is already done you've effectively skipped 2 months of the original work plan; don't let that slack get silently absorbed by scope creep instead of an earlier defense-readiness date.
 - **Feedback quality vs. model accuracy** — a model can hit 90% classification accuracy while still giving unhelpful feedback if the gold-standard comparison logic is weak. Treat Phase 6 as equally important as Phase 2-3, not an afterthought.

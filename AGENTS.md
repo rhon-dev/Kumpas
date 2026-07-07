@@ -10,7 +10,7 @@ No implementation code (model training code, app feature code) until the archite
 ## Hard constraints
 
 - **Stack is locked** (PRD §4): Flutter/Dart (Android only), MediaPipe Holistic, TensorFlow/Keras CNN-LSTM, TFLite quantized, Colab for training, Firebase only if explicitly approved. No substitutions without PM approval.
-- **Targets**: ≥90% test accuracy, <150ms inference latency, 24–30 FPS on mid-range Android (Helio G / Snapdragon 6 series, 4GB RAM). Benchmark on real devices, never emulators.
+- **Targets**: ≥90% test accuracy, <150ms inference latency, 24–30 FPS on mid-range Android (Helio G / Snapdragon 6 series, 4GB RAM). Benchmark on real devices when available; if no real Android device is available, use an emulator and install/download one if an Android emulator is not already present.
 - **Scope** (PRD §2): 50 fixed FSL gestures. NOT: ASL, translation, open vocabulary, iOS, cloud inference, gamification, 3D avatar overlay.
 - **Privacy** (PRD §9): no raw video committed to the repo, ever. Landmark data only, with consent/license on file. RA 10173 applies to participant data.
 - **Dataset**: FSL-105 (public), lives OUTSIDE this repo at `../FSL-105 A dataset for recognizing 105 Filipino sign language videos/`. See `docs/dataset-notes.md`.

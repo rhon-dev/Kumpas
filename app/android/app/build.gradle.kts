@@ -20,14 +20,15 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.kumpas.kumpas_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 24  // MediaPipe Tasks requirement
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+
+    androidResources {
+        noCompress += listOf("tflite", "task")
     }
 
     buildTypes {
@@ -41,4 +42,16 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    val camerax = "1.4.1"
+    implementation("androidx.camera:camera-core:$camerax")
+    implementation("androidx.camera:camera-camera2:$camerax")
+    implementation("androidx.camera:camera-lifecycle:$camerax")
+    implementation("androidx.camera:camera-view:$camerax")
+    implementation("com.google.mediapipe:tasks-vision:0.10.14")
+    // LiteRT (successor of org.tensorflow:tensorflow-lite) — model is converted
+    // by TF 2.19 and needs a runtime newer than tensorflow-lite 2.16
+    implementation("com.google.ai.edge.litert:litert:1.1.2")
 }

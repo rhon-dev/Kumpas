@@ -1,121 +1,118 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+/// KUMPAS Phase 5 skeleton: native camera preview (CameraX platform view) +
+/// live prediction stream from the Kotlin VisionEngine
+/// (MediaPipe pose+hands -> 258-dim features -> TFLite CNN-LSTM).
+///
+/// No feedback logic yet — this screen only proves the end-to-end pipeline:
+/// "predicted: gesture X" at target FPS (PRD Phase 5 gate).
+void main() => runApp(const KumpasApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class KumpasApp extends StatelessWidget {
+  const KumpasApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'KUMPAS',
+      theme: ThemeData.dark(useMaterial3: true),
+      home: const RecognitionScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class RecognitionScreen extends StatefulWidget {
+  const RecognitionScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<RecognitionScreen> createState() => _RecognitionScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _RecognitionScreenState extends State<RecognitionScreen> {
+  static const _events = EventChannel('kumpas/predictions');
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  String _label = '—';
+  double _confidence = 0;
+  List<dynamic> _top3 = const [];
+  double _fps = 0;
+  num _landmarkMs = 0;
+  num _inferMs = 0;
+  int _hands = 0;
+  int _bufferFill = 0;
+  bool _warmedUp = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _events.receiveBroadcastStream().listen((event) {
+      final m = jsonDecode(event as String) as Map<String, dynamic>;
+      setState(() {
+        _fps = (m['cameraFps'] as num?)?.toDouble() ?? _fps;
+        _landmarkMs = m['landmarkMs'] as num? ?? _landmarkMs;
+        _hands = m['handsVisible'] as int? ?? _hands;
+        if (m['state'] == 'prediction') {
+          _warmedUp = true;
+          _label = m['label'] as String;
+          _confidence = (m['confidence'] as num).toDouble();
+          _top3 = m['top3'] as List<dynamic>? ?? const [];
+          _inferMs = m['inferMs'] as num? ?? _inferMs;
+        } else {
+          _bufferFill = m['bufferFill'] as int? ?? 0;
+        }
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          const AndroidView(viewType: 'kumpas/camera_preview'),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+              color: Colors.black.withValues(alpha: 0.65),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (!_warmedUp)
+                    Text('Warming up… $_bufferFill/30',
+                        style: Theme.of(context).textTheme.titleLarge)
+                  else ...[
+                    Text(_label,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontWeight: FontWeight.bold)),
+                    Text('confidence ${(_confidence * 100).toStringAsFixed(1)}%'),
+                    const SizedBox(height: 4),
+                    Text(
+                      _top3
+                          .map((e) =>
+                              '${e['label']} ${((e['p'] as num) * 100).toStringAsFixed(0)}%')
+                          .join('   '),
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                  const Divider(height: 16),
+                  Text(
+                    'camera ${_fps.toStringAsFixed(1)} fps · landmarks ${_landmarkMs}ms · '
+                    'inference ${_inferMs}ms · hands: $_hands',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }

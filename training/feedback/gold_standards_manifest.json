@@ -1,0 +1,352 @@
+{
+ "0": {
+  "label": "GOOD MORNING",
+  "source_clip": "clips_0_13.npz",
+  "mean_distance_to_class": 11.124,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "1": {
+  "label": "GOOD AFTERNOON",
+  "source_clip": "clips_1_4.npz",
+  "mean_distance_to_class": 9.944,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "2": {
+  "label": "GOOD EVENING",
+  "source_clip": "clips_2_5.npz",
+  "mean_distance_to_class": 10.333,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "3": {
+  "label": "HELLO",
+  "source_clip": "clips_3_2.npz",
+  "mean_distance_to_class": 12.765,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "4": {
+  "label": "HOW ARE YOU",
+  "source_clip": "clips_4_10.npz",
+  "mean_distance_to_class": 10.618,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "5": {
+  "label": "IM FINE",
+  "source_clip": "clips_5_13.npz",
+  "mean_distance_to_class": 10.207,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "6": {
+  "label": "NICE TO MEET YOU",
+  "source_clip": "clips_6_1.npz",
+  "mean_distance_to_class": 14.34,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "7": {
+  "label": "THANK YOU",
+  "source_clip": "clips_7_1.npz",
+  "mean_distance_to_class": 14.033,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "8": {
+  "label": "YOURE WELCOME",
+  "source_clip": "clips_8_14.npz",
+  "mean_distance_to_class": 9.498,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "9": {
+  "label": "SEE YOU TOMORROW",
+  "source_clip": "clips_9_12.npz",
+  "mean_distance_to_class": 9.465,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "10": {
+  "label": "UNDERSTAND",
+  "source_clip": "clips_10_1.npz",
+  "mean_distance_to_class": 14.278,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "11": {
+  "label": "DON’T UNDERSTAND",
+  "source_clip": "clips_11_4.npz",
+  "mean_distance_to_class": 11.55,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "12": {
+  "label": "KNOW",
+  "source_clip": "clips_12_3.npz",
+  "mean_distance_to_class": 11.058,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "13": {
+  "label": "DON’T KNOW",
+  "source_clip": "clips_13_4.npz",
+  "mean_distance_to_class": 11.585,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "14": {
+  "label": "NO",
+  "source_clip": "clips_14_0.npz",
+  "mean_distance_to_class": 10.36,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "15": {
+  "label": "YES",
+  "source_clip": "clips_15_11.npz",
+  "mean_distance_to_class": 10.005,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "16": {
+  "label": "WRONG",
+  "source_clip": "clips_16_10.npz",
+  "mean_distance_to_class": 10.058,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "17": {
+  "label": "CORRECT",
+  "source_clip": "clips_17_11.npz",
+  "mean_distance_to_class": 12.63,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "18": {
+  "label": "SLOW",
+  "source_clip": "clips_18_12.npz",
+  "mean_distance_to_class": 14.53,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "19": {
+  "label": "FAST",
+  "source_clip": "clips_19_15.npz",
+  "mean_distance_to_class": 11.272,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "20": {
+  "label": "ONE",
+  "source_clip": "clips_20_3.npz",
+  "mean_distance_to_class": 12.551,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "21": {
+  "label": "TWO",
+  "source_clip": "clips_21_13.npz",
+  "mean_distance_to_class": 10.018,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "22": {
+  "label": "THREE",
+  "source_clip": "clips_22_3.npz",
+  "mean_distance_to_class": 10.259,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "23": {
+  "label": "FOUR",
+  "source_clip": "clips_23_0.npz",
+  "mean_distance_to_class": 9.89,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "24": {
+  "label": "FIVE",
+  "source_clip": "clips_24_2.npz",
+  "mean_distance_to_class": 10.368,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "25": {
+  "label": "TODAY",
+  "source_clip": "clips_49_9.npz",
+  "mean_distance_to_class": 10.218,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "26": {
+  "label": "TOMORROW",
+  "source_clip": "clips_50_9.npz",
+  "mean_distance_to_class": 9.643,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "27": {
+  "label": "YESTERDAY",
+  "source_clip": "clips_51_10.npz",
+  "mean_distance_to_class": 10.118,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "28": {
+  "label": "FATHER",
+  "source_clip": "clips_52_4.npz",
+  "mean_distance_to_class": 15.846,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "29": {
+  "label": "MOTHER",
+  "source_clip": "clips_53_6.npz",
+  "mean_distance_to_class": 11.551,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "30": {
+  "label": "SON",
+  "source_clip": "clips_54_10.npz",
+  "mean_distance_to_class": 14.009,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "31": {
+  "label": "DAUGHTER",
+  "source_clip": "clips_55_14.npz",
+  "mean_distance_to_class": 13.897,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "32": {
+  "label": "GRANDFATHER",
+  "source_clip": "clips_56_9.npz",
+  "mean_distance_to_class": 15.117,
+  "n_candidates": 14,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "33": {
+  "label": "GRANDMOTHER",
+  "source_clip": "clips_57_12.npz",
+  "mean_distance_to_class": 11.709,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "34": {
+  "label": "BOY",
+  "source_clip": "clips_62_7.npz",
+  "mean_distance_to_class": 13.835,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "35": {
+  "label": "GIRL",
+  "source_clip": "clips_63_10.npz",
+  "mean_distance_to_class": 9.889,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "36": {
+  "label": "MAN",
+  "source_clip": "clips_64_7.npz",
+  "mean_distance_to_class": 13.925,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "37": {
+  "label": "WOMAN",
+  "source_clip": "clips_65_1.npz",
+  "mean_distance_to_class": 13.009,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "38": {
+  "label": "DEAF",
+  "source_clip": "clips_66_10.npz",
+  "mean_distance_to_class": 10.659,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "39": {
+  "label": "HARD OF HEARING",
+  "source_clip": "clips_67_4.npz",
+  "mean_distance_to_class": 8.51,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "40": {
+  "label": "BLUE",
+  "source_clip": "clips_72_13.npz",
+  "mean_distance_to_class": 12.459,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "41": {
+  "label": "RED",
+  "source_clip": "clips_74_14.npz",
+  "mean_distance_to_class": 10.013,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "42": {
+  "label": "BLACK",
+  "source_clip": "clips_76_5.npz",
+  "mean_distance_to_class": 15.252,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "43": {
+  "label": "WHITE",
+  "source_clip": "clips_77_0.npz",
+  "mean_distance_to_class": 9.268,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "44": {
+  "label": "BREAD",
+  "source_clip": "clips_85_10.npz",
+  "mean_distance_to_class": 11.851,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "45": {
+  "label": "EGG",
+  "source_clip": "clips_86_18.npz",
+  "mean_distance_to_class": 12.322,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "46": {
+  "label": "CHICKEN",
+  "source_clip": "clips_89_15.npz",
+  "mean_distance_to_class": 13.236,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "47": {
+  "label": "RICE",
+  "source_clip": "clips_91_13.npz",
+  "mean_distance_to_class": 12.775,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "48": {
+  "label": "HOT",
+  "source_clip": "clips_95_13.npz",
+  "mean_distance_to_class": 10.627,
+  "n_candidates": 16,
+  "status": "provisional — medoid pick, pending expert validation"
+ },
+ "49": {
+  "label": "COLD",
+  "source_clip": "clips_96_9.npz",
+  "mean_distance_to_class": 14.519,
+  "n_candidates": 17,
+  "status": "provisional — medoid pick, pending expert validation"
+ }
+}

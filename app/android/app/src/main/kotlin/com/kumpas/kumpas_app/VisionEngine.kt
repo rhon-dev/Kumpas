@@ -134,6 +134,8 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
             val t1 = SystemClock.elapsedRealtime()
             tflite.run(input, output)
             val inferMs = SystemClock.elapsedRealtime() - t1
+            android.util.Log.i("KumpasVision",
+                "fps=%.1f landmarkMs=%d inferMs=%d hands=%d".format(cameraFps, landmarkMs, inferMs, handsSeen))
             emit(output[0], landmarkMs, inferMs, handsSeen)
         } else {
             // keep UI stats alive while the buffer warms up

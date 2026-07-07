@@ -9,11 +9,11 @@ Full phase descriptions: `PRD.md` §6.
 | 1 | Dataset audit script + report | ✅ Audit delivered 2026-07-05 | ⏳ Awaiting PM sign-off on dataset + 50-class pick |
 | 1 | Preprocessing pipeline (video → landmarks → fixed-length sequences) | ✅ Delivered 2026-07-05 (1016 clips, 0 errors — `training/preprocessing/preprocessing_report.md`) | — |
 | 1 | Augmentation pipeline | ✅ Delivered 2026-07-05 (813 → 3252 train samples, seeded + logged) | — |
-| 2 | CNN-LSTM baseline + experiment log | ✅ 4 experiments logged 2026-07-05 (`training/models/experiments_log.json`); best: `no_face`, 258 features | ⏳ Adviser reviews confusion matrix |
-| 3 | Eval report (acc/prec/rec/F1, per-gesture errors) | ✅ **Test accuracy 95.07% — gate PASS** (`training/models/reports/20260705_194813_no_face_eval.md`) | ✅ ≥90% met |
+| 2 | CNN-LSTM baseline + experiment log | ✅ 4 experiments logged 2026-07-05 (`training/models/experiments_log.json`); best: `no_face`, 258 features | ✅ Confusion matrix reviewed, model accepted 2026-07-06 |
+| 3 | Eval report (acc/prec/rec/F1, per-gesture errors) | ✅ **Test accuracy 95.07% — gate PASS** (`training/models/reports/20260705_194813_no_face_eval.md`) | ✅ ≥90% met, accepted 2026-07-06 |
 | 4 | Quantized .tflite + real-device latency/FPS report | 🔄 Exports ready (dynamic 0.32MB / f16 0.57MB, M1 <1ms informational) — needs measurement on a real Android device, or an emulator fallback if none is available | <150ms, 24–30 FPS on real hardware or emulator fallback | 
 | 5 | Flutter skeleton: camera → MediaPipe → inference e2e | ⬜ | Runs on a real device or emulator at target FPS |
-| 6 | Corrective feedback engine  ⬜ | FSL Expert reviews 5 sample corrections |
+| 6 | Corrective feedback engine | ✅ Python reference delivered 2026-07-07 (`training/feedback/`, demo on 5 wrong attempts + control: `demo_report.md`) — Kotlin port pending for Phase 7 | ⏳ Review corrective prompts (`training/feedback/demo_report.md`); expert linguistic validation pending |
 | 7 | Practice UI from approved Figma | ⬜ | Matches Figma, no ad-hoc screens |
 | 8 | Session logging / optional backend | ⬜ | PM decides cloud sync in/out of scope |
 | 9 | Integration testing (50 gestures × signers) | ⬜ | No open blocking bugs |

@@ -9,6 +9,7 @@ venv/
 
 # Model artifacts — trained models live in Colab/Drive, only export summaries get committed
 *.tflite
+*.task
 *.h5
 *.keras
 *.pb

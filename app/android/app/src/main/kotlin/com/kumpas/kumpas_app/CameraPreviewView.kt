@@ -25,7 +25,11 @@ class CameraPreviewView(
     private val engine: VisionEngine,
 ) : PlatformView {
 
-    private val previewView = PreviewView(context)
+    private val previewView = PreviewView(context).apply {
+        // TextureView mode: SurfaceView punches through the Flutter layer and
+        // hides the prediction overlay rendered above this platform view
+        implementationMode = PreviewView.ImplementationMode.COMPATIBLE
+    }
     private val analysisExecutor = Executors.newSingleThreadExecutor()
     private var bound = false
 

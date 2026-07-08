@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
@@ -17,6 +18,7 @@ import io.flutter.plugin.platform.PlatformViewFactory
 class MainActivity : FlutterActivity() {
 
     private var visionEngine: VisionEngine? = null
+    private var sessionLog: SessionLog? = null
     private var eventSink: EventChannel.EventSink? = null
     private val mainHandler = Handler(Looper.getMainLooper())
 
@@ -39,9 +41,25 @@ class MainActivity : FlutterActivity() {
                 }
             })
 
+        sessionLog = SessionLog(applicationContext)
         visionEngine = VisionEngine(applicationContext) { json ->
+            if (json.contains("\"attempt_result\"")) sessionLog?.append(json)
             mainHandler.post { eventSink?.success(json) }
         }
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "kumpas/control")
+            .setMethodCallHandler { call, result ->
+                when (call.method) {
+                    "getLabels" -> result.success(visionEngine!!.labelsJson())
+                    "startAttempt" -> {
+                        visionEngine!!.startAttempt(call.argument<Int>("classId")!!)
+                        result.success(null)
+                    }
+                    "cancelAttempt" -> { visionEngine!!.cancelAttempt(); result.success(null) }
+                    "getHistory" -> result.success(sessionLog!!.historyJson())
+                    else -> result.notImplemented()
+                }
+            }
 
         flutterEngine.platformViewsController.registry.registerViewFactory(
             "kumpas/camera_preview",

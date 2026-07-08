@@ -28,6 +28,8 @@ import java.nio.ByteOrder
  */
 class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
 
+    private val appContext: Context = context.applicationContext
+
     companion object {
         const val SEQ_LEN = 30
         const val N_FEATURES = 258
@@ -43,11 +45,40 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
     private val labels: List<String>
 
     private val buffer = ArrayDeque<FloatArray>()  // SEQ_LEN newest samples
+    private val bufferPoseSeen = ArrayDeque<Boolean>()
     private var frameCount = 0
     private var samplesSinceInfer = 0
     private var lastFpsTime = SystemClock.elapsedRealtime()
     private var fpsFrames = 0
     private var cameraFps = 0.0
+
+    // Attempt mode (Phase 7): collect one fresh window, then classify +
+    // compare against the target's gold standard.
+    private var attemptTarget = -1
+    private var attemptSamples = ArrayList<FloatArray>()
+    private var attemptPoseFrames = 0
+    private val goldStandards: Array<Array<FloatArray>> by lazy { loadGold() }
+
+    private fun loadGold(): Array<Array<FloatArray>> {
+        val bytes = appContext.assets.open("gold_standards.bin").readBytes()
+        val buf = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
+        return Array(50) { Array(SEQ_LEN) { FloatArray(N_FEATURES) { buf.float } } }
+    }
+
+    fun labelsJson(): String {
+        val ctx = appContext
+        return ctx.assets.open("label_map.json").readBytes().decodeToString()
+    }
+
+    @Synchronized
+    fun startAttempt(classId: Int) {
+        attemptTarget = classId
+        attemptSamples = ArrayList()
+        attemptPoseFrames = 0
+    }
+
+    @Synchronized
+    fun cancelAttempt() { attemptTarget = -1 }
 
     init {
         poseLandmarker = PoseLandmarker.createFromOptions(
@@ -124,11 +155,26 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
 
         normalize(feat, poseSeen)
         buffer.addLast(feat)
-        if (buffer.size > SEQ_LEN) buffer.removeFirst()
+        bufferPoseSeen.addLast(poseSeen)
+        if (buffer.size > SEQ_LEN) { buffer.removeFirst(); bufferPoseSeen.removeFirst() }
         samplesSinceInfer++
 
+        if (attemptTarget >= 0) {
+            handleAttemptSample(feat, poseSeen, landmarkMs, handsSeen)
+            return
+        }
+
+        val poseRate = bufferPoseSeen.count { it }.toDouble() / bufferPoseSeen.size
         if (buffer.size == SEQ_LEN && samplesSinceInfer >= INFER_EVERY) {
             samplesSinceInfer = 0
+            if (poseRate < 0.5) {
+                // no signer in frame — don't classify zeros (confident garbage)
+                onResult(JSONObject(mapOf(
+                    "state" to "no_signer", "cameraFps" to cameraFps,
+                    "landmarkMs" to landmarkMs, "handsVisible" to handsSeen
+                )).toString())
+                return
+            }
             val input = Array(1) { Array(SEQ_LEN) { s -> buffer.elementAt(s) } }
             val output = Array(1) { FloatArray(labels.size) }
             val t1 = SystemClock.elapsedRealtime()
@@ -145,6 +191,51 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
                 "handsVisible" to handsSeen
             )).toString())
         }
+    }
+
+    private fun handleAttemptSample(feat: FloatArray, poseSeen: Boolean,
+                                    landmarkMs: Long, handsSeen: Int) {
+        attemptSamples.add(feat)
+        if (poseSeen) attemptPoseFrames++
+        if (attemptSamples.size < SEQ_LEN) {
+            onResult(JSONObject(mapOf(
+                "state" to "attempt_progress", "collected" to attemptSamples.size,
+                "needed" to SEQ_LEN, "cameraFps" to cameraFps,
+                "landmarkMs" to landmarkMs, "handsVisible" to handsSeen
+            )).toString())
+            return
+        }
+        val target = attemptTarget
+        attemptTarget = -1
+        val window = attemptSamples.toTypedArray()
+
+        if (attemptPoseFrames < SEQ_LEN / 2) {
+            onResult(JSONObject(mapOf(
+                "state" to "attempt_failed",
+                "reason" to "No signer detected — stand in front of the camera and try again."
+            )).toString())
+            return
+        }
+
+        val input = Array(1) { window }
+        val output = Array(1) { FloatArray(labels.size) }
+        tflite.run(input, output)
+        val probs = output[0]
+        val best = probs.indices.maxByOrNull { probs[it] } ?: 0
+
+        val report = FeedbackEngine.compare(window, goldStandards[target], labels[target])
+        onResult(JSONObject(mapOf(
+            "state" to "attempt_result",
+            "targetClass" to target,
+            "targetLabel" to labels[target],
+            "predictedLabel" to labels[best],
+            "predictedConfidence" to probs[best].toDouble(),
+            "recognizedAsTarget" to (best == target),
+            "overallMatch" to report.overallMatch,
+            "items" to report.items.map { mapOf(
+                "dimension" to it.dimension, "severity" to it.severity,
+                "hand" to it.hand, "prompt" to it.prompt) }
+        )).toString())
     }
 
     /** Port of build_sequences.py normalize(): mid-hip center, torso scale. */

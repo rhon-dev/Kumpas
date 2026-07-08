@@ -51,6 +51,8 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:$camerax")
     implementation("androidx.camera:camera-view:$camerax")
     implementation("com.google.mediapipe:tasks-vision:0.10.14")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.json:json:20240303")
     // LiteRT (successor of org.tensorflow:tensorflow-lite) — model is converted
     // by TF 2.19 and needs a runtime newer than tensorflow-lite 2.16
     implementation("com.google.ai.edge.litert:litert:1.1.2")

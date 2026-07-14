@@ -3,6 +3,7 @@ package com.kumpas.kumpas_app
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.util.Log
 import android.util.Size
 import android.view.View
 import androidx.camera.core.CameraSelector
@@ -33,6 +34,10 @@ class CameraPreviewView(
     private val analysisExecutor = Executors.newSingleThreadExecutor()
     private var bound = false
 
+    private companion object {
+        const val TAG = "KumpasCamera"
+    }
+
     init {
         val providerFuture = ProcessCameraProvider.getInstance(context)
         providerFuture.addListener({
@@ -58,13 +63,25 @@ class CameraPreviewView(
                 image.close()
             }
             provider.unbindAll()
-            provider.bindToLifecycle(
-                lifecycleOwner,
-                CameraSelector.DEFAULT_FRONT_CAMERA,
-                preview,
-                analysis
-            )
-            bound = true
+            // Front camera is the practice default; fall back to back camera
+            // (emulators, devices without a selfie cam) instead of crashing.
+            try {
+                val selector = when {
+                    provider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ->
+                        CameraSelector.DEFAULT_FRONT_CAMERA
+                    provider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) ->
+                        CameraSelector.DEFAULT_BACK_CAMERA
+                    else -> null
+                }
+                if (selector == null) {
+                    Log.e(TAG, "No camera available; preview disabled")
+                } else {
+                    provider.bindToLifecycle(lifecycleOwner, selector, preview, analysis)
+                    bound = true
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Camera bind failed; preview disabled", e)
+            }
         }, ContextCompat.getMainExecutor(context))
     }
 

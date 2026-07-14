@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'ui/library_screen.dart';
+import 'ui/app_shell.dart';
+import 'ui/theme.dart';
 
 /// KUMPAS — FSL practice app (thesis MVP).
-/// Home is the 50-sign library; each sign opens practice mode (camera +
-/// native MediaPipe/TFLite pipeline + corrective feedback engine).
+/// UI from the approved Figma (docs/design/): 5-tab shell, light green theme,
+/// dark mode via Profile → Mga Setting. Native MediaPipe/TFLite pipeline +
+/// corrective feedback engine behind kumpas/* platform channels.
 void main() => runApp(const KumpasApp());
 
 class KumpasApp extends StatelessWidget {
@@ -12,10 +14,15 @@ class KumpasApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'KUMPAS',
-      theme: ThemeData.dark(useMaterial3: true),
-      home: const LibraryScreen(),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: KumpasTheme.themeMode,
+      builder: (context, mode, _) => MaterialApp(
+        title: 'KUMPAS',
+        theme: KumpasTheme.light(),
+        darkTheme: KumpasTheme.dark(),
+        themeMode: mode,
+        home: const AppShell(),
+      ),
     );
   }
 }

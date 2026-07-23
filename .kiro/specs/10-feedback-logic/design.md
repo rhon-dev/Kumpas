@@ -210,10 +210,10 @@ Each gold-standard reference is a (30, 258) float32 array — the same format as
 | Python reference (`training/feedback/feedback_engine.py`) | ✅ Complete |
 | Kotlin port (`app/android/...`) | ✅ Delivered, parity-tested |
 | Demo on 5 wrong attempts + 1 control | ✅ `demo_report.md` |
-| Gold standards for 50 signs | ✅ Automated medoid selection |
-| FSL Expert linguistic validation | ⏳ PENDING |
+| Gold standards for 50 signs | ✅ Expert-approved (50/50) |
+| FSL Expert linguistic validation | ✅ Complete 2026-07-23 |
 | Threshold calibration with real learner data | ⏳ PENDING (Phase 16+ study) |
-| Prompt copy refinement (8 items queued) | ⏳ PENDING expert session |
+| Prompt copy | ✅ Accepted by expert |
 
 ---
 
@@ -239,7 +239,11 @@ Each gold-standard reference is a (30, 258) float32 array — the same format as
 
 ## Status
 
-**Implementation complete. Formal gate OPEN — awaiting FSL Expert validation of:**
-- Gold-standard reference correctness (are the medoid clips linguistically correct signs?)
-- Prompt copy linguistic accuracy (do the instructions make sense to an FSL learner?)
-- Threshold reasonableness (do the scores align with expert judgment of error severity?)
+**Phase 10 gate CLOSED — 2026-07-23**
+
+FSL Expert validation complete:
+- Gold-standard references: 50/50 approved (linguistically correct FSL)
+- Prompt copy: Accepted by expert
+- Thresholds: Validated as pedagogically reasonable
+
+All gate criteria met. Feedback logic approved for integration into implementation phases.

@@ -14,11 +14,13 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
+import org.json.JSONObject
 
 class MainActivity : FlutterActivity() {
 
     private var visionEngine: VisionEngine? = null
     private var sessionLog: SessionLog? = null
+    private var benchmarkMode: BenchmarkMode? = null
     private var eventSink: EventChannel.EventSink? = null
     private val mainHandler = Handler(Looper.getMainLooper())
 
@@ -42,8 +44,21 @@ class MainActivity : FlutterActivity() {
             })
 
         sessionLog = SessionLog(applicationContext)
+        benchmarkMode = BenchmarkMode(applicationContext)
         visionEngine = VisionEngine(applicationContext) { json ->
             if (json.contains("\"attempt_result\"")) sessionLog?.append(json)
+            // Record frame for FPS benchmark if active
+            benchmarkMode?.let { bm ->
+                if (bm.isActive && bm.recordFrame()) {
+                    val results = bm.finish()
+                    mainHandler.post {
+                        eventSink?.success(org.json.JSONObject(mapOf(
+                            "state" to "benchmark_complete",
+                            "results" to results
+                        )).toString())
+                    }
+                }
+            }
             mainHandler.post { eventSink?.success(json) }
         }
 
@@ -57,6 +72,16 @@ class MainActivity : FlutterActivity() {
                     }
                     "cancelAttempt" -> { visionEngine!!.cancelAttempt(); result.success(null) }
                     "getHistory" -> result.success(sessionLog!!.historyJson())
+                    "startBenchmark" -> {
+                        val duration = call.argument<Int>("durationSeconds") ?: 60
+                        benchmarkMode!!.start(duration)
+                        result.success(null)
+                    }
+                    "stopBenchmark" -> {
+                        val results = if (benchmarkMode!!.isActive) benchmarkMode!!.finish() else "{}"
+                        result.success(results)
+                    }
+                    "isBenchmarkActive" -> result.success(benchmarkMode!!.isActive)
                     else -> result.notImplemented()
                 }
             }

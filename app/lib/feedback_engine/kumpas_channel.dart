@@ -35,6 +35,22 @@ class KumpasChannel {
 
   static Future<void> cancelAttempt() => control.invokeMethod('cancelAttempt');
 
+  /// Start FPS benchmark for the given duration.
+  static Future<void> startBenchmark({int durationSeconds = 60}) =>
+      control.invokeMethod('startBenchmark', {'durationSeconds': durationSeconds});
+
+  /// Stop a running benchmark early and get results.
+  static Future<String> stopBenchmark() async {
+    final raw = await control.invokeMethod<String>('stopBenchmark');
+    return raw ?? '{}';
+  }
+
+  /// Check if benchmark mode is currently active.
+  static Future<bool> isBenchmarkActive() async {
+    final active = await control.invokeMethod<bool>('isBenchmarkActive');
+    return active ?? false;
+  }
+
   static Future<List<AttemptResult>> getHistory() async {
     final raw = await control.invokeMethod<String>('getHistory');
     final list = jsonDecode(raw!) as List<dynamic>;

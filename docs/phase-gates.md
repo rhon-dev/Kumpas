@@ -17,6 +17,7 @@ Full phase descriptions: `PRD.md` §6.
 | 7 | Practice UI from approved Figma | ✅ Rebuilt to approved Figma 2026-07-14 (exports in `docs/design/*.png`): light green theme + dark mode toggle, 5-tab shell (Home / Isalin / Diksyunaryo / Mag-aral / Profile), Filipino UI copy, practice screen in Figma camera-panel style. Stats computed from real attempt history (no fake numbers). Stubs where MVP has no backend: Boses-sa-Senyas mode (labeled unavailable), favorites session-only, notifications toggles cosmetic. Emulator-verified: all 5 tabs render, live translate camera runs, practice attempt loop works. Success-path feedback sheet still needs real-device check (Phase 9) | ✅ Closed 2026-07-14 against real Figma. Earlier 2026-07-13 close used interim design system (no Figma existed then); superseded |
 | 8 | Session logging / optional backend | ⬜ | PM decides cloud sync in/out of scope |
 | 9 | Integration testing (50 gestures × signers) | ⬜ | No open blocking bugs |
+| 9a | Benchmarking harness (accuracy/latency/FPS scripts + structured logging) | ✅ Delivered 2026-07-23: `benchmarking/` — accuracy_benchmark.py, collect_latency.py, collect_fps.py, plot_history.py, environment_protocol.md, BenchmarkMode.kt, LatencyBenchmarkTest.kt | ✅ Harness code complete; execution pending TF env + device |
 | 10 | Field benchmarking (3 conditions × devices) | ⬜ | — |
 | 11 | 40-participant study tooling | ⬜ | — |
 | 12 | Stats/analysis scripts | ⬜ | — |

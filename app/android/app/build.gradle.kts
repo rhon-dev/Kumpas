@@ -25,6 +25,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     androidResources {
@@ -56,4 +57,7 @@ dependencies {
     // LiteRT (successor of org.tensorflow:tensorflow-lite) — model is converted
     // by TF 2.19 and needs a runtime newer than tensorflow-lite 2.16
     implementation("com.google.ai.edge.litert:litert:1.1.2")
+    // Instrumented test deps (benchmarking)
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
 }

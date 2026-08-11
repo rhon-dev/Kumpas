@@ -1,0 +1,878 @@
+[
+ {
+  "timestamp": "2026-07-07T12:00:00",
+  "benchmark_type": "latency",
+  "model_version": "20260705_194813_no_face_dynamic",
+  "device": "Android Emulator (AVD medium_phone, Android 35 arm64, 4GB / Apple M1 host)",
+  "condition": "n/a",
+  "results": {
+   "mean_ms": 1.0,
+   "median_ms": 1.0,
+   "p50_ms": 1.0,
+   "p95_ms": 2.0,
+   "max_ms": 2.0,
+   "cold_start_ms": null,
+   "n_inferences": null,
+   "note": "Retroactive from phase4_emulator_report.md; M1 proxy, not real device"
+  },
+  "gate_pass": true,
+  "notes": "Retroactive entry from Phase 4/5 emulator fallback report"
+ },
+ {
+  "timestamp": "2026-07-07T12:00:00",
+  "benchmark_type": "fps",
+  "model_version": "20260705_194813_no_face_dynamic",
+  "device": "Android Emulator (AVD medium_phone, Android 35 arm64, 4GB / Apple M1 host)",
+  "condition": "n/a",
+  "results": {
+   "mean_fps": 29.25,
+   "min_fps": 28.6,
+   "max_fps": 29.9,
+   "duration_s": 55,
+   "degradation_detected": false,
+   "note": "Retroactive from phase4_emulator_report.md; 55s run, M1 proxy"
+  },
+  "gate_pass": true,
+  "notes": "Retroactive entry from Phase 4/5 emulator fallback report"
+ },
+ {
+  "timestamp": "2026-07-23T13:55:21",
+  "benchmark_type": "accuracy",
+  "model_version": "20260705_194813_no_face_builtins",
+  "model_file": "kumpas_50sign_builtins_dynamic.tflite",
+  "device": "offline/python",
+  "condition": "n/a",
+  "results": {
+   "accuracy": 0.9507,
+   "macro_precision": 0.958,
+   "macro_recall": 0.95,
+   "macro_f1": 0.9481,
+   "n_samples": 203,
+   "n_classes": 50,
+   "per_class": [
+    {
+     "class_id": 0,
+     "label": "GOOD MORNING",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 1,
+     "label": "GOOD AFTERNOON",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 2,
+     "label": "GOOD EVENING",
+     "precision": 0.8333,
+     "recall": 1.0,
+     "f1": 0.9091,
+     "support": 5
+    },
+    {
+     "class_id": 3,
+     "label": "HELLO",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 4,
+     "label": "HOW ARE YOU",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 5,
+     "label": "IM FINE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 6,
+     "label": "NICE TO MEET YOU",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 5
+    },
+    {
+     "class_id": 7,
+     "label": "THANK YOU",
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.8889,
+     "support": 4
+    },
+    {
+     "class_id": 8,
+     "label": "YOURE WELCOME",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 9,
+     "label": "SEE YOU TOMORROW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 10,
+     "label": "UNDERSTAND",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 11,
+     "label": "DON\u2019T UNDERSTAND",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 12,
+     "label": "KNOW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 13,
+     "label": "DON\u2019T KNOW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 14,
+     "label": "NO",
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.8889,
+     "support": 4
+    },
+    {
+     "class_id": 15,
+     "label": "YES",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 16,
+     "label": "WRONG",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 17,
+     "label": "CORRECT",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 5
+    },
+    {
+     "class_id": 18,
+     "label": "SLOW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 19,
+     "label": "FAST",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 20,
+     "label": "ONE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 21,
+     "label": "TWO",
+     "precision": 0.6667,
+     "recall": 1.0,
+     "f1": 0.8,
+     "support": 4
+    },
+    {
+     "class_id": 22,
+     "label": "THREE",
+     "precision": 1.0,
+     "recall": 0.5,
+     "f1": 0.6667,
+     "support": 4
+    },
+    {
+     "class_id": 23,
+     "label": "FOUR",
+     "precision": 0.5,
+     "recall": 0.75,
+     "f1": 0.6,
+     "support": 4
+    },
+    {
+     "class_id": 24,
+     "label": "FIVE",
+     "precision": 0.5,
+     "recall": 0.25,
+     "f1": 0.3333,
+     "support": 4
+    },
+    {
+     "class_id": 25,
+     "label": "TODAY",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 26,
+     "label": "TOMORROW",
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.8889,
+     "support": 4
+    },
+    {
+     "class_id": 27,
+     "label": "YESTERDAY",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 28,
+     "label": "FATHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 29,
+     "label": "MOTHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 30,
+     "label": "SON",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 31,
+     "label": "DAUGHTER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 32,
+     "label": "GRANDFATHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 33,
+     "label": "GRANDMOTHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 34,
+     "label": "BOY",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 35,
+     "label": "GIRL",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 36,
+     "label": "MAN",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 37,
+     "label": "WOMAN",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 38,
+     "label": "DEAF",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 39,
+     "label": "HARD OF HEARING",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 40,
+     "label": "BLUE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 41,
+     "label": "RED",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 42,
+     "label": "BLACK",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 43,
+     "label": "WHITE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 44,
+     "label": "BREAD",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 45,
+     "label": "EGG",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 46,
+     "label": "CHICKEN",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 47,
+     "label": "RICE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 48,
+     "label": "HOT",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 49,
+     "label": "COLD",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    }
+   ]
+  },
+  "gate_pass": true,
+  "notes": "reproducibility run 1"
+ },
+ {
+  "timestamp": "2026-07-23T13:56:22",
+  "benchmark_type": "accuracy",
+  "model_version": "20260705_194813_no_face_builtins",
+  "model_file": "kumpas_50sign_builtins_dynamic.tflite",
+  "device": "offline/python",
+  "condition": "n/a",
+  "results": {
+   "accuracy": 0.9507,
+   "macro_precision": 0.958,
+   "macro_recall": 0.95,
+   "macro_f1": 0.9481,
+   "n_samples": 203,
+   "n_classes": 50,
+   "per_class": [
+    {
+     "class_id": 0,
+     "label": "GOOD MORNING",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 1,
+     "label": "GOOD AFTERNOON",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 2,
+     "label": "GOOD EVENING",
+     "precision": 0.8333,
+     "recall": 1.0,
+     "f1": 0.9091,
+     "support": 5
+    },
+    {
+     "class_id": 3,
+     "label": "HELLO",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 4,
+     "label": "HOW ARE YOU",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 5,
+     "label": "IM FINE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 6,
+     "label": "NICE TO MEET YOU",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 5
+    },
+    {
+     "class_id": 7,
+     "label": "THANK YOU",
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.8889,
+     "support": 4
+    },
+    {
+     "class_id": 8,
+     "label": "YOURE WELCOME",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 9,
+     "label": "SEE YOU TOMORROW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 10,
+     "label": "UNDERSTAND",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 11,
+     "label": "DON\u2019T UNDERSTAND",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 12,
+     "label": "KNOW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 13,
+     "label": "DON\u2019T KNOW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 14,
+     "label": "NO",
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.8889,
+     "support": 4
+    },
+    {
+     "class_id": 15,
+     "label": "YES",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 16,
+     "label": "WRONG",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 17,
+     "label": "CORRECT",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 5
+    },
+    {
+     "class_id": 18,
+     "label": "SLOW",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 19,
+     "label": "FAST",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 20,
+     "label": "ONE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 21,
+     "label": "TWO",
+     "precision": 0.6667,
+     "recall": 1.0,
+     "f1": 0.8,
+     "support": 4
+    },
+    {
+     "class_id": 22,
+     "label": "THREE",
+     "precision": 1.0,
+     "recall": 0.5,
+     "f1": 0.6667,
+     "support": 4
+    },
+    {
+     "class_id": 23,
+     "label": "FOUR",
+     "precision": 0.5,
+     "recall": 0.75,
+     "f1": 0.6,
+     "support": 4
+    },
+    {
+     "class_id": 24,
+     "label": "FIVE",
+     "precision": 0.5,
+     "recall": 0.25,
+     "f1": 0.3333,
+     "support": 4
+    },
+    {
+     "class_id": 25,
+     "label": "TODAY",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 26,
+     "label": "TOMORROW",
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.8889,
+     "support": 4
+    },
+    {
+     "class_id": 27,
+     "label": "YESTERDAY",
+     "precision": 1.0,
+     "recall": 0.75,
+     "f1": 0.8571,
+     "support": 4
+    },
+    {
+     "class_id": 28,
+     "label": "FATHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 29,
+     "label": "MOTHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 30,
+     "label": "SON",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 31,
+     "label": "DAUGHTER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 32,
+     "label": "GRANDFATHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 33,
+     "label": "GRANDMOTHER",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 34,
+     "label": "BOY",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 35,
+     "label": "GIRL",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 36,
+     "label": "MAN",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 37,
+     "label": "WOMAN",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 38,
+     "label": "DEAF",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 39,
+     "label": "HARD OF HEARING",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 40,
+     "label": "BLUE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 41,
+     "label": "RED",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 42,
+     "label": "BLACK",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 43,
+     "label": "WHITE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 44,
+     "label": "BREAD",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 45,
+     "label": "EGG",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 46,
+     "label": "CHICKEN",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 47,
+     "label": "RICE",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 48,
+     "label": "HOT",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    },
+    {
+     "class_id": 49,
+     "label": "COLD",
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "support": 4
+    }
+   ]
+  },
+  "gate_pass": true,
+  "notes": "reproducibility run 2"
+ }
+]

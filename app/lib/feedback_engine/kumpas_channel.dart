@@ -58,4 +58,57 @@ class KumpasChannel {
         .map((e) => AttemptResult.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  // ─── Session lifecycle (Phase 8) ─────────────────────────────────
+
+  /// Start a new practice session. Returns the session UUID.
+  static Future<String> startSession() async {
+    final id = await control.invokeMethod<String>('startSession');
+    return id!;
+  }
+
+  /// End the active practice session.
+  static Future<void> endSession() => control.invokeMethod('endSession');
+
+  /// Get the active session ID, or null if none.
+  static Future<String?> getActiveSession() =>
+      control.invokeMethod<String?>('getActiveSession');
+
+  // ─── Assessments (Phase 8) ───────────────────────────────────────
+
+  /// Save a pre or post assessment.
+  /// [type] is 'pre' or 'post'.
+  /// [responses] is a JSON-encoded map of questionnaire answers.
+  static Future<void> saveAssessment({
+    required String type,
+    required Map<String, dynamic> responses,
+  }) =>
+      control.invokeMethod('saveAssessment', {
+        'type': type,
+        'responses': jsonEncode(responses),
+      });
+
+  /// Get all assessments for the current participant.
+  static Future<List<Map<String, dynamic>>> getAssessments() async {
+    final raw = await control.invokeMethod<String>('getAssessments');
+    final list = jsonDecode(raw!) as List<dynamic>;
+    return list.cast<Map<String, dynamic>>();
+  }
+
+  // ─── Data export / management (Phase 8) ──────────────────────────
+
+  /// Export all session data to a JSON file. Returns the file path on device.
+  static Future<String> exportData() async {
+    final path = await control.invokeMethod<String>('exportData');
+    return path!;
+  }
+
+  /// Permanently delete all local session data and reset stats.
+  static Future<void> clearAllData() => control.invokeMethod('clearAllData');
+
+  /// Get the device-generated participant UUID.
+  static Future<String> getParticipantId() async {
+    final id = await control.invokeMethod<String>('getParticipantId');
+    return id!;
+  }
 }

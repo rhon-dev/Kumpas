@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import '../feedback_engine/kumpas_channel.dart';
 import '../feedback_engine/models.dart';
+import '../session/session_lifecycle.dart';
 import 'feedback_sheet.dart';
 import 'theme.dart';
 
@@ -28,10 +29,14 @@ class _PracticeScreenState extends State<PracticeScreen> {
   int _needed = 30;
   String _liveLabel = '';
   bool _signerVisible = true;
+  late SessionLifecycleObserver _lifecycleObserver;
 
   @override
   void initState() {
     super.initState();
+    _lifecycleObserver = SessionLifecycleObserver();
+    WidgetsBinding.instance.addObserver(_lifecycleObserver);
+    _lifecycleObserver.setPracticeActive(true);
     _sub = KumpasChannel.eventStream().listen(_onEvent);
   }
 
@@ -91,6 +96,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
 
   @override
   void dispose() {
+    _lifecycleObserver.setPracticeActive(false);
+    WidgetsBinding.instance.removeObserver(_lifecycleObserver);
     _sub?.cancel();
     KumpasChannel.cancelAttempt();
     super.dispose();

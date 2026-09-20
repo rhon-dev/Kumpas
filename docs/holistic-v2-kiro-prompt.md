@@ -74,6 +74,24 @@ Write this as docs/holistic-v2-diagnosis.md — evidence table, file:line citati
 interpretation per finding, and a blunt "what this means for the thesis defense" closing section.
 If any claim of mine is wrong, the plan must follow YOUR numbers, not mine.
 
+RECONCILE WITH WORK ALREADY IN FLIGHT (do this before writing Step 2)
+Open PR #2 ("docs: hardening & verification plan for the remaining phases") adds docs/hardening-plan.md:
+an eight-stage gated plan (A truth-in-docs, B reproducible build + CI, C prove the math — parity tests
+and front-camera handedness calibration, D real-device benchmarking, E session-logging keep-or-delete,
+F study tooling, G model improvement, H release readiness). Read it and reconcile rather than compete:
+  - List where Holistic v2 DEPENDS on it (its Stage B reproducible build and Stage D real-device
+    benchmarking are prerequisites for WS3 and WS6; its Stage C parity work is the foundation WS4 extends
+    from FeedbackEngine to the feature vector).
+  - List where Holistic v2 SUPERSEDES it (its Stage G numeral-accuracy investigation is answered by this
+    plan's root cause: the FIVE/FOUR/THREE/TWO errors are a missing-hand-landmark problem, not a
+    hyperparameter problem).
+  - List where Holistic v2 CHANGES its assumptions (its Stage C handedness fix targets
+    VisionEngine.kt's categoryName()-based left/right assignment; under a Holistic runtime, handedness
+    is resolved by the pose-guided graph, so specify whether that fix is still needed, moves, or is
+    absorbed — and make sure the mirroring/handedness question is answered in ONE place, not two).
+Output this as a short reconciliation section at the top of .kiro/specs/22-holistic-v2/requirements.md.
+Do not duplicate, re-litigate, or silently overwrite anything in docs/hardening-plan.md.
+
 STEP 2 — PRODUCE THE PLAN as a Kiro spec
 Create .kiro/specs/22-holistic-v2/ with requirements.md, design.md, tasks.md, following the exact
 conventions of the existing specs in .kiro/specs/ (match their heading structure, numbering, and the
@@ -167,24 +185,6 @@ Also print in chat, not only in files:
     (re-opening closed gates, re-running FSL Expert validation, refined vs base face mesh, device
     procurement, scope/timeline impact);
   - a one-screen summary table: workstream | why | measurable exit criterion.
-
-RECONCILE WITH WORK ALREADY IN FLIGHT (do this before writing Step 2)
-Open PR #2 ("docs: hardening & verification plan for the remaining phases") adds docs/hardening-plan.md:
-an eight-stage gated plan (A truth-in-docs, B reproducible build + CI, C prove the math — parity tests
-and front-camera handedness calibration, D real-device benchmarking, E session-logging keep-or-delete,
-F study tooling, G model improvement, H release readiness). Read it and reconcile rather than compete:
-  - List where Holistic v2 DEPENDS on it (its Stage B reproducible build and Stage D real-device
-    benchmarking are prerequisites for WS3 and WS6; its Stage C parity work is the foundation WS4 extends
-    from FeedbackEngine to the feature vector).
-  - List where Holistic v2 SUPERSEDES it (its Stage G numeral-accuracy investigation is answered by this
-    plan's root cause: the FIVE/FOUR/THREE/TWO errors are a missing-hand-landmark problem, not a
-    hyperparameter problem).
-  - List where Holistic v2 CHANGES its assumptions (its Stage C handedness fix targets
-    VisionEngine.kt's categoryName()-based left/right assignment; under a Holistic runtime, handedness
-    is resolved by the pose-guided graph, so specify whether that fix is still needed, moves, or is
-    absorbed — and make sure the mirroring/handedness question is answered in ONE place, not two).
-Output this as a short reconciliation section at the top of .kiro/specs/22-holistic-v2/requirements.md.
-Do not duplicate, re-litigate, or silently overwrite anything in docs/hardening-plan.md.
 
 CONSTRAINTS
 - No implementation code, no refactors, no dependency bumps in this pass. Plans, specs, docs only.

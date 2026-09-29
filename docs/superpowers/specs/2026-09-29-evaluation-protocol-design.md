@@ -1,7 +1,7 @@
 # Evaluation protocol repair — design
 
 Date: 2026-09-29
-Status: Design approved in conversation (Approach A); written spec pending user review before implementation.
+Status: Design approved in conversation (Approach A); user authorized implementation on 2026-09-29.
 Scope: Offline model-selection integrity and the wording of evaluation claims. No new participant clips or app changes.
 Authorization: The requester reports PM Cabrera and adviser Abella approved the protocol change. This document does not stand in for their signed record; update the project's gate evidence separately when available.
 

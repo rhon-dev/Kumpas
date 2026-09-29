@@ -122,8 +122,17 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
         return frameCount % SAMPLE_STRIDE == 0
     }
 
-    /** Called on the ImageAnalysis thread with an upright RGBA bitmap (sampled frames only). */
-    fun onFrame(bitmap: android.graphics.Bitmap, timestampMs: Long) {
+    data class FrameFeatures(
+        val features: FloatArray,
+        val poseSeen: Boolean,
+        val leftSeen: Boolean,
+        val rightSeen: Boolean,
+        val landmarkMs: Long,
+        val handsSeen: Int,
+    )
+
+    /** Exact production detector and normalizer; replay uses this same path. */
+    fun extractFrame(bitmap: android.graphics.Bitmap, timestampMs: Long): FrameFeatures {
         val mp: MPImage = BitmapImageBuilder(bitmap).build()
         val t0 = SystemClock.elapsedRealtime()
         val pose = poseLandmarker.detectForVideo(mp, timestampMs)
@@ -131,29 +140,39 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
         val landmarkMs = SystemClock.elapsedRealtime() - t0
 
         val feat = FloatArray(N_FEATURES)
-        var poseSeen = false
-        if (pose.landmarks().isNotEmpty()) {
-            poseSeen = true
+        val poseSeen = pose.landmarks().isNotEmpty()
+        if (poseSeen) {
             val lms = pose.landmarks()[0]
             for (i in lms.indices) {
                 feat[i * 4] = lms[i].x(); feat[i * 4 + 1] = lms[i].y()
                 feat[i * 4 + 2] = lms[i].z()
-                feat[i * 4 + 3] = pose.landmarks()[0][i].visibility().orElse(0f)
+                feat[i * 4 + 3] = lms[i].visibility().orElse(0f)
             }
         }
-        var handsSeen = 0
+        var leftSeen = false
+        var rightSeen = false
         for (h in hands.landmarks().indices) {
             val handed = hands.handedness()[h][0].categoryName() // "Left"/"Right"
+            if (handed == "Left") leftSeen = true else rightSeen = true
             val base = if (handed == "Left") 132 else 132 + 63
             val lms = hands.landmarks()[h]
             for (i in lms.indices) {
                 feat[base + i * 3] = lms[i].x(); feat[base + i * 3 + 1] = lms[i].y()
                 feat[base + i * 3 + 2] = lms[i].z()
             }
-            handsSeen++
         }
+        FeatureNormalizer.normalize(feat, poseSeen)
+        return FrameFeatures(feat, poseSeen, leftSeen, rightSeen, landmarkMs,
+            hands.landmarks().size)
+    }
 
-        normalize(feat, poseSeen)
+    /** Called on the ImageAnalysis thread with an upright RGBA bitmap (sampled frames only). */
+    fun onFrame(bitmap: android.graphics.Bitmap, timestampMs: Long) {
+        val extracted = extractFrame(bitmap, timestampMs)
+        val feat = extracted.features
+        val poseSeen = extracted.poseSeen
+        val landmarkMs = extracted.landmarkMs
+        val handsSeen = extracted.handsSeen
         buffer.addLast(feat)
         bufferPoseSeen.addLast(poseSeen)
         if (buffer.size > SEQ_LEN) { buffer.removeFirst(); bufferPoseSeen.removeFirst() }
@@ -236,37 +255,6 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
                 "dimension" to it.dimension, "severity" to it.severity,
                 "hand" to it.hand, "prompt" to it.prompt) }
         )).toString())
-    }
-
-    /** Port of build_sequences.py normalize(): mid-hip center, torso scale. */
-    private fun normalize(f: FloatArray, poseSeen: Boolean) {
-        if (!poseSeen) return  // all-zero frame stays all-zero (matches training)
-        val rootX = (f[L_HIP * 4] + f[R_HIP * 4]) / 2f
-        val rootY = (f[L_HIP * 4 + 1] + f[R_HIP * 4 + 1]) / 2f
-        val rootZ = (f[L_HIP * 4 + 2] + f[R_HIP * 4 + 2]) / 2f
-        val neckX = (f[L_SHOULDER * 4] + f[R_SHOULDER * 4]) / 2f
-        val neckY = (f[L_SHOULDER * 4 + 1] + f[R_SHOULDER * 4 + 1]) / 2f
-        val neckZ = (f[L_SHOULDER * 4 + 2] + f[R_SHOULDER * 4 + 2]) / 2f
-        var scale = kotlin.math.sqrt(
-            (neckX - rootX) * (neckX - rootX) + (neckY - rootY) * (neckY - rootY) +
-            (neckZ - rootZ) * (neckZ - rootZ)
-        )
-        if (scale < 1e-4f) scale = 1f
-        for (i in 0 until 33) {
-            f[i * 4] = (f[i * 4] - rootX) / scale
-            f[i * 4 + 1] = (f[i * 4 + 1] - rootY) / scale
-            f[i * 4 + 2] = (f[i * 4 + 2] - rootZ) / scale
-        }
-        for (handBase in intArrayOf(132, 132 + 63)) {
-            var zero = true
-            for (i in 0 until 63) if (f[handBase + i] != 0f) { zero = false; break }
-            if (zero) continue  // missing hand stays zero
-            for (i in 0 until 21) {
-                f[handBase + i * 3] = (f[handBase + i * 3] - rootX) / scale
-                f[handBase + i * 3 + 1] = (f[handBase + i * 3 + 1] - rootY) / scale
-                f[handBase + i * 3 + 2] = (f[handBase + i * 3 + 2] - rootZ) / scale
-            }
-        }
     }
 
     private fun emit(probs: FloatArray, landmarkMs: Long, inferMs: Long, handsSeen: Int) {

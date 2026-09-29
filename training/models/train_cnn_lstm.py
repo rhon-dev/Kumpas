@@ -30,24 +30,36 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SEQ_DIR = REPO_ROOT.parent / "kumpas-data" / "sequences"
 MODELS_OUT = REPO_ROOT.parent / "kumpas-data" / "models"
-LOG_PATH = Path(__file__).resolve().parent / "experiments_log.json"
-REPORTS_DIR = Path(__file__).resolve().parent / "reports"
+PROTOCOL_LOG = Path(__file__).resolve().parent / "protocol_experiments_log.json"
+from evaluation_protocol import sha256, validate_manifest, manifest_digest
 
 POSE, FACE = 33 * 4, 468 * 3
 SEED = 20260705
 
 
-def load_data(use_augmented, drop_face):
-    X_train = np.load(SEQ_DIR / ("X_train_aug.npy" if use_augmented else "X_train.npy"))
-    y_train = np.load(SEQ_DIR / ("y_train_aug.npy" if use_augmented else "y_train.npy"))
-    X_test = np.load(SEQ_DIR / "X_test.npy")
-    y_test = np.load(SEQ_DIR / "y_test.npy")
-    label_map = {int(k): v for k, v in
-                 json.loads((SEQ_DIR / "label_map.json").read_text()).items()}
-    if drop_face and X_train.shape[2] == 1662:
+def load_protocol_data(protocol_dir: Path, drop_face: bool):
+    """Load fit and untouched validation only; never open test data."""
+    protocol_dir = Path(protocol_dir)
+    manifest = json.loads((protocol_dir / "manifest.json").read_text())
+    validate_manifest(manifest, protocol_dir.parent)
+    X_fit = np.load(protocol_dir / "X_fit.npy", allow_pickle=False)
+    y_fit = np.load(protocol_dir / "y_fit.npy", allow_pickle=False)
+    X_val = np.load(protocol_dir / "X_val.npy", allow_pickle=False)
+    y_val = np.load(protocol_dir / "y_val.npy", allow_pickle=False)
+    if X_fit.ndim != 3 or X_val.ndim != 3 or X_fit.shape[1:] != X_val.shape[1:]:
+        raise ValueError("fit/validation feature shape mismatch")
+    if len(X_fit) != len(y_fit) or len(X_val) != len(y_val) or len(X_val) != manifest["n_validation"]:
+        raise ValueError("protocol array length mismatch")
+    originals = np.load(protocol_dir.parent / "X_train.npy", mmap_mode="r", allow_pickle=False)
+    original_labels = np.load(protocol_dir.parent / "y_train.npy", allow_pickle=False)
+    val_indices = [r["index"] for r in manifest["rows"] if r["partition"] == "validation"]
+    if not np.array_equal(X_val, originals[val_indices]) or not np.array_equal(y_val, original_labels[val_indices]):
+        raise ValueError("validation array differs from original clips")
+    if drop_face and X_fit.shape[2] == 1662:
         keep = np.r_[0:POSE, POSE + FACE:1662]
-        X_train, X_test = X_train[:, :, keep], X_test[:, :, keep]
-    return X_train, y_train, X_test, y_test, label_map
+        X_fit, X_val = X_fit[:, :, keep], X_val[:, :, keep]
+    label_map = {int(k): v for k, v in json.loads((protocol_dir.parent / "label_map.json").read_text()).items()} if (protocol_dir.parent / "label_map.json").exists() else {int(i): {"label": str(i)} for i in set(original_labels.tolist())}
+    return (X_fit, y_fit), (X_val, y_val), label_map, manifest
 
 
 def build_cnn_lstm(t, f, n_classes, conv_filters, lstm_units, dense=128,
@@ -86,24 +98,24 @@ def main():
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--epochs", type=int, default=120)
     ap.add_argument("--batch", type=int, default=32)
-    ap.add_argument("--no-augmented", action="store_true")
+    ap.add_argument("--protocol-dir", type=Path, default=SEQ_DIR / "evaluation-v1")
     ap.add_argument("--drop-face", action="store_true")
     args = ap.parse_args()
 
     import tensorflow as tf
     from tensorflow.keras import callbacks
+    from sklearn.metrics import f1_score
 
     tf.keras.utils.set_random_seed(SEED)
     conv = tuple(int(x) for x in args.conv.split(","))
     lstm = tuple(int(x) for x in args.lstm.split(","))
 
-    X_train, y_train, X_test, y_test, label_map = load_data(
-        not args.no_augmented, args.drop_face)
-    class_names = [label_map[i]["label"] for i in range(len(label_map))]
-    t_, f_ = X_train.shape[1], X_train.shape[2]
-    print(f"train {X_train.shape} test {X_test.shape}")
+    (X_fit, y_fit), (X_val, y_val), label_map, manifest = load_protocol_data(
+        args.protocol_dir, args.drop_face)
+    t_, f_ = X_fit.shape[1:]
+    print(f"fit {X_fit.shape} validation {X_val.shape} (test not opened)")
 
-    model = build_cnn_lstm(t_, f_, len(class_names), conv, lstm,
+    model = build_cnn_lstm(t_, f_, len(label_map), conv, lstm,
                            args.dense, args.dropout, args.lr)
     cbs = [
         callbacks.EarlyStopping(patience=15, restore_best_weights=True,
@@ -111,40 +123,41 @@ def main():
         callbacks.ReduceLROnPlateau(patience=6, factor=0.5, monitor="val_loss"),
     ]
     t0 = time.time()
-    hist = model.fit(X_train, y_train, validation_split=0.15, epochs=args.epochs,
+    hist = model.fit(X_fit, y_fit, validation_data=(X_val, y_val), epochs=args.epochs,
                      batch_size=args.batch, callbacks=cbs, verbose=2)
     train_secs = time.time() - t0
-    val_acc = float(max(hist.history["val_accuracy"]))
-
-    y_pred = model.predict(X_test, verbose=0).argmax(1)
-    test_acc = float((y_pred == y_test).mean())
-    print(f"RESULT run={args.run_notes} val_acc={val_acc:.4f} "
-          f"test_acc={test_acc:.4f} ({train_secs:.0f}s)")
+    val_pred = model.predict(X_val, verbose=0).argmax(1)
+    val_acc = float((val_pred == y_val).mean())
+    val_macro_f1 = float(f1_score(y_val, val_pred, labels=list(range(len(label_map))), average="macro", zero_division=0))
+    print(f"RESULT run={args.run_notes} val_acc={val_acc:.4f} val_macro_f1={val_macro_f1:.4f} ({train_secs:.0f}s)")
 
     run_id = time.strftime("%Y%m%d_%H%M%S") + "_" + args.run_notes.replace(" ", "_")
     MODELS_OUT.mkdir(parents=True, exist_ok=True)
-    model.save(MODELS_OUT / f"{run_id}.keras")
-    REPORTS_DIR.mkdir(exist_ok=True)
-    np.save(REPORTS_DIR / f"{run_id}_y_pred.npy", y_pred)
-
-    log = json.loads(LOG_PATH.read_text()) if LOG_PATH.exists() else []
+    checkpoint = MODELS_OUT / f"{run_id}.keras"
+    if checkpoint.exists():
+        raise FileExistsError(checkpoint)
+    model.save(checkpoint)
+    log = json.loads(PROTOCOL_LOG.read_text()) if PROTOCOL_LOG.exists() else []
     log.append({
         "run_id": run_id, "run_notes": args.run_notes,
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "environment": "local M1 (tensorflow " + tf.__version__ + ")",
+        "environment": "local tensorflow " + tf.__version__,
         "model_name": model.name, "params": int(model.count_params()),
         "seq_len": int(t_), "features": int(f_),
-        "augmented": not args.no_augmented, "drop_face": args.drop_face,
+        "drop_face": args.drop_face,
         "conv_filters": list(conv), "lstm_units": list(lstm),
         "dense": args.dense, "dropout": args.dropout, "lr": args.lr,
         "batch": args.batch, "epochs_run": len(hist.history["loss"]),
-        "seed": SEED,
+        "seed": SEED, "protocol_id": manifest["version"],
+        "protocol_sha256": sha256(args.protocol_dir / "manifest.json"),
+        "source_sha256": manifest["source_sha256"],
+        "checkpoint": str(checkpoint.resolve()), "checkpoint_sha256": sha256(checkpoint),
         "best_val_accuracy": round(val_acc, 4),
-        "test_accuracy": round(test_acc, 4),
+        "best_val_macro_f1": round(val_macro_f1, 4),
         "train_seconds": round(train_secs),
     })
-    LOG_PATH.write_text(json.dumps(log, indent=1))
-    print(f"logged {run_id} -> {LOG_PATH.name}; weights -> kumpas-data/models/")
+    PROTOCOL_LOG.write_text(json.dumps(log, indent=1))
+    print(f"logged {run_id} -> {PROTOCOL_LOG.name}; weights -> {checkpoint}")
 
 
 if __name__ == "__main__":

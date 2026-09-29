@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""KUMPAS Phase 3 — evaluation report for a trained run.
+"""KUMPAS historical Phase 3 report for an explicitly named run.
 
-Takes a run_id from experiments_log.json (default: highest test accuracy),
-loads its saved test predictions, and writes the thesis-facing evaluation
-artifacts:
+These previously inspected test predictions are exploratory, not a pristine
+final holdout. Never choose a run automatically using test accuracy.
+
+Writes the thesis-facing evaluation artifacts:
 
     reports/<run_id>_eval.md          accuracy/precision/recall/F1 + confused pairs
     reports/<run_id>_confusion.png    per-class confusion matrix
@@ -26,9 +27,20 @@ LOG_PATH = Path(__file__).resolve().parent / "experiments_log.json"
 REPORTS_DIR = Path(__file__).resolve().parent / "reports"
 
 
+def select_historical_run(log: list, run_id: str | None) -> dict:
+    if not run_id:
+        raise ValueError("an explicit --run-id is required; selecting by test score is forbidden")
+    return next((run for run in log if run["run_id"] == run_id),
+                None) or _missing_run(run_id)
+
+
+def _missing_run(run_id: str):
+    raise ValueError(f"unknown run ID: {run_id}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--run-id", default=None)
+    ap.add_argument("--run-id", required=True)
     args = ap.parse_args()
 
     from sklearn.metrics import (classification_report, confusion_matrix,
@@ -38,8 +50,7 @@ def main():
     import matplotlib.pyplot as plt
 
     log = json.loads(LOG_PATH.read_text())
-    run = (next(r for r in log if r["run_id"] == args.run_id) if args.run_id
-           else max(log, key=lambda r: r["test_accuracy"]))
+    run = select_historical_run(log, args.run_id)
     run_id = run["run_id"]
 
     y_test = np.load(SEQ_DIR / "y_test.npy")
@@ -83,8 +94,9 @@ def main():
     weak = sorted(range(len(names)), key=lambda i: f1[i])[:10]
 
     md = [
-        f"# Phase 3 Evaluation — `{run_id}`",
+        f"# Historical exploratory Phase 3 Evaluation — `{run_id}`",
         "",
+        "**Exploratory, not an untouched final test:** multiple historical experiments consulted this same FSL-105 test split; the training validation also contained augmented siblings of fit clips. Accuracy on the specified FSL-105 clip split only; signer-independent generalization not established.",
         f"Environment: {run['environment']} | params {run['params']:,} | "
         f"features {run['features']} | seq_len {run['seq_len']} | seed {run['seed']}",
         "",

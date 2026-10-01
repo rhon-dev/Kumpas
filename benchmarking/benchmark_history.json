@@ -15,8 +15,9 @@
    "n_inferences": null,
    "note": "Retroactive from phase4_emulator_report.md; M1 proxy, not real device"
   },
-  "gate_pass": true,
-  "notes": "Retroactive entry from Phase 4/5 emulator fallback report"
+  "provenance": "retroactive-estimate",
+  "gate_pass": null,
+  "notes": "Retroactive entry from Phase 4/5 emulator fallback report. Marked retroactive-estimate on 2026-09-23 (Day 2, PR #2 Stage A3): interpreter-only timing on an emulator, MediaPipe cost excluded, not a device measurement. Excluded from plots and from any gate claim. Not deleted; kept for provenance."
  },
  {
   "timestamp": "2026-07-07T12:00:00",
@@ -32,8 +33,9 @@
    "degradation_detected": false,
    "note": "Retroactive from phase4_emulator_report.md; 55s run, M1 proxy"
   },
-  "gate_pass": true,
-  "notes": "Retroactive entry from Phase 4/5 emulator fallback report"
+  "provenance": "retroactive-estimate",
+  "gate_pass": null,
+  "notes": "Retroactive entry from Phase 4/5 emulator fallback report. Marked retroactive-estimate on 2026-09-23 (Day 2, PR #2 Stage A3): 55s emulator window against collect_fps.py's own 60s minimum, M1 proxy, not a device measurement. Excluded from plots and from any gate claim. Not deleted; kept for provenance."
  },
  {
   "timestamp": "2026-07-23T13:55:21",

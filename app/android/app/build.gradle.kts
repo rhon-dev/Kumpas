@@ -32,6 +32,11 @@ android {
         noCompress += listOf("tflite", "task")
     }
 
+    testOptions {
+        // Robolectric needs the merged manifest + resources on the test classpath
+        unitTests.isIncludeAndroidResources = true
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -54,6 +59,7 @@ dependencies {
     implementation("com.google.mediapipe:tasks-vision:0.10.14")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
+    testImplementation("org.robolectric:robolectric:4.12.1")
     // LiteRT (successor of org.tensorflow:tensorflow-lite) — model is converted
     // by TF 2.19 and needs a runtime newer than tensorflow-lite 2.16
     implementation("com.google.ai.edge.litert:litert:1.1.2")

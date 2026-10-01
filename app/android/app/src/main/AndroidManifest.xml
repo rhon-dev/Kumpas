@@ -4,6 +4,9 @@
         android:maxSdkVersion="28" />
     <uses-feature android:name="android.hardware.camera" android:required="true" />
     <application
+        android:allowBackup="false"
+        android:fullBackupContent="@xml/study_backup_rules"
+        android:dataExtractionRules="@xml/study_data_extraction_rules"
         android:label="kumpas_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

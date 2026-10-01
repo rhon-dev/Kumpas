@@ -1,0 +1,10 @@
+{
+  "run_id": "20260930_153819_protocol_v1_no_face_baseline",
+  "checkpoint": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/models/20260930_153819_protocol_v1_no_face_baseline.keras",
+  "checkpoint_sha256": "55ba7bb86dab621ea85112073e805818b7f5f417ed6dd9e116db92fe8d61288d",
+  "protocol_sha256": "77cc0cdd49cd9bb29a3c6172ff96eb30050c8fae9fadba02459dd22eeecbef99",
+  "best_val_accuracy": 0.96,
+  "best_val_macro_f1": 0.9592,
+  "selection_method": "highest validation accuracy; macro-F1 then run ID tie break",
+  "test_status": "exploratory: existing FSL-105 test was consulted by historical runs"
+}

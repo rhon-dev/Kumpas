@@ -39,6 +39,15 @@ def load_and_filter(btype: str, device: str | None, condition: str | None) -> li
     history = json.loads(HISTORY_PATH.read_text())
     entries = [e for e in history if e["benchmark_type"] == btype]
 
+    # Exclude retroactive estimates: they are hand-seeded from the Phase 4/5
+    # emulator report, not measured runs, and must never appear in a thesis
+    # figure. Marked on 2026-09-23 (Day 2, PR #2 Stage A3). See benchmark_history.json.
+    excluded = [e for e in entries if e.get("provenance") == "retroactive-estimate"]
+    if excluded:
+        print(f"  (excluding {len(excluded)} retroactive-estimate entr"
+              f"{'y' if len(excluded) == 1 else 'ies'} from plot)")
+    entries = [e for e in entries if e.get("provenance") != "retroactive-estimate"]
+
     if device:
         entries = [e for e in entries if device.lower() in e.get("device", "").lower()]
     if condition:

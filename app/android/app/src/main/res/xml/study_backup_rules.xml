@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <exclude domain="database" path="." />
+    <exclude domain="sharedpref" path="kumpas_session_prefs.xml" />
+    <exclude domain="file" path="attempt_history.jsonl" />
+    <exclude domain="file" path="attempt_history.jsonl.migrated" />
+    <exclude domain="file" path="exports" />
+    <exclude domain="external" path="." />
+</full-backup-content>

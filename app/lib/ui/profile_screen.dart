@@ -27,6 +27,11 @@ class _ProfileScreenState extends State<ProfileScreen>
   void initState() {
     super.initState();
     _data = _load();
+    SessionRepository.instance.dataRevision.addListener(_reloadData);
+  }
+
+  void _reloadData() {
+    if (mounted) setState(() => _data = _load());
   }
 
   Future<(LearnerStats, int)> _load() async {
@@ -37,6 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   @override
   void dispose() {
+    SessionRepository.instance.dataRevision.removeListener(_reloadData);
     _tabs.dispose();
     super.dispose();
   }
@@ -491,7 +497,8 @@ class _SettingsTabState extends State<_SettingsTab> {
       builder: (ctx) => AlertDialog(
         title: const Text('Burahin ang Lahat ng Data?'),
         content: const Text(
-          'Hindi ito mababawi. Lahat ng session, attempt, at assessment data ay aalisin.',
+          'Hindi ito mababawi. Aalisin ang mga session, attempt, assessment, at export na hawak ng app. '
+          'Hindi nito mabubura ang mga kopyang nailipat na sa ibang device o researcher.',
         ),
         actions: [
           TextButton(
@@ -514,7 +521,7 @@ class _SettingsTabState extends State<_SettingsTab> {
         await SessionRepository.instance.clearAllData();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Lahat ng data ay nabura.')),
+            const SnackBar(content: Text('Nabura ang study data na hawak ng app.')),
           );
           setState(() {
             _completedAssessments = _loadCompletedAssessments();

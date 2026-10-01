@@ -42,6 +42,7 @@ class SessionManager(private val context: Context) {
     private var activeSessionId: String? = null
     private var autoCloseRunnable: Runnable? = null
 
+    @get:Synchronized
     val participantId: String
         get() = getOrCreateParticipantId()
 
@@ -78,6 +79,7 @@ class SessionManager(private val context: Context) {
      * Start a new practice session. Closes any existing active session first.
      * Returns the new session UUID.
      */
+    @Synchronized
     fun startSession(): String {
         // Close existing if open
         activeSessionId?.let { endSession() }
@@ -93,6 +95,7 @@ class SessionManager(private val context: Context) {
     /**
      * End the active session, computing summaries.
      */
+    @Synchronized
     fun endSession() {
         val sid = activeSessionId ?: return
         db.closeSession(sid)
@@ -104,11 +107,13 @@ class SessionManager(private val context: Context) {
     /**
      * Get the currently active session ID, or null.
      */
+    @Synchronized
     fun getActiveSessionId(): String? = activeSessionId
 
     /**
      * Called when app goes to background. Starts the 60s auto-close timer.
      */
+    @Synchronized
     fun onPause() {
         if (activeSessionId == null) return
         autoCloseRunnable = Runnable {
@@ -121,6 +126,7 @@ class SessionManager(private val context: Context) {
     /**
      * Called when app returns to foreground. Cancels auto-close if pending.
      */
+    @Synchronized
     fun onResume() {
         cancelAutoClose()
     }
@@ -136,6 +142,7 @@ class SessionManager(private val context: Context) {
      * Record an attempt result. If no session is active, one is created.
      * Accepts the raw JSON from VisionEngine's attempt_result callback.
      */
+    @Synchronized
     fun recordAttempt(attemptJson: String) {
         // Ensure we have an active session
         if (activeSessionId == null) {
@@ -164,6 +171,7 @@ class SessionManager(private val context: Context) {
      * Returns recent attempts as a JSON array string, newest first.
      * Same interface as the old SessionLog.historyJson() for backward compat.
      */
+    @Synchronized
     fun historyJson(limit: Int = 200): String {
         val arr = db.getRecentAttempts(limit)
         // Remap column names to match the old format expected by Flutter
@@ -187,25 +195,35 @@ class SessionManager(private val context: Context) {
 
     // ─── Assessments ────────────────────────────────────────────────
 
+    @Synchronized
     fun saveAssessment(type: String, responses: String) {
         db.insertAssessment(participantId, type, responses)
         Log.i(TAG, "Assessment saved: type=$type")
     }
 
+    @Synchronized
     fun getAssessments(): String {
         return db.getAssessments(participantId).toString()
     }
 
     // ─── Data Management ────────────────────────────────────────────
 
+    @Synchronized
     fun clearAllData() {
-        endSession()
+        cancelAutoClose()
+        activeSessionId = null
+        StudyDataFiles.purge(context)
         db.clearAll()
-        // Generate new participant ID
         val newId = UUID.randomUUID().toString()
-        prefs.edit().putString(KEY_PARTICIPANT_ID, newId).apply()
+        if (!prefs.edit().putString(KEY_PARTICIPANT_ID, newId)
+                .putBoolean(KEY_MIGRATED, true).commit()) {
+            throw java.io.IOException("Study-data cleanup incomplete: identity could not be saved; retry")
+        }
         ensureParticipant()
-        Log.i(TAG, "All data cleared, new participant: $newId")
+        check(db.getParticipant()?.getString("id") == newId) {
+            "Study-data cleanup incomplete: fresh participant could not be saved; retry"
+        }
+        Log.i(TAG, "Managed study data cleared")
     }
 
     // ─── JSONL Migration ────────────────────────────────────────────

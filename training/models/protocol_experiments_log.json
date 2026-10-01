@@ -1,0 +1,78 @@
+[
+ {
+  "run_id": "20260930_153819_protocol_v1_no_face_baseline",
+  "run_notes": "protocol_v1_no_face_baseline",
+  "timestamp": "2026-09-30 15:38:19",
+  "environment": "local tensorflow 2.19.0",
+  "model_name": "cnnlstm_c64-128_l128-64",
+  "params": 270834,
+  "seq_len": 30,
+  "features": 258,
+  "drop_face": true,
+  "conv_filters": [
+   64,
+   128
+  ],
+  "lstm_units": [
+   128,
+   64
+  ],
+  "dense": 128,
+  "dropout": 0.4,
+  "lr": 0.001,
+  "batch": 32,
+  "epochs_run": 51,
+  "seed": 20260705,
+  "protocol_id": "evaluation-v1",
+  "protocol_sha256": "77cc0cdd49cd9bb29a3c6172ff96eb30050c8fae9fadba02459dd22eeecbef99",
+  "source_sha256": {
+   "X_train.npy": "81a2bf8ae80848031de809078103ffe1a81f736c9f9f7e13f21fabf954508780",
+   "y_train.npy": "d6f11144370f6944de96a1fa561b791707ad370a86f0310223245008aad0a229",
+   "clips_train.json": "54f4c1b49cf0e5262629212f58d0471f624c19aaa870622063ac5d8c09f48098",
+   "clips_test.json": "6c36eb2592e4339a41255a1f1fe2882628eef369dd6d93f6b2007f233e8b1b7e"
+  },
+  "checkpoint": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/models/20260930_153819_protocol_v1_no_face_baseline.keras",
+  "checkpoint_sha256": "55ba7bb86dab621ea85112073e805818b7f5f417ed6dd9e116db92fe8d61288d",
+  "best_val_accuracy": 0.96,
+  "best_val_macro_f1": 0.9592,
+  "train_seconds": 76
+ },
+ {
+  "run_id": "20260930_154059_protocol_v1_no_face_wider",
+  "run_notes": "protocol_v1_no_face_wider",
+  "timestamp": "2026-09-30 15:40:59",
+  "environment": "local tensorflow 2.19.0",
+  "model_name": "cnnlstm_c64-128_l256-128",
+  "params": 689394,
+  "seq_len": 30,
+  "features": 258,
+  "drop_face": true,
+  "conv_filters": [
+   64,
+   128
+  ],
+  "lstm_units": [
+   256,
+   128
+  ],
+  "dense": 128,
+  "dropout": 0.4,
+  "lr": 0.001,
+  "batch": 32,
+  "epochs_run": 41,
+  "seed": 20260705,
+  "protocol_id": "evaluation-v1",
+  "protocol_sha256": "77cc0cdd49cd9bb29a3c6172ff96eb30050c8fae9fadba02459dd22eeecbef99",
+  "source_sha256": {
+   "X_train.npy": "81a2bf8ae80848031de809078103ffe1a81f736c9f9f7e13f21fabf954508780",
+   "y_train.npy": "d6f11144370f6944de96a1fa561b791707ad370a86f0310223245008aad0a229",
+   "clips_train.json": "54f4c1b49cf0e5262629212f58d0471f624c19aaa870622063ac5d8c09f48098",
+   "clips_test.json": "6c36eb2592e4339a41255a1f1fe2882628eef369dd6d93f6b2007f233e8b1b7e"
+  },
+  "checkpoint": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/models/20260930_154059_protocol_v1_no_face_wider.keras",
+  "checkpoint_sha256": "a5c28ac799d713fd988a5a29ceb1c1962c3adf343aededd98912970870d9528b",
+  "best_val_accuracy": 0.96,
+  "best_val_macro_f1": 0.958,
+  "train_seconds": 107
+ }
+]

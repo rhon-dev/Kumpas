@@ -1,0 +1,370 @@
+{
+  "run_id": "20260930_153819_protocol_v1_no_face_baseline",
+  "correct": 181,
+  "n": 203,
+  "accuracy": 0.8916256157635468,
+  "macro_f1": 0.8852352092352092,
+  "wilson_95": [
+    0.841369781311267,
+    0.9273349111935043
+  ],
+  "per_class": [
+    {
+      "label": "GOOD MORNING",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "GOOD AFTERNOON",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "GOOD EVENING",
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "HELLO",
+      "support": 4,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.8888888888888888
+    },
+    {
+      "label": "HOW ARE YOU",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "IM FINE",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "NICE TO MEET YOU",
+      "support": 5,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "THANK YOU",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "YOURE WELCOME",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571
+    },
+    {
+      "label": "SEE YOU TOMORROW",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "UNDERSTAND",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571
+    },
+    {
+      "label": "DON\u2019T UNDERSTAND",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "KNOW",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "DON\u2019T KNOW",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571
+    },
+    {
+      "label": "NO",
+      "support": 4,
+      "precision": 0.4,
+      "recall": 0.5,
+      "f1": 0.4444444444444444
+    },
+    {
+      "label": "YES",
+      "support": 4,
+      "precision": 0.5,
+      "recall": 0.25,
+      "f1": 0.3333333333333333
+    },
+    {
+      "label": "WRONG",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571
+    },
+    {
+      "label": "CORRECT",
+      "support": 5,
+      "precision": 0.8333333333333334,
+      "recall": 1.0,
+      "f1": 0.9090909090909091
+    },
+    {
+      "label": "SLOW",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "FAST",
+      "support": 4,
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1": 0.75
+    },
+    {
+      "label": "ONE",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "TWO",
+      "support": 4,
+      "precision": 0.5714285714285714,
+      "recall": 1.0,
+      "f1": 0.7272727272727273
+    },
+    {
+      "label": "THREE",
+      "support": 4,
+      "precision": 0.5,
+      "recall": 0.25,
+      "f1": 0.3333333333333333
+    },
+    {
+      "label": "FOUR",
+      "support": 4,
+      "precision": 0.6666666666666666,
+      "recall": 0.5,
+      "f1": 0.5714285714285714
+    },
+    {
+      "label": "FIVE",
+      "support": 4,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5
+    },
+    {
+      "label": "TODAY",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "TOMORROW",
+      "support": 4,
+      "precision": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 0.8
+    },
+    {
+      "label": "YESTERDAY",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666
+    },
+    {
+      "label": "FATHER",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "MOTHER",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "SON",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "DAUGHTER",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "GRANDFATHER",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571
+    },
+    {
+      "label": "GRANDMOTHER",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "BOY",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "GIRL",
+      "support": 4,
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1": 0.75
+    },
+    {
+      "label": "MAN",
+      "support": 4,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.8888888888888888
+    },
+    {
+      "label": "WOMAN",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "DEAF",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "HARD OF HEARING",
+      "support": 4,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.8888888888888888
+    },
+    {
+      "label": "BLUE",
+      "support": 4,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.8888888888888888
+    },
+    {
+      "label": "RED",
+      "support": 4,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.8888888888888888
+    },
+    {
+      "label": "BLACK",
+      "support": 4,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.8888888888888888
+    },
+    {
+      "label": "WHITE",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "BREAD",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "EGG",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "CHICKEN",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571
+    },
+    {
+      "label": "RICE",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "HOT",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "label": "COLD",
+      "support": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    }
+  ],
+  "selection_sha256": "512f9eb32321d1b24b9d40cb5b5cafff8fda99281c9868832a0029a51922be1c",
+  "manifest_sha256": "77cc0cdd49cd9bb29a3c6172ff96eb30050c8fae9fadba02459dd22eeecbef99",
+  "test_arrays_sha256": {
+    "X_test.npy": "5a878eff4999ed74917c824941aa254b15268e0e7004fd0824d94c6a02c926e9",
+    "y_test.npy": "5bd06351d918c52732e0fc64ad72129e5162afba862f280e17cc7d08b86188e7"
+  },
+  "status": "exploratory-reused-test"
+}

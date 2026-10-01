@@ -43,6 +43,24 @@ class SessionDatabaseTest {
         db.close()
     }
 
+    @Test
+    fun clearAll_rollsBackEveryTableWhenDeletionFails() {
+        db.insertSession("rollback-session", participantId)
+        db.insertAttempt("rollback-session", 1L, 1, "AKO", "AKO", 0.9, true, 0.8, "[]")
+        db.insertAssessment(participantId, "pre", "{}")
+        db.writableDatabase.execSQL("CREATE TRIGGER refuse_clear BEFORE DELETE ON participants BEGIN SELECT RAISE(ABORT, 'synthetic deletion failure'); END")
+        try {
+            db.clearAll()
+            org.junit.Assert.fail("must report deletion failure")
+        } catch (_: android.database.sqlite.SQLiteException) { }
+        for (table in listOf("attempts", "assessments", "sessions", "participants")) {
+            assertEquals("transaction must preserve $table on failure", 1, rowCount(table))
+        }
+        db.writableDatabase.execSQL("DROP TRIGGER refuse_clear")
+        db.clearAll()
+        assertEquals(0, rowCount("participants"))
+    }
+
     /** Count rows in a table. */
     private fun rowCount(table: String): Int {
         val cursor = db.readableDatabase.rawQuery("SELECT COUNT(*) FROM $table", null)

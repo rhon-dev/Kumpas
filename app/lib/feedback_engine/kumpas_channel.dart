@@ -14,9 +14,9 @@ class KumpasChannel {
   /// Broadcast stream of pipeline events (warmup / no_signer / prediction /
   /// attempt_progress / attempt_result / attempt_failed).
   static Stream<Map<String, dynamic>> eventStream() {
-    _stream ??= events
-        .receiveBroadcastStream()
-        .map((e) => jsonDecode(e as String) as Map<String, dynamic>);
+    _stream ??= events.receiveBroadcastStream().map(
+      (e) => jsonDecode(e as String) as Map<String, dynamic>,
+    );
     return _stream!;
   }
 
@@ -24,20 +24,32 @@ class KumpasChannel {
     final raw = await control.invokeMethod<String>('getLabels');
     final map = jsonDecode(raw!) as Map<String, dynamic>;
     final signs = map.entries
-        .map((e) => Sign.fromLabelMapEntry(e.key, e.value as Map<String, dynamic>))
+        .map(
+          (e) => Sign.fromLabelMapEntry(e.key, e.value as Map<String, dynamic>),
+        )
         .toList();
     signs.sort((a, b) => a.id.compareTo(b.id));
     return signs;
   }
 
-  static Future<void> startAttempt(int classId) =>
-      control.invokeMethod('startAttempt', {'classId': classId});
+  static Future<String> startAttempt(int classId) async {
+    final id = await control.invokeMethod<String>('startAttempt', {
+      'classId': classId,
+    });
+    if (id == null || id.isEmpty) throw StateError('Missing attempt identity');
+    return id;
+  }
 
-  static Future<void> cancelAttempt() => control.invokeMethod('cancelAttempt');
+  static Future<void> cancelAttempt({String? attemptId}) =>
+      control.invokeMethod('cancelAttempt', {'attemptId': attemptId});
+
+  /// Native records a monotonic presentation-ack upper bound, not display time.
+  static Future<void> feedbackPresented(String attemptId) =>
+      control.invokeMethod('feedbackPresented', {'attemptId': attemptId});
 
   /// Start FPS benchmark for the given duration.
-  static Future<void> startBenchmark({int durationSeconds = 60}) =>
-      control.invokeMethod('startBenchmark', {'durationSeconds': durationSeconds});
+  static Future<void> startBenchmark({int durationSeconds = 60}) => control
+      .invokeMethod('startBenchmark', {'durationSeconds': durationSeconds});
 
   /// Stop a running benchmark early and get results.
   static Future<String> stopBenchmark() async {
@@ -82,11 +94,10 @@ class KumpasChannel {
   static Future<void> saveAssessment({
     required String type,
     required Map<String, dynamic> responses,
-  }) =>
-      control.invokeMethod('saveAssessment', {
-        'type': type,
-        'responses': jsonEncode(responses),
-      });
+  }) => control.invokeMethod('saveAssessment', {
+    'type': type,
+    'responses': jsonEncode(responses),
+  });
 
   /// Get all assessments for the current participant.
   static Future<List<Map<String, dynamic>>> getAssessments() async {

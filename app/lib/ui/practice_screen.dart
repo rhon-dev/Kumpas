@@ -21,7 +21,8 @@ class PracticeScreen extends StatefulWidget {
   State<PracticeScreen> createState() => _PracticeScreenState();
 }
 
-class _PracticeScreenState extends State<PracticeScreen> {
+class _PracticeScreenState extends State<PracticeScreen>
+    with WidgetsBindingObserver {
   StreamSubscription<Map<String, dynamic>>? _sub;
   bool _warmingUp = true;
   bool _attemptRunning = false;
@@ -29,19 +30,36 @@ class _PracticeScreenState extends State<PracticeScreen> {
   int _needed = 30;
   String _liveLabel = '';
   bool _signerVisible = true;
+  String? _attemptId;
+  int _requestGeneration = 0;
+  Timer? _attemptTimeout;
   late SessionLifecycleObserver _lifecycleObserver;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _lifecycleObserver = SessionLifecycleObserver();
     WidgetsBinding.instance.addObserver(_lifecycleObserver);
     _lifecycleObserver.setPracticeActive(true);
-    _sub = KumpasChannel.eventStream().listen(_onEvent);
+    _sub = KumpasChannel.eventStream().listen(
+      _onEvent,
+      onError: (Object error) => _captureError('Camera stream error: $error'),
+    );
   }
 
   void _onEvent(Map<String, dynamic> m) {
     if (!mounted) return;
+    final state = m['state'];
+    if (state == 'attempt_progress' ||
+        state == 'attempt_result' ||
+        state == 'attempt_failed') {
+      if (_attemptId == null ||
+          m['attemptId'] != _attemptId ||
+          !_attemptRunning) {
+        return;
+      }
+    }
     switch (m['state']) {
       case 'attempt_progress':
         setState(() {
@@ -51,6 +69,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
           _needed = m['needed'] as int;
         });
       case 'attempt_result':
+        final completedId = _attemptId!;
+        _attemptId = null;
+        _attemptTimeout?.cancel();
         setState(() => _attemptRunning = false);
         HapticFeedback.mediumImpact();
         final result = AttemptResult.fromJson(m);
@@ -59,12 +80,27 @@ class _PracticeScreenState extends State<PracticeScreen> {
           isScrollControlled: true,
           builder: (_) => FeedbackSheet(result: result),
         );
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            unawaited(
+              KumpasChannel.feedbackPresented(
+                completedId,
+              ).catchError((Object _) {}),
+            );
+          }
+        });
       case 'attempt_failed':
+        _attemptId = null;
+        _attemptTimeout?.cancel();
         setState(() => _attemptRunning = false);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(m['reason'] as String),
-          action: SnackBarAction(label: 'Ulitin', onPressed: _startAttempt),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(m['reason'] as String),
+            action: SnackBarAction(label: 'Ulitin', onPressed: _startAttempt),
+          ),
+        );
+      case 'camera_error':
+        _captureError(m['reason'] as String? ?? 'Camera unavailable');
       case 'prediction':
         setState(() {
           _warmingUp = false;
@@ -81,25 +117,78 @@ class _PracticeScreenState extends State<PracticeScreen> {
   }
 
   Future<void> _startAttempt() async {
+    if (_attemptRunning) return;
+    final generation = ++_requestGeneration;
     HapticFeedback.lightImpact();
     setState(() {
       _attemptRunning = true;
       _collected = 0;
     });
-    await KumpasChannel.startAttempt(widget.sign.id);
+    try {
+      final id = await KumpasChannel.startAttempt(widget.sign.id);
+      if (!mounted || generation != _requestGeneration || !_attemptRunning) {
+        await KumpasChannel.cancelAttempt(attemptId: id);
+        return;
+      }
+      _attemptId = id;
+      _attemptTimeout = Timer(const Duration(seconds: 30), () {
+        _captureError('Capture timed out. Please try again.');
+      });
+    } catch (error) {
+      if (mounted && generation == _requestGeneration) {
+        _captureError('Could not start capture: $error');
+      }
+    }
   }
 
   Future<void> _cancelAttempt() async {
-    await KumpasChannel.cancelAttempt();
+    final id = _attemptId;
+    _requestGeneration++;
+    _attemptId = null;
+    _attemptTimeout?.cancel();
     if (mounted) setState(() => _attemptRunning = false);
+    if (id != null) {
+      try {
+        await KumpasChannel.cancelAttempt(attemptId: id);
+      } catch (error) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Could not cancel capture: $error')),
+          );
+        }
+      }
+    }
+  }
+
+  void _captureError(String message) {
+    if (!mounted) return;
+    unawaited(_cancelAttempt());
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed && _attemptRunning) {
+      unawaited(_cancelAttempt());
+    }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _requestGeneration++;
+    _attemptTimeout?.cancel();
     _lifecycleObserver.setPracticeActive(false);
     WidgetsBinding.instance.removeObserver(_lifecycleObserver);
     _sub?.cancel();
-    KumpasChannel.cancelAttempt();
+    final id = _attemptId;
+    if (id != null) {
+      unawaited(
+        KumpasChannel.cancelAttempt(attemptId: id).catchError((Object _) {}),
+      );
+    }
     super.dispose();
   }
 
@@ -110,8 +199,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
     final hint = _warmingUp
         ? 'Sinisimulan ang camera…'
         : !_signerVisible
-            ? 'Ilagay ang iyong mga kamay sa view'
-            : null;
+        ? 'Ilagay ang iyong mga kamay sa view'
+        : null;
 
     return Scaffold(
       body: Column(
@@ -133,18 +222,19 @@ class _PracticeScreenState extends State<PracticeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.sign.label,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                          Text('Pagsasanay • ${widget.sign.category}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: Colors.white70)),
+                          Text(
+                            widget.sign.label,
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          Text(
+                            'Pagsasanay • ${widget.sign.category}',
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(color: Colors.white70),
+                          ),
                         ],
                       ),
                     ),
@@ -165,14 +255,15 @@ class _PracticeScreenState extends State<PracticeScreen> {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        const AndroidView(
-                            viewType: 'kumpas/camera_preview'),
+                        const AndroidView(viewType: 'kumpas/camera_preview'),
                         Positioned(
                           top: 12,
                           right: 12,
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: colors.live,
                               borderRadius: BorderRadius.circular(12),
@@ -180,14 +271,20 @@ class _PracticeScreenState extends State<PracticeScreen> {
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.circle,
-                                    size: 8, color: Colors.white),
+                                Icon(
+                                  Icons.circle,
+                                  size: 8,
+                                  color: Colors.white,
+                                ),
                                 SizedBox(width: 4),
-                                Text('LIVE',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold)),
+                                Text(
+                                  'LIVE',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -205,16 +302,21 @@ class _PracticeScreenState extends State<PracticeScreen> {
                                     // Below the LIVE badge row to avoid overlap.
                                     margin: const EdgeInsets.only(top: 52),
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 14, vertical: 8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.black
-                                          .withValues(alpha: 0.55),
-                                      borderRadius:
-                                          BorderRadius.circular(20),
+                                      horizontal: 14,
+                                      vertical: 8,
                                     ),
-                                    child: Text(hint,
-                                        style: const TextStyle(
-                                            color: Colors.white)),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withValues(
+                                        alpha: 0.55,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      hint,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                           ),
                         ),
@@ -224,21 +326,26 @@ class _PracticeScreenState extends State<PracticeScreen> {
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 12),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 14, vertical: 8),
+                                horizontal: 14,
+                                vertical: 8,
+                              ),
                               decoration: BoxDecoration(
-                                color:
-                                    Colors.black.withValues(alpha: 0.55),
+                                color: Colors.black.withValues(alpha: 0.55),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.visibility,
-                                      size: 16, color: Colors.white70),
+                                  const Icon(
+                                    Icons.visibility,
+                                    size: 16,
+                                    color: Colors.white70,
+                                  ),
                                   const SizedBox(width: 6),
-                                  Text('nakikita: $_liveLabel',
-                                      style: const TextStyle(
-                                          color: Colors.white)),
+                                  Text(
+                                    'nakikita: $_liveLabel',
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                 ],
                               ),
                             ),
@@ -272,9 +379,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                         label: const Text('Subukan ang Senyas'),
                         onPressed: _startAttempt,
                       ),
-                SizedBox(
-                    height:
-                        MediaQuery.of(context).padding.bottom + 8),
+                SizedBox(height: MediaQuery.of(context).padding.bottom + 8),
               ],
             ),
           ),

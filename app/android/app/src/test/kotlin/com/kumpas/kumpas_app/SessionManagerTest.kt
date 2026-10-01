@@ -2,6 +2,7 @@ package com.kumpas.kumpas_app
 
 import android.content.Context
 import org.json.JSONArray
+import org.json.JSONObject
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -331,6 +332,201 @@ class SessionManagerTest {
         assertEquals(2, assessments.length())
         assertEquals("pre", assessments.getJSONObject(0).getString("type"))
         assertEquals("post", assessments.getJSONObject(1).getString("type"))
+    }
+
+    @Test
+    fun clearAllData_removesActualExportsAndMigrationResidueAcrossRoots() {
+        manager.recordAttempt(attemptJson())
+        val externalExport = File(DataExporter(context).export(manager.participantId, probe))
+        val fallback = object : android.content.ContextWrapper(context) {
+            override fun getExternalFilesDir(type: String?): File? = null
+        }
+        val internalExport = File(DataExporter(fallback).export("old-participant", probe))
+        val legacy = File(context.filesDir, "attempt_history.jsonl").apply { writeText(JSONObject(attemptJson()).toString()) }
+        val migrated = File(context.filesDir, "attempt_history.jsonl.migrated").apply { writeText(attemptJson()) }
+        val sentinel = File(context.filesDir, "keep.txt").apply { writeText("keep") }
+        val externalSentinel = File(externalExport.parentFile, "keep.json").apply { writeText("keep") }
+        manager.clearAllData()
+        for (file in listOf(externalExport, internalExport, legacy, migrated)) {
+            assertFalse("managed residue: ${file.name}", file.exists())
+        }
+        assertEquals("keep", sentinel.readText())
+        assertEquals("keep", externalSentinel.readText())
+        assertEquals("[]", manager.historyJson())
+        manager.clearAllData()
+        assertEquals("[]", SessionManager(context).historyJson())
+    }
+
+    @Test
+    fun managerOperations_shareTheManagerMonitor() {
+        val operations = listOf<() -> Unit>(
+            { manager.recordAttempt(attemptJson()) }, { manager.startSession() },
+            { manager.endSession() }, { manager.saveAssessment("pre", "{}") },
+            { manager.clearAllData() }, { manager.onPause() }, { manager.onResume() },
+            { manager.historyJson() }, { manager.getAssessments() },
+            { manager.getActiveSessionId() }, { manager.participantId }
+        )
+        for (operation in operations) {
+            val entered = java.util.concurrent.CountDownLatch(1)
+            val error = java.util.concurrent.atomic.AtomicReference<Throwable>()
+            val worker = Thread {
+                entered.countDown()
+                try { operation() } catch (t: Throwable) { error.set(t) }
+            }
+            var blocked = false
+            synchronized(manager) {
+                worker.start()
+                assertTrue(entered.await(2, java.util.concurrent.TimeUnit.SECONDS))
+                val deadline = System.nanoTime() + 2_000_000_000L
+                while (worker.isAlive && worker.state != Thread.State.BLOCKED && System.nanoTime() < deadline) Thread.yield()
+                blocked = worker.state == Thread.State.BLOCKED
+            }
+            worker.join(5000)
+            assertFalse("operation did not finish", worker.isAlive)
+            error.get()?.let { throw AssertionError(it) }
+            assertTrue("operation bypassed manager serialization", blocked)
+        }
+    }
+
+    @Test
+    fun clearAllData_unavailableExternalStorageFailsWithoutClaimingSuccess() {
+        val unavailable = object : android.content.ContextWrapper(context) {
+            override fun getExternalFilesDir(type: String?): File? = null
+        }
+        manager.recordAttempt(attemptJson())
+        val failing = SessionManager(unavailable)
+        try {
+            failing.clearAllData()
+            org.junit.Assert.fail("unavailable storage must fail closed")
+        } catch (_: java.io.IOException) { }
+        assertEquals(1, probe.getAttemptCount())
+        manager.clearAllData()
+        assertEquals(0, probe.getAttemptCount())
+    }
+
+    @Test
+    fun clearAllData_cannotListExternalStorageFailsClosed() {
+        val unreadable = object : android.content.ContextWrapper(context) {
+            override fun getExternalFilesDir(type: String?): File = object : File(context.filesDir, "unreadable") {
+                override fun listFiles(): Array<File>? = null
+            }
+        }
+        try {
+            SessionManager(unreadable).clearAllData()
+            org.junit.Assert.fail("uninspectable storage must fail closed")
+        } catch (_: java.io.IOException) { }
+    }
+
+    @Test
+    fun clearAllData_failedDeletionPreservesUnrelatedDirectoryContentsAndCanRetry() {
+        val blocked = File(context.getExternalFilesDir(null), "kumpas_export_old_20260101.json")
+        assertTrue(blocked.mkdir())
+        val sentinel = File(blocked, "keep.txt").apply { writeText("untouched") }
+        manager.recordAttempt(attemptJson())
+        try {
+            manager.clearAllData()
+            org.junit.Assert.fail("unexpected managed directory must not report success")
+        } catch (_: java.io.IOException) { }
+        assertEquals("untouched", sentinel.readText())
+        assertEquals(1, probe.getAttemptCount())
+        assertTrue(sentinel.delete())
+        assertTrue(blocked.delete())
+        manager.clearAllData()
+        assertEquals("[]", manager.historyJson())
+    }
+
+    @Test
+    fun clearAllData_databaseFailureAfterFileRemovalIsHonestAndRetryable() {
+        manager.recordAttempt(attemptJson())
+        val exported = File(DataExporter(context).export(manager.participantId, probe))
+        probe.writableDatabase.execSQL("CREATE TRIGGER refuse_clear BEFORE DELETE ON participants BEGIN SELECT RAISE(ABORT, 'synthetic failure'); END")
+        try {
+            manager.clearAllData()
+            org.junit.Assert.fail("database failure must propagate")
+        } catch (_: android.database.sqlite.SQLiteException) { }
+        assertFalse(exported.exists())
+        assertEquals(1, probe.getAttemptCount())
+        probe.writableDatabase.execSQL("DROP TRIGGER refuse_clear")
+        manager.clearAllData()
+        assertEquals("[]", SessionManager(context).historyJson())
+    }
+
+    @Test
+    fun clearAllData_failedPreferenceCommitIsHonestAndRetryable() {
+        val real = context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE)
+        var refuseCommit = false
+        val wrappedPrefs = object : android.content.SharedPreferences by real {
+            override fun edit(): android.content.SharedPreferences.Editor {
+                val editor = real.edit()
+                return object : android.content.SharedPreferences.Editor by editor {
+                    override fun putString(key: String?, value: String?): android.content.SharedPreferences.Editor {
+                        editor.putString(key, value)
+                        return this
+                    }
+                    override fun putBoolean(key: String?, value: Boolean): android.content.SharedPreferences.Editor {
+                        editor.putBoolean(key, value)
+                        return this
+                    }
+                    override fun commit(): Boolean = if (refuseCommit) false else editor.commit()
+                }
+            }
+        }
+        val wrapped = object : android.content.ContextWrapper(context) {
+            override fun getSharedPreferences(name: String?, mode: Int) = wrappedPrefs
+        }
+        val failing = SessionManager(wrapped)
+        failing.recordAttempt(attemptJson())
+        refuseCommit = true
+        try {
+            failing.clearAllData()
+            org.junit.Assert.fail("commit failure must propagate")
+        } catch (_: java.io.IOException) { }
+        assertEquals(0, probe.getAttemptCount()) // filesystem/DB/prefs cannot be one atomic transaction
+        refuseCommit = false
+        failing.clearAllData()
+        val reopened = SessionManager(context)
+        assertEquals(failing.participantId, reopened.participantId)
+        assertEquals("[]", reopened.historyJson())
+        assertTrue(real.getBoolean("jsonl_migrated", false))
+    }
+
+    @Test
+    fun clearAllData_removesRealMigrationAndPreventsReimportOnReopen() {
+        context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().clear().commit()
+        resetDatabase()
+        val legacy = File(context.filesDir, "attempt_history.jsonl").apply { writeText(JSONObject(attemptJson()).toString()) }
+        val migrated = SessionManager(context)
+        assertEquals(1, probe.getAttemptCount())
+        val backup = File(context.filesDir, "attempt_history.jsonl.migrated")
+        assertTrue(backup.exists())
+        migrated.clearAllData()
+        assertFalse(backup.exists())
+        val newId = migrated.participantId
+        legacy.writeText(attemptJson()) // an old copy cannot bypass the completed marker
+        val reopened = SessionManager(context)
+        assertEquals(newId, reopened.participantId)
+        assertEquals("[]", reopened.historyJson())
+        reopened.clearAllData()
+        assertFalse(legacy.exists())
+        probe.readableDatabase.rawQuery("SELECT COUNT(*) FROM participants", null).use {
+            assertTrue(it.moveToFirst())
+            assertEquals(1, it.getInt(0))
+        }
+    }
+
+    @Test
+    fun clearAllData_redirectedExportDirectoryMustNotDeleteUnrelatedFiles() {
+        val elsewhere = File(context.filesDir, "unrelated").apply { mkdirs() }
+        val sentinel = File(elsewhere, "kumpas_export_old_20260101.json").apply { writeText("unrelated") }
+        val exports = File(context.filesDir, "exports")
+        java.nio.file.Files.createSymbolicLink(exports.toPath(), elsewhere.toPath())
+        try {
+            manager.clearAllData()
+            org.junit.Assert.fail("redirected directory must fail closed")
+        } catch (_: java.io.IOException) { }
+        assertEquals("unrelated", sentinel.readText())
+        java.nio.file.Files.delete(exports.toPath())
+        manager.clearAllData()
     }
 
     // ─── Data management ────────────────────────────────────────────

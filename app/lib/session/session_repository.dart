@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import '../feedback_engine/kumpas_channel.dart';
 import '../feedback_engine/models.dart';
 
@@ -12,6 +13,7 @@ class SessionRepository {
 
   String? _activeSessionId;
   String? _participantId;
+  final dataRevision = ValueNotifier<int>(0);
 
   /// Whether a practice session is currently active.
   bool get hasActiveSession => _activeSessionId != null;
@@ -52,8 +54,7 @@ class SessionRepository {
   Future<void> saveAssessment({
     required String type,
     required Map<String, dynamic> responses,
-  }) =>
-      KumpasChannel.saveAssessment(type: type, responses: responses);
+  }) => KumpasChannel.saveAssessment(type: type, responses: responses);
 
   /// Get all saved assessments for the current participant.
   Future<List<Map<String, dynamic>>> getAssessments() =>
@@ -64,8 +65,13 @@ class SessionRepository {
 
   /// Permanently clear all session data and reset the participant ID.
   Future<void> clearAllData() async {
-    await KumpasChannel.clearAllData();
-    _activeSessionId = null;
-    _participantId = null;
+    try {
+      await KumpasChannel.clearAllData();
+    } finally {
+      // A partial native purge must not leave old cached study data visible.
+      _activeSessionId = null;
+      _participantId = null;
+      dataRevision.value++;
+    }
   }
 }

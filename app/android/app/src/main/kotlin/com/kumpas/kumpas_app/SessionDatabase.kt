@@ -261,10 +261,16 @@ class SessionDatabase(context: Context) :
 
     fun clearAll() {
         val db = writableDatabase
-        db.delete(T_ATTEMPTS, null, null)
-        db.delete(T_ASSESSMENTS, null, null)
-        db.delete(T_SESSIONS, null, null)
-        db.delete(T_PARTICIPANTS, null, null)
+        db.beginTransaction()
+        try {
+            db.delete(T_ATTEMPTS, null, null)
+            db.delete(T_ASSESSMENTS, null, null)
+            db.delete(T_SESSIONS, null, null)
+            db.delete(T_PARTICIPANTS, null, null)
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
     }
 
     fun getAttemptCount(): Int {

@@ -57,7 +57,15 @@ the condition label in the benchmark log entry:
 - [ ] Device positioned on tripod / stable surface: yes / no
 - [ ] Camera distance to signer: ~_____ cm (target: 60–90 cm)
 - [ ] Setup photo taken and saved to `benchmarking/setup_photos/`
-- [ ] Duration planned: ≥60 seconds continuous
+- [ ] Duration planned: ≥60 seconds continuous; note returned unique run ID
+- [ ] Explicit ADB serial and package `com.kumpas.kumpas_app` recorded
+- [ ] Physical target-class phone (Helio G / Snapdragon 6, ≥4GB RAM); emulator is diagnostic only
+- [ ] Front camera selected; maintain 60–90cm distance for the complete run
+- [ ] APK/model SHA-256, app build/version, device/chip/RAM and thermal state recorded
+- [ ] Analyzer/selected/processed/event counters and all second bins retained, including stalls
+- [ ] Native latency attempts include first/final analyzer, native result and event boundaries
+- [ ] Failure/cancellation trials recorded separately; no fabricated attempts/counts
+- [ ] No participant video/landmarks stored in benchmark reports or committed; setup photos exclude people
 
 ## Labeling Convention
 

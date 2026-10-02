@@ -14,8 +14,13 @@ import 'theme.dart';
 /// (~4s window), then corrective feedback from the native engine.
 class PracticeScreen extends StatefulWidget {
   final Sign sign;
+  final int? benchmarkDurationSeconds;
 
-  const PracticeScreen({super.key, required this.sign});
+  const PracticeScreen({
+    super.key,
+    required this.sign,
+    this.benchmarkDurationSeconds,
+  });
 
   @override
   State<PracticeScreen> createState() => _PracticeScreenState();
@@ -33,6 +38,10 @@ class _PracticeScreenState extends State<PracticeScreen>
   String? _attemptId;
   int _requestGeneration = 0;
   Timer? _attemptTimeout;
+  bool _benchmarkStarted = false;
+  bool _benchmarkStarting = false;
+  Timer? _benchmarkWarmup;
+  String? _benchmarkRunId;
   late SessionLifecycleObserver _lifecycleObserver;
 
   @override
@@ -46,11 +55,23 @@ class _PracticeScreenState extends State<PracticeScreen>
       _onEvent,
       onError: (Object error) => _captureError('Camera stream error: $error'),
     );
+    if (widget.benchmarkDurationSeconds != null) {
+      _benchmarkWarmup = Timer(const Duration(seconds: 3), () {
+        if (mounted && !_benchmarkStarted) {
+          unawaited(_startBenchmark());
+        }
+      });
+    }
   }
 
   void _onEvent(Map<String, dynamic> m) {
     if (!mounted) return;
     final state = m['state'];
+    if ((state == 'prediction' || state == 'no_signer') &&
+        widget.benchmarkDurationSeconds != null &&
+        !_benchmarkStarted) {
+      unawaited(_startBenchmark());
+    }
     if (state == 'attempt_progress' ||
         state == 'attempt_result' ||
         state == 'attempt_failed') {
@@ -101,6 +122,10 @@ class _PracticeScreenState extends State<PracticeScreen>
         );
       case 'camera_error':
         _captureError(m['reason'] as String? ?? 'Camera unavailable');
+      case 'benchmark_complete':
+        final report = m['results'];
+        if (_benchmarkRunId == null || report is! Map || report['run_id'] != _benchmarkRunId) return;
+        _showBenchmarkIdentity('Benchmark complete');
       case 'prediction':
         setState(() {
           _warmingUp = false;
@@ -124,6 +149,12 @@ class _PracticeScreenState extends State<PracticeScreen>
       _attemptRunning = true;
       _collected = 0;
     });
+    _attemptTimeout?.cancel();
+    _attemptTimeout = Timer(const Duration(seconds: 30), () {
+      if (generation == _requestGeneration && _attemptRunning) {
+        _captureError('Capture timed out. Please try again.', outcome: 'timeout');
+      }
+    });
     try {
       final id = await KumpasChannel.startAttempt(widget.sign.id);
       if (!mounted || generation != _requestGeneration || !_attemptRunning) {
@@ -131,9 +162,6 @@ class _PracticeScreenState extends State<PracticeScreen>
         return;
       }
       _attemptId = id;
-      _attemptTimeout = Timer(const Duration(seconds: 30), () {
-        _captureError('Capture timed out. Please try again.');
-      });
     } catch (error) {
       if (mounted && generation == _requestGeneration) {
         _captureError('Could not start capture: $error');
@@ -141,7 +169,41 @@ class _PracticeScreenState extends State<PracticeScreen>
     }
   }
 
-  Future<void> _cancelAttempt() async {
+  Future<void> _startBenchmark() async {
+    if (_benchmarkStarted || _benchmarkStarting || !mounted) return;
+    _benchmarkStarting = true;
+    try {
+      final id = await KumpasChannel.startBenchmark(
+        durationSeconds: widget.benchmarkDurationSeconds!,
+      );
+      _benchmarkStarted = true;
+      _benchmarkRunId = id;
+      if (mounted) _showBenchmarkIdentity('Benchmark running');
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Benchmark could not start: $error'),
+            action: SnackBarAction(label: 'Retry', onPressed: _startBenchmark)),
+        );
+      }
+    } finally {
+      _benchmarkStarting = false;
+    }
+  }
+
+  void _showBenchmarkIdentity(String status) {
+    final id = _benchmarkRunId!;
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(minutes: 2),
+      content: Text('$status: $id. USB report; physical gates remain separate.'),
+      action: SnackBarAction(label: 'Copy ID', onPressed: () {
+        unawaited(Clipboard.setData(ClipboardData(text: id)));
+      }),
+    ));
+  }
+
+  Future<void> _cancelAttempt({String outcome = 'cancelled'}) async {
     final id = _attemptId;
     _requestGeneration++;
     _attemptId = null;
@@ -149,7 +211,7 @@ class _PracticeScreenState extends State<PracticeScreen>
     if (mounted) setState(() => _attemptRunning = false);
     if (id != null) {
       try {
-        await KumpasChannel.cancelAttempt(attemptId: id);
+        await KumpasChannel.cancelAttempt(attemptId: id, outcome: outcome);
       } catch (error) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -160,9 +222,9 @@ class _PracticeScreenState extends State<PracticeScreen>
     }
   }
 
-  void _captureError(String message) {
+  void _captureError(String message, {String outcome = 'cancelled'}) {
     if (!mounted) return;
-    unawaited(_cancelAttempt());
+    unawaited(_cancelAttempt(outcome: outcome));
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
@@ -180,6 +242,7 @@ class _PracticeScreenState extends State<PracticeScreen>
     WidgetsBinding.instance.removeObserver(this);
     _requestGeneration++;
     _attemptTimeout?.cancel();
+    _benchmarkWarmup?.cancel();
     _lifecycleObserver.setPracticeActive(false);
     WidgetsBinding.instance.removeObserver(_lifecycleObserver);
     _sub?.cancel();

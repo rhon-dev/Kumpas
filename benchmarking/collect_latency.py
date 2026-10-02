@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
-"""KUMPAS Phase 13 — Collect on-device latency benchmark results.
+"""Collect native final-analyzer-to-event latency from a schema-v2 run.
 
-Runs the Android instrumented latency test via adb, parses the JSON output
-from logcat, and appends the result to benchmark_history.json.
-
-Usage:
-    python collect_latency.py [--model-version VERSION] [--condition CONDITION] [--notes "..."]
-
-Prerequisites:
-    - Device connected via adb
-    - App installed with androidTest APK
-    - LatencyBenchmarkTest class available
+Requires --serial SERIAL --run-id RUN_ID --condition CONDITION.
+--interpreter-only runs the legacy instrumentation as a separate diagnostic;
+it never passes the camera/analyzer gate, even with a fast interpreter.
 """
 
 import argparse
@@ -19,136 +12,106 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from log_utils import append_entry, make_timestamp  # noqa: E402
 
-APP_PACKAGE = "com.kumpas.app"
+import collect_fps as fps
+from collect_fps import validate_report, finite_number
+import math
+
+APP_PACKAGE = "com.kumpas.kumpas_app"
 TEST_CLASS = f"{APP_PACKAGE}.benchmark.LatencyBenchmarkTest"
 LOGCAT_TAG = "KumpasBenchmark"
 
 
-def get_device_info() -> str:
-    """Get device model and chip info from adb."""
-    try:
-        model = subprocess.check_output(
-            ["adb", "shell", "getprop", "ro.product.model"],
-            text=True
-        ).strip()
-        chip = subprocess.check_output(
-            ["adb", "shell", "getprop", "ro.hardware.chipname"],
-            text=True
-        ).strip()
-        ram = subprocess.check_output(
-            ["adb", "shell", "cat", "/proc/meminfo"],
-            text=True
-        )
-        # Parse total RAM
-        mem_match = re.search(r"MemTotal:\s+(\d+)\s+kB", ram)
-        ram_gb = f"{int(mem_match.group(1)) / 1048576:.0f}GB" if mem_match else "?GB"
-        return f"{model} / {chip} / {ram_gb}"
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return "unknown_device"
+def summarize(values):
+    if not values:
+        return {"n": 0, "p50": None, "p95": None}
+    ordered = sorted(values)
+    return {"n": len(values), "p50": ordered[math.ceil(len(values) * .50) - 1],
+            "p95": ordered[math.ceil(len(values) * .95) - 1]}
 
 
-def clear_logcat():
-    """Clear logcat buffer before test."""
-    subprocess.run(["adb", "logcat", "-c"], check=False)
+def assess_report(report: Any, expected_run_id):
+    errors = validate_report(report, expected_run_id, require_fps=False)
+    event, inference, collection, ack, first_ack, trace_errors = fps.trace_samples(report, expected_run_id, require_traces=True)
+    errors.extend(trace_errors)
+    errors.extend(fps.validate_attempt_accounting(report, require_latency=True))
+    event_summary = summarize(event)
+    if event_summary["p95"] is not None and event_summary["p95"] >= 150:
+        errors.append("final analyzer to event p95 must be below 150ms")
+    return {"gate_pass": not errors, "rejection_reasons": errors,
+            "boundary": "final_analyzer_to_event_ms", "event_latency_ms": event_summary,
+            "ui_ack_upper_bound_ms": summarize(ack), "first_analyzer_to_ui_ack_upper_bound_ms": summarize(first_ack),
+            "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+            "collection_interval_ms": summarize(collection),
+            "interpreter_inference_diagnostic_ms": summarize(inference)}
 
 
-def run_instrumented_test() -> bool:
-    """Run the latency benchmark instrumented test."""
-    print("Running instrumented test...")
-    result = subprocess.run(
-        ["adb", "shell", "am", "instrument", "-w",
-         "-e", "class", TEST_CLASS,
-         f"{APP_PACKAGE}.test/androidx.test.runner.AndroidJUnitRunner"],
-        capture_output=True, text=True
-    )
-    print(result.stdout)
-    if result.returncode != 0:
-        print(f"Test failed: {result.stderr}")
-        return False
-    return "OK" in result.stdout or "PASSED" in result.stdout.upper()
+def assess_interpreter_diagnostic(report: Any):
+    valid = isinstance(report, dict) and type(report.get("n_inferences")) is int and report["n_inferences"] > 0
+    valid = valid and all(finite_number(report.get(k)) and report[k] >= 0 for k in ("p50_ms", "p95_ms"))
+    return {"gate_pass": False, "diagnostic_valid": bool(valid),
+            "boundary": "interpreter_only_not_camera_pipeline",
+            "rejection_reasons": ["interpreter-only timings cannot close camera/analyzer latency gate"]}
 
 
-def parse_logcat_results() -> dict | None:
-    """Parse benchmark results from logcat."""
-    result = subprocess.run(
-        ["adb", "logcat", "-d", "-s", f"{LOGCAT_TAG}:I"],
-        capture_output=True, text=True
-    )
+def collect_interpreter(serial):
+    if fps.adb(serial, "get-state") != "device":
+        raise RuntimeError("selected device is offline")
+    for package in (APP_PACKAGE, APP_PACKAGE + ".test"):
+        if not fps.adb(serial, "shell", "pm", "path", package).startswith("package:"):
+            raise RuntimeError("missing installed package: " + package)
+    device = {"serial": serial}
+    for key, prop in [("model", "ro.product.model"), ("hardware", "ro.hardware"),
+                      ("manufacturer", "ro.product.manufacturer"), ("fingerprint", "ro.build.fingerprint")]:
+        device[key] = fps.adb(serial, "shell", "getprop", prop)
+    device["is_emulator"] = serial.startswith("emulator-") or fps.is_emulator(device) or fps.adb(serial, "shell", "getprop", "ro.kernel.qemu") == "1"
+    fps.adb(serial, "logcat", "-c")
+    output = fps.adb(serial, "shell", "am", "instrument", "-w", "-e", "class", TEST_CLASS,
+                     APP_PACKAGE + ".test/androidx.test.runner.AndroidJUnitRunner")
+    errors = []
+    if not re.search(r"OK \(\d+ tests?\)", output) or "FAILURES" in output or "INSTRUMENTATION_FAILED" in output:
+        errors.append("interpreter instrumentation did not report a passing test")
+    raw = fps.adb(serial, "logcat", "-d", "-s", LOGCAT_TAG + ":I")
+    matches = re.findall(r"BENCHMARK_RESULT\s+(\{.*\})", raw)
+    report = None
+    if len(matches) != 1:
+        errors.append("missing/ambiguous diagnostic log result")
+    else:
+        try:
+            report = fps.strict_json_loads(matches[0])
+        except ValueError as error:
+            errors.append("malformed diagnostic JSON")
+    if report is not None:
+        report, unsafe = fps.safe_payload(report, fps.REPORT)
+        if unsafe:
+            errors.append("unsafe or unsupported diagnostic fields rejected")
+    return {"report": report, "device": device, "collection_errors": errors}
 
-    # Look for JSON output tagged with our marker
-    for line in result.stdout.splitlines():
-        if "BENCHMARK_RESULT" in line:
-            # Extract JSON between braces
-            match = re.search(r"\{.*\}", line)
-            if match:
-                try:
-                    return json.loads(match.group())
-                except json.JSONDecodeError:
-                    continue
-    return None
 
-
-def main():
+def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--model-version", default="unknown",
-                    help="Model version identifier")
-    ap.add_argument("--condition", default="optimal",
-                    choices=["optimal", "low_light", "cluttered", "n/a"],
-                    help="Environment condition")
-    ap.add_argument("--notes", default="", help="Free-text notes")
-    args = ap.parse_args()
-
-    print("=" * 60)
-    print("KUMPAS Latency Benchmark Collector")
-    print("=" * 60)
-
-    # Get device info
-    device = get_device_info()
-    print(f"Device: {device}")
-
-    # Clear logcat and run test
-    clear_logcat()
-    success = run_instrumented_test()
-
-    if not success:
-        print("ERROR: Instrumented test did not pass.")
-        print("Ensure the test APK is installed and the device is connected.")
-        return 1
-
-    # Parse results
-    results = parse_logcat_results()
-    if not results:
-        print("ERROR: Could not parse benchmark results from logcat.")
-        print(f"Check: adb logcat -s {LOGCAT_TAG}:I")
-        return 1
-
-    print(f"\nResults: {json.dumps(results, indent=2)}")
-
-    # Gate check
-    p95 = results.get("p95_ms", results.get("p95", 999))
-    gate_pass = p95 < 150
-    gate_str = "✅ PASS" if gate_pass else "❌ FAIL"
-    print(f"\np95 latency: {p95:.1f}ms (gate <150ms → {gate_str})")
-
-    # Build and append entry
-    entry = {
-        "timestamp": make_timestamp(),
-        "benchmark_type": "latency",
-        "model_version": args.model_version,
-        "device": device,
-        "condition": args.condition,
-        "results": results,
-        "gate_pass": gate_pass,
-        "notes": args.notes,
-    }
-    append_entry(entry)
-    print("Logged to benchmark_history.json")
-    print("=" * 60)
-    return 0 if gate_pass else 1
+    ap.add_argument("--serial", required=True)
+    ap.add_argument("--run-id", help="Required for camera report, ID returned by benchmark start")
+    ap.add_argument("--interpreter-only", action="store_true", help="Legacy diagnostic only, never a camera gate")
+    ap.add_argument("--model-version", default="unknown")
+    ap.add_argument("--condition", required=True, choices=["optimal", "low_light", "cluttered", "n/a"])
+    ap.add_argument("--notes", default="")
+    args = ap.parse_args(argv)
+    if not args.interpreter_only:
+        if not args.run_id or args.condition == "n/a":
+            ap.error("camera collection requires --run-id and a camera condition")
+        collected = fps.collect(args)
+        assessment = assess_report(collected["report"], args.run_id)
+        return fps.log_collection(args, collected, "latency", assessment)
+    try:
+        collected = collect_interpreter(args.serial)
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
+        collected = {"report": None, "raw_report": None, "device": {"serial": args.serial}, "collection_errors": [str(error)]}
+    assessment = assess_interpreter_diagnostic(collected["report"])
+    return fps.log_collection(args, collected, "interpreter_latency_diagnostic", assessment)
 
 
 if __name__ == "__main__":

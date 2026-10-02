@@ -1,0 +1,3 @@
+candidate_id,model_candidate,indexed_chip,indexed_ram_variants,provenance,source,availability,status
+redmi_note_11_4gb_candidate,Redmi Note 11,Snapdragon 680,4GB/64GB;4GB/128GB;6GB/128GB,Manufacturer search-index excerpt only; direct fetch blocked,https://www.mi.com/global/product/redmi-note-11/specs,UNVERIFIED,BLOCKED
+additional_device_unverified,,,,Additional device slot; all specifications pending local verification,,UNVERIFIED,BLOCKED

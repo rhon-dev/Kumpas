@@ -30,6 +30,8 @@ class DataExporter(private val context: Context) {
     /**
      * Export all data for the given participant to a JSON file.
      * Returns the absolute file path on success, or throws on failure.
+     * Borrows [db]: the caller must close its helper in use/finally on both paths.
+     * The caller must also serialize this export with SessionManager persistence/purge.
      */
     fun export(participantId: String, db: SessionDatabase): String {
         val root = buildExportJson(participantId, db)

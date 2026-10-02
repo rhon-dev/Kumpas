@@ -56,7 +56,11 @@ dependencies {
     implementation("androidx.camera:camera-camera2:$camerax")
     implementation("androidx.camera:camera-lifecycle:$camerax")
     implementation("androidx.camera:camera-view:$camerax")
-    implementation("com.google.mediapipe:tasks-vision:0.10.14")
+    implementation("com.google.mediapipe:tasks-vision:0.10.14") {
+        // AutoValue's compiler processor requires javax.lang.model, absent on Android.
+        // Runtime annotations remain available; do not hide missing classes with dontwarn.
+        exclude(group = "com.google.auto.value", module = "auto-value")
+    }
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
     testImplementation("org.robolectric:robolectric:4.12.1")

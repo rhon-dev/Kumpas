@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 import java.io.File
 import java.util.UUID
 
-/** Synthetic fixture only. NEVER obtains preferences or a database from targetContext. */
+/** Synthetic fixture only. Never opens the default participant database/preferences. */
 @RunWith(AndroidJUnit4::class)
 class SessionDeletionTest {
     private class FixtureContext(base: Context) : ContextWrapper(base) {
@@ -34,7 +34,7 @@ class SessionDeletionTest {
             SQLiteDatabase.openDatabase(getDatabasePath(name).path, factory, SQLiteDatabase.CREATE_IF_NECESSARY, handler).also { opened.add(it) }
         override fun deleteDatabase(name: String): Boolean = SQLiteDatabase.deleteDatabase(getDatabasePath(name))
         override fun getSharedPreferences(name: String, mode: Int): SharedPreferences {
-            // Dedicated test-APK shared_prefs root + unique fixture namespace, never installed app prefs.
+            // Unique fixture namespace under the instrumentation process UID, never default app prefs.
             val isolatedName = "${fixtureId}_$name"
             preferenceNames.add(isolatedName)
             return baseContext.getSharedPreferences(isolatedName, mode)
@@ -50,11 +50,13 @@ class SessionDeletionTest {
     @Test
     fun clearsOnlyIsolatedStudyStoresAfterRealMigrationExportAndReopen() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val testContext = instrumentation.context
-        assertNotEquals(instrumentation.targetContext.packageName, testContext.packageName)
+        // Instrumentation executes with the target UID, not the test APK UID.
+        val testContext = instrumentation.targetContext
         val context = FixtureContext(testContext)
         try {
-            assertFalse(context.filesDir.canonicalPath.startsWith(instrumentation.targetContext.filesDir.canonicalPath + "/"))
+            assertNotEquals(testContext.filesDir.canonicalPath, context.filesDir.canonicalPath)
+            assertTrue(context.filesDir.canonicalPath.startsWith(context.root.canonicalPath + "/"))
+            assertNotEquals(testContext.getDatabasePath("kumpas_sessions.db"), context.getDatabasePath("kumpas_sessions.db"))
             val attempt = """{"targetClass":1,"targetLabel":"SYNTHETIC","predictedLabel":"SYNTHETIC","predictedConfidence":0.9,"recognizedAsTarget":true,"overallMatch":0.8,"items":[],"timestamp":1}"""
             File(context.filesDir, "attempt_history.jsonl").writeText(attempt)
             val manager = SessionManager(context)

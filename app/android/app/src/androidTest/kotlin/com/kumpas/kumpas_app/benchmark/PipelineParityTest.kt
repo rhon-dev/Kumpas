@@ -59,12 +59,13 @@ class PipelineParityTest {
             InstrumentationRegistry.getArguments().getString("targetClass")
         ) { "pass -e targetClass with the known dense class ID" }.toInt()
         var attemptResult: JSONObject? = null
+        var returnedAttemptId = ""
         val attemptEngine = VisionEngine(context) { event ->
             val obj = JSONObject(event)
             if (obj.optString("state") == "attempt_result") attemptResult = obj
         }
         try {
-            attemptEngine.startAttempt(targetClass)
+            returnedAttemptId = attemptEngine.startAttempt(targetClass)
             for (i in 0 until listed.length()) {
                 val bytes = File(input, listed.getJSONObject(i).getString("filename")).readBytes()
                 val bitmap = requireNotNull(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
@@ -76,6 +77,11 @@ class PipelineParityTest {
         }
         assertTrue("expected exactly 30 frames", listed.length() == VisionEngine.SEQ_LEN)
         assertEquals(targetClass, requireNotNull(attemptResult).getInt("targetClass"))
+        assertEquals(returnedAttemptId, requireNotNull(attemptResult).getString("attemptId"))
+        val timing = requireNotNull(attemptResult).getJSONObject("timing")
+        assertTrue(timing.getLong("final_analyzer_ns") >= timing.getLong("first_analyzer_ns"))
+        assertTrue(timing.getLong("native_result_ns") >= timing.getLong("final_analyzer_ns"))
+        assertEquals("analyzer_entry_not_sensor_exposure", timing.getString("origin"))
         val output = File(requireNotNull(context.getExternalFilesDir(null)), "android_features.json")
         output.writeText(JSONObject().apply {
             put("schema", "kumpas-android-replay-v1")

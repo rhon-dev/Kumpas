@@ -1,0 +1,17 @@
+{
+  "status": "QUARANTINED_NOT_MEASURED_EVIDENCE",
+  "reason": "Original published figures misleadingly showed excluded retroactive emulator estimates as measured latency/FPS. Preserved byte-for-byte; never physical-phone acceptance.",
+  "history": "benchmarking/benchmark_history.json (unchanged)",
+  "artifacts": [
+    {
+      "original_path": "benchmarking/plots/latency_over_iterations.png",
+      "quarantined_path": "benchmarking/plots/historical_excluded_20261002/latency_over_iterations.png",
+      "sha256": "0819b5af3d6a9b9c3b3244e3ae5074b72a9b8ac2f5ee5b4ec57b51d0c000e576"
+    },
+    {
+      "original_path": "benchmarking/plots/fps_over_iterations.png",
+      "quarantined_path": "benchmarking/plots/historical_excluded_20261002/fps_over_iterations.png",
+      "sha256": "07c28c2031748492671ca913b0f22240e13b6da9cbfb230f555d29a52a0ce11b"
+    }
+  ]
+}

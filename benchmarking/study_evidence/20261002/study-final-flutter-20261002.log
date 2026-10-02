@@ -1,0 +1,16 @@
+Analyzing app...                                                
+No issues found! (ran in 1.9s)
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart
+00:00 +0: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_clear_test.dart: clear resets cached identity/session and invalidates visible data
+00:00 +1: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: high geometric match with wrong recognition is not mastery
+00:00 +2: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: both conditions must occur on the same attempt
+00:00 +3: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: exact threshold qualifies once; later failure does not revoke
+00:00 +4: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: next sign and category use the same predicate including empty history
+00:00 +5: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/widget_test.dart: app shell builds the approved five-tab navigation
+00:00 +6: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: cancelled and unsolicited results cannot open feedback
+00:00 +7: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: start errors restore retry without unhandled future
+00:01 +8: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: matching result opens feedback once and preserves wrong recognition
+00:01 +9: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: no signer failure allows retry and rejects a late result
+00:01 +10: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: benchmark starts once only after camera produces a full window
+00:01 +11: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: timeout cancels identity and restores capture
+00:01 +12: All tests passed!

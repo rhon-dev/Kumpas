@@ -1,0 +1,43 @@
+{
+  "artifact": "../kumpas-data/parity/study_20261002_emulator_fps.json",
+  "fps_gate_pass": false,
+  "fps_rejection_reasons": [
+    "emulator cannot pass physical-device gate",
+    "sustained analyzer throughput below 24 FPS"
+  ],
+  "latency": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "emulator cannot pass physical-device gate",
+      "missing camera/analyzer traces"
+    ],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    }
+  },
+  "history_modified": false
+}

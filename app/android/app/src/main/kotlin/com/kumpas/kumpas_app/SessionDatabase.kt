@@ -103,9 +103,11 @@ class SessionDatabase(context: Context) :
             put("device_model", deviceModel)
             put("app_version", appVersion)
         }
-        writableDatabase.insertWithOnConflict(
-            T_PARTICIPANTS, null, cv, SQLiteDatabase.CONFLICT_IGNORE
-        )
+        val database = writableDatabase
+        database.insertWithOnConflict(T_PARTICIPANTS, null, cv, SQLiteDatabase.CONFLICT_IGNORE)
+        database.query(T_PARTICIPANTS, arrayOf("id"), "id = ?", arrayOf(id), null, null, null).use {
+            if (!it.moveToFirst()) throw android.database.sqlite.SQLiteException("Participant was not saved")
+        }
     }
 
     fun getParticipant(): JSONObject? {
@@ -126,7 +128,9 @@ class SessionDatabase(context: Context) :
             put("started_at", System.currentTimeMillis())
             put("source", "app")
         }
-        return writableDatabase.insert(T_SESSIONS, null, cv)
+        val row = writableDatabase.insertOrThrow(T_SESSIONS, null, cv)
+        if (row < 0) throw android.database.sqlite.SQLiteException("Session was not saved")
+        return row
     }
 
     fun closeSession(sessionId: String) {
@@ -212,7 +216,9 @@ class SessionDatabase(context: Context) :
             put("overall_match", overallMatch)
             put("feedback_items", feedbackItems)
         }
-        return writableDatabase.insert(T_ATTEMPTS, null, cv)
+        val row = writableDatabase.insertOrThrow(T_ATTEMPTS, null, cv)
+        if (row < 0) throw android.database.sqlite.SQLiteException("Attempt was not saved")
+        return row
     }
 
     fun getAttempts(sessionId: String): JSONArray {
@@ -245,7 +251,9 @@ class SessionDatabase(context: Context) :
             put("timestamp", System.currentTimeMillis())
             put("responses", responses)
         }
-        return writableDatabase.insert(T_ASSESSMENTS, null, cv)
+        val row = writableDatabase.insertOrThrow(T_ASSESSMENTS, null, cv)
+        if (row < 0) throw android.database.sqlite.SQLiteException("Assessment was not saved")
+        return row
     }
 
     fun getAssessments(participantId: String): JSONArray {
@@ -267,6 +275,14 @@ class SessionDatabase(context: Context) :
             db.delete(T_ASSESSMENTS, null, null)
             db.delete(T_SESSIONS, null, null)
             db.delete(T_PARTICIPANTS, null, null)
+            // SQLite triggers can silently ignore DELETE; success requires verified absence.
+            for (table in listOf(T_ATTEMPTS, T_ASSESSMENTS, T_SESSIONS, T_PARTICIPANTS)) {
+                db.rawQuery("SELECT COUNT(*) FROM $table", null).use { cursor ->
+                    check(cursor.moveToFirst() && cursor.getLong(0) == 0L) {
+                        "Study-data cleanup incomplete: database rows remain; retry"
+                    }
+                }
+            }
             db.setTransactionSuccessful()
         } finally {
             db.endTransaction()

@@ -1,0 +1,7 @@
+candidate_id,condition,status,setup_id,run_id,device_fingerprint,actual_chip,actual_ram_gb,actual_camera_id,actual_lens,lux,distance_cm,apk_sha256,model_sha256,revision,thermal_state,duration_s,fps_gate,latency_gate,device_verified,setup_verified,consent_review,expert_review,owner_adviser_approval
+redmi_note_11_4gb_candidate,optimal,BLOCKED,,,,,,,,,,,,,,,,,,,,,
+redmi_note_11_4gb_candidate,low_light,BLOCKED,,,,,,,,,,,,,,,,,,,,,
+redmi_note_11_4gb_candidate,cluttered,BLOCKED,,,,,,,,,,,,,,,,,,,,,
+additional_device_unverified,optimal,BLOCKED,,,,,,,,,,,,,,,,,,,,,
+additional_device_unverified,low_light,BLOCKED,,,,,,,,,,,,,,,,,,,,,
+additional_device_unverified,cluttered,BLOCKED,,,,,,,,,,,,,,,,,,,,,

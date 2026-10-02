@@ -41,6 +41,7 @@ class SessionManager(private val context: Context) {
 
     private var activeSessionId: String? = null
     private var autoCloseRunnable: Runnable? = null
+    private var closed = false
 
     @get:Synchronized
     val participantId: String
@@ -226,6 +227,18 @@ class SessionManager(private val context: Context) {
         Log.i(TAG, "Managed study data cleared")
     }
 
+    /** Owns the helper; always release it and timers, even if summary persistence fails. */
+    @Synchronized
+    fun close() {
+        if (closed) return
+        closed = true
+        cancelAutoClose()
+        try { endSession() } finally {
+            activeSessionId = null
+            db.close()
+        }
+    }
+
     // ─── JSONL Migration ────────────────────────────────────────────
 
     private fun migrateIfNeeded() {
@@ -255,7 +268,8 @@ class SessionManager(private val context: Context) {
                 put("started_at", 0L) // will update from first attempt
                 put("source", "legacy_migration")
             }
-            wdb.insert(SessionDatabase.T_SESSIONS, null, sessionCv)
+            if (wdb.insertOrThrow(SessionDatabase.T_SESSIONS, null, sessionCv) < 0)
+                throw android.database.sqlite.SQLiteException("Legacy session was not saved")
 
             var firstTs = Long.MAX_VALUE
             var lastTs = 0L
@@ -288,6 +302,8 @@ class SessionManager(private val context: Context) {
                     signs.add(targetClass)
                     matchSum += match
                     count++
+                } catch (e: android.database.sqlite.SQLiteException) {
+                    throw e // Do not mark/rename a migration whose writes did not persist.
                 } catch (e: Exception) {
                     errors++
                     Log.w(TAG, "Migration: skipped line: ${e.message}")

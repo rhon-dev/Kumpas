@@ -32,6 +32,22 @@ import java.io.File
 @Config(sdk = [34])
 class SessionManagerTest {
 
+    /** Keep fixture helpers reachable and close every reopened handle after each test. */
+    private class TrackingDatabaseContext(base: Context) : android.content.ContextWrapper(base) {
+        private val opened = mutableListOf<android.database.sqlite.SQLiteDatabase>()
+
+        override fun openOrCreateDatabase(name: String, mode: Int, factory: android.database.sqlite.SQLiteDatabase.CursorFactory?): android.database.sqlite.SQLiteDatabase =
+            super.openOrCreateDatabase(name, mode, factory).also { opened.add(it) }
+
+        override fun openOrCreateDatabase(name: String, mode: Int, factory: android.database.sqlite.SQLiteDatabase.CursorFactory?, handler: android.database.DatabaseErrorHandler?): android.database.sqlite.SQLiteDatabase =
+            super.openOrCreateDatabase(name, mode, factory, handler).also { opened.add(it) }
+
+        fun closeFixtureDatabases() {
+            opened.forEach { if (it.isOpen) it.close() }
+            opened.clear()
+        }
+    }
+
     private lateinit var context: Context
     private lateinit var manager: SessionManager
 
@@ -62,7 +78,7 @@ class SessionManagerTest {
 
     @Before
     fun setUp() {
-        context = RuntimeEnvironment.getApplication()
+        context = TrackingDatabaseContext(RuntimeEnvironment.getApplication())
         manager = SessionManager(context)
         probe = SessionDatabase(context)
     }
@@ -70,6 +86,7 @@ class SessionManagerTest {
     @After
     fun tearDown() {
         probe.close()
+        (context as TrackingDatabaseContext).closeFixtureDatabases()
     }
 
     /** Wipe every table via an independent handle on the same SQLite file. */
@@ -80,6 +97,63 @@ class SessionManagerTest {
         } finally {
             helper.close()
         }
+    }
+
+    @Test
+    fun ignoredSessionInsertFailsWithoutCachingIdentity() {
+        probe.writableDatabase.execSQL("CREATE TRIGGER ignore_session BEFORE INSERT ON sessions BEGIN SELECT RAISE(IGNORE); END")
+        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { manager.startSession() }
+        assertNull(manager.getActiveSessionId())
+    }
+
+    @Test
+    fun ignoredAttemptInsertMustNotSucceed() {
+        probe.writableDatabase.execSQL("CREATE TRIGGER ignore_attempt BEFORE INSERT ON attempts BEGIN SELECT RAISE(IGNORE); END")
+        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { manager.recordAttempt(attemptJson()) }
+        assertEquals(0, probe.getAttemptCount())
+    }
+
+    @Test
+    fun ignoredAssessmentInsertMustNotSucceed() {
+        probe.writableDatabase.execSQL("CREATE TRIGGER ignore_assessment BEFORE INSERT ON assessments BEGIN SELECT RAISE(IGNORE); END")
+        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { manager.saveAssessment("pre", "{}") }
+        assertEquals("[]", manager.getAssessments())
+    }
+
+    @Test
+    fun ignoredParticipantInsertMustNotSucceed() {
+        resetDatabase()
+        probe.writableDatabase.execSQL("CREATE TRIGGER ignore_participant BEFORE INSERT ON participants BEGIN SELECT RAISE(IGNORE); END")
+        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { SessionManager(context) }
+    }
+
+    @Test
+    fun ignoredMigrationInsertRollsBackAndRetainsSourceForRetry() {
+        context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().putBoolean("jsonl_migrated", false).commit()
+        val source = File(context.filesDir, "attempt_history.jsonl").apply { writeText(JSONObject(attemptJson()).toString()) }
+        probe.writableDatabase.execSQL("CREATE TRIGGER ignore_migration BEFORE INSERT ON attempts BEGIN SELECT RAISE(IGNORE); END")
+        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { SessionManager(context) }
+        assertTrue(source.exists())
+        assertFalse(context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).getBoolean("jsonl_migrated", false))
+        probe.readableDatabase.rawQuery("SELECT COUNT(*) FROM sessions", null).use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
+        probe.writableDatabase.execSQL("DROP TRIGGER ignore_migration")
+        SessionManager(context)
+        assertEquals(1, probe.getAttemptCount())
+    }
+
+    @Test
+    fun closeCancelsTimerAndClosesOwnedHelperEvenWhenSessionSummaryFails() {
+        manager.startSession()
+        manager.onPause()
+        val owned = SessionManager::class.java.getDeclaredField("db").apply { isAccessible = true }.get(manager) as SessionDatabase
+        val database = owned.writableDatabase
+        probe.writableDatabase.execSQL("CREATE TRIGGER refuse_summary BEFORE UPDATE ON sessions BEGIN SELECT RAISE(ABORT, 'synthetic'); END")
+        val close = SessionManager::class.java.getMethod("close")
+        try { close.invoke(manager); org.junit.Assert.fail("summary failure should propagate") }
+        catch (e: java.lang.reflect.InvocationTargetException) { assertTrue(e.cause is android.database.sqlite.SQLiteException) }
+        assertFalse(database.isOpen)
+        close.invoke(manager) // teardown is idempotent
+        Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofSeconds(61))
     }
 
     // ─── Participant ────────────────────────────────────────────────
@@ -526,6 +600,55 @@ class SessionManagerTest {
         } catch (_: java.io.IOException) { }
         assertEquals("unrelated", sentinel.readText())
         java.nio.file.Files.delete(exports.toPath())
+        manager.clearAllData()
+    }
+
+    @Test
+    fun clearAllData_checksFreshParticipantPersistenceBeforeReportingSuccess() {
+        manager.recordAttempt(attemptJson())
+        probe.writableDatabase.execSQL("CREATE TRIGGER refuse_identity BEFORE INSERT ON participants BEGIN SELECT RAISE(IGNORE); END")
+        try {
+            manager.clearAllData()
+            org.junit.Assert.fail("missing fresh participant must report incomplete cleanup")
+        } catch (_: android.database.sqlite.SQLiteException) { }
+        assertEquals(0, probe.getAttemptCount())
+        assertNull(probe.getParticipant())
+        probe.writableDatabase.execSQL("DROP TRIGGER refuse_identity")
+        manager.clearAllData()
+        assertEquals(manager.participantId, probe.getParticipant()!!.getString("id"))
+        assertEquals(manager.participantId, SessionManager(context).participantId)
+    }
+
+    @Test
+    fun clearAllData_preservesNonExportNamesAndModelDataAcrossBothRoots() {
+        val roots = listOf(context.getExternalFilesDir(null)!!, File(context.filesDir, "exports").apply { mkdirs() })
+        val keep = mutableListOf<File>()
+        val remove = mutableListOf<File>()
+        for (root in roots) {
+            for (name in listOf("keep.json", "kumpas_export_notes.json", "kumpas_export_old_20260101.json.bak", "model.tflite", "reference_data.json")) {
+                keep.add(File(root, name).apply { writeText("unrelated-synthetic") })
+            }
+            for (name in listOf("kumpas_export_old_20260101.json", "kumpas_export_another-id_20260101_010203.json")) {
+                remove.add(File(root, name).apply { writeText("synthetic-export") })
+            }
+        }
+        manager.clearAllData()
+        for (file in keep) assertEquals(file.name, "unrelated-synthetic", file.readText())
+        for (file in remove) assertFalse(file.name, file.exists())
+    }
+
+    @Test
+    fun clearAllData_redirectedManagedFileNeverDeletesItsTarget() {
+        val target = File(context.filesDir, "unrelated-study-lookalike").apply { writeText("unrelated") }
+        val link = File(context.getExternalFilesDir(null), "kumpas_export_old_20260101.json")
+        java.nio.file.Files.createSymbolicLink(link.toPath(), target.toPath())
+        try {
+            manager.clearAllData()
+            org.junit.Assert.fail("redirected managed file must fail closed")
+        } catch (_: java.io.IOException) { }
+        assertEquals("unrelated", target.readText())
+        assertTrue(java.nio.file.Files.isSymbolicLink(link.toPath()))
+        java.nio.file.Files.delete(link.toPath())
         manager.clearAllData()
     }
 

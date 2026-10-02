@@ -40,22 +40,30 @@ class KumpasChannel {
     return id;
   }
 
-  static Future<void> cancelAttempt({String? attemptId}) =>
-      control.invokeMethod('cancelAttempt', {'attemptId': attemptId});
+  static Future<void> cancelAttempt({String? attemptId, String outcome = 'cancelled'}) =>
+      control.invokeMethod('cancelAttempt', {'attemptId': attemptId, 'outcome': outcome});
 
   /// Native records a monotonic presentation-ack upper bound, not display time.
   static Future<void> feedbackPresented(String attemptId) =>
       control.invokeMethod('feedbackPresented', {'attemptId': attemptId});
 
   /// Start FPS benchmark for the given duration.
-  static Future<void> startBenchmark({int durationSeconds = 60}) => control
-      .invokeMethod('startBenchmark', {'durationSeconds': durationSeconds});
+  static Future<String> startBenchmark({int durationSeconds = 60}) async {
+    final id = await control.invokeMethod<String>('startBenchmark', {'durationSeconds': durationSeconds});
+    if (id == null || !RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', caseSensitive: false).hasMatch(id)) {
+      throw StateError('Missing or invalid benchmark UUID');
+    }
+    return id;
+  }
 
   /// Stop a running benchmark early and get results.
-  static Future<String> stopBenchmark() async {
-    final raw = await control.invokeMethod<String>('stopBenchmark');
+  static Future<String> stopBenchmark({required String runId}) async {
+    final raw = await control.invokeMethod<String>('stopBenchmark', {'runId': runId});
     return raw ?? '{}';
   }
+
+  static Future<String?> getBenchmarkReport({required String runId}) =>
+      control.invokeMethod<String>('getBenchmarkReport', {'runId': runId});
 
   /// Check if benchmark mode is currently active.
   static Future<bool> isBenchmarkActive() async {

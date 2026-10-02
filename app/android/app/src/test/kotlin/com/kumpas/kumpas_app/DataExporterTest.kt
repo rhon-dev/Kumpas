@@ -204,6 +204,43 @@ class DataExporterTest {
     }
 
     @Test
+    fun export_unavailableExternalStorageUsesInternalFallbackAndLeavesBorrowedHelperOpen() {
+        seedSession("fallback-session", "SYNTHETIC")
+        val unavailable = object : android.content.ContextWrapper(context) {
+            override fun getExternalFilesDir(type: String?): File? = null
+        }
+        val path = DataExporter(unavailable).export(participantId, db)
+        val file = File(path)
+        assertEquals(File(context.filesDir, "exports").canonicalFile, file.parentFile!!.canonicalFile)
+        assertEquals(1, JSONObject(file.readText()).getJSONObject("summary").getInt("total_attempts"))
+        assertTrue("export borrows rather than owns the helper", db.readableDatabase.isOpen)
+        assertEquals(1, db.getAttemptCount())
+    }
+
+    @Test
+    fun export_writeFailurePropagatesWithoutClosingBorrowedHelper() {
+        val blocked = File(context.filesDir, "blocked-export-root").apply { writeText("sentinel") }
+        val unavailable = object : android.content.ContextWrapper(context) {
+            override fun getExternalFilesDir(type: String?): File = blocked
+        }
+        try {
+            DataExporter(unavailable).export(participantId, db)
+            org.junit.Assert.fail("cannot claim an export path when writing fails")
+        } catch (_: java.io.IOException) { }
+        assertEquals("sentinel", blocked.readText())
+        assertTrue("caller remains responsible for closing its helper", db.readableDatabase.isOpen)
+    }
+
+    @Test
+    fun export_successLeavesBorrowedDatabaseOpenUntilCallerClosesIt() {
+        val openDatabase = db.writableDatabase
+        exportAndParse()
+        assertTrue(openDatabase.isOpen)
+        db.close()
+        org.junit.Assert.assertFalse("caller use/finally must release the database", openDatabase.isOpen)
+    }
+
+    @Test
     fun export_afterClearAllProducesEmptyPayload() {
         seedSession("session-1", "AKO")
         db.insertAssessment(participantId, "pre", "{}")

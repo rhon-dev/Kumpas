@@ -36,8 +36,14 @@ def load_and_filter(btype: str, device: str | None, condition: str | None) -> li
         print(f"Error: {HISTORY_PATH} not found. Run a benchmark first.")
         sys.exit(1)
 
-    history = json.loads(HISTORY_PATH.read_text())
-    entries = [e for e in history if e["benchmark_type"] == btype]
+    try:
+        from collect_fps import strict_json_loads
+        history = strict_json_loads(HISTORY_PATH.read_text())
+    except (ValueError, OSError):
+        print("History unavailable/malformed; no measured performance data.")
+        return []
+    if not isinstance(history, list): return []
+    entries = [e for e in history if isinstance(e, dict) and e.get("benchmark_type") == btype]
 
     # Exclude retroactive estimates: they are hand-seeded from the Phase 4/5
     # emulator report, not measured runs, and must never appear in a thesis
@@ -49,12 +55,12 @@ def load_and_filter(btype: str, device: str | None, condition: str | None) -> li
     entries = [e for e in entries if e.get("provenance") != "retroactive-estimate"]
 
     if device:
-        entries = [e for e in entries if device.lower() in e.get("device", "").lower()]
+        entries = [e for e in entries if isinstance(e.get("device"), str) and device.lower() in e["device"].lower()]
     if condition:
         entries = [e for e in entries if e.get("condition") == condition]
 
     # Sort by timestamp
-    entries.sort(key=lambda e: e.get("timestamp", ""))
+    entries.sort(key=lambda e: e.get("timestamp") if isinstance(e.get("timestamp"), str) else "")
     return entries
 
 
@@ -89,85 +95,94 @@ def plot_accuracy(entries: list[dict], output_dir: Path) -> None:
     print(f"  → {out}")
 
 
-def plot_latency(entries: list[dict], output_dir: Path) -> None:
-    """Plot latency p95 over iterations."""
+def plot_no_measurements(kind: str, output_dir: Path, excluded: int = 0) -> None:
     import matplotlib.pyplot as plt
-
-    if not entries:
-        print("No latency entries found. Skipping.")
-        return
-
-    labels = []
-    p95_values = []
-    median_values = []
-
-    for e in entries:
-        r = e["results"]
-        labels.append(f"{e.get('device', '?')[:20]}\n{e['timestamp'][:10]}")
-        p95_values.append(r.get("p95_ms", r.get("p95", 0)))
-        median_values.append(r.get("median_ms", r.get("p50_ms", r.get("median", 0))))
-
     fig, ax = plt.subplots(figsize=(10, 5))
-    x = range(len(labels))
-    ax.bar(x, p95_values, width=0.4, align="edge", color="#1565C0", alpha=0.8, label="p95")
-    ax.bar([i - 0.4 for i in x], median_values, width=0.4, align="edge",
-           color="#42A5F5", alpha=0.8, label="Median")
-    ax.axhline(y=TARGETS["latency_p95_ms"], color="#D32F2F", linestyle="--",
-               linewidth=1.5, label=f"Target p95 <{TARGETS['latency_p95_ms']:.0f}ms")
-    ax.set_xticks(x)
-    ax.set_xticklabels(labels, fontsize=8)
-    ax.set_ylabel("Latency (ms)")
-    ax.set_xlabel("Device / Date")
-    ax.set_title("Inference Latency Across Runs")
-    ax.legend(loc="upper right")
-    ax.grid(True, alpha=0.3, axis="y")
-    plt.tight_layout()
+    ax.axis("off")
+    ax.set_title("Camera pipeline latency" if kind == "latency" else "CameraX analyzer throughput")
+    ax.text(.5, .55, "No measured camera-pipeline data available", ha="center", va="center", fontsize=17, transform=ax.transAxes)
+    ax.text(.5, .35, "Physical-device acceptance remains BLOCKED\nHistorical estimates and interpreter-only diagnostics are excluded.\nRejected/malformed rows are not converted to zeros.",
+            ha="center", va="center", fontsize=11, transform=ax.transAxes)
+    fig.tight_layout()
+    fig.savefig(output_dir / (kind + "_over_iterations.png"), dpi=150)
+    plt.close(fig)
 
-    out = output_dir / "latency_over_iterations.png"
-    plt.savefig(out, dpi=150)
-    plt.close()
-    print(f"  → {out}")
+
+def plot_latency(entries: list[dict], output_dir: Path) -> None:
+    """Only the named native analyzer/event summary; rejected values stay labelled."""
+    import matplotlib.pyplot as plt
+    from collect_fps import finite_number
+    measured, excluded, rejected = [], 0, 0
+    for e in entries:
+        if not isinstance(e, dict): excluded += 1; continue
+        if e.get("gate_pass") is not True: rejected += 1
+        result, assessment = e.get("results"), e.get("assessment")
+        if (e.get("provenance") == "retroactive-estimate" or e.get("measurement_type") != "latency" or
+                not isinstance(result, dict) or result.get("schema_version") != 2 or result.get("source") != "camerax_analyzer" or
+                not isinstance(assessment, dict) or assessment.get("boundary") != "final_analyzer_to_event_ms"):
+            excluded += 1; continue
+        summary = assessment.get("event_latency_ms")
+        if not isinstance(summary, dict) or type(summary.get("n")) is not int or summary["n"] <= 0 or any(not finite_number(summary.get(k)) or summary[k] < 0 for k in ("p50", "p95")) or summary["p95"] < summary["p50"]:
+            excluded += 1; continue
+        status = "ACCEPTED" if e.get("gate_pass") is True else "REJECTED/DIAGNOSTIC"
+        measured.append((str(e.get("device", "unknown"))[:20] + "\n" + status, summary["p95"], summary["p50"]))
+    if not measured:
+        plot_no_measurements("latency", output_dir, excluded)
+        return
+    fig, ax = plt.subplots(figsize=(10, 5))
+    x = range(len(measured))
+    ax.bar(x, [row[1] for row in measured], width=.4, align="edge", label="p95", color="#1565C0")
+    ax.bar([i - .4 for i in x], [row[2] for row in measured], width=.4, align="edge", label="p50", color="#42A5F5")
+    ax.axhline(150, color="#D32F2F", linestyle="--", label="Target p95 <150ms")
+    ax.set_xticks(list(x))
+    ax.set_xticklabels([row[0] for row in measured], fontsize=8)
+    ax.set_ylabel("Native final-analyzer-to-event latency (ms)")
+    ax.set_title("Final analyzer to feedback dispatch — successful observed samples only")
+    ax.text(.01, 1.02, f"REJECTED/DIAGNOSTIC rows: {rejected}; excluded/missing: {excluded}. No sensor-to-display claim.", transform=ax.transAxes, fontsize=8)
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(output_dir / "latency_over_iterations.png", dpi=150)
+    plt.close(fig)
 
 
 def plot_fps(entries: list[dict], output_dir: Path) -> None:
-    """Plot sustained FPS over iterations."""
+    """Schema-v2 analyzer throughput, never event/processed/sensor/display FPS."""
     import matplotlib.pyplot as plt
-
-    if not entries:
-        print("No FPS entries found. Skipping.")
-        return
-
-    labels = []
-    mean_fps = []
-    min_fps = []
-
+    from collect_fps import finite_number
+    measured, excluded, rejected = [], 0, 0
     for e in entries:
-        r = e["results"]
-        labels.append(f"{e.get('device', '?')[:20]}\n{e.get('condition', 'n/a')}")
-        mean_fps.append(r.get("mean_fps", 0))
-        min_fps.append(r.get("min_fps", 0))
-
+        if not isinstance(e, dict): excluded += 1; continue
+        if e.get("gate_pass") is not True: rejected += 1
+        result = e.get("results")
+        if (e.get("provenance") == "retroactive-estimate" or e.get("measurement_type") != "fps" or
+                not isinstance(result, dict) or result.get("schema_version") != 2 or result.get("source") != "camerax_analyzer"):
+            excluded += 1; continue
+        rates = result.get("fps")
+        rate = rates.get("analyzer") if isinstance(rates, dict) else None
+        bins = rate.get("per_second_samples") if isinstance(rate, dict) else None
+        if not isinstance(rate, dict) or not finite_number(rate.get("mean_fps")) or rate["mean_fps"] < 0 or not isinstance(bins, list) or not bins or any(not finite_number(x) or x < 0 for x in bins):
+            excluded += 1; continue
+        status = "ACCEPTED" if e.get("gate_pass") is True else "REJECTED/DIAGNOSTIC"
+        measured.append((str(e.get("device", "unknown"))[:20] + "\n" + str(e.get("condition", "unverified")) + "\n" + status,
+                         rate["mean_fps"], min(bins)))
+    if not measured:
+        plot_no_measurements("fps", output_dir, excluded)
+        return
     fig, ax = plt.subplots(figsize=(10, 5))
-    x = range(len(labels))
-    ax.plot(x, mean_fps, "o-", color="#2E7D32", linewidth=2, markersize=8, label="Mean FPS")
-    ax.plot(x, min_fps, "s--", color="#FF8F00", linewidth=1.5, markersize=6, label="Min FPS")
-    ax.axhline(y=TARGETS["fps_min"], color="#D32F2F", linestyle="--",
-               linewidth=1.5, label=f"Target ≥{TARGETS['fps_min']:.0f} FPS")
-    ax.axhline(y=30, color="#388E3C", linestyle=":", linewidth=1, alpha=0.5, label="30 FPS cap")
-    ax.set_xticks(x)
-    ax.set_xticklabels(labels, fontsize=8)
-    ax.set_ylabel("Frames Per Second")
-    ax.set_xlabel("Device / Condition")
-    ax.set_title("Sustained FPS Across Runs")
-    ax.set_ylim(0, max(max(mean_fps, default=30) * 1.1, 35))
-    ax.legend(loc="lower right")
-    ax.grid(True, alpha=0.3)
-    plt.tight_layout()
-
-    out = output_dir / "fps_over_iterations.png"
-    plt.savefig(out, dpi=150)
-    plt.close()
-    print(f"  → {out}")
+    x = range(len(measured))
+    ax.plot(x, [row[1] for row in measured], "o-", color="#2E7D32", label="Full-window mean analyzer FPS")
+    ax.plot(x, [row[2] for row in measured], "s--", color="#FF8F00", label="Minimum one-second analyzer FPS")
+    ax.axhline(24, color="#D32F2F", linestyle="--", label="Target sustained >=24 FPS (nominal 24–30)")
+    ax.set_xticks(list(x))
+    ax.set_xticklabels([row[0] for row in measured], fontsize=8)
+    ax.set_ylabel("Analyzer callbacks per second (not detector/display FPS)")
+    ax.set_title("CameraX analyzer throughput across measured runs")
+    ax.text(.01, 1.02, f"REJECTED/DIAGNOSTIC rows: {rejected}; excluded/missing: {excluded}. Trailing zero bins retained.", transform=ax.transAxes, fontsize=8)
+    ax.legend()
+    ax.set_ylim(bottom=0)
+    fig.tight_layout()
+    fig.savefig(output_dir / "fps_over_iterations.png", dpi=150)
+    plt.close(fig)
 
 
 def main():

@@ -6,6 +6,8 @@ benchmarking/benchmark_history.json.
 """
 
 import json
+import fcntl
+import os
 import tempfile
 import time
 from pathlib import Path
@@ -48,19 +50,24 @@ def validate_entry(entry: dict) -> bool:
 def append_entry(entry: dict) -> None:
     """Validate and atomically append an entry to the history log."""
     validate_entry(entry)
-    history = load_history()
-    history.append(entry)
-    # Atomic write: write to temp file then replace
-    tmp = tempfile.NamedTemporaryFile(
-        mode="w", suffix=".json", dir=HISTORY_PATH.parent, delete=False
-    )
-    try:
-        json.dump(history, tmp, indent=1)
-        tmp.close()
-        Path(tmp.name).replace(HISTORY_PATH)
-    except Exception:
-        Path(tmp.name).unlink(missing_ok=True)
-        raise
+    # Lock a stable sibling inode, not the JSON inode replaced by every append.
+    with HISTORY_PATH.with_suffix(HISTORY_PATH.suffix + ".lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        history = load_history()
+        history.append(entry)
+        tmp = tempfile.NamedTemporaryFile(
+            mode="w", suffix=".json", dir=HISTORY_PATH.parent, delete=False
+        )
+        try:
+            json.dump(history, tmp, indent=1, allow_nan=False)
+            tmp.flush()
+            os.fsync(tmp.fileno())
+            tmp.close()
+            Path(tmp.name).replace(HISTORY_PATH)
+        except Exception:
+            tmp.close()
+            Path(tmp.name).unlink(missing_ok=True)
+            raise
 
 
 def make_timestamp() -> str:

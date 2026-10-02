@@ -1,0 +1,20 @@
+test_failed_report_is_logged_and_never_deleted (test_collectors.AdbCollectionTest.test_failed_report_is_logged_and_never_deleted) ... ok
+test_json_rejects_duplicate_keys_and_nonfinite_values (test_collectors.AdbCollectionTest.test_json_rejects_duplicate_keys_and_nonfinite_values) ... ok
+test_real_history_append_retains_failed_and_diagnostic_rows (test_collectors.AdbCollectionTest.test_real_history_append_retains_failed_and_diagnostic_rows) ... ok
+test_serial_and_package_are_explicit_for_every_read (test_collectors.AdbCollectionTest.test_serial_and_package_are_explicit_for_every_read) ... ok
+test_empty_samples_trailing_stalls_and_emulators_fail (test_collectors.FpsValidationTest.test_empty_samples_trailing_stalls_and_emulators_fail) ... ok
+test_identity_and_elapsed_boundary_fail_closed (test_collectors.FpsValidationTest.test_identity_and_elapsed_boundary_fail_closed) ... ok
+test_malformed_field_types_never_raise_or_pass (test_collectors.FpsValidationTest.test_malformed_field_types_never_raise_or_pass) ... ok
+test_metadata_and_trace_boundary_mismatch_rejected_for_fps (test_collectors.FpsValidationTest.test_metadata_and_trace_boundary_mismatch_rejected_for_fps) ... ok
+test_short_run_fails_closed (test_collectors.FpsValidationTest.test_short_run_fails_closed) ... ok
+test_camera_collector_never_runs_interpreter_test (test_collectors.LatencyValidationTest.test_camera_collector_never_runs_interpreter_test) ... ok
+test_interpreter_only_result_cannot_close_camera_gate (test_collectors.LatencyValidationTest.test_interpreter_only_result_cannot_close_camera_gate) ... ok
+test_legacy_runner_selects_serial_and_never_uses_camera_gate (test_collectors.LatencyValidationTest.test_legacy_runner_selects_serial_and_never_uses_camera_gate) ... ok
+test_missing_or_wrong_clock_boundaries_never_pass (test_collectors.LatencyValidationTest.test_missing_or_wrong_clock_boundaries_never_pass) ... ok
+test_oversize_ack_with_malformed_end_fails_without_overflow (test_collectors.LatencyValidationTest.test_oversize_ack_with_malformed_end_fails_without_overflow) ... ok
+test_trace_identity_derived_values_and_ack_validation (test_collectors.LatencyValidationTest.test_trace_identity_derived_values_and_ack_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.020s
+
+OK

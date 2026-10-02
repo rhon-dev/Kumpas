@@ -1,0 +1,13 @@
+{
+  "label_map_sha256": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+  "unique_dense_classes": 50,
+  "unique_source_ids": 50,
+  "candidates": 2,
+  "condition_cells": 6,
+  "blank_trial_cells": 300,
+  "unique_candidate_condition_class_cells": 300,
+  "blank_confusion_cells": 15000,
+  "observed_trials": null,
+  "status": "BLOCKED",
+  "five_dense_class_id": "24"
+}

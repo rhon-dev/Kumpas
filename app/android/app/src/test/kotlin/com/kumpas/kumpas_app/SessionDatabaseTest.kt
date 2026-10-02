@@ -61,6 +61,26 @@ class SessionDatabaseTest {
         assertEquals(0, rowCount("participants"))
     }
 
+    @Test
+    fun clearAll_rollsBackWhenTriggerSilentlyRetainsRows() {
+        db.insertSession("retained-session", participantId)
+        db.insertAttempt("retained-session", 1L, 1, "SYNTHETIC", "SYNTHETIC", 0.9, true, 0.8, "[]")
+        db.insertAssessment(participantId, "pre", "{}")
+        db.writableDatabase.execSQL("CREATE TRIGGER retain_attempt BEFORE DELETE ON attempts BEGIN SELECT RAISE(IGNORE); END")
+        try {
+            db.clearAll()
+            org.junit.Assert.fail("retained study rows must never report successful cleanup")
+        } catch (_: IllegalStateException) { }
+        for (table in listOf("attempts", "assessments", "sessions", "participants")) {
+            assertEquals("transaction must preserve $table on verification failure", 1, rowCount(table))
+        }
+        db.writableDatabase.execSQL("DROP TRIGGER retain_attempt")
+        db.clearAll()
+        for (table in listOf("attempts", "assessments", "sessions", "participants")) {
+            assertEquals(0, rowCount(table))
+        }
+    }
+
     /** Count rows in a table. */
     private fun rowCount(table: String): Int {
         val cursor = db.readableDatabase.rawQuery("SELECT COUNT(*) FROM $table", null)

@@ -1,0 +1,67 @@
+{
+  "device": "emulator-5554",
+  "physical_device": false,
+  "installed_apk_sha256": "5ed5c186a862f48c0a7dbee234ff94d13bbb44e5c498405d6e0e5b9eeebf1595",
+  "model_sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+  "instrumentation": [
+    {
+      "name": "isolated",
+      "tests": 2
+    },
+    {
+      "name": "replay",
+      "tests": 1
+    }
+  ],
+  "native_xml": {
+    "tests": 88,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "default_store_snapshot_unchanged": true,
+  "apks": {
+    "debug": {
+      "path": "app/build/app/outputs/apk/debug/app-debug.apk",
+      "sha256": "5ed5c186a862f48c0a7dbee234ff94d13bbb44e5c498405d6e0e5b9eeebf1595",
+      "model_sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ]
+    },
+    "release": {
+      "path": "app/build/app/outputs/flutter-apk/app-release.apk",
+      "sha256": "286bbbee5658d3481970416a821039fd670a3d61ada1680abc9a8fe0e27cf39c",
+      "model_sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a"
+      ]
+    }
+  },
+  "flutter": {
+    "tests": 12,
+    "analysis": "No issues found",
+    "source": "fresh parent execution"
+  },
+  "python_collectors": {
+    "tests": 15,
+    "result": "OK",
+    "source": "fresh parent execution"
+  },
+  "prior_emulator_camera_diagnostic": {
+    "run_id": "398562f5-b4a8-4ebb-b8c4-ffe2bfba7c9b",
+    "duration_s": 60,
+    "analyzer_count": 407,
+    "analyzer_mean_fps": 6.783333333333333,
+    "trace_count": 0,
+    "physical_gate_pass": false
+  },
+  "instrumentation_test_count": 3
+}

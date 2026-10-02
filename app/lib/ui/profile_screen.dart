@@ -5,6 +5,7 @@ import '../session/session_repository.dart';
 import 'assessment_screen.dart';
 import 'feedback_sheet.dart';
 import 'stats.dart';
+import 'practice_screen.dart';
 import 'theme.dart';
 import 'widgets.dart';
 
@@ -491,6 +492,22 @@ class _SettingsTabState extends State<_SettingsTab> {
     }
   }
 
+  Future<void> _openBenchmark() async {
+    try {
+      final signs = await KumpasChannel.getSigns();
+      if (signs.isEmpty) throw StateError('No target signs available');
+      if (mounted) {
+        await Navigator.push(context, MaterialPageRoute(builder: (_) =>
+          PracticeScreen(sign: signs.first, benchmarkDurationSeconds: 60)));
+      }
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Benchmark unavailable: $error')));
+      }
+    }
+  }
+
   Future<void> _clearAllData() async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -719,6 +736,13 @@ class _SettingsTabState extends State<_SettingsTab> {
                     .textTheme
                     .bodySmall
                     ?.copyWith(color: scheme.onSurfaceVariant),
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.speed),
+                title: const Text('Pipeline benchmark (60s)'),
+                subtitle: const Text('Opens practice camera. No physical-device pass is implied.'),
+                onTap: _openBenchmark,
               ),
               FutureBuilder<Set<String>>(
                 future: _completedAssessments,

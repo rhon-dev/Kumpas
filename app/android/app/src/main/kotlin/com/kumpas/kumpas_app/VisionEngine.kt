@@ -26,7 +26,12 @@ import java.nio.ByteOrder
  * matches that timescale: one buffer sample every SAMPLE_STRIDE analysis
  * frames (~30fps camera / 4 = 7.5/s), so a full buffer spans ~4s.
  */
-class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
+class VisionEngine(
+    context: Context,
+    private val sharedLock: Any = Any(),
+    private val requestGeneration: (() -> Long)? = null,
+    private val onResult: (String) -> Unit,
+) {
 
     private val appContext: Context = context.applicationContext
 
@@ -57,6 +62,10 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
     private var attemptTarget = -1
     private var attemptSamples = ArrayList<FloatArray>()
     private var attemptPoseFrames = 0
+    private var attemptId = ""
+    private var firstAnalyzerNs = 0L
+    private var attemptStartedNs = 0L
+    private var closed = false
     private val goldStandards: Array<Array<FloatArray>> by lazy { loadGold() }
 
     private fun loadGold(): Array<Array<FloatArray>> {
@@ -70,15 +79,30 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
         return ctx.assets.open("label_map.json").readBytes().decodeToString()
     }
 
-    @Synchronized
-    fun startAttempt(classId: Int) {
+    private var localGeneration = 0L
+    fun cameraRequestGeneration(): Long = synchronized(sharedLock) { requestGeneration?.invoke() ?: localGeneration }
+
+    fun startAttempt(classId: Int, id: String = java.util.UUID.randomUUID().toString()): String = synchronized(sharedLock) {
+        check(!closed) { "Camera engine closed" }
+        require(classId in labels.indices) { "Invalid target class" }
+        require(id.isNotBlank()) { "Missing attempt identity" }
+        localGeneration++
         attemptTarget = classId
+        attemptId = id
         attemptSamples = ArrayList()
         attemptPoseFrames = 0
+        firstAnalyzerNs = 0L
+        attemptStartedNs = SystemClock.elapsedRealtimeNanos()
+        id
     }
 
-    @Synchronized
-    fun cancelAttempt() { attemptTarget = -1 }
+    fun cancelAttempt(id: String? = null) = synchronized(sharedLock) {
+        if (id == null || id == attemptId) {
+            localGeneration++
+            attemptTarget = -1
+            attemptSamples.clear()
+        }
+    }
 
     init {
         poseLandmarker = PoseLandmarker.createFromOptions(
@@ -111,7 +135,8 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
      * converted to a bitmap and processed — callers must NOT allocate before
      * asking (bitmap conversion per frame caused GC pressure at 30fps).
      */
-    fun tick(): Boolean {
+    fun tick(): Boolean = synchronized(sharedLock) {
+        if (closed) return@synchronized false
         frameCount++
         fpsFrames++
         val now = SystemClock.elapsedRealtime()
@@ -119,7 +144,7 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
             cameraFps = fpsFrames * 1000.0 / (now - lastFpsTime)
             fpsFrames = 0; lastFpsTime = now
         }
-        return frameCount % SAMPLE_STRIDE == 0
+        frameCount % SAMPLE_STRIDE == 0
     }
 
     data class FrameFeatures(
@@ -131,12 +156,18 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
         val handsSeen: Int,
     )
 
-    /** Exact production detector and normalizer; replay uses this same path. */
-    fun extractFrame(bitmap: android.graphics.Bitmap, timestampMs: Long): FrameFeatures {
+    /** Production detector/normalizer. MPImage.close consumes/recycles the supplied bitmap. */
+    fun extractFrame(bitmap: android.graphics.Bitmap, timestampMs: Long): FrameFeatures = synchronized(sharedLock) {
+        check(!closed) { "Camera engine closed" }
+        require(!bitmap.isRecycled) { "Frame bitmap already recycled" }
         val mp: MPImage = BitmapImageBuilder(bitmap).build()
         val t0 = SystemClock.elapsedRealtime()
-        val pose = poseLandmarker.detectForVideo(mp, timestampMs)
-        val hands = handLandmarker.detectForVideo(mp, timestampMs)
+        val (pose, hands) = try {
+            Pair(poseLandmarker.detectForVideo(mp, timestampMs),
+                handLandmarker.detectForVideo(mp, timestampMs))
+        } finally {
+            mp.close()
+        }
         val landmarkMs = SystemClock.elapsedRealtime() - t0
 
         val feat = FloatArray(N_FEATURES)
@@ -162,12 +193,14 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
             }
         }
         FeatureNormalizer.normalize(feat, poseSeen)
-        return FrameFeatures(feat, poseSeen, leftSeen, rightSeen, landmarkMs,
+        FrameFeatures(feat, poseSeen, leftSeen, rightSeen, landmarkMs,
             hands.landmarks().size)
     }
 
     /** Called on the ImageAnalysis thread with an upright RGBA bitmap (sampled frames only). */
-    fun onFrame(bitmap: android.graphics.Bitmap, timestampMs: Long) {
+    fun onFrame(bitmap: android.graphics.Bitmap, timestampMs: Long,
+                analyzerNs: Long = SystemClock.elapsedRealtimeNanos()) = synchronized(sharedLock) {
+        if (closed) return@synchronized
         val extracted = extractFrame(bitmap, timestampMs)
         val feat = extracted.features
         val poseSeen = extracted.poseSeen
@@ -178,9 +211,9 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
         if (buffer.size > SEQ_LEN) { buffer.removeFirst(); bufferPoseSeen.removeFirst() }
         samplesSinceInfer++
 
-        if (attemptTarget >= 0) {
-            handleAttemptSample(feat, poseSeen, landmarkMs, handsSeen)
-            return
+        if (attemptTarget >= 0 && analyzerNs >= attemptStartedNs) {
+            handleAttemptSample(feat, poseSeen, landmarkMs, handsSeen, analyzerNs)
+            return@synchronized
         }
 
         val poseRate = bufferPoseSeen.count { it }.toDouble() / bufferPoseSeen.size
@@ -192,7 +225,7 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
                     "state" to "no_signer", "cameraFps" to cameraFps,
                     "landmarkMs" to landmarkMs, "handsVisible" to handsSeen
                 )).toString())
-                return
+                return@synchronized
             }
             val input = Array(1) { Array(SEQ_LEN) { s -> buffer.elementAt(s) } }
             val output = Array(1) { FloatArray(labels.size) }
@@ -213,12 +246,13 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
     }
 
     private fun handleAttemptSample(feat: FloatArray, poseSeen: Boolean,
-                                    landmarkMs: Long, handsSeen: Int) {
+                                    landmarkMs: Long, handsSeen: Int, analyzerNs: Long) {
+        if (firstAnalyzerNs == 0L) firstAnalyzerNs = analyzerNs
         attemptSamples.add(feat)
         if (poseSeen) attemptPoseFrames++
         if (attemptSamples.size < SEQ_LEN) {
             onResult(JSONObject(mapOf(
-                "state" to "attempt_progress", "collected" to attemptSamples.size,
+                "state" to "attempt_progress", "attemptId" to attemptId, "collected" to attemptSamples.size,
                 "needed" to SEQ_LEN, "cameraFps" to cameraFps,
                 "landmarkMs" to landmarkMs, "handsVisible" to handsSeen
             )).toString())
@@ -231,6 +265,8 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
         if (attemptPoseFrames < SEQ_LEN / 2) {
             onResult(JSONObject(mapOf(
                 "state" to "attempt_failed",
+                "attemptId" to attemptId,
+                "outcome" to "no_signer",
                 "reason" to "No signer detected — stand in front of the camera and try again."
             )).toString())
             return
@@ -238,13 +274,18 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
 
         val input = Array(1) { window }
         val output = Array(1) { FloatArray(labels.size) }
+        val inferenceStartNs = SystemClock.elapsedRealtimeNanos()
         tflite.run(input, output)
+        val inferenceNs = SystemClock.elapsedRealtimeNanos() - inferenceStartNs
         val probs = output[0]
         val best = probs.indices.maxByOrNull { probs[it] } ?: 0
 
         val report = FeedbackEngine.compare(window, goldStandards[target], labels[target])
         onResult(JSONObject(mapOf(
             "state" to "attempt_result",
+            "attemptId" to attemptId,
+            "timing" to PipelineTrace(attemptId, firstAnalyzerNs, analyzerNs,
+                SystemClock.elapsedRealtimeNanos(), inferenceNs, attemptStartedNs).toJson(),
             "targetClass" to target,
             "targetLabel" to labels[target],
             "predictedLabel" to labels[best],
@@ -271,7 +312,18 @@ class VisionEngine(context: Context, private val onResult: (String) -> Unit) {
         )).toString())
     }
 
-    fun close() {
-        poseLandmarker.close(); handLandmarker.close(); tflite.close()
+    fun reportCameraError(reason: String, generation: Long = cameraRequestGeneration()) = synchronized(sharedLock) {
+        if (closed || generation != cameraRequestGeneration()) return@synchronized
+        cancelAttempt()
+        onResult(JSONObject(mapOf("state" to "camera_error", "reason" to reason,
+            "cameraGeneration" to generation)).toString())
+    }
+
+    fun close() = synchronized(sharedLock) {
+        if (!closed) {
+            closed = true
+            cancelAttempt()
+            poseLandmarker.close(); handLandmarker.close(); tflite.close()
+        }
     }
 }

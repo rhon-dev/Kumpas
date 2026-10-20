@@ -1,0 +1,16 @@
+{
+  "event": "same-provider-quarantine",
+  "at": "2026-10-18T13:53:38.325067+08:00",
+  "earlier_attempt": "quarantine-recovery.py exited1: os.rename to external scratch timed out Errno60; source inode27582004 size5309360 flags1073741920 still existed, external target absent",
+  "before": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/release/arm64-v8a/app 2.so",
+    "bytes": 5309360,
+    "inode": 27582004,
+    "device": 16777232,
+    "flags": 1073741920,
+    "sha256": null
+  },
+  "target": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/app 2.so",
+  "git_ignored": "app/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/release/arm64-v8a/app 2.so\napp/.gitignore:33:/build/\tapp/build/kumpas-d-quarantine/app 2.so\n",
+  "limits": "No assertion about cloud/provider origin; no attempt to read DATALESS bytes; metadata-preserving move is not a pre/post content hash comparison."
+}

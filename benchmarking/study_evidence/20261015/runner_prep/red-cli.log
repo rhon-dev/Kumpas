@@ -1,0 +1,23 @@
+test_cli_prepares_and_synthetic_demo_only (training.tests.test_experiment_runner.RunnerTests.test_cli_prepares_and_synthetic_demo_only) ... FAIL
+test_cli_training_arbitrary_command_invalid_and_safe_errors (training.tests.test_experiment_runner.RunnerTests.test_cli_training_arbitrary_command_invalid_and_safe_errors) ... FAIL
+
+======================================================================
+FAIL: test_cli_prepares_and_synthetic_demo_only (training.tests.test_experiment_runner.RunnerTests.test_cli_prepares_and_synthetic_demo_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 71, in test_cli_prepares_and_synthetic_demo_only
+    self.assertTrue((Path(c['output_root'])/'manifest.json').is_file(), 'CLI must really prepare')
+AssertionError: False is not true : CLI must really prepare
+
+======================================================================
+FAIL: test_cli_training_arbitrary_command_invalid_and_safe_errors (training.tests.test_experiment_runner.RunnerTests.test_cli_training_arbitrary_command_invalid_and_safe_errors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 83, in test_cli_training_arbitrary_command_invalid_and_safe_errors
+    self.assertEqual(code,3 if args[0] in ('train','execute') else 2)
+AssertionError: 0 != 3
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=2)

@@ -1,0 +1,20 @@
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "collection read rejected",
+    "benchmark start ownership unconfirmed",
+    "report latest publication unverified",
+    "benchmark start ownership unconfirmed",
+    "report latest publication unverified",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed",
+      "report latest publication unverified"
+    ],
+    "boundary": "camerax_analyzer_entry_throughput",
+    "minimum_sustained_fps": 24
+  }
+}

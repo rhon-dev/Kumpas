@@ -1,0 +1,33 @@
+test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) ... 
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='report_schema_float') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='report_schema_float') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='report_schema_float') ... FAIL
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='report_schema_float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 194, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='report_schema_float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 194, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='report_schema_float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 201, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertTrue(rows[0]['rejection_reasons'])
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.068s
+
+FAILED (failures=3)

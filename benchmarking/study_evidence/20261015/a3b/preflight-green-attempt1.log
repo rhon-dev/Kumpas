@@ -1,0 +1,25 @@
+test_pinned_preflight_emits_verified_payload_hashes (test_host_producer_replay.HostProducerReplayTest.test_pinned_preflight_emits_verified_payload_hashes) ... FAIL
+
+======================================================================
+FAIL: test_pinned_preflight_emits_verified_payload_hashes (test_host_producer_replay.HostProducerReplayTest.test_pinned_preflight_emits_verified_payload_hashes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 17, in test_pinned_preflight_emits_verified_payload_hashes
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/host_fixture_replay.py", line 179, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/host_fixture_replay.py", line 170, in main
+    receipt, _ = validate()
+                 ^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/host_fixture_replay.py", line 112, in validate
+    require(type(obj.get('test_schema_version')) is int and obj['test_schema_version'] == 1
+                 ^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.066s
+
+FAILED (failures=1)

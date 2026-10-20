@@ -1,0 +1,136 @@
+test_config_schema_authorization_numeric_and_selection (training.tests.test_experiment_runner.RunnerTests.test_config_schema_authorization_numeric_and_selection) ... ok
+test_prepare_exclusive_binding_and_immutable_snapshot (training.tests.test_experiment_runner.RunnerTests.test_prepare_exclusive_binding_and_immutable_snapshot) ... ok
+test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) ... ok
+test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) ... ok
+test_synthetic_input_and_manifest_change_fail_before_executor (training.tests.test_experiment_runner.RunnerTests.test_synthetic_input_and_manifest_change_fail_before_executor) ... FAIL
+test_synthetic_order_ties_immutable_request_and_no_retry (training.tests.test_experiment_runner.RunnerTests.test_synthetic_order_ties_immutable_request_and_no_retry) ... FAIL
+test_synthetic_output_tamper_has_no_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_synthetic_output_tamper_has_no_success_receipt) ... FAIL
+test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) ... 
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='timeout') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='total') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='failure') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='interrupt') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='cancel') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='badmetric') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='boolmetric') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='nanmetric') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='extra') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='backward') ... FAIL
+  test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='forbidden') ... FAIL
+
+======================================================================
+FAIL: test_synthetic_input_and_manifest_change_fail_before_executor (training.tests.test_experiment_runner.RunnerTests.test_synthetic_input_and_manifest_change_fail_before_executor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 124, in test_synthetic_input_and_manifest_change_fail_before_executor
+    with self.assertRaises(runner.RunnerError):runner.run_synthetic(prepared,lambda *args:called.append(1),FakeClock())
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_synthetic_order_ties_immutable_request_and_no_retry (training.tests.test_experiment_runner.RunnerTests.test_synthetic_order_ties_immutable_request_and_no_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 75, in test_synthetic_order_ties_immutable_request_and_no_retry
+    self.assertIsNotNone(result, 'synthetic execution must publish checked completion')
+AssertionError: unexpectedly None : synthetic execution must publish checked completion
+
+======================================================================
+FAIL: test_synthetic_output_tamper_has_no_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_synthetic_output_tamper_has_no_success_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 135, in test_synthetic_output_tamper_has_no_success_receipt
+    with self.assertRaises(runner.RunnerError):runner.run_synthetic(prepared,execute,clock)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='timeout')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='total')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='failure')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='interrupt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='cancel')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='badmetric')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='boolmetric')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='nanmetric')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='extra')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='backward')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+======================================================================
+FAIL: test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) (mode='forbidden')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 110, in test_synthetic_stop_conditions_and_safe_incomplete_logs
+    self.assertIsNotNone(result,'stop must be recorded, not silently ignored')
+AssertionError: unexpectedly None : stop must be recorded, not silently ignored
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.040s
+
+FAILED (failures=14)

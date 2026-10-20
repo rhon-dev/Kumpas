@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-08T00:50:12+0800",
+  "failure_log": "controller/native-reviewfix-parent-1.log",
+  "failure": "duplicate class from ignored generated BenchmarkMode 2.dex alongside BenchmarkMode.dex; filesystem duplicate origin not established",
+  "quarantine": [
+    {
+      "path": "app/build/app/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/2/classes 2.dex",
+      "sha256": "dd967fc086fac0be4c73c6e8240a1f241da08ba8ce015b929375196b41452c08",
+      "bytes": 17748,
+      "corresponding_generated_path": "app/build/app/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/2/classes.dex",
+      "corresponding_sha256": "844a89378beba33908de34a371fb3d31f9299f1e88debcb56366b2fea4fbd4e3",
+      "quarantine_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-reviewfix-generated-dex-quarantine-1/app/build/app/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/2/classes 2.dex"
+    },
+    {
+      "path": "app/build/app/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/9/classes 2.dex",
+      "sha256": "93e460a2c7d76e94823d11c6f431b6437c83f9ea94758ff4eac0471886b62638",
+      "bytes": 20984,
+      "corresponding_generated_path": "app/build/app/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/9/classes.dex",
+      "corresponding_sha256": "76eda2847b9dd04c86b2f1566084ba4bc715d6865df77f64f294bf22051b4ba3",
+      "quarantine_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-reviewfix-generated-dex-quarantine-1/app/build/app/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/9/classes 2.dex"
+    },
+    {
+      "path": "app/build/app/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/kumpas/kumpas_app/BenchmarkMode 2.dex",
+      "sha256": "e9355c8171492ac0f4d503970bf765d35c4fe1384f8486056e7a4519c78251af",
+      "bytes": 19260,
+      "corresponding_generated_path": "app/build/app/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/kumpas/kumpas_app/BenchmarkMode.dex",
+      "corresponding_sha256": "5d0c1cd2a97a1b27e6f69970d9de2726f010de6a6fb3f3e7c18a6c169b1cd4f5",
+      "quarantine_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-reviewfix-generated-dex-quarantine-1/app/build/app/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/kumpas/kumpas_app/BenchmarkMode 2.dex"
+    },
+    {
+      "path": "app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/SessionDeletionTest 2.dex",
+      "sha256": "1be269f50b5b44caf9122d6537bbbcb22d5aa6aa5c4e1463ed9ad973c1b66771",
+      "bytes": 7428,
+      "corresponding_generated_path": "app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/SessionDeletionTest.dex",
+      "corresponding_sha256": "2542ea39d6f9487a4e2b06fc42f5bdf6dd08aefe63be12edc9b6d81de1207130",
+      "quarantine_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-reviewfix-generated-dex-quarantine-1/app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/SessionDeletionTest 2.dex"
+    },
+    {
+      "path": "app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/VisionAttemptContractTest 2.dex",
+      "sha256": "c64975628e5707ea41bc26382dae280ac2de720e6a54d5eb85c2de5c7b52b898",
+      "bytes": 9972,
+      "corresponding_generated_path": "app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/VisionAttemptContractTest.dex",
+      "corresponding_sha256": "c59e4e21c3f0beac6f3577d7dc21969bf778777cf525d53474ae55e60d835c2d",
+      "quarantine_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-reviewfix-generated-dex-quarantine-1/app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/VisionAttemptContractTest 2.dex"
+    },
+    {
+      "path": "app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/benchmark/PipelineParityTest 2.dex",
+      "sha256": "1bd7490747356c148cef7a8b4a7eba1ce96387523555a312f263ace0cbf12e59",
+      "bytes": 11908,
+      "corresponding_generated_path": "app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/benchmark/PipelineParityTest.dex",
+      "corresponding_sha256": "b53211c1449fead86761546dd46728a7c20c25100b41ef20f6ac06ff40f15f90",
+      "quarantine_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-reviewfix-generated-dex-quarantine-1/app/build/app/intermediates/project_dex_archive/debugAndroidTest/dexBuilderDebugAndroidTest/out/com/kumpas/kumpas_app/benchmark/PipelineParityTest 2.dex"
+    }
+  ],
+  "jvm_totals_before_build_failure": {
+    "tests": 132,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "source_changes": false,
+  "default_store_access": false,
+  "scope": "Preserve exact duplicate bytes outside build; no broad clean/reset/source change. Rebuild required."
+}

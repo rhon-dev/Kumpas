@@ -1,0 +1,345 @@
+{
+  "sources": {
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt": {
+      "sha256": "d5b234ae31c68a1f4000b1bd2625560c9c0f4e7ed79fb38d7cc11862fc77a17c",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ExportPublication.kt": {
+      "sha256": "9411b02efbc6d94f7a31b6f7ec1424ab6e9053340c4538677946e3f45bc50d59",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt": {
+      "sha256": "cff582459305ac62e7f6726b6426a5c48b5aab6b864a17bb37ddb3a3684f4d89",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/lib/ui/assessment_screen.dart": {
+      "sha256": "4882adbdd07d6e0bfeedbb9c029fa4530c8162fcf111dd4fd0aeafe6c551e491",
+      "authority": "a1-acceptance-20261016.json"
+    },
+    "app/test/assessment_save_failure_test.dart": {
+      "sha256": "9ced1c9314cf1b6f3718cd73cd09b519893491cce9205243058f086a718d8f9f",
+      "authority": "a1-acceptance-20261016.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt": {
+      "sha256": "9dd3812de9e0d1088ef0c9286909411e906d96b4c5d1963241873fd39bb5dc0b",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt": {
+      "sha256": "aa6bb10fd6d06e8eb29eea4efa39bbafed0c760e91b3727d41eb2b7d88db0f21",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/lib/session/session_repository.dart": {
+      "sha256": "c99dd972c49f4f0625c87bdae5d090b5a404e2af3b1949ebfa75edadcb9074d9",
+      "authority": "a2a-acceptance-20261016.json"
+    },
+    "app/lib/session/session_lifecycle.dart": {
+      "sha256": "6c746bc1173af60caead254f2d1b70489aa0b4f44b69adce90418e49c4b4cbc5",
+      "authority": "a2a-acceptance-20261016.json"
+    },
+    "app/test/session_clear_test.dart": {
+      "sha256": "db091bed4a8ffa02446095363218db053beb9f72a931a79600df5c200e9cd902",
+      "authority": "a2a-acceptance-20261016.json"
+    },
+    "app/test/session_lifecycle_race_test.dart": {
+      "sha256": "8f1f89747d2852bec3c9407e79bf730249397c2a8903f4ab55418eeecb1ee7dd",
+      "authority": "a2a-acceptance-20261016.json"
+    },
+    "app/test/session_repository_race_test.dart": {
+      "sha256": "d758fdbab528cd785845a4c7b02be7e8b7c2fcf90c5b604a6f24b7b0533d7532",
+      "authority": "a2a-acceptance-20261016.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt": {
+      "sha256": "50dab3cd90cedd2f41d5bcbc0d9fa26da607f0e8c6716f9e7ad47632000d0588",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt": {
+      "sha256": "6d68f2b96ad154af94ad8eb05cb99c990ead3b4c6e1da92b8fb6aa45194c6431",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ActivityInitializationTest.kt": {
+      "sha256": "c817fdf081082e2c17666a3df9381a0e7f065afdd7f3737c30aa1ff712a57d7c",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt": {
+      "sha256": "5b5ef76c016a29f3d1552ff19bc35d8fe83c0af949e31a209a18a9c82586a721",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt": {
+      "sha256": "6b35e4f0adc05277f5c363c18e0c55233454daee492e38bbd4cd6faf811156f7",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/build.gradle.kts": {
+      "sha256": "f2f5136694dc3ddabcf5b0f45907f3bc53cdca811a53be6a23107dc2811e0ea9",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/AttemptBoundary.kt": {
+      "sha256": "9b39c543eac7732e541c227e5e13b1de809b665c4c382d348e6f8c01314a937c",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt": {
+      "sha256": "450196e45cae22fc97145440ca544dfa833df07c06730221729e5211f7090c48",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt": {
+      "sha256": "0e24035b805155473de162bc5376661f5cf1c1b7136f091e2a260552912c6bfa",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewOwnership.kt": {
+      "sha256": "cd9cf5e224fd990602f9e831eec1ed3b23c52549501513c5d8e7b249f7e63dd5",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewResourceFactory.kt": {
+      "sha256": "1cb92dd90df8407c46996b42fe7cb2c9f365c19ade991ef40eda799197832a86",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/FeatureNormalizer.kt": {
+      "sha256": "222168905289be7292a1c25542e7b22d9d0836403008afab97faec903c3dde38",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/FeedbackEngine.kt": {
+      "sha256": "73f895b0fe6990f0cf92b01a0d423c8ac069647835b3cc650a15fc63bde9dbfe",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/OwnedCleanup.kt": {
+      "sha256": "5b91ad3d2be80610cb7b7f63f160d2c7edda4c3061d31bfafe5593d7f62da8c1",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/PipelineMetrics.kt": {
+      "sha256": "53831c757802033c95cc5840e6a37e6572923ad81a6b200c5c5a4fc6647cbe0c",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/PipelineTrace.kt": {
+      "sha256": "e631ae23434816916fb1a11f73a29e38d3eb7786014d3f003d4b584f9c955e35",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/RgbaFramePacking.kt": {
+      "sha256": "497f4380e527c01fa669c0ec28a5e73db84fb90b3788ed16990706db57ca37a0",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionDatabase.kt": {
+      "sha256": "6278b07f867db481363e9056315e84c5a6b942d8f8ebf3b3212dd47685061f64",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionLog.kt": {
+      "sha256": "585138ed66ed469196327992245cfb24b31ab74bd40f2500a8ab4247d2c682ee",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/StudyDataFiles.kt": {
+      "sha256": "b084c61ecf31ce4fa85086895aa5d2d2a82e614e26df0ffa92935ccaff67899d",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt": {
+      "sha256": "a86071c63501ae63fcd96a3527b5c978f7b0e81ac990e2b95ef348b17941ddd8",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionResourceFactory.kt": {
+      "sha256": "be9c8d80c1f8b9a274ace80b8713d21408d799f3fa858291ba3fe147c275cd23",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/AttemptBoundaryTest.kt": {
+      "sha256": "dde0282450c23364e3e7461e295b318c7bc647600b62ed07107656681540a695",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/BenchmarkModeTest.kt": {
+      "sha256": "5c9a6b6e158e079faee98bb85f7c3565e585fad72d932e8bbfaab35f31f07798",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/FeatureNormalizerTest.kt": {
+      "sha256": "75ac9f445c0932068b2fe4013970993c5afa2a1803202ba01fa9cfbc7ac71373",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/FeedbackEngineParityTest.kt": {
+      "sha256": "5ac0bc2f3334bf9f7b7ccf5d977d2ff61533365c95349c38d94e5a65627d7e5d",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostArtifactRun.kt": {
+      "sha256": "55f9e6fae1b2dd326176ddbb35b0068a03d45628b66137bfdbdd00618ab96e05",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFixture.kt": {
+      "sha256": "821b3dc5c018d03cae274a0ce2404fcc8bb6938e7427cf36d36756391cf294d7",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFlowTest.kt": {
+      "sha256": "a78b0d37efd5e9bcee0817536e529963d42288a293ae181e558f98ffaabcf8aa",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyProducer.kt": {
+      "sha256": "7a27f1430b49996142303dc25381ca9e1fd5661885c6d8824ec13e4f55fb4ab3",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/MainActivityBoundaryTest.kt": {
+      "sha256": "c0126b30434b7b095f820ab64c4e04cc27e3de031799a58761139367819f865a",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/PipelineMetricsTest.kt": {
+      "sha256": "dbe1db2f6a2dac8cf443fd945ca06230f1d83dfc52e2dae9e26e19b54df8dff0",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/PipelineTraceTest.kt": {
+      "sha256": "7cab9d4275f22d56bffdbc062c2d2e11c9a83dcf841eee1ca51c823eb25d2af5",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt": {
+      "sha256": "76ed417a343ee46e10ca2cd76c7b34dabb5fe3903e17c30ef2bba3f96064e0b0",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/RgbaFramePackingTest.kt": {
+      "sha256": "caec130f7d3dafd9f1565206cd8f0642924bf263e1cc9ce25a3cf1715a1e911d",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionDatabaseTest.kt": {
+      "sha256": "77521b3d4c8f4237cf488c2fe6d4acfc1b39d8b6d79137097cbf9b68ab4cbe6e",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/StudyBackupPolicyTest.kt": {
+      "sha256": "4bb5b0b6735f228a828ce4fa7e3ddf2ab90b88c92893088e8298b0d9ab99c6fc",
+      "authority": "a3a-acceptance-and-consumer-binding.json"
+    },
+    "benchmarking/host_fixture_replay.py": {
+      "sha256": "08e259ba337a10eabc05be184386a1e1c52fabb33ffd0b848779a3c2e795819f",
+      "authority": "a3b-acceptance-20261017.json"
+    },
+    "benchmarking/test_host_producer_replay.py": {
+      "sha256": "07a0754b66ad97a10dd12731b65c6e906e8870ada2270a7ce02553fd1c66450f",
+      "authority": "a3b-acceptance-20261017.json"
+    },
+    "app/test/host_study_flow_test.dart": {
+      "sha256": "332bd04f11120334ceaf95f30222de43d92b157a4426400b7066b6b09a9ea831",
+      "authority": "a3b-acceptance-20261017.json"
+    },
+    "app/test/support/host_fixture.dart": {
+      "sha256": "2d7de2a0c04c8ef5688af85ae1172892c89f858ac3517d61521920efd21605e6",
+      "authority": "a3b-acceptance-20261017.json"
+    },
+    "benchmarking/pipeline_parity.py": {
+      "sha256": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4",
+      "authority": "followups-acceptance-20261018.json"
+    },
+    "benchmarking/test_pipeline_parity.py": {
+      "sha256": "73d9c465ade5ca177619371a8cc6b62a9639e34ffee63faca30aa1d20ce24c25",
+      "authority": "followups-acceptance-20261018.json"
+    },
+    "benchmarking/parity_fixtures.py": {
+      "sha256": "993703b492a283692ed678a9cb44b62383c52bd7068974c50bf290dd559c036b",
+      "authority": "b1-acceptance-20261017.json"
+    },
+    "benchmarking/test_parity_fixtures.py": {
+      "sha256": "2c165cce0db1f0fad3efbec7abe5c7ade83b9dc01c1b6bae2a09bfb0ccf00656",
+      "authority": "b1-acceptance-20261017.json"
+    },
+    "training/models/validation_campaign.py": {
+      "sha256": "8e28d5ad110b76881e65d75e1e851ecb71fa2a6e21e232bc2d0a7fe8cea22998",
+      "authority": "b2-bounded-acceptance-20261018.json"
+    },
+    "training/tests/test_validation_campaign.py": {
+      "sha256": "5d9f2e13f0896b36940fdd81384ee6db9c2708417edcfce5e8064eefe019fe46",
+      "authority": "b2-bounded-acceptance-20261018.json"
+    },
+    "benchmarking/inspect_release.py": {
+      "sha256": "ecf9f2f33f2fc1f28bf9d6efc47a2f6f661e1e9fef929180cafe920c42eb5bb3",
+      "authority": "c1-bounded-acceptance-20261018.json"
+    },
+    "benchmarking/test_inspect_release.py": {
+      "sha256": "75ae48ac36ccc1a753260aafd660998ea5b5fab53f8512cc16d046fd448d1498",
+      "authority": "followups-acceptance-20261018.json"
+    },
+    "evaluation/README.md": {
+      "sha256": "595dee123aad04571170a2aab10faec119f346eec65d27a23a2a4c8b125fc3db",
+      "authority": "c2-bounded-acceptance-20261018.json"
+    },
+    "evaluation/__init__.py": {
+      "sha256": "268e24bb8d8792213f2773e72ee3529ab85aeb47bd4075cae338f29be5799536",
+      "authority": "c2-bounded-acceptance-20261018.json"
+    },
+    "evaluation/export_cli.py": {
+      "sha256": "2975b0e7a0f2dd13f720166fdc85fbd4f7ea538b599d11c60f42c1bd453b18c7",
+      "authority": "c2-bounded-acceptance-20261018.json"
+    },
+    "evaluation/legacy_export.py": {
+      "sha256": "170760c62bc54076bd119237d3eb8cddec957ed19abfb9e74f1ee2fea353298f",
+      "authority": "c2-bounded-acceptance-20261018.json"
+    },
+    "evaluation/synthetic_descriptive.py": {
+      "sha256": "fc780891c71944154328380c7ce11952faf9c05638c95b4ee94d0baeaea22cde",
+      "authority": "c2-bounded-acceptance-20261018.json"
+    },
+    "evaluation/test_export_cli.py": {
+      "sha256": "66640847482f3421ffdc90e2912e7bdcd0963127a14bc66c8aba7dae0eb3fa43",
+      "authority": "followups-acceptance-20261018.json"
+    },
+    "evaluation/test_legacy_export.py": {
+      "sha256": "8a6eb9c03cef606bacf62f716f3a0a8eb82c38ec6bafdd4ba018123ec130a939",
+      "authority": "c2-bounded-acceptance-20261018.json"
+    },
+    "evaluation/test_synthetic_descriptive.py": {
+      "sha256": "782e0d7184594348e8f1433ecbb4e0dd2d5243090baec1708e64ae0f08fcd3a0",
+      "authority": "c2-bounded-acceptance-20261018.json"
+    }
+  },
+  "count": 69,
+  "mismatches": [],
+  "authorities": [
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/a1-acceptance-20261016.json",
+      "sha256": "dc8c50923e2cddef49b784c67f27606ef38a49be0aaa86c5880d3f7a67443538",
+      "at": "2026-10-16T03:21:59.274867+08:00",
+      "decision": "Accept A1 bounded host scope; spec APPROVE, quality APPROVE with nonblocking Q1"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/a2a-acceptance-20261016.json",
+      "sha256": "1da2a84a5c8b4054ec713c2087cbc7e095c6f8839dad61b7328528007b789aae",
+      "at": "2026-10-16T03:54:04.030561+08:00",
+      "decision": "ACCEPT bounded A2a lifecycle/cache host slice; spec APPROVE and quality APPROVE"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/a2b-acceptance-20261016.json",
+      "sha256": "42888512ddc4db8ccd5e7df9bbfde9822de077fcc6a7583f53e3634c07f0116a",
+      "at": "2026-10-16T04:19:19.236469+08:00",
+      "decision": "Accept bounded A2b host initialization/resource requirements with retained C1 concerns"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/a3a-acceptance-and-consumer-binding.json",
+      "sha256": "403a990584469018b27281269b4c9bb8aba89c83fd5fbb32c01f840eaede158b",
+      "at": "2026-10-16T10:34:52.306262+08:00",
+      "decision": "ACCEPT A3a bounded native host producer; spec APPROVE quality APPROVE WITH MINOR CONCERN"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/a3b-acceptance-20261017.json",
+      "sha256": "819be1570f79ba193846c46e18aa903ef04f80cda58451da17c26fa86a047297",
+      "at": "2026-10-17T18:11:24.279201+08:00",
+      "decision": "Accept A3b bounded host artifact consumer scope; spec APPROVE and quality APPROVE"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/b1-acceptance-20261017.json",
+      "sha256": "619d9b853e64396c46651478deab89f88f927db5be3792d97037b86d37d8b998",
+      "at": "2026-10-17T18:50:29.239266+08:00",
+      "decision": "Accept B1 prepared host task06 references WITH low B1-R1 arithmetic robustness follow-up"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/b2-bounded-acceptance-20261018.json",
+      "sha256": "81612f739cbc0c1a347ada2329a37595e27a9f735126d362ceb100ef92e00d13",
+      "at": "2026-10-18T00:18:39.098569+08:00",
+      "decision": "ACCEPT_BOUNDED_B2_TOOLING_AND_RETAIN_INCOMPLETE_DIAGNOSTICS_ONLY"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/c1-bounded-acceptance-20261018.json",
+      "sha256": "e4792e47828be8cbcdceab07a67bf1bad77302d355a6b4e801085d7fb6ede41c",
+      "at": "2026-10-18T00:39:37.126581+08:00",
+      "decision": "ACCEPT_C1_BOUNDED_INSPECTOR_WITH_LOW_COVERAGE_FOLLOWUP"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/c2-bounded-acceptance-20261018.json",
+      "sha256": "7b2975da2ca15ddd82637e9ac4592383d76241dcaa161599c1c4581c9e46ea32",
+      "at": "2026-10-18T01:10:42.626286+08:00",
+      "decision": "ACCEPT_C2_BOUNDED_EXPORT_VALIDATION_AND_SYNTHETIC_DESCRIPTIVES_WITH_LOW_COVERAGE_FOLLOWUP"
+    },
+    {
+      "path": "benchmarking/study_evidence/20261015/controller/followups-acceptance-20261018.json",
+      "sha256": "6b2fcecd635b29c4477c0c87d4658dd75a2a618d1f7b0864b25ada28295f0816",
+      "at": "2026-10-18T01:27:54.243816+08:00",
+      "decision": "ACCEPT_NARROW_FOLLOWUP_CLOSURES"
+    }
+  ],
+  "limits": "Latest accepted postimage per path, not retroactive rebinding of historical A/B/C fixture or campaign identities."
+}

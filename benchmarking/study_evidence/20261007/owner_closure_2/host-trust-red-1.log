@@ -1,0 +1,162 @@
+test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) ... 
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='package_throw') ... ERROR
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='version_missing') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='device_extra') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='schema_bool') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='schema_float') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='control_extra') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='package_throw') ... ERROR
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='version_missing') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='device_extra') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='schema_bool') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='schema_float') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='control_extra') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='package_throw') ... ERROR
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='version_missing') ... FAIL
+  test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='device_extra') ... FAIL
+
+======================================================================
+ERROR: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='package_throw')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 177, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1800, rows[0]['results']['analyzer_count'])
+                           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'analyzer_count'
+
+======================================================================
+ERROR: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='package_throw')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 177, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1800, rows[0]['results']['analyzer_count'])
+                           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'analyzer_count'
+
+======================================================================
+ERROR: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='package_throw')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 171, in test_second_review_acquisition_unknown_device_and_companion_contract
+    collected = latency.collect_interpreter('SERIAL') if kind == 'interpreter_latency_diagnostic' else fps.collect(args)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/collect_latency.py", line 87, in collect_interpreter
+    build = fps.read_package_build(serial)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/collect_fps.py", line 522, in read_package_build
+    output = adb(serial, 'shell', 'dumpsys', 'package', APP_PACKAGE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 159, in adb
+    if fault == 'package_throw': raise RuntimeError('PRIVATE_patient_text')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: PRIVATE_patient_text
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='version_missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='device_extra')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='schema_bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='schema_float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='fps', fault='control_extra')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='version_missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='device_extra')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='schema_bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='schema_float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='latency', fault='control_extra')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 174, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertEqual(1, status)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='version_missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 181, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertTrue(rows[0]['rejection_reasons'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_second_review_acquisition_unknown_device_and_companion_contract (test_collectors.AdbCollectionTest.test_second_review_acquisition_unknown_device_and_companion_contract) (kind='interpreter_latency_diagnostic', fault='device_extra')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 181, in test_second_review_acquisition_unknown_device_and_companion_contract
+    self.assertTrue(rows[0]['rejection_reasons'])
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.042s
+
+FAILED (failures=12, errors=3)

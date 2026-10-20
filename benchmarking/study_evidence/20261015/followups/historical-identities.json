@@ -1,0 +1,79 @@
+{
+  "b1_fixture_count": 6,
+  "b1_png_count": 180,
+  "b1_expected_current_checkout_binding_drift": [
+    {
+      "path": "benchmarking/pipeline_parity.py",
+      "historical_sha256": "cc905b5494e1fe78d7c4d3de3bcf05772499946538d42f404f17acad3c43d93d",
+      "current_sha256": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4"
+    }
+  ],
+  "b1_historical_manifest_sha256": "1cca1526355e9d4ce6c41102a0a6fa474a15dd77bbac2b09daee1ec85e70c452",
+  "b1_historical_selection_sha256": "bc7bb2bd85359cc7242ecfb4bba84e267303c911061a0c1a8fa8ce9c980bf8ad",
+  "old_verify_evidence": "Expected assertion at line 56 for benchmarking/pipeline_parity.py; not run because it also reads original video/NPZ sources. No manifests changed.",
+  "b2_outputs_verified_against_historical_record": {
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/diagnostics/20261017-validation-v1-3/INCOMPLETE.json": "ddff140175fe36a1874739f3d4daa349bad87a8734eeea796a53140513f518e6",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/diagnostics/20261017-validation-v1-3/campaign.json": "5dead49dd2257df34af9242f623f82345b6108ed9b66e2fda5837c3b9b0c77d0",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/diagnostics/20261017-validation-v1-3/clips.jsonl": "0529028d39eedcc23e1e550f96b1891d4e757bf6428e26593351007d9db051ad",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/diagnostics/20261017-validation-v1-3/events.jsonl": "1e7b53fe5ce26c87c5a2ed0b74c2e3430ed0c50b35784b7d28fb4ddea712d285",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/diagnostics/20261017-validation-v1-3/runtime.json": "ccc8e9e472471665518f662864879c81ca4d47542ba0561c43bf3d0631e52752",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/diagnostics/20261017-validation-v1-3/summary.json": "7e7b51f6b9d6d92e019a386ba57e6e9db476087df1328a59dc36ec81967b912d"
+  },
+  "b2_current_accepted_sources": {
+    "training/models/validation_campaign.py": "8e28d5ad110b76881e65d75e1e851ecb71fa2a6e21e232bc2d0a7fe8cea22998",
+    "training/tests/test_validation_campaign.py": "5d9f2e13f0896b36940fdd81384ee6db9c2708417edcfce5e8064eefe019fe46"
+  },
+  "historical_c1_c2_test_identities": {
+    "c1": {
+      "parent_record_sha256": "912cfba41e0c209a8cbe19361c2044bf60fd09046cf893a4a18795ae80a6a189"
+    },
+    "c2": {
+      "parent_record_sha256": "34dc05f7185a1d4b3e094daeb0687db7ef64fc8f34cc115b5c6dbf5b159313e7"
+    },
+    "benchmarking/test_inspect_release.py": {
+      "historical_sha256": "03450c2a0035116910d78d514a9d90e446f0679c8eb1626ea0870090ee98eae9",
+      "current_sha256": "75ae48ac36ccc1a753260aafd660998ea5b5fab53f8512cc16d046fd448d1498",
+      "historical_snapshot": "before/benchmarking/test_inspect_release.py"
+    },
+    "evaluation/test_export_cli.py": {
+      "historical_sha256": "a3de3750f4acdcaa2938c2e1f9de97e803f502ed45aa541bcaec95c07d6b587b",
+      "current_sha256": "66640847482f3421ffdc90e2912e7bdcd0963127a14bc66c8aba7dae0eb3fa43",
+      "historical_snapshot": "before/evaluation/test_export_cli.py"
+    }
+  },
+  "historical_apks_verified": {
+    "debug": {
+      "path": "app/build/app/outputs/apk/debug/app-debug.apk",
+      "bytes": 212207146,
+      "sha256": "0707d2f153c713055edaf50171b4c053393480f34940d380512cac0177543dff",
+      "flutter_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "model_sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb"
+    },
+    "android_test": {
+      "path": "app/build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "bytes": 382400,
+      "sha256": "c276116bc3bad24383101f07191f1e71d29fa52c16fc4b3a6b38bec5b024b291",
+      "flutter_abis": []
+    },
+    "release_arm64": {
+      "path": "app/build/app/outputs/flutter-apk/app-release.apk",
+      "bytes": 66969546,
+      "sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+      "flutter_abis": [
+        "arm64-v8a"
+      ],
+      "model_sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb"
+    }
+  },
+  "postimages": {
+    "benchmarking/pipeline_parity.py": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4",
+    "benchmarking/test_pipeline_parity.py": "73d9c465ade5ca177619371a8cc6b62a9639e34ffee63faca30aa1d20ce24c25",
+    "benchmarking/test_inspect_release.py": "75ae48ac36ccc1a753260aafd660998ea5b5fab53f8512cc16d046fd448d1498",
+    "evaluation/test_export_cli.py": "66640847482f3421ffdc90e2912e7bdcd0963127a14bc66c8aba7dae0eb3fa43"
+  },
+  "limits": "B1 self-comparison is only current structural validation, not fresh generation/native parity. B2 outputs are historical incomplete diagnostics, not new inference. No retroactive binding."
+}

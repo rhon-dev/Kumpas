@@ -1,0 +1,29 @@
+{
+  "event": "end",
+  "label": "historical-artifact-readback",
+  "command": [
+    "/opt/homebrew/bin/python3.11",
+    "-B",
+    "-E",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d/readback-history.py",
+    "--check-only"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+  "at": "2026-10-18T14:18:50.737331+08:00",
+  "source_manifest": "historical-artifact-readback-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "ended_at": "2026-10-18T14:18:50.855119+08:00",
+  "log": "historical-artifact-readback.log",
+  "log_sha256": "713cf3aad3972c41b248abb1440d8a240a1dc945b1d6a49ec8600121c84bef29",
+  "source_changes": []
+}

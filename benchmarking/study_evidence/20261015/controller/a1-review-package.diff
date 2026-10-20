@@ -1,0 +1,488 @@
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt
+index 48f9fa9..6104a22 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt
+@@ -16,33 +16,62 @@ import java.util.Locale
+  * The export contains:
+  * - metadata (timestamp, app version, device, participant ID)
+  * - all assessments (pre/post)
+  * - all sessions with nested attempts
+  *
+  * Output is written to app-specific external files directory, accessible
+  * via `adb pull` without root.
+  */
+-class DataExporter(private val context: Context) {
++class DataExporter internal constructor(
++    private val context: Context,
++    private val publication: ExportPublication,
++    private val now: () -> Date = { Date() }
++) {
++    constructor(context: Context) : this(context, ExportPublication())
+ 
+     companion object {
+         private const val TAG = "KumpasExport"
+     }
+ 
+     /**
+      * Export all data for the given participant to a JSON file.
+      * Returns the absolute file path on success, or throws on failure.
+      * Borrows [db]: the caller must close its helper in use/finally on both paths.
+      * The caller must also serialize this export with SessionManager persistence/purge.
+      */
+     fun export(participantId: String, db: SessionDatabase): String {
+         val root = buildExportJson(participantId, db)
+         val outFile = getExportFile(participantId)
+         outFile.parentFile?.mkdirs()
+-        outFile.writeText(root.toString(2))
++        if (!outFile.createNewFile()) throw java.io.IOException("Export destination already exists")
++        // Both names deliberately fit StudyDataFiles' managed-export matcher.
++        // Reserve the unique destination before writing; never replace an existing export.
++        val staging = File(outFile.parentFile, outFile.name.replaceFirst("kumpas_export_", "kumpas_export_stage-"))
++        var stagingOwned = false
++        try {
++            if (!staging.createNewFile()) throw java.io.IOException("Export staging already exists")
++            stagingOwned = true
++            val bytes = root.toString(2).toByteArray(Charsets.UTF_8)
++            publication.open(staging).use { it.write(bytes) }
++            if (!publication.read(staging).contentEquals(bytes)) {
++                throw java.io.IOException("Export staging verification failed")
++            }
++            publication.publish(staging, outFile)
++            if (!publication.read(outFile).contentEquals(bytes) || staging.exists()) {
++                throw java.io.IOException("Export publication verification failed")
++            }
++        } catch (failure: Exception) {
++            for (file in listOfNotNull(outFile, staging.takeIf { stagingOwned })) {
++                if (!file.delete() && file.exists()) {
++                    failure.addSuppressed(java.io.IOException("Incomplete export cleanup; retry managed purge"))
++                }
++            }
++            throw failure
++        }
+         Log.i(TAG, "Exported to: ${outFile.absolutePath}")
+         return outFile.absolutePath
+     }
+ 
+     private fun buildExportJson(participantId: String, db: SessionDatabase): JSONObject {
+         val root = JSONObject()
+ 
+         // Metadata
+@@ -69,35 +98,37 @@ class DataExporter(private val context: Context) {
+             session.put("attempts", attempts)
+             sessionsWithAttempts.put(session)
+         }
+         root.put("sessions", sessionsWithAttempts)
+ 
+         // Summary stats
+         val summary = JSONObject().apply {
+             put("total_sessions", sessions.length())
+-            put("total_attempts", db.getAttemptCount())
++            put("total_attempts", (0 until sessionsWithAttempts.length()).sumOf {
++                sessionsWithAttempts.getJSONObject(it).getJSONArray("attempts").length()
++            })
+             put("total_assessments", assessments.length())
+         }
+         root.put("summary", summary)
+ 
+         return root
+     }
+ 
+     private fun getExportFile(participantId: String): File {
+         // Use app-specific external files dir (no permission needed on API 19+)
+         val dir = context.getExternalFilesDir(null)
+             ?: File(context.filesDir, "exports")
+         val shortId = participantId.take(8)
+-        val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+-        return File(dir, "kumpas_export_${shortId}_$ts.json")
++        val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(now())
++        return File(dir, "kumpas_export_${shortId}-${java.util.UUID.randomUUID()}_$ts.json")
+     }
+ 
+     private fun isoTimestamp(): String {
+-        return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US).format(Date())
++        return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US).format(now())
+     }
+ 
+     private fun getAppVersion(): String {
+         return try {
+             context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "1.0.0"
+         } catch (_: Exception) { "1.0.0" }
+     }
+ }
+
+
+FULL CURRENT UNTRACKED FILE app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ExportPublication.kt
+package com.kumpas.kumpas_app
+
+import java.io.File
+import java.io.OutputStream
+
+/** Narrow I/O seam for exercising real export failures with synthetic files. */
+internal open class ExportPublication {
+    open fun open(file: File): OutputStream = file.outputStream()
+    open fun publish(staging: File, destination: File) {
+        if (!staging.renameTo(destination)) throw java.io.IOException("Export publication failed")
+    }
+    open fun read(file: File): ByteArray = file.readBytes()
+}
+
+
+diff --git a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt
+index 13ac481..ffe9176 100644
+--- a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt
++++ b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt
+@@ -24,33 +24,48 @@ import java.io.File
+  * Pinned to SDK 34: Robolectric 4.12.1 ships no runtime for targetSdk 36.
+  *
+  * Phase 8, Task 16 (export verification).
+  */
+ @RunWith(RobolectricTestRunner::class)
+ @Config(sdk = [34])
+ class DataExporterTest {
+ 
++    private lateinit var fixtureRoot: File
+     private lateinit var context: Context
+     private lateinit var db: SessionDatabase
+     private lateinit var exporter: DataExporter
+ 
+     private val participantId = "11111111-2222-3333-4444-555555555555"
+ 
+     @Before
+     fun setUp() {
+-        context = RuntimeEnvironment.getApplication()
++        val app = RuntimeEnvironment.getApplication() as Context
++        fixtureRoot = java.nio.file.Files.createTempDirectory("kumpas-export-test-").toFile()
++        context = object : android.content.ContextWrapper(app) {
++            override fun getFilesDir(): File = File(fixtureRoot, "internal").apply { mkdirs() }
++            override fun getExternalFilesDir(type: String?): File = File(fixtureRoot, "external").apply { mkdirs() }
++            override fun getDatabasePath(name: String): File = File(fixtureRoot, name)
++            override fun openOrCreateDatabase(name: String, mode: Int,
++                factory: android.database.sqlite.SQLiteDatabase.CursorFactory?): android.database.sqlite.SQLiteDatabase =
++                super.openOrCreateDatabase(getDatabasePath(name).absolutePath, mode, factory)
++            override fun openOrCreateDatabase(name: String, mode: Int,
++                factory: android.database.sqlite.SQLiteDatabase.CursorFactory?,
++                handler: android.database.DatabaseErrorHandler?): android.database.sqlite.SQLiteDatabase =
++                super.openOrCreateDatabase(getDatabasePath(name).absolutePath, mode, factory, handler)
++        }
+         db = SessionDatabase(context)
+-        exporter = DataExporter(context)
++        exporter = DataExporter(context, ExportPublication()) { java.util.Date(0L) }
+         db.insertParticipant(participantId, "test-device", "1.0.0")
+     }
+ 
+     @After
+     fun tearDown() {
+         db.close()
++        fixtureRoot.deleteRecursively()
+     }
+ 
+     /** Export and parse the resulting file back into JSON. */
+     private fun exportAndParse(): Pair<File, JSONObject> {
+         val path = exporter.export(participantId, db)
+         val file = File(path)
+         assertTrue("export file should exist at $path", file.exists())
+         return file to JSONObject(file.readText())
+@@ -187,23 +202,182 @@ class DataExporterTest {
+ 
+         val (_, root) = exportAndParse()
+ 
+         assertEquals(1, root.getJSONArray("sessions").length())
+         assertEquals("session-1", root.getJSONArray("sessions").getJSONObject(0).getString("id"))
+         assertEquals(1, root.getJSONArray("assessments").length())
+     }
+ 
++    @Test
++    fun export_summaryCountsOnlyNestedParticipantAttempts() {
++        seedSession("owned", "AKO", "IKAW")
++        val other = "99999999-8888-7777-6666-555555555555"
++        db.insertParticipant(other, "synthetic", "1.0.0")
++        db.insertSession("other", other)
++        db.insertAttempt("other", 1L, 1, "OTHER", "OTHER", 0.9, true, 0.8, "[]")
++        val (_, root) = exportAndParse()
++        val sessions = root.getJSONArray("sessions")
++        val nested = (0 until sessions.length()).sumOf {
++            val session = sessions.getJSONObject(it)
++            assertEquals(participantId, session.getString("participant_id"))
++            session.getJSONArray("attempts").length()
++        }
++        assertEquals(2, nested)
++        assertEquals(nested, root.getJSONObject("summary").getInt("total_attempts"))
++    }
++
++    @Test
++    fun export_repeatedSameTimeDoesNotOverwriteCompletedData() {
++        seedSession("first", "AKO")
++        val first = File(exporter.export(participantId, db))
++        val original = first.readBytes()
++        seedSession("second", "IKAW")
++        val second = File(exporter.export(participantId, db))
++        org.junit.Assert.assertNotEquals(first, second)
++        org.junit.Assert.assertArrayEquals(original, first.readBytes())
++        assertEquals(2, JSONObject(second.readText()).getJSONArray("sessions").length())
++    }
++
++    @Test
++    fun export_partialWriteFailureRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun open(file: File): java.io.OutputStream {
++                val real = super.open(file)
++                return object : java.io.FilterOutputStream(real) {
++                    override fun write(bytes: ByteArray, off: Int, len: Int) {
++                        out.write(bytes, off, minOf(8, len))
++                        throw java.io.IOException("synthetic partial write")
++                    }
++                }
++            }
++        })
++    }
++
++    @Test
++    fun export_closeFailureRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun open(file: File): java.io.OutputStream =
++                object : java.io.FilterOutputStream(super.open(file)) {
++                    override fun close() {
++                        super.close()
++                        throw java.io.IOException("synthetic close failure")
++                    }
++                }
++        })
++    }
++
++    @Test
++    fun export_publicationFailureRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                assertTrue("must publish from separate staging", staging != destination)
++                JSONObject(staging.readText())
++                throw java.io.IOException("synthetic publication failure")
++            }
++        })
++    }
++
++    @Test
++    fun export_corruptPublicationCannotReturnSuccess() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                super.publish(staging, destination)
++                destination.writeText("{}")
++            }
++        })
++    }
++
++    @Test
++    fun export_committedReadFailureCannotReturnSuccess() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun read(file: File): ByteArray {
++                if (!file.name.startsWith("kumpas_export_stage-")) {
++                    throw java.io.IOException("synthetic committed read failure")
++                }
++                return super.read(file)
++            }
++        })
++    }
++
++    @Test
++    fun export_errorAfterRenameRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                super.publish(staging, destination)
++                throw java.io.IOException("synthetic error after rename")
++            }
++        })
++    }
++
++    @Test
++    fun export_allActualStagingAndCompletedNamesAreManagedByPurge() {
++        val artifacts = mutableListOf<File>()
++        val io = object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                artifacts.add(staging)
++                artifacts.add(destination)
++                super.publish(staging, destination)
++            }
++        }
++        DataExporter(context, io).export(participantId, db)
++        val internalOnly = object : android.content.ContextWrapper(context) {
++            override fun getExternalFilesDir(type: String?): File? = null
++        }
++        DataExporter(internalOnly, io).export(participantId, db)
++        // Recreate exact observed staging names to model interrupted work.
++        artifacts.forEach { if (!it.exists()) it.writeText("synthetic interrupted staging") }
++        val sentinels = artifacts.map { it.parentFile }.distinct().map {
++            File(it, "unrelated.json").apply { writeText("sentinel") }
++        }
++        StudyDataFiles.purge(context)
++        artifacts.forEach { org.junit.Assert.assertFalse(it.exists()) }
++        sentinels.forEach { assertEquals("sentinel", it.readText()) }
++    }
++
++    @Test
++    fun export_silentShortWriteFailsStagingVerification() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun open(file: File): java.io.OutputStream =
++                object : java.io.FilterOutputStream(super.open(file)) {
++                    override fun write(bytes: ByteArray, off: Int, len: Int) {
++                        out.write(bytes, off, minOf(8, len))
++                    }
++                }
++        })
++    }
++
++    private fun assertPublicationFailure(io: ExportPublication) {
++        seedSession("prior", "AKO")
++        val prior = File(exporter.export(participantId, db))
++        val priorBytes = prior.readBytes()
++        val sentinel = File(prior.parentFile, "unrelated.txt").apply { writeText("sentinel") }
++        val before = prior.parentFile!!.listFiles()!!.map { it.name }.toSet()
++        seedSession("later", "IKAW")
++        try {
++            DataExporter(context, io) { java.util.Date(0L) }.export(participantId, db)
++            org.junit.Assert.fail("failed export must not return a success path")
++        } catch (_: java.io.IOException) { }
++        org.junit.Assert.assertArrayEquals(priorBytes, prior.readBytes())
++        assertEquals("sentinel", sentinel.readText())
++        assertEquals("no partial new export may remain", before,
++            prior.parentFile!!.listFiles()!!.map { it.name }.toSet())
++        assertTrue(db.readableDatabase.isOpen)
++        assertEquals(2, db.getAttemptCount())
++        // Failure must not poison a subsequent export or the borrowed database.
++        assertEquals(2, exportAndParse().second.getJSONObject("summary").getInt("total_attempts"))
++    }
++
+     @Test
+     fun export_fileNameCarriesParticipantPrefix() {
+         val (file, _) = exportAndParse()
+ 
+         assertTrue(
+             "unexpected export file name: ${file.name}",
+-            Regex("^kumpas_export_${participantId.take(8)}_\\d{8}_\\d{6}\\.json$")
++            Regex("^kumpas_export_${participantId.take(8)}-[A-Za-z0-9-]+_\\d{8}_\\d{6}\\.json$")
+                 .matches(file.name)
+         )
+     }
+ 
+     @Test
+     fun export_unavailableExternalStorageUsesInternalFallbackAndLeavesBorrowedHelperOpen() {
+         seedSession("fallback-session", "SYNTHETIC")
+         val unavailable = object : android.content.ContextWrapper(context) {
+
+
+diff --git a/app/lib/ui/assessment_screen.dart b/app/lib/ui/assessment_screen.dart
+index 433fa9b..866bf6e 100644
+--- a/app/lib/ui/assessment_screen.dart
++++ b/app/lib/ui/assessment_screen.dart
+@@ -33,18 +33,17 @@ class _AssessmentScreenState extends State<AssessmentScreen> {
+   String _openFeedback = '';
+ 
+   bool get _preFormComplete =>
+       _fslConfidence != null &&
+       _signsKnown != null;
+ 
+   bool get _postFormComplete =>
+       _preFormComplete &&
+-      _susResponses.every((r) => r != 0) &&
+-      _openFeedback.isNotEmpty;
++      _susResponses.every((r) => r != 0);
+ 
+   bool get _formComplete =>
+       widget.isPost ? _postFormComplete : _preFormComplete;
+ 
+   @override
+   void initState() {
+     super.initState();
+     _pageController = PageController();
+
+
+FULL CURRENT UNTRACKED FILE app/test/assessment_save_failure_test.dart
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kumpas_app/ui/assessment_screen.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  testWidgets('post required responses submit with empty optional feedback', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1000, 4000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final saves = <MethodCall>[];
+    final messenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(const MethodChannel('kumpas/control'), (call) async {
+      if (call.method == 'saveAssessment') saves.add(call);
+      return null;
+    });
+    addTearDown(() => messenger.setMockMethodCallHandler(const MethodChannel('kumpas/control'), null));
+    await tester.pumpWidget(MaterialApp(home: Builder(builder: (context) => Scaffold(
+      body: TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(
+        builder: (_) => const AssessmentScreen(isPost: true))), child: const Text('Open post')),
+    ))));
+    await tester.tap(find.text('Open post'));
+    await tester.pumpAndSettle();
+    expect(tester.widget<TextButton>(find.widgetWithText(TextButton, 'Susunod')).onPressed, isNull);
+    await tester.tap(find.text('3').first);
+    await tester.pump();
+    expect(tester.widget<TextButton>(find.widgetWithText(TextButton, 'Susunod')).onPressed, isNull);
+    await tester.tap(find.text('3').last);
+    await tester.pump();
+    await tester.tap(find.text('Susunod'));
+    await tester.pumpAndSettle();
+    expect(find.text('3'), findsNWidgets(10));
+    for (var i = 0; i < 9; i++) {
+      await tester.tap(find.text('3').at(i));
+      await tester.pump();
+    }
+    expect(tester.widget<FilledButton>(find.widgetWithText(FilledButton, 'Ipon')).onPressed, isNull);
+    await tester.tap(find.text('Ipon'));
+    await tester.pump();
+    expect(saves, isEmpty);
+    await tester.tap(find.text('3').last);
+    await tester.pump();
+    expect(tester.widget<TextField>(find.byType(TextField)).controller!.text, isEmpty);
+    expect(tester.widget<FilledButton>(find.widgetWithText(FilledButton, 'Ipon')).onPressed, isNotNull);
+    await tester.tap(find.text('Ipon'));
+    await tester.pumpAndSettle();
+    expect(saves, hasLength(1));
+    expect((saves.single.arguments as Map)['type'], 'post');
+    final responses = jsonDecode((saves.single.arguments as Map)['responses'] as String) as Map;
+    expect(responses['openFeedback'], '');
+    expect(responses['fslConfidence'], 3);
+    expect(responses['signsKnown'], 3);
+    expect(responses['susScores'], List.filled(10, 3));
+    expect(find.byType(AssessmentScreen), findsNothing);
+  });
+  testWidgets('assessment save failure stays on form and safe retry navigates', (tester) async {
+    var failSave = true;
+    var saves = 0;
+    final messenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(const MethodChannel('kumpas/control'), (call) async {
+      if (call.method == 'saveAssessment') {
+        saves++;
+        if (failSave) throw PlatformException(code: 'PERSISTENCE_FAILED');
+      }
+      return null;
+    });
+    addTearDown(() => messenger.setMockMethodCallHandler(const MethodChannel('kumpas/control'), null));
+    await tester.pumpWidget(MaterialApp(home: Builder(builder: (context) => Scaffold(
+      body: TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute<void>(
+        builder: (_) => const AssessmentScreen())), child: const Text('Open synthetic form')),
+    ))));
+    await tester.tap(find.text('Open synthetic form'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('3').first);
+    await tester.tap(find.text('3').last);
+    await tester.pump();
+    await tester.tap(find.text('Ipon'));
+    await tester.pumpAndSettle();
+    expect(saves, 1);
+    expect(find.byType(AssessmentScreen), findsOneWidget);
+    expect(find.textContaining('Error saving assessment:'), findsOneWidget);
+    expect(find.textContaining('Salamat sa pagkumpleto'), findsNothing);
+    failSave = false;
+    await tester.tap(find.text('Ipon'));
+    await tester.pumpAndSettle();
+    expect(saves, 2);
+    expect(find.byType(AssessmentScreen), findsNothing);
+  });
+}

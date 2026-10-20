@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-19T00:52:32.129683+08:00",
+  "decision": "ACCEPT_RECORDED_D_HOST_VERIFICATION_PACKAGE_WITH_OWNER_DEFERRED_RUNNER_SCOPE",
+  "scope": "Host16 executed test/build/evidence deliverable only; not all45/all16/runtime/study/currentrunneracceptance",
+  "authority": "Owner explicitly requested skipping prolonged runner task. Preparation/review remains deferred and unaccepted, resolving its inclusion as a required step for this bounded handoff only; no implementation acceptance or training permission.",
+  "evidence": "d/source-freeze.json;final-host-spec-review-1.md D evidencePASS;final-host-quality-review-1.md boundedPASS;parentreadback+XMLrecords",
+  "frozen_source_drift_since_execution": [
+    ".superpowers/sdd/progress.md",
+    "benchmarking/study_readiness.md",
+    "benchmarking/test_host_producer_replay.py",
+    "docs/phase-gates.md"
+  ],
+  "drift_disposition": "Laterparentstatusamendments and test-only importbootstrap fix are separate; originalDfreeze retained unchanged,notcurrentwholecheckoutattestation",
+  "subsequent_test_fix": "34replaytests passed through bothinvocationstyles; replay_import_fix/verification.json. No productionlogicchange.",
+  "runner": "Newexperiment_runner.py/tests/evidence excluded from acceptedDpackage and not independentlyaccepted",
+  "tests": "Recorded79Flutter170JVM122benchmarkpasses2capabilityskips21overlappingcompatible18evaluation29training;cleananalysis",
+  "remaining": [
+    "study-delete",
+    "study-flow",
+    "study-phone",
+    "host-09",
+    "host-10",
+    "host-11"
+  ],
+  "protected_count": 82,
+  "limits": "Physical/model/expert/human/participantgatesopen;strictARM64signatureELFstartupnotaccepted; no new test/build run by adjudication"
+}

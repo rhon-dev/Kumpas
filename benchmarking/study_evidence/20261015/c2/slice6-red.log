@@ -1,0 +1,26 @@
+test_argument_help_is_json_and_duplicate_input_paths_fail (evaluation.test_export_cli.CliTests.test_argument_help_is_json_and_duplicate_input_paths_fail) ... ERROR
+
+======================================================================
+ERROR: test_argument_help_is_json_and_duplicate_input_paths_fail (evaluation.test_export_cli.CliTests.test_argument_help_is_json_and_duplicate_input_paths_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py", line 71, in test_argument_help_is_json_and_duplicate_input_paths_fail
+    status,result=self.run_cli(['--help'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py", line 34, in run_cli
+    return cp.returncode,json.loads(cp.stdout)
+                         ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.041s
+
+FAILED (errors=1)

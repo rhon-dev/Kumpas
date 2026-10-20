@@ -1,0 +1,21 @@
+test_publication_collision_preserves_unowned_manifest (evaluation.test_export_cli.CliTests.test_publication_collision_preserves_unowned_manifest) ... ERROR
+
+======================================================================
+ERROR: test_publication_collision_preserves_unowned_manifest (evaluation.test_export_cli.CliTests.test_publication_collision_preserves_unowned_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py", line 124, in test_publication_collision_preserves_unowned_manifest
+    self.assertEqual((self.root/'SYNTHETIC-001'/'manifest.json').read_bytes(),b'SYNTHETIC SENTINEL')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-c2-SYNTHETIC-dnrq05b2/SYNTHETIC-001/manifest.json'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (errors=1)

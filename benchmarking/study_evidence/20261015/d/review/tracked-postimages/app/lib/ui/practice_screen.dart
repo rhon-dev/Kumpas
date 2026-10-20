@@ -1,0 +1,584 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../feedback_engine/kumpas_channel.dart';
+import '../feedback_engine/models.dart';
+import '../session/session_lifecycle.dart';
+import 'feedback_sheet.dart';
+import 'theme.dart';
+
+/// Practice mode (Figma camera-panel style, Translate.png): rounded dark
+/// camera card on a light screen, LIVE badge, one-tap attempt capture
+/// (~4s window), then corrective feedback from the native engine.
+class PracticeScreen extends StatefulWidget {
+  final Sign sign;
+  final int? benchmarkDurationSeconds;
+
+  const PracticeScreen({
+    super.key,
+    required this.sign,
+    this.benchmarkDurationSeconds,
+  });
+
+  @override
+  State<PracticeScreen> createState() => _PracticeScreenState();
+}
+
+class _PracticeScreenState extends State<PracticeScreen>
+    with WidgetsBindingObserver {
+  StreamSubscription<Map<String, dynamic>>? _sub;
+  bool _warmingUp = true;
+  bool _attemptRunning = false;
+  int _collected = 0;
+  int _needed = 30;
+  String _liveLabel = '';
+  bool _signerVisible = true;
+  String? _attemptId;
+  int _requestGeneration = 0;
+  final Map<int, String> _pendingAttemptOutcomes = {};
+  Timer? _attemptTimeout;
+  bool _benchmarkStarted = false;
+  bool _benchmarkStarting = false;
+  int _benchmarkGeneration = 0;
+  Timer? _benchmarkStartTimeout;
+  Timer? _benchmarkWarmup;
+  String? _benchmarkRunId;
+  bool _benchmarkComplete = false;
+  String _benchmarkConfirmation = 'confirmation pending';
+  late SessionLifecycleObserver _lifecycleObserver;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _lifecycleObserver = SessionLifecycleObserver();
+    WidgetsBinding.instance.addObserver(_lifecycleObserver);
+    _lifecycleObserver.setPracticeActive(true);
+    _sub = KumpasChannel.eventStream().listen(
+      _onEvent,
+      onError: (Object error) => _captureError('Camera stream error: $error'),
+    );
+    if (widget.benchmarkDurationSeconds != null) {
+      _benchmarkWarmup = Timer(const Duration(seconds: 3), () {
+        if (mounted && !_benchmarkStarted) {
+          unawaited(_startBenchmark());
+        }
+      });
+    }
+  }
+
+  void _onEvent(Map<String, dynamic> m) {
+    if (!mounted) return;
+    final state = m['state'];
+    if ((state == 'prediction' || state == 'no_signer') &&
+        widget.benchmarkDurationSeconds != null &&
+        !_benchmarkStarted) {
+      unawaited(_startBenchmark());
+    }
+    if (state == 'attempt_progress' ||
+        state == 'attempt_result' ||
+        state == 'attempt_failed') {
+      if (_attemptId == null ||
+          m['attemptId'] != _attemptId ||
+          !_attemptRunning) {
+        return;
+      }
+    }
+    switch (m['state']) {
+      case 'attempt_progress':
+        setState(() {
+          _warmingUp = false;
+          _attemptRunning = true;
+          _collected = m['collected'] as int;
+          _needed = m['needed'] as int;
+        });
+      case 'attempt_result':
+        final completedId = _attemptId!;
+        _attemptId = null;
+        _attemptTimeout?.cancel();
+        setState(() => _attemptRunning = false);
+        HapticFeedback.mediumImpact();
+        final result = AttemptResult.fromJson(m);
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          builder: (_) => FeedbackSheet(result: result),
+        );
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            unawaited(
+              KumpasChannel.feedbackPresented(
+                completedId,
+              ).catchError((Object _) {}),
+            );
+          }
+        });
+      case 'attempt_failed':
+        _attemptId = null;
+        _attemptTimeout?.cancel();
+        setState(() => _attemptRunning = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(m['reason'] as String),
+            action: SnackBarAction(label: 'Ulitin', onPressed: _startAttempt),
+          ),
+        );
+      case 'camera_error':
+        _captureError(m['reason'] as String? ?? 'Camera unavailable');
+      case 'benchmark_complete':
+        final report = m['results'];
+        if (_benchmarkRunId == null || report is! Map || report['run_id'] != _benchmarkRunId) return;
+        _benchmarkComplete = true;
+        _showBenchmarkStatus();
+      case 'prediction':
+        setState(() {
+          _warmingUp = false;
+          _liveLabel = m['label'] as String;
+          _signerVisible = true;
+        });
+      case 'no_signer':
+        setState(() {
+          _warmingUp = false;
+          _liveLabel = '';
+          _signerVisible = false;
+        });
+    }
+  }
+
+  Future<void> _startAttempt() async {
+    if (_attemptRunning) return;
+    final generation = ++_requestGeneration;
+    _pendingAttemptOutcomes[generation] = 'cancelled';
+    HapticFeedback.lightImpact();
+    setState(() {
+      _attemptRunning = true;
+      _collected = 0;
+    });
+    _attemptTimeout?.cancel();
+    _attemptTimeout = Timer(const Duration(seconds: 30), () {
+      if (generation == _requestGeneration && _attemptRunning) {
+        _captureError('Capture timed out. Please try again.', outcome: 'timeout');
+      }
+    });
+    try {
+      final id = await KumpasChannel.startAttempt(widget.sign.id);
+      if (!mounted || generation != _requestGeneration || !_attemptRunning) {
+        await KumpasChannel.cancelAttempt(
+          attemptId: id, outcome: _pendingAttemptOutcomes[generation] ?? 'cancelled');
+        return;
+      }
+      _attemptId = id;
+    } catch (error) {
+      if (mounted && generation == _requestGeneration) {
+        _captureError('Could not start capture: $error');
+      }
+    } finally {
+      _pendingAttemptOutcomes.remove(generation);
+    }
+  }
+
+  Future<void> _startBenchmark() async {
+    if (_benchmarkStarted || _benchmarkStarting || !mounted) return;
+    final generation = ++_benchmarkGeneration;
+    _benchmarkStarting = true;
+    // Control response deadline is independent of the >=60s observation window.
+    _benchmarkStartTimeout?.cancel();
+    _benchmarkStartTimeout = Timer(const Duration(seconds: 30), () {
+      if (!mounted || generation != _benchmarkGeneration) return;
+      _benchmarkGeneration++;
+      _benchmarkStarting = false;
+      _benchmarkStartError('Control response timed out; any late run is diagnostic.');
+    });
+    try {
+      final id = await KumpasChannel.startBenchmark(
+        durationSeconds: widget.benchmarkDurationSeconds!,
+      );
+      if (!mounted || generation != _benchmarkGeneration) {
+        // Native stop verifies the old run ID; a replacement can never be stopped.
+        try {
+          await KumpasChannel.stopBenchmark(runId: id).timeout(const Duration(seconds: 30));
+        } catch (_) {
+          // Retain a fixed-code diagnostic even after disposal or replacement;
+          // never print channel exception text/private payloads.
+          debugPrint('Late run cleanup failed; run_id=$id; retain USB diagnostics.');
+          if (mounted && !_benchmarkStarted && !_benchmarkStarting) {
+            _benchmarkStartError('Late run cleanup failed; retain USB diagnostics.');
+          }
+        }
+        return;
+      }
+      _benchmarkStartTimeout?.cancel();
+      // Ownership commits at valid current receipt, not the confirmation reply.
+      // Navigation after this point has the same policy as any owned run.
+      _benchmarkStarted = true;
+      _benchmarkRunId = id;
+      _benchmarkConfirmation = 'confirmation pending';
+      _showBenchmarkStatus();
+      try {
+        final confirmed = await KumpasChannel.confirmBenchmarkStart(runId: id)
+            .timeout(const Duration(seconds: 30));
+        if (!mounted || generation != _benchmarkGeneration || _benchmarkRunId != id) return;
+        _benchmarkConfirmation = confirmed ? 'confirmed' : 'unconfirmed; diagnostic only';
+      } catch (_) {
+        // The producer may have confirmed before its reply was lost. Retain
+        // ownership/identity without asserting a producer state or echoing text.
+        if (!mounted || generation != _benchmarkGeneration || _benchmarkRunId != id) return;
+        _benchmarkConfirmation = 'confirmation uncertain; retain USB disposition';
+      }
+      _showBenchmarkStatus();
+    } catch (error) {
+      if (mounted && generation == _benchmarkGeneration) {
+        _benchmarkStartError('Control request failed; retain diagnostics.');
+      }
+    } finally {
+      if (generation == _benchmarkGeneration) {
+        _benchmarkStartTimeout?.cancel();
+        _benchmarkStarting = false;
+      }
+    }
+  }
+
+  void _benchmarkStartError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Benchmark could not start: $message'),
+      action: SnackBarAction(label: 'Retry', onPressed: _startBenchmark),
+    ));
+  }
+
+  void _showBenchmarkStatus() {
+    _showBenchmarkIdentity(_benchmarkComplete ? 'Benchmark complete' : _benchmarkConfirmation == 'confirmed' ? 'Benchmark running' : 'Benchmark owned');
+  }
+
+  void _showBenchmarkIdentity(String status) {
+    final id = _benchmarkRunId!;
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(minutes: 2),
+      content: Text('$status: $id. $_benchmarkConfirmation. USB report; physical gates remain separate.'),
+      action: SnackBarAction(label: 'Copy ID', onPressed: () {
+        unawaited(Clipboard.setData(ClipboardData(text: id)));
+      }),
+    ));
+  }
+
+  Future<void> _cancelAttempt({String outcome = 'cancelled'}) async {
+    final id = _attemptId;
+    if (_pendingAttemptOutcomes.containsKey(_requestGeneration)) {
+      _pendingAttemptOutcomes[_requestGeneration] = outcome;
+    }
+    _requestGeneration++;
+    _attemptId = null;
+    _attemptTimeout?.cancel();
+    if (mounted) setState(() => _attemptRunning = false);
+    if (id != null) {
+      try {
+        await KumpasChannel.cancelAttempt(attemptId: id, outcome: outcome);
+      } catch (error) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Could not cancel capture: $error')),
+          );
+        }
+      }
+    }
+  }
+
+  void _captureError(String message, {String outcome = 'cancelled'}) {
+    if (!mounted) return;
+    unawaited(_cancelAttempt(outcome: outcome));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed && _attemptRunning) {
+      unawaited(_cancelAttempt());
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _requestGeneration++;
+    _attemptTimeout?.cancel();
+    _benchmarkWarmup?.cancel();
+    _benchmarkGeneration++;
+    _benchmarkStartTimeout?.cancel();
+    _lifecycleObserver.setPracticeActive(false);
+    WidgetsBinding.instance.removeObserver(_lifecycleObserver);
+    _sub?.cancel();
+    final id = _attemptId;
+    if (id != null) {
+      unawaited(
+        KumpasChannel.cancelAttempt(attemptId: id).catchError((Object _) {}),
+      );
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = KumpasColors.of(context);
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
+    final hint = _warmingUp
+        ? 'Sinisimulan ang camera…'
+        : !_signerVisible
+        ? 'Ilagay ang iyong mga kamay sa view'
+        : null;
+
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(gradient: colors.headerGradient),
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(4, 4, 20, 12),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      tooltip: 'Bumalik',
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.sign.label,
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          Text(
+                            'Pagsasanay • ${widget.sign.category}',
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(color: Colors.white70),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    height: 380,
+                    color: colors.cameraPanel,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        const AndroidView(viewType: 'kumpas/camera_preview'),
+                        Positioned(
+                          top: 12,
+                          right: 12,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: colors.live,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  size: 8,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  'LIVE',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: AnimatedSwitcher(
+                            duration: reduceMotion
+                                ? Duration.zero
+                                : KumpasMotion.base,
+                            child: hint == null
+                                ? const SizedBox.shrink()
+                                : Container(
+                                    key: ValueKey(hint),
+                                    // Below the LIVE badge row to avoid overlap.
+                                    margin: const EdgeInsets.only(top: 52),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 14,
+                                      vertical: 8,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withValues(
+                                        alpha: 0.55,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      hint,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        ),
+                        if (_liveLabel.isNotEmpty)
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 12),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.55),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.visibility,
+                                    size: 16,
+                                    color: Colors.white70,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'nakikita: $_liveLabel',
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  _attemptRunning
+                      ? 'Hawakan ang senyas hanggang matapos ang capture'
+                      : 'Isenyas ang "${widget.sign.label}" kapag nagsimula ang capture',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 16),
+                _attemptRunning
+                    ? _CaptureProgress(
+                        collected: _collected,
+                        needed: _needed,
+                        reduceMotion: reduceMotion,
+                        onCancel: _cancelAttempt,
+                      )
+                    : FilledButton.icon(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: colors.success,
+                          minimumSize: const Size.fromHeight(52),
+                        ),
+                        icon: const Icon(Icons.sign_language),
+                        label: const Text('Subukan ang Senyas'),
+                        onPressed: _startAttempt,
+                      ),
+                SizedBox(height: MediaQuery.of(context).padding.bottom + 8),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Capture-in-progress state: progress ring with frame count + cancel.
+class _CaptureProgress extends StatelessWidget {
+  final int collected;
+  final int needed;
+  final bool reduceMotion;
+  final VoidCallback onCancel;
+
+  const _CaptureProgress({
+    required this.collected,
+    required this.needed,
+    required this.reduceMotion,
+    required this.onCancel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final success = KumpasColors.of(context).success;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 84,
+          height: 84,
+          child: Stack(
+            fit: StackFit.expand,
+            alignment: Alignment.center,
+            children: [
+              TweenAnimationBuilder<double>(
+                tween: Tween(end: collected / needed),
+                duration: reduceMotion ? Duration.zero : KumpasMotion.fast,
+                builder: (_, value, child) => CircularProgressIndicator(
+                  value: value,
+                  strokeWidth: 6,
+                  strokeCap: StrokeCap.round,
+                  color: success,
+                  backgroundColor: scheme.surfaceContainerHighest,
+                ),
+              ),
+              Center(
+                child: Text(
+                  '$collected/$needed',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 4),
+        TextButton.icon(
+          onPressed: onCancel,
+          icon: const Icon(Icons.close, size: 18),
+          label: const Text('Kanselahin'),
+          style: TextButton.styleFrom(
+            foregroundColor: scheme.onSurfaceVariant,
+            minimumSize: const Size(64, 44),
+          ),
+        ),
+      ],
+    );
+  }
+}

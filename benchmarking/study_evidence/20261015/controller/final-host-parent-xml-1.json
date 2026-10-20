@@ -1,0 +1,32 @@
+{
+  "suites": 17,
+  "totals": {
+    "tests": 170,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "fresh_tasks_confirmed": [
+    ":app:testDebugUnitTest",
+    ":app:compileDebugAndroidTestKotlin"
+  ],
+  "xml_hashes": {
+    "TEST-com.kumpas.kumpas_app.SessionDatabaseTest.xml": "ecda5c881ec7a2fead8059b54a914a832763ff733d164bac00343a199868a8dc",
+    "TEST-com.kumpas.kumpas_app.PipelineTraceTest.xml": "2f2b62fced051f7fd31086a7b8a46e92370a9d50b42e0521a4606d78fd0bf5bc",
+    "TEST-com.kumpas.kumpas_app.SessionManagerTest.xml": "580eebba9ca79db5785abfa7fd65a39ce5536a571739c740a11af3dc5e28e683",
+    "TEST-com.kumpas.kumpas_app.StudyBackupPolicyTest.xml": "99fbf11f8422a31393378e67746d7d0b4eeadd0ceb090806ff9857d22ab775d4",
+    "TEST-com.kumpas.kumpas_app.HostStudyFlowTest.xml": "b44413f991ed4384ba74b652b6ea8bf96291c198dee3f5f5d070515fcdf6927a",
+    "TEST-com.kumpas.kumpas_app.CameraViewOwnershipTest.xml": "38572239c5d130fc016b4a1aba0cdb95178712306efbc53b84ae8c0e657870e8",
+    "TEST-com.kumpas.kumpas_app.BenchmarkModeTest.xml": "fc005cba800480b21bd6e58cf9b5d99dddab8e63fab4eb0a94061e4cc65c50fd",
+    "TEST-com.kumpas.kumpas_app.ResourceCleanupTest.xml": "3a49e42fced20bad2317ff053c4c00816a60d29e3bf0a0861438d695ab25f7de",
+    "TEST-com.kumpas.kumpas_app.AttemptBoundaryTest.xml": "083d47c901176d0b41170cd76fa5a4967b2924cd77a024b79272ad9130d89f88",
+    "TEST-com.kumpas.kumpas_app.DataExporterTest.xml": "4e06b6a5b87ba0e2a4563dcc41c66ae86473dca5fdab6a0d6a43289853b481e6",
+    "TEST-com.kumpas.kumpas_app.FeatureNormalizerTest.xml": "407a6e89d2f0cfe8f889ba9d78ebdc35c6ba8c6f60e83c514ef524cc344f0c2e",
+    "TEST-com.kumpas.kumpas_app.VisionInitializationTest.xml": "9d223806d8ff6165a231480767fdce4026a0f736729f1ddb1ffdac557777e321",
+    "TEST-com.kumpas.kumpas_app.MainActivityBoundaryTest.xml": "91ed6d05897c8f5f024c740be64d939da00d879683fba16c111915fb35fa2542",
+    "TEST-com.kumpas.kumpas_app.FeedbackEngineParityTest.xml": "76b73579460163090f460798b0261d2bec3aefb2b47816b1c8df01e9387bd6ab",
+    "TEST-com.kumpas.kumpas_app.PipelineMetricsTest.xml": "a469a946468585a0f66b7d63283f72c3ac196f4584f984c404caed44066347b7",
+    "TEST-com.kumpas.kumpas_app.ActivityInitializationTest.xml": "9191f28a89cf465e4122aa660e2c670212f97e11658381a07bd62ec0dc82326a",
+    "TEST-com.kumpas.kumpas_app.RgbaFramePackingTest.xml": "97df6b30b5c190327f3de91c5ccf93960090f2e48d647e1bec45c18b9c6aee69"
+  }
+}

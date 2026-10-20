@@ -1,0 +1,3329 @@
+{
+  "summary": {
+    "at": "2026-10-20T22:15:16.167272+08:00",
+    "scope": "Metadata-only source availability; no source content reads, hydration, inference, model or participant operations.",
+    "ordered_validation_count": 150,
+    "historical_missing_pairs": 134,
+    "counts": {
+      "npz": {
+        "resident_metadata_only": 150
+      },
+      "video": {
+        "resident_metadata_only": 150
+      }
+    },
+    "current_both_resident_metadata_only": 150,
+    "historical_missing_now_both_resident_metadata_only": 134,
+    "historical_missing_still_not_both_resident": 0,
+    "disk_free_bytes": 22329630720,
+    "binding": {
+      "prior_manifest_sha256": "013f3933fe898dadf2fc25fcf7a12cc50689964f7fba39400cba38e0199b497d",
+      "clips_sha256": "0529028d39eedcc23e1e550f96b1891d4e757bf6428e26593351007d9db051ad",
+      "config_sha256": "0df969259b620e64ea0b3ea40484492178dfcb4f719437684af94471c50bb78e",
+      "train_csv_sha256": "861a76cae835e284ac76ef37dc077ae0b6c793beb9c378eda1fce5f408dc609f"
+    },
+    "limits": "Resident metadata is not byte readability, source hash equality or full provenance. No historical output is modified. Source recovery and a new campaign require separate authorization."
+  },
+  "files": [
+    {
+      "clip": "clips_0_19.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_0_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/0/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1403363,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14877354,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 202914,
+        "blocks": 400,
+        "flags": 64,
+        "inode": 14867687,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_0_6.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_0_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/0/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1399343,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14870440,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 202540,
+        "blocks": 400,
+        "flags": 64,
+        "inode": 14867264,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_0_9.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_0_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/0/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1383000,
+        "blocks": 2704,
+        "flags": 64,
+        "inode": 14876438,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 200502,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14867633,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_10_1.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_10_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/10/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1404854,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14870758,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 172754,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867288,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_10_17.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_10_17.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/10/17.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395390,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14871530,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 169558,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867348,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_10_4.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_10_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/10/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1398857,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14869932,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 180867,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867222,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_11_15.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_11_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/11/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394259,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14871229,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 165163,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867330,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_11_4.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_11_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/11/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396112,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868362,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 191776,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867029,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_11_7.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_11_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/11/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1399558,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14873164,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 186902,
+        "blocks": 368,
+        "flags": 64,
+        "inode": 14867436,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_12_1.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_12_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/12/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394534,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14873732,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 177878,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867475,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_12_12.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_12_12.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/12/12.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395101,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14878519,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 162391,
+        "blocks": 320,
+        "flags": 64,
+        "inode": 14867774,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_12_13.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_12_13.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/12/13.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1393705,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868583,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 154825,
+        "blocks": 304,
+        "flags": 64,
+        "inode": 14867079,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_13_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_13_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/13/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1397750,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14875268,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189667,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867571,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_13_5.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_13_5.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/13/5.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1398366,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14869039,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 178610,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867127,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_13_8.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_13_8.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/13/8.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1400533,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14878508,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 190606,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867771,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_14_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_14_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/14/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1398549,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14874438,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 172674,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867530,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_14_10.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_14_10.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/14/10.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396350,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14875377,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 164437,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867574,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_14_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_14_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/14/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394055,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868238,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 162797,
+        "blocks": 320,
+        "flags": 64,
+        "inode": 14866994,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_15_13.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_15_13.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/15/13.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1385719,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14873666,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 149001,
+        "blocks": 296,
+        "flags": 64,
+        "inode": 14867471,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_15_16.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_15_16.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/15/16.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1386871,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14874415,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 163983,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867524,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_15_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_15_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/15/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391411,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14879192,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189353,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867811,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_16_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_16_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/16/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391717,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14868475,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 174450,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867053,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_16_11.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_16_11.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/16/11.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1386375,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14871120,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 159070,
+        "blocks": 312,
+        "flags": 64,
+        "inode": 14867324,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_16_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_16_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/16/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1390086,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14877370,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 165150,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867689,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_17_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_17_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/17/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1411679,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14873558,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 166965,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867465,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_17_10.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_17_10.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/17/10.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391879,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14871957,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 171659,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867370,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_17_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_17_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/17/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1410745,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14868092,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 190506,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14866949,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_18_14.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_18_14.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/18/14.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1405474,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14874389,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 184420,
+        "blocks": 368,
+        "flags": 64,
+        "inode": 14867520,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_18_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_18_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/18/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1419145,
+        "blocks": 2776,
+        "flags": 64,
+        "inode": 14875208,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 174823,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867566,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_18_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_18_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/18/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409540,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14874075,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 199039,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14867502,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_19_17.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_19_17.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/19/17.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394435,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14869117,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 174053,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867138,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_19_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_19_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/19/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1384216,
+        "blocks": 2704,
+        "flags": 64,
+        "inode": 14869040,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 179097,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867129,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_19_2.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_19_2.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/19/2.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1387270,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14875810,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 166488,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867594,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_1_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_1_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/1/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409175,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14868137,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 177448,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14866968,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_1_12.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_1_12.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/1/12.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1402502,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14868363,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189444,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867030,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_1_2.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_1_2.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/1/2.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1403885,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14868292,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 183287,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867015,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_20_11.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_20_11.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/20/11.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396270,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14874004,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 162605,
+        "blocks": 320,
+        "flags": 64,
+        "inode": 14867497,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_20_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_20_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/20/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395674,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14870937,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 162761,
+        "blocks": 320,
+        "flags": 64,
+        "inode": 14867311,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_20_2.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_20_2.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/20/2.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391347,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14869960,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 155817,
+        "blocks": 312,
+        "flags": 64,
+        "inode": 14867227,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_21_15.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_21_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/21/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391982,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14870852,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 164593,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867299,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_21_18.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_21_18.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/21/18.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1393212,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868399,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 165229,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867043,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_21_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_21_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/21/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392830,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14870105,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 176354,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867243,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_22_14.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_22_14.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/22/14.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391838,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14868294,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 166251,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867017,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_22_8.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_22_8.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/22/8.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395903,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14877350,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 176793,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867686,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_22_9.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_22_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/22/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395059,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14878216,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 179356,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867753,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_23_16.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_23_16.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/23/16.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392605,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14871422,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 161801,
+        "blocks": 320,
+        "flags": 64,
+        "inode": 14867344,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_23_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_23_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/23/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1417561,
+        "blocks": 2776,
+        "flags": 64,
+        "inode": 14873765,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 163861,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867481,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_23_5.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_23_5.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/23/5.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396114,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14876694,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 174776,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867647,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_24_10.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_24_10.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/24/10.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392943,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14871431,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 169620,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867345,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_24_11.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_24_11.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/24/11.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391482,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14870154,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 168508,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867247,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_24_18.npz",
+      "historical_metadata_status": "available",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_24_18.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/24/18.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396808,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14876508,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 169167,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867637,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_2_1.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_2_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/2/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1410639,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14876728,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 172371,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867650,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_2_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_2_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/2/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409424,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14870293,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 178767,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867255,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_2_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_2_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/2/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409724,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14877625,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 178548,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867704,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_3_11.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_3_11.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/3/11.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392350,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14874703,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 182496,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867542,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_3_12.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_3_12.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/3/12.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391515,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14877237,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 184035,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867676,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_3_8.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_3_8.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/3/8.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392901,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868133,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 180284,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14866966,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_49_1.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_49_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/49/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1406668,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14873972,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 170069,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867492,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_49_15.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_49_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/49/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409236,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14871640,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189055,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867357,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_49_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_49_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/49/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1402478,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14870286,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 177411,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867253,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_4_10.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_4_10.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/4/10.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1411938,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14869184,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 203755,
+        "blocks": 400,
+        "flags": 64,
+        "inode": 14867144,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_4_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_4_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/4/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1410456,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14868992,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 193845,
+        "blocks": 384,
+        "flags": 64,
+        "inode": 14867125,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_4_8.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_4_8.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/4/8.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1413859,
+        "blocks": 2768,
+        "flags": 64,
+        "inode": 14878312,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 203033,
+        "blocks": 400,
+        "flags": 64,
+        "inode": 14867758,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_50_1.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_50_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/50/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1389634,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14876028,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 175141,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867603,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_50_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_50_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/50/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1389688,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14877874,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 175979,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867729,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_50_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_50_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/50/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1386900,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14874424,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 177033,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867527,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_51_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_51_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/51/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1389187,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14868179,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 157422,
+        "blocks": 312,
+        "flags": 64,
+        "inode": 14866974,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_51_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_51_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/51/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1390560,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14877927,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 167844,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867738,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_51_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_51_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/51/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1390898,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14876291,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 180225,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867621,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_52_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_52_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/52/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1405809,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14869364,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 178007,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867160,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_52_14.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_52_14.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/52/14.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396531,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14870124,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 171859,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867244,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_52_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_52_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/52/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1388304,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14873661,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 191485,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867469,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_53_10.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_53_10.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/53/10.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1384736,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14877758,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 165612,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867717,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_53_16.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_53_16.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/53/16.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391040,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14869115,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 177123,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867135,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_53_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_53_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/53/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392633,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14873438,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 163907,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867456,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_54_14.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_54_14.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/54/14.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1399630,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14870804,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 194182,
+        "blocks": 384,
+        "flags": 64,
+        "inode": 14867292,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_54_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_54_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/54/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1402627,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14868262,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 222827,
+        "blocks": 440,
+        "flags": 64,
+        "inode": 14867009,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_54_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_54_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/54/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1403346,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14870101,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 222346,
+        "blocks": 440,
+        "flags": 64,
+        "inode": 14867240,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_55_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_55_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/55/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1410610,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14873552,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 185513,
+        "blocks": 368,
+        "flags": 64,
+        "inode": 14867463,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_55_18.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_55_18.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/55/18.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1415903,
+        "blocks": 2768,
+        "flags": 64,
+        "inode": 14870754,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 209525,
+        "blocks": 416,
+        "flags": 64,
+        "inode": 14867286,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_55_4.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_55_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/55/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1403545,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14870688,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 198684,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14867284,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_56_12.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_56_12.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/56/12.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1398411,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14878872,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 188575,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867791,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_56_15.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_56_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/56/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1406061,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14875087,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 195038,
+        "blocks": 384,
+        "flags": 64,
+        "inode": 14867563,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_56_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_56_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/56/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1398489,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14872952,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 184055,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867426,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_57_18.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_57_18.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/57/18.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1399600,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14868358,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 172760,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867027,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_57_2.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_57_2.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/57/2.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1393879,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14876168,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 164203,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867613,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_57_4.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_57_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/57/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394926,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14874078,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 172043,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867503,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_5_1.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_5_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/5/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1386658,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14877444,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 167979,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867692,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_5_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_5_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/5/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394465,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14879003,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 180529,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867804,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_5_4.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_5_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/5/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1378511,
+        "blocks": 2696,
+        "flags": 64,
+        "inode": 14878962,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 168998,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867801,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_62_13.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_62_13.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/62/13.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392733,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868898,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 191665,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867108,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_62_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_62_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/62/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1402618,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14871731,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 181553,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867363,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_62_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_62_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/62/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396180,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868478,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 182644,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867059,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_63_1.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_63_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/63/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1398134,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14870341,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 165614,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867258,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_63_11.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_63_11.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/63/11.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392037,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14872422,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 176095,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867393,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_63_17.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_63_17.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/63/17.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396748,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14876978,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 180867,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867665,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_64_16.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_64_16.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/64/16.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1403412,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14875516,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 190194,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867582,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_64_18.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_64_18.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/64/18.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1407053,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14869956,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189930,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867226,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_64_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_64_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/64/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1400462,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14868216,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189345,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14866988,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_65_15.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_65_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/65/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1403197,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14873311,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 180716,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867442,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_65_4.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_65_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/65/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395337,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14871406,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 177888,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867342,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_65_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_65_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/65/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1397283,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14876287,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 183928,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867620,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_66_1.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_66_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/66/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1393964,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14878240,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 167024,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867757,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_66_4.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_66_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/66/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396737,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14868559,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 168533,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867078,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_66_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_66_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/66/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394373,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14869633,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 175013,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867189,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_67_14.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_67_14.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/67/14.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1388018,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14878755,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 170133,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867783,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_67_5.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_67_5.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/67/5.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396255,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14877272,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 188405,
+        "blocks": 368,
+        "flags": 64,
+        "inode": 14867680,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_67_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_67_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/67/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395433,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14876953,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 179154,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867663,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_6_13.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_6_13.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/6/13.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1414831,
+        "blocks": 2768,
+        "flags": 64,
+        "inode": 14876341,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 215503,
+        "blocks": 424,
+        "flags": 64,
+        "inode": 14867626,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_6_15.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_6_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/6/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1419534,
+        "blocks": 2776,
+        "flags": 64,
+        "inode": 14878356,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 199010,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14867761,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_6_16.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_6_16.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/6/16.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1417346,
+        "blocks": 2776,
+        "flags": 64,
+        "inode": 14869268,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 212488,
+        "blocks": 416,
+        "flags": 64,
+        "inode": 14867152,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_72_15.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_72_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/72/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1400765,
+        "blocks": 2736,
+        "flags": 64,
+        "inode": 14872234,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 169501,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867386,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_72_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_72_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/72/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1394580,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14874288,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 179101,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867513,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_72_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_72_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/72/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1389926,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14876688,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 187556,
+        "blocks": 368,
+        "flags": 64,
+        "inode": 14867648,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_74_16.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_74_16.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/74/16.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392533,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14868318,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 167592,
+        "blocks": 328,
+        "flags": 64,
+        "inode": 14867024,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_74_18.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_74_18.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/74/18.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396565,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14874809,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 169992,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867550,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_74_4.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_74_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/74/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391227,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14877642,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 158778,
+        "blocks": 312,
+        "flags": 64,
+        "inode": 14867705,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_76_12.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_76_12.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/76/12.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1389290,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14877566,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 170703,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867699,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_76_17.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_76_17.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/76/17.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1404098,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14871988,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 197728,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14867375,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_76_5.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_76_5.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/76/5.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392878,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14868668,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 182394,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867095,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_77_13.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_77_13.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/77/13.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1389816,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14874105,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 163786,
+        "blocks": 320,
+        "flags": 64,
+        "inode": 14867504,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_77_2.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_77_2.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/77/2.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391477,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14873883,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 160143,
+        "blocks": 320,
+        "flags": 64,
+        "inode": 14867486,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_77_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_77_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/77/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1390659,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14873147,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 175120,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867433,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_7_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_7_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/7/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409566,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14878485,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 183459,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867769,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_7_14.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_7_14.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/7/14.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1402247,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14870615,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 197043,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14867278,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_7_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_7_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/7/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1407462,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14877889,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189283,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867731,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_85_12.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_85_12.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/85/12.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1412765,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14877759,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 178895,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867718,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_85_15.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_85_15.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/85/15.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409879,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14876379,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 185116,
+        "blocks": 368,
+        "flags": 64,
+        "inode": 14867630,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_85_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_85_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/85/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1418810,
+        "blocks": 2776,
+        "flags": 64,
+        "inode": 14878314,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 193817,
+        "blocks": 384,
+        "flags": 64,
+        "inode": 14867759,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_86_12.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_86_12.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/86/12.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1406139,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14874440,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 174622,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867532,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_86_16.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_86_16.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/86/16.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1413721,
+        "blocks": 2768,
+        "flags": 64,
+        "inode": 14878764,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 189813,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867785,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_86_6.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_86_6.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/86/6.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1413602,
+        "blocks": 2768,
+        "flags": 64,
+        "inode": 14868235,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 197022,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14866993,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_89_10.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_89_10.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/89/10.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391385,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14868176,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 182979,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14866971,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_89_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_89_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/89/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1395529,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14877757,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 182692,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867716,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_89_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_89_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/89/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1393571,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14871601,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 191071,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867353,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_8_11.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_8_11.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/8/11.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1386681,
+        "blocks": 2712,
+        "flags": 64,
+        "inode": 14870096,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 180717,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867238,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_8_13.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_8_13.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/8/13.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1389220,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14870760,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 181802,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867287,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_8_8.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_8_8.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/8/8.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391283,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14878023,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 169929,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867740,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_91_1.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_91_1.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/91/1.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1412056,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14873741,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 173718,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867478,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_91_13.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_91_13.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/91/13.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1404880,
+        "blocks": 2744,
+        "flags": 64,
+        "inode": 14874370,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 176671,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867517,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_91_18.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_91_18.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/91/18.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1409254,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14868135,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 199708,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14866969,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_95_14.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_95_14.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/95/14.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392870,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14873457,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 170936,
+        "blocks": 336,
+        "flags": 64,
+        "inode": 14867460,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_95_4.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_95_4.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/95/4.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1391316,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14876616,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 176609,
+        "blocks": 352,
+        "flags": 64,
+        "inode": 14867643,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_95_9.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_95_9.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/95/9.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1396341,
+        "blocks": 2728,
+        "flags": 64,
+        "inode": 14874585,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 184305,
+        "blocks": 360,
+        "flags": 64,
+        "inode": 14867536,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_96_0.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_96_0.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/96/0.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1423280,
+        "blocks": 2784,
+        "flags": 64,
+        "inode": 14876445,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 175147,
+        "blocks": 344,
+        "flags": 64,
+        "inode": 14867635,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_96_3.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_96_3.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/96/3.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1414544,
+        "blocks": 2768,
+        "flags": 64,
+        "inode": 14869448,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 194253,
+        "blocks": 384,
+        "flags": 64,
+        "inode": 14867171,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_96_7.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_96_7.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/96/7.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1408186,
+        "blocks": 2752,
+        "flags": 64,
+        "inode": 14870684,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 188547,
+        "blocks": 376,
+        "flags": 64,
+        "inode": 14867283,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_9_11.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_9_11.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/9/11.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1392091,
+        "blocks": 2720,
+        "flags": 64,
+        "inode": 14874924,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 193762,
+        "blocks": 384,
+        "flags": 64,
+        "inode": 14867556,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_9_19.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_9_19.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/9/19.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1412394,
+        "blocks": 2760,
+        "flags": 64,
+        "inode": 14870436,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 199653,
+        "blocks": 392,
+        "flags": 64,
+        "inode": 14867262,
+        "device": 16777232
+      }
+    },
+    {
+      "clip": "clips_9_8.npz",
+      "historical_metadata_status": "unavailable",
+      "npz_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/landmarks/clips_9_8.npz",
+      "video_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/clips_raw/clips/9/8.MOV",
+      "npz": {
+        "state": "resident_metadata_only",
+        "size": 1383884,
+        "blocks": 2704,
+        "flags": 64,
+        "inode": 14873761,
+        "device": 16777232
+      },
+      "video": {
+        "state": "resident_metadata_only",
+        "size": 195977,
+        "blocks": 384,
+        "flags": 64,
+        "inode": 14867480,
+        "device": 16777232
+      }
+    }
+  ]
+}

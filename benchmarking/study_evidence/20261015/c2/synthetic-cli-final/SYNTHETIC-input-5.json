@@ -1,0 +1,16 @@
+{
+  "assessments": [],
+  "metadata": {
+    "android_version": "SYNTHETIC",
+    "app_version": "SYNTHETIC",
+    "device_model": "SYNTHETIC",
+    "export_timestamp": "2026-10-18T10:00:00",
+    "participant_id": "00000000-0000-4000-8000-000000000105"
+  },
+  "sessions": [],
+  "summary": {
+    "total_assessments": 0,
+    "total_attempts": 0,
+    "total_sessions": 0
+  }
+}

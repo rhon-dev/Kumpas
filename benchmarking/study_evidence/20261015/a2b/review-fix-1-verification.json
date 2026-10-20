@@ -1,0 +1,269 @@
+{
+  "timestamp": "2026-10-16T04:15:12.941680+08:00",
+  "status": "DONE_WITH_CONCERNS",
+  "results": {
+    "review-fix-1-inheritance-red": {
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "suite": "com.kumpas.kumpas_app.ActivityInitializationTest",
+          "timestamp": "2026-10-15T20:12:37.375Z",
+          "tests": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        }
+      ]
+    },
+    "review-fix-1-inheritance-green": {
+      "totals": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "suite": "com.kumpas.kumpas_app.ActivityInitializationTest",
+          "timestamp": "2026-10-15T20:12:55.943Z",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      ]
+    },
+    "review-fix-1-focused": {
+      "totals": {
+        "tests": 36,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "suite": "com.kumpas.kumpas_app.ActivityInitializationTest",
+          "timestamp": "2026-10-15T20:13:52.781Z",
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.CameraViewOwnershipTest",
+          "timestamp": "2026-10-15T20:13:56.662Z",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.MainActivityBoundaryTest",
+          "timestamp": "2026-10-15T20:13:57.488Z",
+          "tests": 9,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.ResourceCleanupTest",
+          "timestamp": "2026-10-15T20:13:59.555Z",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.VisionInitializationTest",
+          "timestamp": "2026-10-15T20:13:59.722Z",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      ]
+    },
+    "review-fix-1-full-forced": {
+      "totals": {
+        "tests": 165,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "suite": "com.kumpas.kumpas_app.ActivityInitializationTest",
+          "timestamp": "2026-10-15T20:14:06.632Z",
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.AttemptBoundaryTest",
+          "timestamp": "2026-10-15T20:14:10.497Z",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.BenchmarkModeTest",
+          "timestamp": "2026-10-15T20:14:10.511Z",
+          "tests": 27,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.CameraViewOwnershipTest",
+          "timestamp": "2026-10-15T20:14:11.193Z",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.DataExporterTest",
+          "timestamp": "2026-10-15T20:14:12.030Z",
+          "tests": 22,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.FeatureNormalizerTest",
+          "timestamp": "2026-10-15T20:14:13.780Z",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.FeedbackEngineParityTest",
+          "timestamp": "2026-10-15T20:14:13.781Z",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.MainActivityBoundaryTest",
+          "timestamp": "2026-10-15T20:14:13.840Z",
+          "tests": 9,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.PipelineMetricsTest",
+          "timestamp": "2026-10-15T20:14:13.965Z",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.PipelineTraceTest",
+          "timestamp": "2026-10-15T20:14:13.969Z",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.ResourceCleanupTest",
+          "timestamp": "2026-10-15T20:14:13.970Z",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.RgbaFramePackingTest",
+          "timestamp": "2026-10-15T20:14:14.053Z",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.SessionDatabaseTest",
+          "timestamp": "2026-10-15T20:14:14.058Z",
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.SessionManagerTest",
+          "timestamp": "2026-10-15T20:14:14.165Z",
+          "tests": 42,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.StudyBackupPolicyTest",
+          "timestamp": "2026-10-15T20:14:14.709Z",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "suite": "com.kumpas.kumpas_app.VisionInitializationTest",
+          "timestamp": "2026-10-15T20:14:14.720Z",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      ]
+    }
+  },
+  "forced_tasks_executed": {
+    ":app:testDebugUnitTest": true,
+    ":app:compileDebugAndroidTestKotlin": true
+  },
+  "instrumentation_runtime_executed": false,
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "a2a_preserved_count": 8,
+  "a2a_mismatches": [],
+  "other_a2b_manifest_paths_preserved": [
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewResourceFactory.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionResourceFactory.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/MainActivityBoundaryTest.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt"
+  ],
+  "source_hashes": {
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt": "445c32a710890ee664d87d76b3daef86601256e3b7ec1925af704c0010338932",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt": "d07b59ebd8bd5f5c36aed36cf7594fbf5f4e51dc946794562b9cb52e02631804",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ActivityInitializationTest.kt": "c817fdf081082e2c17666a3df9381a0e7f065afdd7f3737c30aa1ff712a57d7c",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt": "5b5ef76c016a29f3d1552ff19bc35d8fe83c0af949e31a209a18a9c82586a721",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt": "6b35e4f0adc05277f5c363c18e0c55233454daee492e38bbd4cd6faf811156f7",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt": "a86071c63501ae63fcd96a3527b5c978f7b0e81ac990e2b95ef348b17941ddd8",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt": "0e24035b805155473de162bc5376661f5cf1c1b7136f091e2a260552912c6bfa",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewResourceFactory.kt": "1cb92dd90df8407c46996b42fe7cb2c9f365c19ade991ef40eda799197832a86",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionResourceFactory.kt": "be9c8d80c1f8b9a274ace80b8713d21408d799f3fa858291ba3fe147c275cd23",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/MainActivityBoundaryTest.kt": "c0126b30434b7b095f820ab64c4e04cc27e3de031799a58761139367819f865a",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt": "76ed417a343ee46e10ca2cd76c7b34dabb5fe3903e17c30ef2bba3f96064e0b0"
+  },
+  "git_diff_check_exit": 0,
+  "changed_source_paths": [
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ActivityInitializationTest.kt"
+  ],
+  "evidence_runner_sha256": "d9a4030cef825de7c911099c8a0a7d9f67330f7b87cd8a62c7a794da23276ab4"
+}

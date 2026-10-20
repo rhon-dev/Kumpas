@@ -1,0 +1,40 @@
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "report latest publication unverified",
+    "report latest publication unverified"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "report latest publication unverified"
+    ],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "kind": "rejection_diagnostic_not_acceptance",
+  "casefold_alias_groups": [
+    [
+      "res/9N.9.png",
+      "res/9n.9.png"
+    ],
+    [
+      "res/BM.png",
+      "res/bm.png"
+    ],
+    [
+      "res/Gt.9.png",
+      "res/gt.9.png"
+    ],
+    [
+      "res/KM.png",
+      "res/km.png"
+    ],
+    [
+      "res/Ke.png",
+      "res/ke.png"
+    ],
+    [
+      "res/O4.png",
+      "res/o4.png"
+    ],
+    [
+      "res/OC.png",
+      "res/oC.png"
+    ],
+    [
+      "res/Pu.png",
+      "res/pu.png"
+    ],
+    [
+      "res/QZ.xml",
+      "res/qz.xml"
+    ],
+    [
+      "res/RV.png",
+      "res/Rv.png"
+    ],
+    [
+      "res/YG.9.png",
+      "res/yg.9.png"
+    ]
+  ]
+}

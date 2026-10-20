@@ -1,0 +1,26 @@
+test_final_readback_fault_never_leaves_a_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_final_readback_fault_never_leaves_a_success_receipt) ... FAIL
+test_synthetic_stop_exception_text_never_echoed (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_exception_text_never_echoed) ... FAIL
+
+======================================================================
+FAIL: test_final_readback_fault_never_leaves_a_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_final_readback_fault_never_leaves_a_success_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 77, in test_final_readback_fault_never_leaves_a_success_receipt
+    self.assertFalse((prepared.root/'completion.json').exists(), 'failed final readback must not leave success')
+AssertionError: True is not false : failed final readback must not leave success
+
+======================================================================
+FAIL: test_synthetic_stop_exception_text_never_echoed (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_exception_text_never_echoed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 84, in test_synthetic_stop_exception_text_never_echoed
+    self.assertEqual(result['status'],'FAILED')
+AssertionError: 'PRIVATE_UNTRUSTED_REASON' != 'FAILED'
+- PRIVATE_UNTRUSTED_REASON
++ FAILED
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.020s
+
+FAILED (failures=2)

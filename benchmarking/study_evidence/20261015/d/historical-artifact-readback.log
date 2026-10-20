@@ -1,0 +1,17 @@
+{
+  "b1_fixtures": 6,
+  "b1_pngs": 180,
+  "b2_counts": {
+    "keras": {
+      "count": 150,
+      "correct": 144
+    },
+    "candidate": {
+      "count": 150,
+      "correct": 144
+    }
+  },
+  "b2_missing_source_records": 134,
+  "b2_source_roles": 13,
+  "current_acceptance_matches": true
+}

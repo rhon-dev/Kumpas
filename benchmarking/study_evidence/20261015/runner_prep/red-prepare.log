@@ -1,0 +1,124 @@
+test_prepare_exclusive_binding_and_immutable_snapshot (training.tests.test_experiment_runner.RunnerTests.test_prepare_exclusive_binding_and_immutable_snapshot) ... FAIL
+test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) ... 
+  test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/forbidden') ... FAIL
+  test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpon3l8k97/../escape') ... FAIL
+  test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Application Support/kumpas/forbidden') ... FAIL
+  test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpon3l8k97/alias/campaign') ... FAIL
+  test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpon3l8k97') ... FAIL
+test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) ... FAIL
+test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) ... 
+  test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='protocol') ... FAIL
+  test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='protocol') ... FAIL
+  test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='protocol') ... FAIL
+  test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='freeze') ... FAIL
+  test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='freeze') ... FAIL
+  test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='label_map') ... FAIL
+
+======================================================================
+FAIL: test_prepare_exclusive_binding_and_immutable_snapshot (training.tests.test_experiment_runner.RunnerTests.test_prepare_exclusive_binding_and_immutable_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 54, in test_prepare_exclusive_binding_and_immutable_snapshot
+    self.assertIsNotNone(prepared, 'preparation must publish an immutable manifest')
+AssertionError: unexpectedly None : preparation must publish an immutable manifest
+
+======================================================================
+FAIL: test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/forbidden')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 74, in test_prepare_refuses_unsafe_roots_and_changed_bindings
+    with self.subTest(path=path), self.assertRaises(runner.RunnerError): runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpon3l8k97/../escape')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 74, in test_prepare_refuses_unsafe_roots_and_changed_bindings
+    with self.subTest(path=path), self.assertRaises(runner.RunnerError): runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Application Support/kumpas/forbidden')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 74, in test_prepare_refuses_unsafe_roots_and_changed_bindings
+    with self.subTest(path=path), self.assertRaises(runner.RunnerError): runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpon3l8k97/alias/campaign')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 74, in test_prepare_refuses_unsafe_roots_and_changed_bindings
+    with self.subTest(path=path), self.assertRaises(runner.RunnerError): runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) (path='/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpon3l8k97')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 74, in test_prepare_refuses_unsafe_roots_and_changed_bindings
+    with self.subTest(path=path), self.assertRaises(runner.RunnerError): runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 76, in test_prepare_refuses_unsafe_roots_and_changed_bindings
+    with self.assertRaises(runner.RunnerError): runner.prepare(self.config)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='protocol')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 90, in test_prepare_protocol_semantics_rebound_hashes
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='protocol')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 90, in test_prepare_protocol_semantics_rebound_hashes
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='protocol')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 90, in test_prepare_protocol_semantics_rebound_hashes
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='freeze')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 90, in test_prepare_protocol_semantics_rebound_hashes
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='freeze')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 90, in test_prepare_protocol_semantics_rebound_hashes
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) (role='label_map')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 90, in test_prepare_protocol_semantics_rebound_hashes
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.006s
+
+FAILED (failures=13)

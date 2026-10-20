@@ -1,0 +1,34 @@
+test_build_failure_preserves_safe_counts_and_rejects_trust (test_host_producer_replay.CollectorFaultCoverage.test_build_failure_preserves_safe_counts_and_rejects_trust) ... ok
+test_control_schema_identity_and_missing_reader_and_direct_sink (test_host_producer_replay.CollectorFaultCoverage.test_control_schema_identity_and_missing_reader_and_direct_sink) ... ok
+test_exact_native_report_and_control_values_retained (test_host_producer_replay.CollectorFaultCoverage.test_exact_native_report_and_control_values_retained) ... ok
+test_interpreter_reader_native_report_is_diagnostic_not_fabricated_timing (test_host_producer_replay.CollectorFaultCoverage.test_interpreter_reader_native_report_is_diagnostic_not_fabricated_timing) ... ok
+test_package_and_metadata_acquisition_failures_no_report_fabricated (test_host_producer_replay.CollectorFaultCoverage.test_package_and_metadata_acquisition_failures_no_report_fabricated) ... ok
+test_report_schema_and_private_text_rejected_at_reader_and_sink (test_host_producer_replay.CollectorFaultCoverage.test_report_schema_and_private_text_rejected_at_reader_and_sink) ... ok
+test_bundle_transfers_verified_bytes_not_stale_boolean (test_host_producer_replay.HostProducerReplayTest.test_bundle_transfers_verified_bytes_not_stale_boolean) ... ok
+test_pinned_preflight_emits_verified_payload_hashes (test_host_producer_replay.HostProducerReplayTest.test_pinned_preflight_emits_verified_payload_hashes) ... ok
+test_replay_exact_readers_to_real_isolated_history (test_host_producer_replay.HostProducerReplayTest.test_replay_exact_readers_to_real_isolated_history) ... ok
+test_replay_refuses_lexical_escape_before_creating_any_directory (test_host_producer_replay.HostProducerReplayTest.test_replay_refuses_lexical_escape_before_creating_any_directory) ... ok
+test_deeper_payload_identity_and_schema (test_host_producer_replay.PreflightNegatives.test_deeper_payload_identity_and_schema) ... ok
+test_duplicate_and_wrong_artifact_identities (test_host_producer_replay.PreflightNegatives.test_duplicate_and_wrong_artifact_identities) ... ok
+test_duplicate_json_key (test_host_producer_replay.PreflightNegatives.test_duplicate_json_key) ... ok
+test_escaping_artifact (test_host_producer_replay.PreflightNegatives.test_escaping_artifact) ... ok
+test_failed_and_nonsynthetic_producer (test_host_producer_replay.PreflightNegatives.test_failed_and_nonsynthetic_producer) ... ok
+test_failed_skipped_and_wrong_stdout_producer (test_host_producer_replay.PreflightNegatives.test_failed_skipped_and_wrong_stdout_producer) ... ok
+test_float_artifact_size (test_host_producer_replay.PreflightNegatives.test_float_artifact_size) ... ok
+test_ledger_nonzero_bool_and_wrong_sources (test_host_producer_replay.PreflightNegatives.test_ledger_nonzero_bool_and_wrong_sources) ... ok
+test_manifest_schema_rejects_float_and_boolean (test_host_producer_replay.PreflightNegatives.test_manifest_schema_rejects_float_and_boolean) ... ok
+test_missing_artifact (test_host_producer_replay.PreflightNegatives.test_missing_artifact) ... ok
+test_pinned_digest_cannot_bless_changed_real_manifest (test_host_producer_replay.PreflightNegatives.test_pinned_digest_cannot_bless_changed_real_manifest) ... ok
+test_producer_target_must_have_executed (test_host_producer_replay.PreflightNegatives.test_producer_target_must_have_executed) ... ok
+test_source_escape_and_digest_mismatch (test_host_producer_replay.PreflightNegatives.test_source_escape_and_digest_mismatch) ... ok
+test_source_snapshot_tampered (test_host_producer_replay.PreflightNegatives.test_source_snapshot_tampered) ... ok
+test_source_symlink_component_refused (test_host_producer_replay.PreflightNegatives.test_source_symlink_component_refused) ... ok
+test_symlink_artifact (test_host_producer_replay.PreflightNegatives.test_symlink_artifact) ... ok
+test_tampered_artifact (test_host_producer_replay.PreflightNegatives.test_tampered_artifact) ... ok
+test_wrong_artifact_kind (test_host_producer_replay.PreflightNegatives.test_wrong_artifact_kind) ... ok
+test_wrong_run (test_host_producer_replay.PreflightNegatives.test_wrong_run) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.607s
+
+OK

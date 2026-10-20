@@ -1,0 +1,14 @@
+test_explicit_labels_pair_and_optional_absence (evaluation.test_synthetic_descriptive.DescriptiveTests.test_explicit_labels_pair_and_optional_absence) ... FAIL
+
+======================================================================
+FAIL: test_explicit_labels_pair_and_optional_absence (evaluation.test_synthetic_descriptive.DescriptiveTests.test_explicit_labels_pair_and_optional_absence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_synthetic_descriptive.py", line 16, in test_explicit_labels_pair_and_optional_absence
+    self.assertTrue(result['valid'], result)
+AssertionError: False is not true : {'valid': False, 'diagnostics': [{'code': 'DESCRIPTIVE_UNSUPPORTED'}]}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "status": "proposed",
+  "training_authorized": false,
+  "synthetic_only": true,
+  "partition": "validation",
+  "run_id": "SYNTHETIC-CLI-dry-run",
+  "output_root": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-runner-prep-cli-o_abp3g8/dry-run",
+  "bindings": {
+    "protocol": {
+      "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-runner-prep-cli-o_abp3g8/inputs/protocol.json",
+      "sha256": "aa4f6cc95ba90565cb678899d3ed617714a9765e304d2fbdae6d40cc5f7a1d57"
+    },
+    "source": {
+      "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-runner-prep-cli-o_abp3g8/inputs/source.json",
+      "sha256": "b350a897d9133bd8bc82ef3dc87a9d393fe1c86cfd912690c469c0bbb37fa8eb"
+    },
+    "candidate": {
+      "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-runner-prep-cli-o_abp3g8/inputs/candidate.json",
+      "sha256": "a9ce553dc381516eeb4d81fe6289221926b1c1d9513b1db5cf672c37fd07cb87"
+    },
+    "label_map": {
+      "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-runner-prep-cli-o_abp3g8/inputs/labels.json",
+      "sha256": "953055255e9c8d2742763232a42c2f1aa76a8f0ec466f27272c80686a8e3d32b"
+    },
+    "freeze": {
+      "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-runner-prep-cli-o_abp3g8/inputs/freeze.json",
+      "sha256": "40edc9930f3eafd923cf702736496924523396dbdeffc511a2b303c93dac75da"
+    }
+  },
+  "protocol": {
+    "version": "evaluation-v1",
+    "algorithm": "stratified-original-clip-v1",
+    "seed": 20260705,
+    "validation_clips": [
+      "0/val",
+      "0/val2"
+    ],
+    "augmentation": "fit-only"
+  },
+  "selection_method": "highest validation accuracy; macro-F1 then run ID tie break",
+  "budget": {
+    "max_experiments": 2,
+    "max_total_seconds": 20,
+    "max_variant_seconds": 10,
+    "max_epochs": 2,
+    "batch_size": 2,
+    "early_stop_patience": 1
+  },
+  "baseline": {
+    "dropout": 0.3,
+    "learning_rate": 0.001
+  },
+  "model_contract": {
+    "architecture": "CNN-LSTM",
+    "seq_len": 30,
+    "features": 258,
+    "drop_face": true,
+    "conv_filters": [
+      64,
+      128
+    ],
+    "lstm_units": [
+      128,
+      64
+    ],
+    "dense": 128
+  },
+  "variants": [
+    {
+      "run_id": "SYNTHETIC-B",
+      "factor": "dropout",
+      "value": 0.4
+    },
+    {
+      "run_id": "SYNTHETIC-A",
+      "factor": "learning_rate",
+      "value": 0.002
+    }
+  ]
+}

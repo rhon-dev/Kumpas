@@ -1,0 +1,15 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart
+00:00 +0: cancelled and unsolicited results cannot open feedback
+00:00 +1: start errors restore retry without unhandled future
+00:00 +2: matching result opens feedback once and preserves wrong recognition
+00:00 +3: no signer failure allows retry and rejects a late result
+00:00 +4: benchmark starts after bounded warmup without any camera events
+00:00 +5: benchmark run identity is visible copyable and completion correlated
+00:00 +6: benchmark channel requires valid UUID and binds report and stop
+00:00 +7: failed benchmark can retry on existing snackbar
+00:00 +8: hung benchmark control response recovers and late run cannot stop replacement
+00:01 +9: late benchmark identity after disposal is stopped by its own run ID
+00:01 +10: pending start times out and late identity cannot cancel replacement
+00:01 +11: pending identity preserves timeout without replacement and cancel on disposal
+00:01 +12: timeout cancels identity and restores capture
+00:01 +13: All tests passed!

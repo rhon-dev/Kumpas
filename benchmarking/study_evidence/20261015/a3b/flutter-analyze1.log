@@ -1,0 +1,8 @@
+Analyzing app...                                                
+
+warning • The '!' will have no effect because the receiver can't be null • test/host_study_flow_test.dart:133:74 • unnecessary_non_null_assertion
+warning • The '!' will have no effect because the receiver can't be null • test/host_study_flow_test.dart:135:87 • unnecessary_non_null_assertion
+warning • The '!' will have no effect because the receiver can't be null • test/host_study_flow_test.dart:138:75 • unnecessary_non_null_assertion
+warning • The '!' will have no effect because the receiver can't be null • test/host_study_flow_test.dart:157:45 • unnecessary_non_null_assertion
+
+4 issues found. (ran in 2.1s)

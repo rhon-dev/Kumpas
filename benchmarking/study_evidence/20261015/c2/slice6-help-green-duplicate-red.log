@@ -1,0 +1,14 @@
+test_argument_help_is_json_and_duplicate_input_paths_fail (evaluation.test_export_cli.CliTests.test_argument_help_is_json_and_duplicate_input_paths_fail) ... FAIL
+
+======================================================================
+FAIL: test_argument_help_is_json_and_duplicate_input_paths_fail (evaluation.test_export_cli.CliTests.test_argument_help_is_json_and_duplicate_input_paths_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py", line 75, in test_argument_help_is_json_and_duplicate_input_paths_fail
+    self.assertEqual(status,2)
+AssertionError: 0 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.087s
+
+FAILED (failures=1)

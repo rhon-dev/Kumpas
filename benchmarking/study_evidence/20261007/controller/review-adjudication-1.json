@@ -1,0 +1,57 @@
+{
+  "at": "2026-10-08T00:10:33+0800",
+  "base": "6b8b1b6770e46bea7728a8e9ca4ae6d78e857640",
+  "scope": "Independent parent in-memory sanitizer probes only; no history/default-store/device access",
+  "probes": [
+    {
+      "field": "model.sha256",
+      "marker_retained": true,
+      "unsafe_flag": false
+    },
+    {
+      "field": "setup.apk_sha256",
+      "marker_retained": true,
+      "unsafe_flag": false
+    },
+    {
+      "field": "setup.revision",
+      "marker_retained": true,
+      "unsafe_flag": false
+    },
+    {
+      "field": "setup.chip",
+      "marker_retained": true,
+      "unsafe_flag": false
+    },
+    {
+      "field": "device.model",
+      "marker_retained": true,
+      "unsafe_flag": false
+    },
+    {
+      "field": "device.manufacturer",
+      "marker_retained": true,
+      "unsafe_flag": false
+    },
+    {
+      "field": "build.version_name",
+      "marker_retained": true,
+      "unsafe_flag": false
+    },
+    {
+      "field": "camera.camera_id",
+      "marker_retained": true,
+      "unsafe_flag": false
+    }
+  ],
+  "other_findings_verified_by_source": [
+    "start timeout generation not stored or producer-gated; completed stop returns existing report",
+    "VisionEngine pose/hand/interpreter/label acquisition has no rollback and streams not use-closed",
+    "CameraPreviewView default dispose globally cancels shared engine and marks camera unknown with no view ownership check"
+  ],
+  "review_reports": [
+    "controller/spec-review-1.md",
+    "controller/quality-review-1.md"
+  ],
+  "acceptance": "changes required"
+}

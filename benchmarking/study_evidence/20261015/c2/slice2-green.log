@@ -1,0 +1,7 @@
+test_actual_encoded_shape_counts_and_privacy (evaluation.test_legacy_export.LegacyTests.test_actual_encoded_shape_counts_and_privacy) ... ok
+test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.004s
+
+OK

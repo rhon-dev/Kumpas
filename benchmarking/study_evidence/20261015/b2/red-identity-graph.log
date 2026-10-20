@@ -1,0 +1,162 @@
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... ok
+test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) ... 
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='original_X') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='original_y') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='clips_train') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='clips_test') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='label_map') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='fit_X') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='fit_y') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='val_X') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='val_y') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='manifest') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='augmentations') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='checkpoint') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='freeze') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='candidate') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='provenance') ... FAIL
+  test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='source_labels') ... FAIL
+test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) ... FAIL
+test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound (test_validation_campaign.InputTests.test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound) ... ok
+test_probability_boundary_rejects_shape_type_and_nonfinite (test_validation_campaign.ProbabilityTests.test_probability_boundary_rejects_shape_type_and_nonfinite) ... ok
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='original_X')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='original_y')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='clips_train')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='clips_test')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='label_map')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='fit_X')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='fit_y')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='val_X')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='val_y')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='manifest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='augmentations')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='checkpoint')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='freeze')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='candidate')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='provenance')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) (role='source_labels')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 77, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.subTest(role=role), self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 86, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    with self.assertRaisesRegex(ValueError,'^INVALID_INPUTS$'): api('validate_inputs')(c)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.277s
+
+FAILED (failures=17)

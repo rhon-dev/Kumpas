@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.FeedbackEngineParityTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-15T20:02:57.604Z" hostname="Ahrons-MacBook-Pro.local" time="0.067">
+  <properties/>
+  <testcase name="correctAttemptProducesNoItems" classname="com.kumpas.kumpas_app.FeedbackEngineParityTest" time="0.032"/>
+  <testcase name="handshapeAttemptMatchesPython" classname="com.kumpas.kumpas_app.FeedbackEngineParityTest" time="0.017"/>
+  <testcase name="confusedPairAttemptMatchesPython" classname="com.kumpas.kumpas_app.FeedbackEngineParityTest" time="0.018"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

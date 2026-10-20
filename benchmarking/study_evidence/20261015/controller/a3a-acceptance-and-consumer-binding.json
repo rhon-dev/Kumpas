@@ -1,0 +1,23 @@
+{
+  "binding_schema_version": 1,
+  "at": "2026-10-16T10:34:52.306262+08:00",
+  "decision": "ACCEPT A3a bounded native host producer; spec APPROVE quality APPROVE WITH MINOR CONCERN",
+  "review": "a3a-review-1.md",
+  "expected_run_id": "323291af-c067-46dc-bae1-067d62fab10b",
+  "manifest": "benchmarking/study_evidence/20261015/a3a/handoff-parent-1/323291af-c067-46dc-bae1-067d62fab10b/manifest.json",
+  "manifest_sha256": "3279cb7d01075a9192f2566ae5573dd6137a23c6710ef1d0a590b78564fe0fed",
+  "producer_xml": "benchmarking/study_evidence/20261015/a3a/parent-explicit-1-xml/TEST-com.kumpas.kumpas_app.HostStudyFlowTest.xml",
+  "producer_ledger": "benchmarking/study_evidence/20261015/a3a/recovery-command-ledger.jsonl",
+  "producer_label": "parent-explicit-1",
+  "parent_execution": "5producer+170fullJVM/zero failures,forced source compile",
+  "artifact_count": 11,
+  "source_hash_count": 42,
+  "protected_count": 82,
+  "L1": "This binding supersedes worker-run selection in preserved handoff-interface/recovery report. Do not alter historical records; A3b must use this exact parent run and digest.",
+  "limits": [
+    "Layered synthetic host processes not installed E2E",
+    "No recognition/physical or study acceptance",
+    "Consumer validation/execution not yet complete",
+    "Manifest alone insufficient without matching successful producer evidence"
+  ]
+}

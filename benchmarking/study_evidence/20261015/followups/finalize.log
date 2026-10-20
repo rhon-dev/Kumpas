@@ -1,0 +1,89 @@
+{
+  "tests": {
+    "b1-red": {
+      "run": 3,
+      "skipped": 0,
+      "passed_methods": null,
+      "ok": false,
+      "sha256": "802c7e60054900baf1b429d23afe377b167243d5a0125fb168f3d3f77495d070"
+    },
+    "b1-green": {
+      "run": 17,
+      "skipped": 1,
+      "passed_methods": 16,
+      "ok": true,
+      "sha256": "785348ac0c99f50bc760391ba1c555340a9bece029c3cf3e68d1e531c6ea9d8e"
+    },
+    "c1-coverage-green": {
+      "run": 31,
+      "skipped": 0,
+      "passed_methods": 31,
+      "ok": true,
+      "sha256": "14ff9802e0b4563b5389f32fbbeab01f2ce64db34bb49a68757450371fe43f5a"
+    },
+    "c2-coverage-green": {
+      "run": 10,
+      "skipped": 0,
+      "passed_methods": 10,
+      "ok": true,
+      "sha256": "d4b0aa3b153227b971b89a8ba8ba1e5731b52370c709e5e7d430e464edc4453c"
+    },
+    "broad-benchmark-discover": {
+      "run": 124,
+      "skipped": 2,
+      "passed_methods": 122,
+      "ok": true,
+      "sha256": "0fefe49203299f57107f9dc18199306c0783007cc92a20cb6176e168660feac6"
+    },
+    "broad-evaluation": {
+      "run": 18,
+      "skipped": 0,
+      "passed_methods": 18,
+      "ok": true,
+      "sha256": "0fcddc562afafe9d97387bfa3043ff2a5d0042cdf33e5dc150a42cb39e56ab64"
+    },
+    "compatible-parity-campaign": {
+      "run": 21,
+      "skipped": 0,
+      "passed_methods": 21,
+      "ok": true,
+      "sha256": "488e5d807f8a5e274dfd4e4f6ad9e71afb5999d65a7d3995188de1436a88258a"
+    },
+    "final-benchmark": {
+      "run": 124,
+      "skipped": 2,
+      "passed_methods": 122,
+      "ok": true,
+      "sha256": "e94e9c66387948a59084adbad6c8fbcce93df3f370521909856767c25c146976"
+    },
+    "final-compatible-parity": {
+      "run": 21,
+      "skipped": 0,
+      "passed_methods": 21,
+      "ok": true,
+      "sha256": "5256a2c3f1f5b357c5e6506c17ca99239c50be90412734866eeb7bc94318c827"
+    }
+  },
+  "preservation": {
+    "protected": {
+      "count": 82,
+      "mismatches": []
+    },
+    "native": {
+      "count": 42,
+      "mismatches": []
+    },
+    "consumer": {
+      "count": 4,
+      "mismatches": []
+    }
+  },
+  "inventory_entries": 2730,
+  "inventory_unique": 1598,
+  "source_hashes": {
+    "benchmarking/pipeline_parity.py": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4",
+    "benchmarking/test_pipeline_parity.py": "73d9c465ade5ca177619371a8cc6b62a9639e34ffee63faca30aa1d20ce24c25",
+    "benchmarking/test_inspect_release.py": "75ae48ac36ccc1a753260aafd660998ea5b5fab53f8512cc16d046fd448d1498",
+    "evaluation/test_export_cli.py": "66640847482f3421ffdc90e2912e7bdcd0963127a14bc66c8aba7dae0eb3fa43"
+  }
+}

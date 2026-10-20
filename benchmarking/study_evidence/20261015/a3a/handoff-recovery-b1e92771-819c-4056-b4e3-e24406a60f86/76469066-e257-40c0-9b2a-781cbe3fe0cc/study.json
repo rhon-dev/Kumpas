@@ -1,0 +1,607 @@
+{
+  "test_schema_version": 1,
+  "run_id": "76469066-e257-40c0-9b2a-781cbe3fe0cc",
+  "scenario_id": "9ace6d77-9231-4163-aca4-976f226ed1b8",
+  "synthetic_origin": true,
+  "execution_boundary": "Real MainActivity callable, Handler\/EventSink, SessionManager\/SQLite\/export\/purge; no messenger, camera, detector or inference",
+  "attempt_setup": "Direct production AttemptBoundary.start because bare Activity has no permission context; terminal handler is real",
+  "history_correlation": "Unique synthetic target\/predicted labels + class\/confidence\/match + exact row counts; no durable attempt UUID column",
+  "primary": {
+    "attempt_id": "389e7661-4ad4-4b9c-b584-bcaf5f046860",
+    "input_event": "{\"state\":\"attempt_result\",\"attemptId\":\"389e7661-4ad4-4b9c-b584-bcaf5f046860\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}],\"timing\":{\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"attempt_started_ns\":100000000,\"inference_ms\":1}}",
+    "delivered_event": "{\"state\":\"attempt_result\",\"attemptId\":\"389e7661-4ad4-4b9c-b584-bcaf5f046860\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}],\"timing\":{\"attempt_id\":\"389e7661-4ad4-4b9c-b584-bcaf5f046860\",\"origin\":\"analyzer_entry_not_sensor_exposure\",\"ui_endpoint\":\"post_frame_native_ack_upper_bound_not_physical_display\",\"attempt_started_ns\":100000000,\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"collection_ms\":40,\"inference_ms\":1,\"event_delivery_ns\":200000000,\"final_analyzer_to_event_ms\":50,\"analyzer_to_feedback_ms\":50}}",
+    "history": "[{\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}],\"timestamp\":1792117138652}]",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "created_at": 1792117138602,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "started_at": 1792117138640,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "timestamp": 1792117138652,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "type": "pre",
+          "timestamp": 1792117138641,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "type": "post",
+          "timestamp": 1792117138648,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        }
+      ]
+    },
+    "duplicate_event_count": 1,
+    "stale_terminal_rows": 0
+  },
+  "export_stage_independent_rows": {
+    "participants": [
+      {
+        "id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+        "created_at": 1792117138602,
+        "device_model": "robolectric robolectric",
+        "app_version": "1.0.0"
+      },
+      {
+        "id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+        "created_at": 1792117138671,
+        "device_model": "SYNTHETIC",
+        "app_version": "host"
+      }
+    ],
+    "sessions": [
+      {
+        "id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+        "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+        "started_at": 1792117138640,
+        "ended_at": null,
+        "attempt_count": 0,
+        "signs_attempted": 0,
+        "avg_match": 0,
+        "duration_s": 0,
+        "source": "app"
+      },
+      {
+        "id": "806d080a-cb90-4226-923f-7842f941cec6",
+        "participant_id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+        "started_at": 1792117138672,
+        "ended_at": null,
+        "attempt_count": 0,
+        "signs_attempted": 0,
+        "avg_match": 0,
+        "duration_s": 0,
+        "source": "app"
+      }
+    ],
+    "attempts": [
+      {
+        "id": 1,
+        "session_id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+        "timestamp": 1792117138652,
+        "target_class": 0,
+        "target_label": "SYNTHETIC_PRIMARY",
+        "predicted_label": "SYNTHETIC_PRIMARY",
+        "predicted_confidence": 0.9,
+        "recognized_as_target": 1,
+        "overall_match": 0.8,
+        "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}]"
+      },
+      {
+        "id": 2,
+        "session_id": "806d080a-cb90-4226-923f-7842f941cec6",
+        "timestamp": 1,
+        "target_class": 1,
+        "target_label": "SYNTHETIC_FOREIGN",
+        "predicted_label": "SYNTHETIC_FOREIGN",
+        "predicted_confidence": 0.7,
+        "recognized_as_target": 1,
+        "overall_match": 0.6,
+        "feedback_items": "[]"
+      }
+    ],
+    "assessments": [
+      {
+        "id": 1,
+        "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+        "type": "pre",
+        "timestamp": 1792117138641,
+        "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+      },
+      {
+        "id": 2,
+        "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+        "type": "post",
+        "timestamp": 1792117138648,
+        "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+      },
+      {
+        "id": 3,
+        "participant_id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+        "type": "pre",
+        "timestamp": 1792117138672,
+        "responses": "{\"synthetic\":true}"
+      }
+    ]
+  },
+  "queued_persistence": {
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "created_at": 1792117138602,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        },
+        {
+          "id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+          "created_at": 1792117138671,
+          "device_model": "SYNTHETIC",
+          "app_version": "host"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "started_at": 1792117138640,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        },
+        {
+          "id": "806d080a-cb90-4226-923f-7842f941cec6",
+          "participant_id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+          "started_at": 1792117138672,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "timestamp": 1792117138652,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}]"
+        },
+        {
+          "id": 2,
+          "session_id": "806d080a-cb90-4226-923f-7842f941cec6",
+          "timestamp": 1,
+          "target_class": 1,
+          "target_label": "SYNTHETIC_FOREIGN",
+          "predicted_label": "SYNTHETIC_FOREIGN",
+          "predicted_confidence": 0.7,
+          "recognized_as_target": 1,
+          "overall_match": 0.6,
+          "feedback_items": "[]"
+        },
+        {
+          "id": 3,
+          "session_id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "timestamp": 1792117138701,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_QUEUED",
+          "predicted_label": "SYNTHETIC_QUEUED",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "type": "pre",
+          "timestamp": 1792117138641,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "type": "post",
+          "timestamp": 1792117138648,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        },
+        {
+          "id": 3,
+          "participant_id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+          "type": "pre",
+          "timestamp": 1792117138672,
+          "responses": "{\"synthetic\":true}"
+        }
+      ]
+    },
+    "delivered_event_count": 1,
+    "ordering": "commit terminal; cancel via production control; drain Handler: row survives, UI suppressed"
+  },
+  "partial_clear": {
+    "external_export_exists": false,
+    "internal_export_exists": true,
+    "legacy_exists": [
+      false,
+      false
+    ],
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "created_at": 1792117138602,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        },
+        {
+          "id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+          "created_at": 1792117138671,
+          "device_model": "SYNTHETIC",
+          "app_version": "host"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "started_at": 1792117138640,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        },
+        {
+          "id": "806d080a-cb90-4226-923f-7842f941cec6",
+          "participant_id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+          "started_at": 1792117138672,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "timestamp": 1792117138652,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}]"
+        },
+        {
+          "id": 2,
+          "session_id": "806d080a-cb90-4226-923f-7842f941cec6",
+          "timestamp": 1,
+          "target_class": 1,
+          "target_label": "SYNTHETIC_FOREIGN",
+          "predicted_label": "SYNTHETIC_FOREIGN",
+          "predicted_confidence": 0.7,
+          "recognized_as_target": 1,
+          "overall_match": 0.6,
+          "feedback_items": "[]"
+        },
+        {
+          "id": 3,
+          "session_id": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+          "timestamp": 1792117138701,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_QUEUED",
+          "predicted_label": "SYNTHETIC_QUEUED",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "type": "pre",
+          "timestamp": 1792117138641,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+          "type": "post",
+          "timestamp": 1792117138648,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        },
+        {
+          "id": 3,
+          "participant_id": "5988df6c-d9fa-4b42-9165-8b197232f76c",
+          "type": "pre",
+          "timestamp": 1792117138672,
+          "responses": "{\"synthetic\":true}"
+        }
+      ]
+    },
+    "error_code": "CLEAR_FAILED"
+  },
+  "clear": {
+    "old_participant_id": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+    "participant_id": "aacf4f06-7c91-46cf-8dac-699ecdca2608",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "aacf4f06-7c91-46cf-8dac-699ecdca2608",
+          "created_at": 1792117138713,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [],
+      "attempts": [],
+      "assessments": []
+    },
+    "both_export_roots_purged": true,
+    "legacy_purged": true,
+    "unrelated_sentinels_survived": true
+  },
+  "reopen": {
+    "participant_id": "aacf4f06-7c91-46cf-8dac-699ecdca2608",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "aacf4f06-7c91-46cf-8dac-699ecdca2608",
+          "created_at": 1792117138713,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [],
+      "attempts": [],
+      "assessments": []
+    }
+  },
+  "control_calls": [
+    {
+      "stage": "initialized",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "4869726a-e1dc-45aa-ab18-871029a3fbd7",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "startSession",
+      "arguments": null,
+      "response": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "getActiveSession",
+      "arguments": null,
+      "response": "63056426-43ee-4a0c-83f0-c3af877cff1f",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "pre",
+        "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "post",
+        "responses": "{\"synthetic\":true}"
+      },
+      "response": null,
+      "error_code": "CONTROL_FAILED"
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "post",
+        "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[{\"id\":1,\"participant_id\":\"4869726a-e1dc-45aa-ab18-871029a3fbd7\",\"type\":\"pre\",\"timestamp\":1792117138641,\"responses\":\"{\\\"synthetic\\\":true,\\\"stage\\\":\\\"pre\\\"}\"},{\"id\":2,\"participant_id\":\"4869726a-e1dc-45aa-ab18-871029a3fbd7\",\"type\":\"post\",\"timestamp\":1792117138648,\"responses\":\"{\\\"synthetic\\\":true,\\\"stage\\\":\\\"post\\\"}\"}]",
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "feedbackPresented",
+      "arguments": {
+        "attemptId": "389e7661-4ad4-4b9c-b584-bcaf5f046860"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "feedbackPresented",
+      "arguments": {
+        "attemptId": "389e7661-4ad4-4b9c-b584-bcaf5f046860"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "cancelAttempt",
+      "arguments": {
+        "attemptId": "c5e7240d-0cc9-428d-b6e5-cd56af4965e6"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[{\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}],\"timestamp\":1792117138652}]",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-6939407628523024882\/external\/kumpas_export_4869726a-39662e0c-6bb4-4b5e-8d6b-af9d8cb61fa6_20261016_101858.json",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-6939407628523024882\/internal\/exports\/kumpas_export_4869726a-7a13129f-7183-4879-8df8-096d2a698080_20261016_101858.json",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": null,
+      "error_code": "EXPORT_FAILED"
+    },
+    {
+      "stage": "persist-then-cancel-before-handler-drain",
+      "method": "cancelAttempt",
+      "arguments": {
+        "attemptId": "1a05a970-79f5-4b2b-b941-b54894e5ea7c"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "partial-purge-failure",
+      "method": "clearAllData",
+      "arguments": null,
+      "response": null,
+      "error_code": "CLEAR_FAILED"
+    },
+    {
+      "stage": "clear-retry",
+      "method": "clearAllData",
+      "arguments": null,
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "aacf4f06-7c91-46cf-8dac-699ecdca2608",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getActiveSession",
+      "arguments": null,
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "aacf4f06-7c91-46cf-8dac-699ecdca2608",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-6939407628523024882\/external\/kumpas_export_aacf4f06-9efc8173-2b01-4558-a6fb-316a6f35b1dd_20261016_101858.json",
+      "error_code": null
+    }
+  ],
+  "delivered_events": [
+    "{\"state\":\"attempt_result\",\"attemptId\":\"389e7661-4ad4-4b9c-b584-bcaf5f046860\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}],\"timing\":{\"attempt_id\":\"389e7661-4ad4-4b9c-b584-bcaf5f046860\",\"origin\":\"analyzer_entry_not_sensor_exposure\",\"ui_endpoint\":\"post_frame_native_ack_upper_bound_not_physical_display\",\"attempt_started_ns\":100000000,\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"collection_ms\":40,\"inference_ms\":1,\"event_delivery_ns\":200000000,\"final_analyzer_to_event_ms\":50,\"analyzer_to_feedback_ms\":50}}"
+  ]
+}

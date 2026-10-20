@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-18T01:10:42.626286+08:00",
+  "decision": "ACCEPT_C2_BOUNDED_EXPORT_VALIDATION_AND_SYNTHETIC_DESCRIPTIVES_WITH_LOW_COVERAGE_FOLLOWUP",
+  "source_hashes": {
+    "evaluation/README.md": "595dee123aad04571170a2aab10faec119f346eec65d27a23a2a4c8b125fc3db",
+    "evaluation/__init__.py": "268e24bb8d8792213f2773e72ee3529ab85aeb47bd4075cae338f29be5799536",
+    "evaluation/export_cli.py": "2975b0e7a0f2dd13f720166fdc85fbd4f7ea538b599d11c60f42c1bd453b18c7",
+    "evaluation/legacy_export.py": "170760c62bc54076bd119237d3eb8cddec957ed19abfb9e74f1ee2fea353298f",
+    "evaluation/synthetic_descriptive.py": "fc780891c71944154328380c7ce11952faf9c05638c95b4ee94d0baeaea22cde",
+    "evaluation/test_export_cli.py": "a3de3750f4acdcaa2938c2e1f9de97e803f502ed45aa541bcaec95c07d6b587b",
+    "evaluation/test_legacy_export.py": "8a6eb9c03cef606bacf62f716f3a0a8eb82c38ec6bafdd4ba018123ec130a939",
+    "evaluation/test_synthetic_descriptive.py": "782e0d7184594348e8f1433ecbb4e0dd2d5243090baec1708e64ae0f08fcd3a0"
+  },
+  "review": "c2-review-1.md",
+  "review_sha256": "cc94dc1356dcec5e9e68cb5132618494fabe3abebf555d5a446131d4579bc2f3",
+  "parent_evidence": {
+    "source_hashes": {
+      "evaluation/README.md": "595dee123aad04571170a2aab10faec119f346eec65d27a23a2a4c8b125fc3db",
+      "evaluation/__init__.py": "268e24bb8d8792213f2773e72ee3529ab85aeb47bd4075cae338f29be5799536",
+      "evaluation/export_cli.py": "2975b0e7a0f2dd13f720166fdc85fbd4f7ea538b599d11c60f42c1bd453b18c7",
+      "evaluation/legacy_export.py": "170760c62bc54076bd119237d3eb8cddec957ed19abfb9e74f1ee2fea353298f",
+      "evaluation/synthetic_descriptive.py": "fc780891c71944154328380c7ce11952faf9c05638c95b4ee94d0baeaea22cde",
+      "evaluation/test_export_cli.py": "a3de3750f4acdcaa2938c2e1f9de97e803f502ed45aa541bcaec95c07d6b587b",
+      "evaluation/test_legacy_export.py": "8a6eb9c03cef606bacf62f716f3a0a8eb82c38ec6bafdd4ba018123ec130a939",
+      "evaluation/test_synthetic_descriptive.py": "782e0d7184594348e8f1433ecbb4e0dd2d5243090baec1708e64ae0f08fcd3a0"
+    },
+    "parent_tests": "16passed,zero skips",
+    "parent_cli": "c2/synthetic-cli-parent-1;fourCLIvalid0/0,invalid2/2;independentverificationcounts5exports5participants4sessions4attempts7assessments",
+    "protected_count": 82,
+    "protected_mismatches": [],
+    "status": "REVIEW_PENDING",
+    "limits": "Syntheticdescriptives only;nohumanrubric/inferential/participantauthorization"
+  },
+  "reviewer_execution": "16tests zero skips;4CLIexits0,0,2,2;2additionalownership/snapshotprobespassed",
+  "low_L1": "Persist snapshot-input-mutation and replaced-owned-manifest cleanup cases. Coverage-onlyGREEN,notimplementationdefects.",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "limits": "No humanrubric/SUSscore/inferentialanalysis/participantprocessingauthorization; A3atransportdummyresponsesnotquestionnairefixtures; runtime/physical/human gatesopen",
+  "next": "Close disclosed arithmetic robustness and coverage followups before final host verification/documentation"
+}

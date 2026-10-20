@@ -1,0 +1,819 @@
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/README.md b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/README.md
+new file mode 100644
+index 0000000..5e69a09
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/README.md
+@@ -0,0 +1,61 @@
++# Explicit-file assessment utilities
++
++These host-only tools validate the **legacy** `DataExporter` / `SessionDatabase` export and generate **SYNTHETIC-only** descriptive questionnaire counts. They are not a human rubric scorer, a validated SUS scorer, an inferential analysis pipeline, or permission to process participant data. No default databases or export directories are searched. No dependencies are installed.
++
++## Audited contract
++
++Source references: `app/lib/ui/assessment_screen.dart:35–76,201–242,284–295,389–393`; `app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionDatabase.kt:48–84,136–172,247–265,301–310`; `DataExporter.kt:74–111`; `FeedbackEngine.kt:108–117,120–141,144–178,181–209,253–255`; `app/lib/feedback_engine/models.dart:18–32`.
++
++- Export root has `metadata`, `assessments`, `sessions` and `summary`, with no legacy schema-version field. This adapter rejects unknown fields instead of guessing a newer contract.
++- Metadata participant IDs and session IDs are canonical lowercase UUID strings. Assessment and attempt IDs are positive database integers, **not UUIDs**. IDs are unique within each corresponding exported table; attempts across all nested sessions share a single ID namespace. Participant and session foreign-key relationships must match the actual containing export/session.
++- `responses` and `feedback_items` are JSON-encoded **strings**, not predecoded objects. Both encoded and outer JSON reject duplicate keys, NaN/Infinity and overflowing floating-point literals. Exact integer fields reject booleans and integral-looking floats. No private values or JSON parser exception messages appear in diagnostics.
++- Required pre and post responses: integer `fslConfidence` and `signsKnown`, each 1–5. `signsKnown` is an ordinal self-report, **not an observed number of signs**. Post additionally requires ten integer 1–5 `susScores`. No standardized SUS total is computed: the local SUS-labelled wording/translation has not been approved as an instrument in this scope.
++- Optional `ageGroup` domains: `<13`, `13-17`, `18-25`, `26-35`, `36-50`, `>50`. Optional `gender`: `Male`, `Female`, `Non-binary`, `Prefer not to say`. If supplied, these fields must be domain strings; absence differs from null/invalid. Optional post `openFeedback` may be absent or an empty string. Reports count its presence/absence/emptiness, never its content. Current A1 source has resolved the earlier discovery report's feedback-requiredness inconsistency.
++- Technical confidence, overall match, session average match and feedback severity are finite numeric values in [0,1], from the existing normalized producer mathematics, **not human scores**. They are not included as outcomes or summarized numerically. Feedback dimension, hand and prompt retain the existing consumer's string types; no linguistic validation is inferred.
++- Counts, target class and timestamps are nonnegative exact integers; row IDs are positive. Recognition is SQLite integer 0/1, not a JSON boolean. Duration is finite and nonnegative. Source is `app` or `legacy_migration`. An ended session cannot end before it starts. This adapter does not infer measurement units from arbitrary text, cross-check labels against a selected model, validate wall-clock chronology, or invent a maximum target class.
++- Root totals are independently recomputed from scoped nested rows. Closed-session attempt/distinct-target counts must agree. Active-session summaries can lag by design; their zero defaults are not inferred to mean zero observed attempts. No average recomputation, tolerance policy or human outcome policy is invented.
++
++The authoritative accepted A3a producer was separately hash/XML/ledger/source-verified before reading its isolated synthetic exports. Its nonempty transport fixture stores `synthetic`/`stage` response keys rather than the UI questionnaire fields; it is correctly rejected with `REQUIRED`. The empty reopened export validates. These are schema/transport observations, not a new native run or a new app defect. See C2 `native-contract-audit.json` and fresh-run counterparts.
++
++## Explicit event matching and descriptive limits
++
++`describe_exports(inputs, source='SYNTHETIC')` accepts a list of explicit byte snapshots. One export per participant is required; duplicate participant exports reject the batch (`DUPLICATE_EXPORT`). All records must validate before any frequencies are returned. No record is silently dropped.
++
++Pair availability uses only participant identity plus explicit `type: pre/post`. Assessments do not have session IDs; no session-level pairing is possible. Exactly one pre and one post gives `paired`; repeats give `AMBIGUOUS_PHASE`, a single phase gives `UNMATCHED_PRE`/`UNMATCHED_POST`, and no assessments gives `NO_ASSESSMENTS`. Order and timestamps do not choose a newest record or assign a phase. Fixed diagnostics include input indexes, never participant UUIDs.
++
++Reports contain counts, pair availability, optional-field completeness and per-phase frequencies for known structured questionnaire fields (including ten separate item frequency tables). Frequencies include valid repeated-phase records, while pair availability excludes ambiguous participants. Denominators are records for frequencies/completeness and unique participants for matching; optional feedback completeness uses post records only. No missingness imputation, numeric questionnaire total, improvement score, consent/group/withdrawal inference, rater aggregation, p-value, effect size or effectiveness claim exists.
++
++## Running safely
++
++Use the existing interpreter from the repository root:
++
++```sh
++/opt/homebrew/bin/python3.11 -B -E -m unittest discover -s evaluation -t . -p 'test_*.py' -v
++```
++
++For a fresh, explicitly supplied synthetic root with read-only input copies, choose a new numeric output label:
++
++```sh
++/opt/homebrew/bin/python3.11 -B -E -m evaluation.export_cli \
++  --mode describe --root /absolute/explicit/synthetic-root \
++  --input SYNTHETIC-input-1.json --input SYNTHETIC-input-2.json \
++  --source SYNTHETIC --output-label SYNTHETIC-005
++```
++
++Do not run this example against app stores or participant exports. Repeat `--input` for each explicit root-relative file; no globs, absolute input paths, traversal, symlink components or nonregular files are accepted. The root must already exist, be absolute, and have no symlink or dot components. Inputs are opened read-only and bounded to 16 MiB each. The same in-memory bytes are validated, described and hashed; files are not reread between those stages.
++
++`--mode validate --source UNATTESTED` is technical validation capability only, not authorization, a consent assertion or a synthetic-origin assertion. It produces no descriptives. All executions for this task used generated synthetic data, including the UNATTESTED regression. The `SYNTHETIC-N` output-directory name is a restricted campaign namespace, not a substitute for the manifest's explicit source declaration. Real participant processing still requires separate owner/ethics/retention authorization and an approved workflow; none is granted here.
++
++Successful runs exclusively create the named output directory, `report.json` and `manifest.json`; no existing directory/file is reused or overwritten. A manifest binds input indexes/hashes, explicit source/mode/output label and the report digest. Report bytes are read back before the success manifest is written, and the manifest itself is read back before success is printed. Failures have fixed JSON errors and exit 2; success exits 0. `--help` and malformed arguments also return fixed JSON errors; this README is the usage reference. A failed publication may leave its exclusive directory/diagnostic report; choose a new output label, do not reuse it. Cleanup removes only an owned manifest inode, preserving an unowned collision. No directory fsync/power-loss durability or defense against a hostile concurrently relocating directory owner is claimed. Use a trusted, isolated root.
++
++Reproduce the C2 evidence with a **new** campaign suffix; existing evidence is exclusive and must remain unchanged:
++
++```sh
++/opt/homebrew/bin/python3.11 -B -E -m benchmarking.study_evidence.20261015.c2.exercise synthetic-cli-newrun
++```
++
++This creates only C2 synthetic evidence, executes both modes with valid/invalid inputs, independently recomputes all declared counts/frequencies/completeness and verifies input/output hashes. It also verifies the already accepted synthetic native producer binding before reading its three named export artifacts. It does not execute native code or touch installed stores.
++
++## Remaining gates
++
++Host11 is eligible only for bounded legacy-questionnaire validation. Host12 is eligible only for synthetic descriptive/matching plumbing, pending independent parent/specification/quality review. Human instrument/rubric and selected-sign anchors; wording/translation approval; assessor/blinding/adjudication; group allocation/join procedure; repeated/missing/withdrawn policy; consent/retention; and detailed statistical choices remain owner/adviser/ethics decisions. No participant or inferential acceptance is supplied by green software tests.
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/__init__.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/__init__.py
+new file mode 100644
+index 0000000..56fdaae
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/__init__.py
+@@ -0,0 +1 @@
++"""Explicit-file research utilities; no participant processing authorization."""
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/export_cli.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/export_cli.py
+new file mode 100644
+index 0000000..83f08f9
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/export_cli.py
+@@ -0,0 +1,133 @@
++"""Explicit-file validation / SYNTHETIC-only descriptive CLI; no store discovery."""
++import argparse
++import hashlib
++import json
++import os
++import re
++import stat
++from .legacy_export import Rejected, require, validate_bytes
++from .synthetic_descriptive import describe_exports
++
++MAX_BYTES = 16 * 1024 * 1024
++
++class Parser(argparse.ArgumentParser):
++    def error(self, message):
++        raise Rejected('ARGUMENTS')
++
++def _directory(parent, name):
++    return os.open(name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent)
++
++def _root(path):
++    require(type(path) is str and path.startswith('/'), 'PATH_REJECTED')
++    parts = path.split('/')[1:]
++    require(bool(parts) and all(p and p not in ('.','..') for p in parts), 'PATH_REJECTED')
++    current = os.open('/', os.O_RDONLY | os.O_DIRECTORY)
++    try:
++        for part in parts:
++            nxt = _directory(current, part)
++            os.close(current)
++            current = nxt
++        return current
++    except BaseException:
++        os.close(current)
++        raise
++
++def _read_input(root, path):
++    require(type(path) is str and not path.startswith('/'), 'PATH_REJECTED')
++    parts = path.split('/')
++    require(all(p and p not in ('.','..') for p in parts), 'PATH_REJECTED')
++    current = os.dup(root)
++    try:
++        for part in parts[:-1]:
++            nxt = _directory(current, part)
++            os.close(current)
++            current = nxt
++        fd = os.open(parts[-1], os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=current)
++        with os.fdopen(fd, 'rb') as stream:
++            require(stat.S_ISREG(os.fstat(stream.fileno()).st_mode), 'PATH_REJECTED')
++            require(os.fstat(stream.fileno()).st_size <= MAX_BYTES, 'INPUT_LIMIT')
++            data = stream.read(MAX_BYTES + 1)
++            require(len(data) <= MAX_BYTES, 'INPUT_LIMIT')
++            return data
++    finally:
++        os.close(current)
++
++def _json_bytes(value):
++    return (json.dumps(value, sort_keys=True, indent=2, allow_nan=False) + '\n').encode('utf-8')
++
++def _write_read(directory, name, data, *, owned):
++    fd = os.open(name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=directory)
++    with os.fdopen(fd, 'wb') as stream:
++        info = os.fstat(stream.fileno())
++        owned[name] = (info.st_dev, info.st_ino)
++        stream.write(data)
++        stream.flush()
++        os.fsync(stream.fileno())
++    fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory)
++    with os.fdopen(fd, 'rb') as stream:
++        require(stream.read(len(data) + 1) == data, 'OUTPUT_READBACK')
++
++def _publish(root, label, report, manifest):
++    os.mkdir(label, mode=0o700, dir_fd=root)
++    directory = _directory(root, label)
++    owned = {}
++    try:
++        report_bytes = _json_bytes(report)
++        _write_read(directory, 'report.json', report_bytes, owned=owned)
++        # Publish success only after every declared artifact has been read back.
++        manifest['artifacts'] = {'report.json':hashlib.sha256(report_bytes).hexdigest()}
++        _write_read(directory, 'manifest.json', _json_bytes(manifest), owned=owned)
++    except BaseException:
++        try:
++            info = os.stat('manifest.json', dir_fd=directory, follow_symlinks=False)
++            if owned.get('manifest.json') == (info.st_dev, info.st_ino):
++                os.unlink('manifest.json', dir_fd=directory)
++        except FileNotFoundError:
++            pass
++        raise
++    finally:
++        os.close(directory)
++
++def main(argv=None):
++    root = None
++    try:
++        parser = Parser(description=__doc__, allow_abbrev=False, add_help=False)
++        parser.add_argument('--mode', required=True, choices=('validate','describe'))
++        parser.add_argument('--root', required=True)
++        parser.add_argument('--input', required=True, action='append')
++        parser.add_argument('--source', required=True, choices=('SYNTHETIC','UNATTESTED'))
++        parser.add_argument('--output-label', required=True)
++        args = parser.parse_args(argv)
++        require(re.fullmatch(r'SYNTHETIC-[0-9]{1,12}', args.output_label) is not None, 'OUTPUT_LABEL')
++        require(args.mode != 'describe' or args.source == 'SYNTHETIC', 'SYNTHETIC_REQUIRED')
++        require(len(args.input) == len(set(args.input)), 'DUPLICATE_INPUT')
++        root = _root(args.root)
++        snapshots = [_read_input(root, path) for path in args.input]
++        if args.mode == 'describe':
++            report = describe_exports(snapshots, source=args.source)
++        else:
++            results = [validate_bytes(data) for data in snapshots]
++            report = {'valid':all(x['valid'] for x in results), 'validation':results}
++            report['diagnostics'] = [dict(d,input_index=i) for i,x in enumerate(results) for d in x['diagnostics']]
++        if not report['valid']:
++            print(json.dumps(report, allow_nan=False, sort_keys=True))
++            return 2
++        manifest = {'schema_version':1,'output_label':args.output_label,
++                    'source':args.source,'mode':args.mode,
++                    'authorization':'NO_PARTICIPANT_AUTHORIZATION',
++                    'inputs':[{'index':i,'sha256':hashlib.sha256(data).hexdigest()} for i,data in enumerate(snapshots)]}
++        _publish(root, args.output_label, report, manifest)
++        print(json.dumps({'valid':True,'code':'PUBLISHED','input_count':len(snapshots)},sort_keys=True))
++        return 0
++    except Rejected as failure:
++        code = str(failure)
++    except (OSError, ValueError, TypeError, RecursionError, OverflowError):
++        code = 'IO_REJECTED'
++    finally:
++        if root is not None:
++            os.close(root)
++    print(json.dumps({'valid':False,'diagnostics':[{'code':code}]},sort_keys=True))
++    return 2
++
++if __name__ == '__main__':
++    raise SystemExit(main())
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/legacy_export.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/legacy_export.py
+new file mode 100644
+index 0000000..0c49b15
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/legacy_export.py
+@@ -0,0 +1,194 @@
++"""Strict read-only adapter for SessionDatabase v1 / DataExporter legacy JSON.
++
++This technical contract does not authorize participant processing or supply a
++human outcome instrument. Diagnostics intentionally never contain input values.
++"""
++import datetime
++import json
++import math
++import uuid
++
++AGE = ('<13', '13-17', '18-25', '26-35', '36-50', '>50')
++GENDER = ('Male', 'Female', 'Non-binary', 'Prefer not to say')
++
++
++class Rejected(ValueError):
++    """A fixed, privacy-safe failure code; never attach an input value."""
++
++
++def require(condition, code):
++    if not condition:
++        raise Rejected(code)
++
++
++def strict_loads(data):
++    def pairs(items):
++        obj = {}
++        for key, value in items:
++            require(key not in obj, 'JSON_INVALID')
++            obj[key] = value
++        return obj
++
++    def bad_constant(_):
++        raise Rejected('JSON_INVALID')
++
++    def number(text):
++        value = float(text)
++        require(math.isfinite(value), 'JSON_INVALID')
++        return value
++
++    try:
++        return json.loads(data, object_pairs_hook=pairs,
++                          parse_constant=bad_constant, parse_float=number)
++    except (ValueError, TypeError, UnicodeError, RecursionError):
++        raise Rejected('JSON_INVALID') from None
++
++
++def shape(obj, required, optional=()):
++    require(type(obj) is dict, 'SHAPE')
++    require(set(required) <= obj.keys(), 'REQUIRED')
++    require(obj.keys() <= set(required) | set(optional), 'UNKNOWN_FIELD')
++
++
++def integer(value, minimum=0):
++    require(type(value) is int, 'TYPE')
++    require(value >= minimum, 'RANGE')
++
++
++def numeric(value, minimum=None, maximum=None):
++    require(type(value) in (int, float), 'TYPE')
++    try:
++        finite = math.isfinite(value)
++    except OverflowError:
++        finite = False
++    require(finite, 'NONFINITE')
++    require(minimum is None or value >= minimum, 'RANGE')
++    require(maximum is None or value <= maximum, 'RANGE')
++
++
++def text(value):
++    require(type(value) is str, 'TYPE')
++
++
++def identity(value):
++    text(value)
++    try:
++        require(str(uuid.UUID(value)) == value, 'UUID')
++    except (ValueError, AttributeError):
++        raise Rejected('UUID') from None
++
++
++def unique(value, seen):
++    require(value not in seen, 'DUPLICATE_ID')
++    seen.add(value)
++
++
++def response(row):
++    text(row['responses'])
++    values = strict_loads(row['responses'])
++    required = ['fslConfidence', 'signsKnown']
++    if row['type'] == 'post':
++        required.append('susScores')
++    shape(values, required, ['ageGroup', 'gender', 'openFeedback'] if row['type'] == 'post' else ['ageGroup', 'gender'])
++    for field in ('fslConfidence', 'signsKnown'):
++        integer(values[field], 1)
++        require(values[field] <= 5, 'RANGE')
++    for field, allowed in (('ageGroup', AGE), ('gender', GENDER)):
++        if field in values:
++            text(values[field])
++            require(values[field] in allowed, 'ENUM')
++    if 'openFeedback' in values:
++        text(values['openFeedback'])
++    if 'susScores' in values:
++        require(type(values['susScores']) is list, 'TYPE')
++        require(len(values['susScores']) == 10, 'RANGE')
++        for value in values['susScores']:
++            integer(value, 1)
++            require(value <= 5, 'RANGE')
++    return values
++
++
++def _validate(root):
++    shape(root, ('metadata', 'sessions', 'assessments', 'summary'))
++    metadata = root['metadata']
++    shape(metadata, ('participant_id', 'export_timestamp', 'app_version', 'device_model', 'android_version'))
++    identity(metadata['participant_id'])
++    for key in ('export_timestamp', 'app_version', 'device_model', 'android_version'):
++        text(metadata[key])
++    try:
++        stamp = metadata['export_timestamp']
++        require(datetime.datetime.strptime(stamp, '%Y-%m-%dT%H:%M:%S').strftime('%Y-%m-%dT%H:%M:%S') == stamp, 'TIMESTAMP')
++    except ValueError:
++        raise Rejected('TIMESTAMP') from None
++    for key in ('sessions', 'assessments'):
++        require(type(root[key]) is list, 'TYPE')
++    counts = {'sessions': len(root['sessions']), 'attempts': 0, 'assessments': len(root['assessments'])}
++    aids, sids, tids = set(), set(), set()
++    for row in root['assessments']:
++        shape(row, ('id', 'participant_id', 'type', 'timestamp', 'responses'))
++        integer(row['id'], 1)
++        unique(row['id'], aids)
++        identity(row['participant_id'])
++        require(row['participant_id'] == metadata['participant_id'], 'RELATION')
++        integer(row['timestamp'])
++        text(row['type'])
++        require(row['type'] in ('pre', 'post'), 'PHASE')
++        response(row)
++    for row in root['sessions']:
++        shape(row, ('id', 'participant_id', 'started_at', 'ended_at', 'attempt_count', 'signs_attempted', 'avg_match', 'duration_s', 'source', 'attempts'))
++        identity(row['id'])
++        unique(row['id'], sids)
++        identity(row['participant_id'])
++        require(row['participant_id'] == metadata['participant_id'], 'RELATION')
++        integer(row['started_at'])
++        if row['ended_at'] is not None:
++            integer(row['ended_at'])
++            require(row['ended_at'] >= row['started_at'], 'TIMESTAMP')
++        for field in ('attempt_count', 'signs_attempted'):
++            integer(row[field])
++        numeric(row['avg_match'], 0, 1)
++        numeric(row['duration_s'], 0)
++        text(row['source'])
++        require(row['source'] in ('app', 'legacy_migration'), 'ENUM')
++        require(type(row['attempts']) is list, 'TYPE')
++        counts['attempts'] += len(row['attempts'])
++        for attempt in row['attempts']:
++            shape(attempt, ('id', 'session_id', 'timestamp', 'target_class', 'target_label', 'predicted_label', 'predicted_confidence', 'recognized_as_target', 'overall_match', 'feedback_items'))
++            integer(attempt['id'], 1)
++            unique(attempt['id'], tids)
++            identity(attempt['session_id'])
++            require(attempt['session_id'] == row['id'], 'RELATION')
++            for field in ('timestamp', 'target_class'):
++                integer(attempt[field])
++            for field in ('target_label', 'predicted_label', 'feedback_items'):
++                text(attempt[field])
++            numeric(attempt['predicted_confidence'], 0, 1)
++            numeric(attempt['overall_match'], 0, 1)
++            integer(attempt['recognized_as_target'])
++            require(attempt['recognized_as_target'] in (0, 1), 'RANGE')
++            items = strict_loads(attempt['feedback_items'])
++            require(type(items) is list, 'TYPE')
++            for item in items:
++                shape(item, ('dimension', 'severity', 'hand', 'prompt'))
++                for field in ('dimension', 'hand', 'prompt'):
++                    text(item[field])
++                numeric(item['severity'], 0, 1)
++        if row['ended_at'] is not None:
++            require(row['attempt_count'] == len(row['attempts']), 'SESSION_COUNT_MISMATCH')
++            require(row['signs_attempted'] == len({a['target_class'] for a in row['attempts']}), 'SESSION_COUNT_MISMATCH')
++    shape(root['summary'], ('total_sessions', 'total_attempts', 'total_assessments'))
++    for key, count in counts.items():
++        integer(root['summary']['total_' + key])
++        require(root['summary']['total_' + key] == count, 'COUNT_MISMATCH')
++    return counts
++
++
++def validate_bytes(data):
++    """Return aggregate counts or a fixed rejection, never raw records."""
++    try:
++        counts = _validate(strict_loads(data))
++        return {'valid': True, 'diagnostics': [], 'counts': counts}
++    except Rejected as failure:
++        return {'valid': False, 'diagnostics': [{'code': str(failure)}]}
++    except (RecursionError, OverflowError):
++        return {'valid': False, 'diagnostics': [{'code': 'INPUT_LIMIT'}]}
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/synthetic_descriptive.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/synthetic_descriptive.py
+new file mode 100644
+index 0000000..443ae8e
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/synthetic_descriptive.py
+@@ -0,0 +1,73 @@
++"""SYNTHETIC questionnaire frequencies and event-label pair availability only.
++
++No human scoring, confidence outcome, group assignment, imputation or inference.
++"""
++from .legacy_export import AGE, GENDER, response, strict_loads, validate_bytes
++
++
++def describe_exports(inputs, *, source):
++    if type(source) is not str or source != 'SYNTHETIC':
++        return {'valid': False, 'diagnostics': [{'code': 'SYNTHETIC_REQUIRED'}]}
++    if type(inputs) is not list:
++        return {'valid': False, 'diagnostics': [{'code': 'TYPE'}]}
++    roots, diagnostics, seen = [], [], set()
++    counts = {'exports':len(inputs), 'participants':0, 'sessions':0, 'attempts':0, 'assessments':0}
++    for index, data in enumerate(inputs):
++        result = validate_bytes(data)
++        if not result['valid']:
++            diagnostics.extend(dict(item, input_index=index) for item in result['diagnostics'])
++            continue
++        root = strict_loads(data)
++        participant = root['metadata']['participant_id']
++        if participant in seen:
++            diagnostics.append({'code':'DUPLICATE_EXPORT', 'input_index':index})
++        seen.add(participant)
++        roots.append(root)
++        for field in ('sessions', 'attempts', 'assessments'):
++            counts[field] += result['counts'][field]
++    if diagnostics:
++        return {'valid':False, 'synthetic':True, 'diagnostics':diagnostics}
++    counts['participants'] = len(seen)
++    matching = dict.fromkeys(('paired','unmatched_pre','unmatched_post','ambiguous','no_assessments'), 0)
++    completeness = {field:{'present':0,'absent':0} for field in ('ageGroup','gender','openFeedback')}
++    completeness['openFeedback']['empty'] = 0
++    frequencies = {}
++    for phase in ('pre', 'post'):
++        frequencies[phase] = {field:{str(i):0 for i in range(1,6)} for field in ('fslConfidence','signsKnown')}
++        frequencies[phase]['ageGroup'] = dict.fromkeys(AGE,0)
++        frequencies[phase]['gender'] = dict.fromkeys(GENDER,0)
++        if phase == 'post':
++            frequencies[phase]['susScores'] = [{str(i):0 for i in range(1,6)} for _ in range(10)]
++    for index, root in enumerate(roots):
++        phases = {'pre':0,'post':0}
++        for row in root['assessments']:
++            phase = row['type']
++            phases[phase] += 1
++            values = response(row)
++            for field in ('fslConfidence','signsKnown','ageGroup','gender'):
++                if field in values:
++                    frequencies[phase][field][str(values[field])] += 1
++            for field in completeness:
++                if field == 'openFeedback' and phase != 'post':
++                    continue
++                completeness[field]['present' if field in values else 'absent'] += 1
++            if phase == 'post':
++                completeness['openFeedback']['empty'] += int(values.get('openFeedback') == '')
++                for i,value in enumerate(values['susScores']):
++                    frequencies[phase]['susScores'][i][str(value)] += 1
++        pre, post = phases['pre'], phases['post']
++        if pre > 1 or post > 1:
++            disposition, code = 'ambiguous', 'AMBIGUOUS_PHASE'
++        elif pre == post == 1:
++            disposition, code = 'paired', None
++        elif pre == 1:
++            disposition, code = 'unmatched_pre', 'UNMATCHED_PRE'
++        elif post == 1:
++            disposition, code = 'unmatched_post', 'UNMATCHED_POST'
++        else:
++            disposition, code = 'no_assessments', 'NO_ASSESSMENTS'
++        matching[disposition] += 1
++        if code:
++            diagnostics.append({'code':code,'input_index':index})
++    return {'valid':True,'synthetic':True,'counts':counts,'matching':matching,
++            'completeness':completeness,'frequencies':frequencies,'diagnostics':diagnostics}
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py
+new file mode 100644
+index 0000000..9d62029
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py
+@@ -0,0 +1,126 @@
++"""Executed CLI tests use fresh synthetic roots only."""
++import contextlib
++import hashlib
++import io
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++from evaluation import export_cli
++from evaluation.test_legacy_export import fixture, encode
++
++class CliTests(unittest.TestCase):
++    def setUp(self):
++        scratch=Path.home()/'.hermes/cache/scratch'
++        self.tmp=tempfile.TemporaryDirectory(prefix='kumpas-c2-SYNTHETIC-',dir=scratch)
++        self.addCleanup(self.tmp.cleanup)
++        self.root=Path(self.tmp.name)
++        (self.root/'input.json').write_bytes(encode(fixture()))
++
++    def args(self, **changes):
++        args={'mode':'describe','root':str(self.root),'input':'input.json','source':'SYNTHETIC','output-label':'SYNTHETIC-001'}
++        args.update(changes)
++        return [x for k,v in args.items() for x in ('--'+k,v)]
++
++    def run_cli(self,args):
++        cp=subprocess.run([sys.executable,'-B','-E','-m','evaluation.export_cli',*args],capture_output=True)
++        self.assertEqual(cp.stderr,b'')
++        self.assertNotIn(b'PRIVATE CANARY',cp.stdout)
++        self.assertNotIn(str(self.root).encode(),cp.stdout)
++        return cp.returncode,json.loads(cp.stdout)
++
++    def test_cli_publishes_readback_and_hash_bound_manifest(self):
++        status,result=self.run_cli(self.args())
++        self.assertEqual(status,0,result)
++        out=self.root/'SYNTHETIC-001'
++        manifest=json.loads((out/'manifest.json').read_bytes())
++        report=(out/'report.json').read_bytes()
++        self.assertEqual(manifest['artifacts']['report.json'],hashlib.sha256(report).hexdigest())
++        self.assertEqual(manifest['inputs'][0]['sha256'],hashlib.sha256((self.root/'input.json').read_bytes()).hexdigest())
++        self.assertEqual(json.loads(report)['matching']['paired'],1)
++        before={p.name:p.read_bytes() for p in out.iterdir()}
++        self.assertEqual(self.run_cli(self.args())[0],2)
++        self.assertEqual({p.name:p.read_bytes() for p in out.iterdir()},before)
++
++    def test_cli_fails_closed_without_payload_echo(self):
++        for change in [{'input':'../PRIVATE CANARY.json'}, {'input':'/PRIVATE CANARY.json'}, {'input':'missing.json'}, {'source':'real'}, {'output-label':'../escape'}, {'mode':'PRIVATE CANARY'}]:
++            with self.subTest(change=change):
++                status,_=self.run_cli(self.args(**change))
++                self.assertEqual(status,2)
++                self.assertFalse((self.root/'SYNTHETIC-001'/'manifest.json').exists())
++        (self.root/'input.json').write_bytes(b'{"responses":"PRIVATE CANARY","x":NaN}')
++        status,result=self.run_cli(self.args())
++        self.assertEqual(status,2)
++        self.assertEqual(result['diagnostics'][0]['code'],'JSON_INVALID')
++        self.assertFalse((self.root/'SYNTHETIC-001').exists())
++
++    def test_symlink_inputs_roots_and_outputs_rejected(self):
++        (self.root/'link.json').symlink_to(self.root/'input.json')
++        self.assertEqual(self.run_cli(self.args(input='link.json'))[0],2)
++        (self.root/'alias').symlink_to(self.root,target_is_directory=True)
++        self.assertEqual(self.run_cli(self.args(root=str(self.root/'alias')))[0],2)
++        (self.root/'SYNTHETIC-001').symlink_to(self.root,target_is_directory=True)
++        self.assertEqual(self.run_cli(self.args())[0],2)
++        self.assertFalse((self.root/'manifest.json').exists())
++
++    def test_argument_help_is_json_and_duplicate_input_paths_fail(self):
++        status,result=self.run_cli(['--help'])
++        self.assertEqual(status,2)
++        self.assertEqual(result['diagnostics'][0]['code'],'ARGUMENTS')
++        status,result=self.run_cli(self.args(mode='validate')+['--input','input.json'])
++        self.assertEqual(status,2)
++        self.assertEqual(result['diagnostics'][0]['code'],'DUPLICATE_INPUT')
++        self.assertFalse((self.root/'SYNTHETIC-001').exists())
++
++    def test_publication_faults_never_leave_success_manifest(self):
++        original=export_cli._write_read
++        for index, failing in enumerate(('report.json','manifest.json')):
++            label='SYNTHETIC-'+str(100+index)
++            def fail_after_write(directory,name,data,**kwargs):
++                original(directory,name,data,**kwargs)
++                if name==failing:
++                    raise export_cli.Rejected('OUTPUT_READBACK')
++            output=io.StringIO()
++            with patch.object(export_cli,'_write_read',side_effect=fail_after_write), contextlib.redirect_stdout(output):
++                status=export_cli.main(self.args(**{'output-label':label}))
++            self.assertEqual(status,2)
++            self.assertEqual(json.loads(output.getvalue())['diagnostics'][0]['code'],'OUTPUT_READBACK')
++            self.assertFalse((self.root/label/'manifest.json').exists())
++        with patch.object(export_cli.os,'fsync',side_effect=OSError('PRIVATE CANARY')), contextlib.redirect_stdout(io.StringIO()) as output:
++            self.assertEqual(export_cli.main(self.args()),2)
++        self.assertNotIn('PRIVATE CANARY',output.getvalue())
++        self.assertFalse((self.root/'SYNTHETIC-001'/'manifest.json').exists())
++        self.assertEqual(self.run_cli(self.args())[0],2)  # partial root cannot be reused
++
++    def test_validate_mode_unattested_is_not_descriptive_authorization(self):
++        status,_=self.run_cli(self.args(mode='validate',source='UNATTESTED'))
++        self.assertEqual(status,0)
++        manifest=json.loads((self.root/'SYNTHETIC-001'/'manifest.json').read_text())
++        self.assertEqual(manifest['source'],'UNATTESTED')
++        self.assertEqual(manifest['authorization'],'NO_PARTICIPANT_AUTHORIZATION')
++        self.assertEqual(self.run_cli(self.args(source='UNATTESTED',**{'output-label':'SYNTHETIC-002'}))[0],2)
++
++    def test_nonregular_input_and_symlink_parent_rejected(self):
++        (self.root/'folder').mkdir()
++        (self.root/'alias').symlink_to(self.root,target_is_directory=True)
++        for path in ('folder','alias/input.json'):
++            self.assertEqual(self.run_cli(self.args(input=path))[0],2)
++        os.mkfifo(self.root/'pipe')
++        self.assertEqual(self.run_cli(self.args(input='pipe'))[0],2)
++
++    def test_publication_collision_preserves_unowned_manifest(self):
++        original=export_cli._write_read
++        def insert_collision(directory,name,data,**kwargs):
++            original(directory,name,data,**kwargs)
++            if name=='report.json':
++                fd=os.open('manifest.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600,dir_fd=directory)
++                with os.fdopen(fd,'wb') as stream: stream.write(b'SYNTHETIC SENTINEL')
++        with patch.object(export_cli,'_write_read',side_effect=insert_collision), contextlib.redirect_stdout(io.StringIO()):
++            self.assertEqual(export_cli.main(self.args()),2)
++        self.assertEqual((self.root/'SYNTHETIC-001'/'manifest.json').read_bytes(),b'SYNTHETIC SENTINEL')
++
++if __name__ == '__main__': unittest.main()
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py
+new file mode 100644
+index 0000000..c742893
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py
+@@ -0,0 +1,139 @@
++"""All fixtures are explicitly SYNTHETIC; no installed stores are accessed."""
++import copy
++import json
++import unittest
++from evaluation.legacy_export import validate_bytes
++
++P = "00000000-0000-4000-8000-000000000001"
++S = "00000000-0000-4000-8000-000000000002"
++
++def fixture():
++    return {"metadata": {"participant_id": P, "export_timestamp": "2026-10-18T10:00:00", "app_version": "SYNTHETIC", "device_model": "SYNTHETIC", "android_version": "SYNTHETIC"},
++        "assessments": [{"id": 1, "participant_id": P, "type": "pre", "timestamp": 1,
++            "responses": json.dumps({"fslConfidence": 1, "signsKnown": 2})},
++            {"id": 2, "participant_id": P, "type": "post", "timestamp": 3,
++            "responses": json.dumps({"fslConfidence": 3, "signsKnown": 4, "susScores": [5]*10, "openFeedback": "SYNTHETIC PRIVATE CANARY"})}],
++        "sessions": [{"id": S, "participant_id": P, "started_at": 1, "ended_at": None,
++            "attempt_count": 0, "signs_attempted": 0, "avg_match": 0.0, "duration_s": 0.0, "source": "app",
++            "attempts": [{"id": 1, "session_id": S, "timestamp": 2, "target_class": 0, "target_label": "SYNTHETIC", "predicted_label": "SYNTHETIC PRIVATE CANARY", "predicted_confidence": 0.5, "recognized_as_target": 0, "overall_match": 0.5, "feedback_items": "[]"}]}],
++        "summary": {"total_sessions": 1, "total_attempts": 1, "total_assessments": 2}}
++
++def encode(x):
++    return json.dumps(x).encode()
++
++class LegacyTests(unittest.TestCase):
++    def test_actual_encoded_shape_counts_and_privacy(self):
++        result = validate_bytes(encode(fixture()))
++        self.assertTrue(result["valid"], result)
++        self.assertEqual(result["counts"], {"sessions": 1, "attempts": 1, "assessments": 2})
++        for private in (P, S, "PRIVATE CANARY", "device_model", "responses"):
++            self.assertNotIn(private, json.dumps(result))
++
++    def test_strict_encoded_and_relational_rejections(self):
++        cases = []
++        def case(code, change):
++            x=fixture(); change(x); cases.append((code, encode(x)))
++        case('RELATION', lambda x: x['assessments'][0].update(participant_id=S))
++        case('RELATION', lambda x: x['sessions'][0]['attempts'][0].update(session_id=P))
++        case('DUPLICATE_ID', lambda x: x['assessments'].append(copy.deepcopy(x['assessments'][0])))
++        case('DUPLICATE_ID', lambda x: x['sessions'].append(copy.deepcopy(x['sessions'][0])))
++        case('DUPLICATE_ID', lambda x: x['sessions'][0]['attempts'].append(copy.deepcopy(x['sessions'][0]['attempts'][0])))
++        case('COUNT_MISMATCH', lambda x: x['summary'].update(total_attempts=9))
++        case('TYPE', lambda x: x['summary'].update(total_attempts=True))
++        case('TYPE', lambda x: x['assessments'][0].update(id=1.0))
++        case('UUID', lambda x: x['metadata'].update(participant_id='SYNTHETIC PRIVATE CANARY'))
++        case('PHASE', lambda x: x['assessments'][0].update(type='SYNTHETIC PRIVATE CANARY'))
++        case('TYPE', lambda x: x['assessments'][0].update(responses={'fslConfidence':1}))
++        case('JSON_INVALID', lambda x: x['assessments'][0].update(responses='{"fslConfidence":1,"fslConfidence":2}'))
++        case('JSON_INVALID', lambda x: x['assessments'][0].update(responses='{"fslConfidence":NaN}'))
++        case('RANGE', lambda x: x['assessments'][0].update(responses='{"fslConfidence":0,"signsKnown":1}'))
++        case('TYPE', lambda x: x['assessments'][0].update(responses='{"fslConfidence":true,"signsKnown":1}'))
++        case('REQUIRED', lambda x: x['assessments'][0].update(responses='{"signsKnown":1}'))
++        case('REQUIRED', lambda x: x['assessments'][1].update(responses='{"fslConfidence":1,"signsKnown":1}'))
++        case('RANGE', lambda x: x['assessments'][1].update(responses=json.dumps({'fslConfidence':1,'signsKnown':1,'susScores':[1]*9})))
++        case('ENUM', lambda x: x['assessments'][0].update(responses=json.dumps({'fslConfidence':1,'signsKnown':1,'gender':'SYNTHETIC PRIVATE CANARY'})))
++        case('JSON_INVALID', lambda x: x['sessions'][0]['attempts'][0].update(feedback_items='[NaN]'))
++        case('RANGE', lambda x: x['sessions'][0]['attempts'][0].update(predicted_confidence=2))
++        case('TYPE', lambda x: x['sessions'][0]['attempts'][0].update(recognized_as_target=True))
++        cases += [('JSON_INVALID', b'{"x":1,"x":2}'), ('JSON_INVALID', b'NaN'), ('JSON_INVALID', b'{"x":1e999}'), ('SHAPE', b'[]')]
++        for code, data in cases:
++            with self.subTest(code=code):
++                result=validate_bytes(data)
++                self.assertFalse(result['valid'])
++                self.assertIn(code, [d['code'] for d in result['diagnostics']])
++                self.assertNotIn('PRIVATE CANARY', json.dumps(result))
++                self.assertNotIn(P, json.dumps(result))
++
++    def test_closed_session_counts_are_reconciled_but_active_counts_may_lag(self):
++        x=fixture()
++        self.assertTrue(validate_bytes(encode(x))['valid'])
++        x['sessions'][0]['ended_at']=4
++        result=validate_bytes(encode(x))
++        self.assertFalse(result['valid'])
++        self.assertEqual(result['diagnostics'][0]['code'],'SESSION_COUNT_MISMATCH')
++        x['sessions'][0].update(attempt_count=1,signs_attempted=1)
++        self.assertTrue(validate_bytes(encode(x))['valid'])
++
++    def test_exact_types_requiredness_and_optional_domains_matrix(self):
++        invalid_values=[None,True,False,1.0,'1',[],{}]
++        paths=[('assessments',0,'id'),('assessments',0,'timestamp'),('sessions',0,'attempt_count'),('sessions',0,'signs_attempted'),('sessions',0,'started_at'),('sessions',0,'attempts',0,'id'),('sessions',0,'attempts',0,'target_class'),('sessions',0,'attempts',0,'timestamp'),('sessions',0,'attempts',0,'recognized_as_target'),('summary','total_sessions')]
++        for path in paths:
++            for bad in invalid_values:
++                x=fixture(); owner=x
++                for part in path[:-1]: owner=owner[part]
++                owner[path[-1]]=bad
++                with self.subTest(path=path,bad=bad): self.assertFalse(validate_bytes(encode(x))['valid'])
++        for field in ('fslConfidence','signsKnown'):
++            for bad in [None,True,1.0,'1',0,6,[],{}]:
++                x=fixture(); values={'fslConfidence':1,'signsKnown':1}; values[field]=bad
++                x['assessments'][0]['responses']=json.dumps(values)
++                self.assertFalse(validate_bytes(encode(x))['valid'])
++        for field,good in [('ageGroup','18-25'),('gender','Prefer not to say')]:
++            x=fixture(); values={'fslConfidence':1,'signsKnown':1,field:good}
++            x['assessments'][0]['responses']=json.dumps(values)
++            self.assertTrue(validate_bytes(encode(x))['valid'])
++            values[field]=None; x['assessments'][0]['responses']=json.dumps(values)
++            self.assertFalse(validate_bytes(encode(x))['valid'])
++        x=fixture(); values=json.loads(x['assessments'][1]['responses']); values.pop('openFeedback')
++        x['assessments'][1]['responses']=json.dumps(values)
++        self.assertTrue(validate_bytes(encode(x))['valid'])
++        values['openFeedback']=''; x['assessments'][1]['responses']=json.dumps(values)
++        self.assertTrue(validate_bytes(encode(x))['valid'])
++
++    def test_feedback_types_nonfinite_unknown_keys_and_empty_export(self):
++        x=fixture(); item={'dimension':'handshape','severity':0.5,'hand':'right','prompt':'PRIVATE CANARY'}
++        x['sessions'][0]['attempts'][0]['feedback_items']=json.dumps([item])
++        self.assertTrue(validate_bytes(encode(x))['valid'])
++        for key in item:
++            bad=copy.deepcopy(x); values=copy.deepcopy(item); values[key]=None
++            bad['sessions'][0]['attempts'][0]['feedback_items']=json.dumps([values])
++            self.assertFalse(validate_bytes(encode(bad))['valid'])
++        for path in [('sessions',0,'avg_match'),('sessions',0,'duration_s'),('sessions',0,'attempts',0,'overall_match'),('sessions',0,'attempts',0,'predicted_confidence')]:
++            for bad in [float('nan'),float('inf'),float('-inf'),True,'0.5']:
++                y=fixture(); owner=y
++                for part in path[:-1]: owner=owner[part]
++                owner[path[-1]]=bad
++                result=validate_bytes(encode(y))
++                self.assertFalse(result['valid'])
++                self.assertNotIn('PRIVATE CANARY',json.dumps(result))
++        for value in [b'', b'null', b'"PRIVATE CANARY"', b'{}', b'\\xff']:
++            self.assertFalse(validate_bytes(value)['valid'])
++        x=fixture(); x['metadata']['PRIVATE CANARY']='PRIVATE CANARY'
++        self.assertEqual(validate_bytes(encode(x))['diagnostics'][0]['code'],'UNKNOWN_FIELD')
++        x=fixture(); x['sessions']=[]; x['assessments']=[]
++        x['summary']={'total_sessions':0,'total_attempts':0,'total_assessments':0}
++        self.assertEqual(validate_bytes(encode(x))['counts'],{'sessions':0,'attempts':0,'assessments':0})
++
++    def test_existing_engine_normalized_ranges_not_human_scores(self):
++        for field in ('avg_match','overall_match','severity'):
++            for value in (-0.1,1.1):
++                x=fixture()
++                if field=='avg_match': x['sessions'][0][field]=value
++                elif field=='overall_match': x['sessions'][0]['attempts'][0][field]=value
++                else: x['sessions'][0]['attempts'][0]['feedback_items']=json.dumps([{'dimension':'handshape','severity':value,'hand':'right','prompt':'PRIVATE CANARY'}])
++                result=validate_bytes(encode(x))
++                self.assertFalse(result['valid'])
++                self.assertEqual(result['diagnostics'][0]['code'],'RANGE')
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_synthetic_descriptive.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_synthetic_descriptive.py
+new file mode 100644
+index 0000000..f9b369d
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_synthetic_descriptive.py
+@@ -0,0 +1,44 @@
++"""Synthetic event-label matching, missingness and safe frequencies."""
++import copy
++import json
++import unittest
++from evaluation.test_legacy_export import fixture, encode, P
++from evaluation.synthetic_descriptive import describe_exports
++
++class DescriptiveTests(unittest.TestCase):
++    def describe(self, *rows):
++        return describe_exports([encode(x) for x in rows], source='SYNTHETIC')
++
++    def test_explicit_labels_pair_and_optional_absence(self):
++        x=fixture()
++        x['assessments'].reverse()  # order/time never assigns phase
++        result=self.describe(x)
++        self.assertTrue(result['valid'], result)
++        self.assertEqual(result['matching'], {'paired':1,'unmatched_pre':0,'unmatched_post':0,'ambiguous':0,'no_assessments':0})
++        self.assertEqual(result['completeness']['ageGroup'], {'present':0,'absent':2})
++        self.assertEqual(result['completeness']['openFeedback'], {'present':1,'absent':0,'empty':0})
++        self.assertEqual(result['frequencies']['pre']['signsKnown']['2'], 1)
++        self.assertNotIn(P,json.dumps(result))
++        self.assertNotIn('PRIVATE CANARY',json.dumps(result))
++
++    def test_ambiguity_unmatched_empty_and_invalid_are_not_imputed(self):
++        for phases, expected in [([], 'no_assessments'), (['pre'],'unmatched_pre'), (['post'],'unmatched_post'), (['pre','pre','post'],'ambiguous')]:
++            x=fixture(); originals={a['type']:a for a in x['assessments']}
++            x['assessments']=[dict(copy.deepcopy(originals[p]), id=i+1) for i,p in enumerate(phases)]
++            x['summary']['total_assessments']=len(phases)
++            result=self.describe(x)
++            self.assertTrue(result['valid'], result)
++            self.assertEqual(result['matching'][expected],1)
++            if expected!='no_assessments': self.assertEqual(result['matching']['paired'],0)
++            if expected=='ambiguous': self.assertEqual(result['diagnostics'][0]['code'],'AMBIGUOUS_PHASE')
++        self.assertEqual(self.describe()['matching']['paired'],0)
++        x=fixture(); x['assessments'][0]['responses']='{}'
++        invalid=self.describe(x)
++        self.assertFalse(invalid['valid'])
++        self.assertEqual(invalid['diagnostics'][0], {'code':'REQUIRED','input_index':0})
++        self.assertNotIn('frequencies',invalid)
++        self.assertEqual(self.describe(fixture(),fixture())['diagnostics'][0]['code'],'DUPLICATE_EXPORT')
++        for source in ['real',None,True]:
++            self.assertFalse(describe_exports([encode(fixture())],source=source)['valid'])
++
++if __name__ == '__main__': unittest.main()

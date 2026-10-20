@@ -1,0 +1,22 @@
+test_pinned_preflight_emits_verified_payload_hashes (test_host_producer_replay.HostProducerReplayTest.test_pinned_preflight_emits_verified_payload_hashes) ... ok
+test_duplicate_and_wrong_artifact_identities (test_host_producer_replay.PreflightNegatives.test_duplicate_and_wrong_artifact_identities) ... ok
+test_duplicate_json_key (test_host_producer_replay.PreflightNegatives.test_duplicate_json_key) ... ok
+test_escaping_artifact (test_host_producer_replay.PreflightNegatives.test_escaping_artifact) ... ok
+test_failed_and_nonsynthetic_producer (test_host_producer_replay.PreflightNegatives.test_failed_and_nonsynthetic_producer) ... ok
+test_failed_skipped_and_wrong_stdout_producer (test_host_producer_replay.PreflightNegatives.test_failed_skipped_and_wrong_stdout_producer) ... ok
+test_float_artifact_size (test_host_producer_replay.PreflightNegatives.test_float_artifact_size) ... ok
+test_ledger_nonzero_bool_and_wrong_sources (test_host_producer_replay.PreflightNegatives.test_ledger_nonzero_bool_and_wrong_sources) ... ok
+test_manifest_schema_rejects_float_and_boolean (test_host_producer_replay.PreflightNegatives.test_manifest_schema_rejects_float_and_boolean) ... ok
+test_missing_artifact (test_host_producer_replay.PreflightNegatives.test_missing_artifact) ... ok
+test_pinned_digest_cannot_bless_changed_real_manifest (test_host_producer_replay.PreflightNegatives.test_pinned_digest_cannot_bless_changed_real_manifest) ... ok
+test_source_escape_and_digest_mismatch (test_host_producer_replay.PreflightNegatives.test_source_escape_and_digest_mismatch) ... ok
+test_source_snapshot_tampered (test_host_producer_replay.PreflightNegatives.test_source_snapshot_tampered) ... ok
+test_symlink_artifact (test_host_producer_replay.PreflightNegatives.test_symlink_artifact) ... ok
+test_tampered_artifact (test_host_producer_replay.PreflightNegatives.test_tampered_artifact) ... ok
+test_wrong_artifact_kind (test_host_producer_replay.PreflightNegatives.test_wrong_artifact_kind) ... ok
+test_wrong_run (test_host_producer_replay.PreflightNegatives.test_wrong_run) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.319s
+
+OK

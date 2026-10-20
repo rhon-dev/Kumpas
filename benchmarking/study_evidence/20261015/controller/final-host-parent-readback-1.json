@@ -1,0 +1,37 @@
+{
+  "status": "PARENT_READBACK_PASSED_FINAL_REVIEWS_PENDING",
+  "source_freeze_sha256": "2d226fe2e3387c1ca16386dd992b0e2d1f8da9e02874eced94c3629cf32b6383",
+  "frozen_files": 279,
+  "protected_count": 82,
+  "source_mismatches": [],
+  "artifacts": {
+    "debug": {
+      "sha256": "f45353b6f7711ab21bb222b5171e678de0f46902e5bf1714cbe2ad55f596ff95",
+      "bytes": 197412392,
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "assets_checked": 5
+    },
+    "android_test": {
+      "sha256": "f6a80996b8e18188b3cb02fe429e313891d4fc97e4d7e035a4a5ae949c9b506e",
+      "bytes": 374427,
+      "all_native_abis": [],
+      "assets_checked": 0
+    },
+    "release": {
+      "sha256": "ad59b02daeae01f2fa71e4ca09fbc93985e63aef702025c91f85cc56b462ba27",
+      "bytes": 66969546,
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "assets_checked": 5
+    }
+  },
+  "saved_result_log_hashes_verified": 11,
+  "limits": "Recorded suite results not parent rerun in this step. XML count verification pending. No installed/runtime/study acceptance."
+}

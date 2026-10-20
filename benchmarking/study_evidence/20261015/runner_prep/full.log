@@ -1,0 +1,75 @@
+test_conflicting_manifest_refuses_evaluation_before_loading_model (test_evaluate_frozen.FrozenEvaluationTests.test_conflicting_manifest_refuses_evaluation_before_loading_model) ... ok
+test_missing_freeze_refuses_evaluation_before_loading_model (test_evaluate_frozen.FrozenEvaluationTests.test_missing_freeze_refuses_evaluation_before_loading_model) ... ok
+test_no_automatic_selection_by_test_score (test_evaluate_frozen.FrozenEvaluationTests.test_no_automatic_selection_by_test_score) ... ok
+test_report_labels_test_reuse_and_signer_uncertainty (test_evaluate_frozen.FrozenEvaluationTests.test_report_labels_test_reuse_and_signer_uncertainty) ... ok
+test_duplicate_clip_name_is_rejected (test_evaluation_protocol.EvaluationProtocolTests.test_duplicate_clip_name_is_rejected) ... ok
+test_mismatched_clip_count_is_rejected (test_evaluation_protocol.EvaluationProtocolTests.test_mismatched_clip_count_is_rejected) ... ok
+test_original_clips_split_before_augmentation (test_evaluation_protocol.EvaluationProtocolTests.test_original_clips_split_before_augmentation) ... ok
+test_original_train_test_clip_overlap_is_rejected (test_evaluation_protocol.EvaluationProtocolTests.test_original_train_test_clip_overlap_is_rejected) ... ok
+test_source_digest_change_is_rejected (test_evaluation_protocol.EvaluationProtocolTests.test_source_digest_change_is_rejected) ... ok
+test_binding_every_role_hash_symlink_and_array_refusal (test_experiment_runner.RunnerTests.test_binding_every_role_hash_symlink_and_array_refusal) ... ok
+test_budget_exact_integer_matrix_and_variant_order_schema (test_experiment_runner.RunnerTests.test_budget_exact_integer_matrix_and_variant_order_schema) ... ok
+test_cancel_before_start_and_invalid_clock_or_cancel_signal (test_experiment_runner.RunnerTests.test_cancel_before_start_and_invalid_clock_or_cancel_signal) ... ok
+test_cli_prepares_and_synthetic_demo_only (test_experiment_runner.RunnerTests.test_cli_prepares_and_synthetic_demo_only) ... ok
+test_cli_training_arbitrary_command_invalid_and_safe_errors (test_experiment_runner.RunnerTests.test_cli_training_arbitrary_command_invalid_and_safe_errors) ... ok
+test_config_schema_authorization_numeric_and_selection (test_experiment_runner.RunnerTests.test_config_schema_authorization_numeric_and_selection) ... ok
+test_explicit_unchanged_no_face_model_and_structured_labels (test_experiment_runner.RunnerTests.test_explicit_unchanged_no_face_model_and_structured_labels) ... ok
+test_final_readback_fault_never_leaves_a_success_receipt (test_experiment_runner.RunnerTests.test_final_readback_fault_never_leaves_a_success_receipt) ... ok
+test_manifest_tamper_and_log_symlink_refused (test_experiment_runner.RunnerTests.test_manifest_tamper_and_log_symlink_refused) ... ok
+test_prepare_exclusive_binding_and_immutable_snapshot (test_experiment_runner.RunnerTests.test_prepare_exclusive_binding_and_immutable_snapshot) ... ok
+test_prepare_protocol_semantics_rebound_hashes (test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) ... ok
+test_prepare_refuses_unsafe_roots_and_changed_bindings (test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) ... ok
+test_protocol_original_clip_count_and_fraction_contract_rebound (test_experiment_runner.RunnerTests.test_protocol_original_clip_count_and_fraction_contract_rebound) ... ok
+test_publication_collision_and_fsync_failure_preserve_old_bytes (test_experiment_runner.RunnerTests.test_publication_collision_and_fsync_failure_preserve_old_bytes) ... ok
+test_publication_interface_refuses_arbitrary_artifact_paths (test_experiment_runner.RunnerTests.test_publication_interface_refuses_arbitrary_artifact_paths) ... ok
+test_selection_accuracy_then_macro_f1 (test_experiment_runner.RunnerTests.test_selection_accuracy_then_macro_f1) ... ok
+test_strict_json_duplicate_and_nonfinite_rejected (test_experiment_runner.RunnerTests.test_strict_json_duplicate_and_nonfinite_rejected) ... ok
+test_synthetic_input_and_manifest_change_fail_before_executor (test_experiment_runner.RunnerTests.test_synthetic_input_and_manifest_change_fail_before_executor) ... ok
+test_synthetic_order_ties_immutable_request_and_no_retry (test_experiment_runner.RunnerTests.test_synthetic_order_ties_immutable_request_and_no_retry) ... ok
+test_synthetic_output_tamper_has_no_success_receipt (test_experiment_runner.RunnerTests.test_synthetic_output_tamper_has_no_success_receipt) ... ok
+test_synthetic_stop_conditions_and_safe_incomplete_logs (test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) ... ok
+test_synthetic_stop_exception_text_never_echoed (test_experiment_runner.RunnerTests.test_synthetic_stop_exception_text_never_echoed) ... ok
+test_accepts_only_frozen_checkpoint_from_validated_protocol (test_export_frozen.FrozenExportTests.test_accepts_only_frozen_checkpoint_from_validated_protocol) ... ok
+test_frozen_export_preserves_validation_predictions_and_hashes (test_export_frozen.FrozenExportTests.test_frozen_export_preserves_validation_predictions_and_hashes) ... /Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/lib/python3.11/site-packages/keras/src/backend/tensorflow/core.py:172: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments.
+  return np.array(x)
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792307100.314353 6286108 devices.cc:76] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0 (Note: TensorFlow was not compiled with CUDA or ROCm support)
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792307100.315408 6286108 single_machine.cc:374] Starting new session
+WARNING:absl:Please consider providing the trackable_obj argument in the from_concrete_functions. Providing without the trackable_obj argument is deprecated and it will use the deprecated conversion path.
+I0000 00:00:1792307100.348520 6286108 devices.cc:76] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0 (Note: TensorFlow was not compiled with CUDA or ROCm support)
+I0000 00:00:1792307100.348567 6286108 single_machine.cc:374] Starting new session
+W0000 00:00:1792307100.366039 6286108 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.
+W0000 00:00:1792307100.366067 6286108 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.
+2026-10-18 15:05:00.479847: I tensorflow/compiler/mlir/lite/flatbuffer_export.cc:4061] Estimated count of arithmetic ops: 0.031 M  ops, equivalently 0.016 M  MACs
+/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/lib/python3.11/site-packages/tensorflow/lite/python/interpreter.py:457: UserWarning:     Warning: tf.lite.Interpreter is deprecated and is scheduled for deletion in
+    TF 2.20. Please use the LiteRT interpreter from the ai_edge_litert package.
+    See the [migration guide](https://ai.google.dev/edge/litert/migration)
+    for details.
+    
+  warnings.warn(_INTERPRETER_DELETION_WARNING)
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+ok
+test_rejects_checkpoint_changed_after_freeze (test_export_frozen.FrozenExportTests.test_rejects_checkpoint_changed_after_freeze) ... ok
+test_rejects_other_protocol_manifest (test_export_frozen.FrozenExportTests.test_rejects_other_protocol_manifest) ... ok
+test_load_explicit_unaugmented_validation (test_training_protocol.TrainingProtocolTests.test_load_explicit_unaugmented_validation) ... ok
+test_selection_uses_validation_not_historical_test (test_training_protocol.TrainingProtocolTests.test_selection_uses_validation_not_historical_test) ... ok
+test_source_tampering_prevents_training (test_training_protocol.TrainingProtocolTests.test_source_tampering_prevents_training) ... ok
+test_backend_uses_inference_only_then_existing_candidate_and_checks_shapes (test_validation_campaign.BackendTests.test_backend_uses_inference_only_then_existing_candidate_and_checks_shapes) ... ok
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... ok
+test_cli_requires_bound_strict_config_and_fixed_safe_errors (test_validation_campaign.CliTests.test_cli_requires_bound_strict_config_and_fixed_safe_errors) ... ok
+test_diagnostics_all_classes_counts_and_conversion_drift (test_validation_campaign.DiagnosticTests.test_diagnostics_all_classes_counts_and_conversion_drift) ... ok
+test_campaign_publishes_only_verified_outputs_and_retains_failures (test_validation_campaign.InputTests.test_campaign_publishes_only_verified_outputs_and_retains_failures) ... ok
+test_campaign_refuses_existing_escape_symlink_and_invalid_input_without_success (test_validation_campaign.InputTests.test_campaign_refuses_existing_escape_symlink_and_invalid_input_without_success) ... ok
+test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) ... ok
+test_metadata_rejects_nonfinite_and_binds_frames_sampling_and_missingness (test_validation_campaign.InputTests.test_metadata_rejects_nonfinite_and_binds_frames_sampling_and_missingness) ... ok
+test_protocol_counts_require_exact_integers_with_rebound_hashes (test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) ... ok
+test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound (test_validation_campaign.InputTests.test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound) ... ok
+test_selection_identity_policy_types_rejected_with_rebound_hashes (test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) ... ok
+test_probability_boundary_rejects_shape_type_and_nonfinite (test_validation_campaign.ProbabilityTests.test_probability_boundary_rejects_shape_type_and_nonfinite) ... ok
+test_dataless_sources_fail_before_a_blocking_content_read (test_validation_campaign.ResidencyTests.test_dataless_sources_fail_before_a_blocking_content_read) ... ok
+
+----------------------------------------------------------------------
+Ran 51 tests in 8.560s
+
+OK

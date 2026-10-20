@@ -1,0 +1,474 @@
+test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) ... 
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value={'unexpected': 'object'}) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value={'unexpected': 'object'}) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=['validation']) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=['validation']) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=True) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=True) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=1) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=1) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=1.0) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=1.0) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value='   ') ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value='   ') ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value={'unexpected': 'object'}) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value={'unexpected': 'object'}) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=['validation']) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=['validation']) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=True) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=True) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=1) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=1) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=1.0) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=1.0) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value='   ') ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value='   ') ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value={'unexpected': 'object'}) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value={'unexpected': 'object'}) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=['validation']) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=['validation']) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=True) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=True) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=1) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=1) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=1.0) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=1.0) ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value='   ') ... FAIL
+  test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value='   ') ... FAIL
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value={'unexpected': 'object'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value={'unexpected': 'object'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=['validation'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=['validation'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='run_id', value='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='run_id', value='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value={'unexpected': 'object'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value={'unexpected': 'object'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=['validation'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=['validation'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='selection_method', value='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='selection_method', value='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value={'unexpected': 'object'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value={'unexpected': 'object'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=['validation'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=['validation'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='validate_inputs', field='test_status', value='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 120, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) (boundary='CLI', field='test_status', value='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 123, in test_selection_identity_policy_types_rejected_with_rebound_hashes
+    self._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 110, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.269s
+
+FAILED (failures=36)

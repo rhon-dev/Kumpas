@@ -1,0 +1,15 @@
+test_argument_help_is_json_and_duplicate_input_paths_fail (evaluation.test_export_cli.CliTests.test_argument_help_is_json_and_duplicate_input_paths_fail) ... ok
+test_cli_fails_closed_without_payload_echo (evaluation.test_export_cli.CliTests.test_cli_fails_closed_without_payload_echo) ... ok
+test_cli_publishes_readback_and_hash_bound_manifest (evaluation.test_export_cli.CliTests.test_cli_publishes_readback_and_hash_bound_manifest) ... ok
+test_failure_preserves_replacement_of_already_owned_manifest_inode (evaluation.test_export_cli.CliTests.test_failure_preserves_replacement_of_already_owned_manifest_inode) ... ok
+test_input_path_replacement_after_snapshot_hashes_original_report_bytes (evaluation.test_export_cli.CliTests.test_input_path_replacement_after_snapshot_hashes_original_report_bytes) ... ok
+test_nonregular_input_and_symlink_parent_rejected (evaluation.test_export_cli.CliTests.test_nonregular_input_and_symlink_parent_rejected) ... ok
+test_publication_collision_preserves_unowned_manifest (evaluation.test_export_cli.CliTests.test_publication_collision_preserves_unowned_manifest) ... ok
+test_publication_faults_never_leave_success_manifest (evaluation.test_export_cli.CliTests.test_publication_faults_never_leave_success_manifest) ... ok
+test_symlink_inputs_roots_and_outputs_rejected (evaluation.test_export_cli.CliTests.test_symlink_inputs_roots_and_outputs_rejected) ... ok
+test_validate_mode_unattested_is_not_descriptive_authorization (evaluation.test_export_cli.CliTests.test_validate_mode_unattested_is_not_descriptive_authorization) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.885s
+
+OK

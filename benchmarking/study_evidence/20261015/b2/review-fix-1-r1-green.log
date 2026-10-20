@@ -1,0 +1,6 @@
+test_selection_identity_policy_types_rejected_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_selection_identity_policy_types_rejected_with_rebound_hashes) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.549s
+
+OK

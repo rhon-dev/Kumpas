@@ -26,20 +26,35 @@ class CameraPreviewView(
     lifecycleOwner: LifecycleOwner,
     private val engine: VisionEngine,
     private val benchmark: BenchmarkMode? = null,
+    bindCamera: Boolean = true,
+    private val ownership: CameraViewOwnership = engine.cameraViews,
+    private val clearOwnedAnalyzer: (() -> Unit)? = null,
+    private val unbindOwnedUseCases: (() -> Unit)? = null,
+    resourceFactory: CameraViewResourceFactory = AndroidCameraViewResourceFactory,
 ) : PlatformView {
-    private val previewView = PreviewView(context).apply {
-        implementationMode = PreviewView.ImplementationMode.COMPATIBLE
+    private var ownerToken: Long? = null
+    internal fun runOwned(action: () -> Unit): Boolean {
+        val token = ownerToken ?: return false
+        return ownership.run(token) { if (!disposed) engine.withViewOwner(token, action) }
     }
-    private val analysisExecutor = Executors.newSingleThreadExecutor()
+    private lateinit var previewView: PreviewView
+    private lateinit var analysisExecutor: java.util.concurrent.ExecutorService
     private var provider: ProcessCameraProvider? = null
     private var analysis: ImageAnalysis? = null
     private var preview: Preview? = null
     @Volatile private var disposed = false
 
     init {
-        val future = ProcessCameraProvider.getInstance(context)
-        future.addListener({
-            if (!disposed) {
+        try {
+        previewView = resourceFactory.preview(context)
+        analysisExecutor = resourceFactory.executor()
+        val future = if (bindCamera) resourceFactory.provider(context) else null
+        // Early acquisition failure leaves viable A untouched. After publishing
+        // B, rollback invalidates B only; never restore stale A or overwrite C.
+        ownerToken = ownership.register()
+        if (future != null) {
+        resourceFactory.listen(future, Runnable {
+            runOwned {
                 val generation = engine.cameraRequestGeneration()
                 try {
                     val cameraProvider = future.get()
@@ -60,7 +75,7 @@ class CameraPreviewView(
                         var bitmap: Bitmap? = null
                         var upright: Bitmap? = null
                         try {
-                            if (!disposed) {
+                            runOwned {
                                 benchmark?.recordAnalyzer()
                                 if (engine.tick()) {
                                     benchmark?.recordSelected()
@@ -82,8 +97,10 @@ class CameraPreviewView(
                                 }
                             }
                         } catch (error: Exception) {
-                            benchmark?.recordFailure(error.javaClass.simpleName)
-                            engine.reportCameraError("Camera processing failed: ${error.message}", generation)
+                            runOwned {
+                                benchmark?.recordFailure(error.javaClass.simpleName)
+                                engine.reportCameraError("Camera processing failed: ${error.message}", generation)
+                            }
                             Log.e("KumpasCamera", "Camera processing failed", error)
                         } finally {
                             if (upright != null && upright !== bitmap) upright?.recycle()
@@ -113,15 +130,29 @@ class CameraPreviewView(
                 }
             }
         }, ContextCompat.getMainExecutor(context))
+        }
+        } catch (original: Throwable) {
+            disposed = true
+            val releases = if (ownerToken != null) disposalActions() else listOf<() -> Unit>(
+                { if (::analysisExecutor.isInitialized) analysisExecutor.shutdown() })
+            releases.forEach { release ->
+                try { release() } catch (cleanup: Throwable) { if (cleanup !== original) original.addSuppressed(cleanup) }
+            }
+            throw original
+        }
     }
     override fun getView(): View = previewView
+    private fun disposalActions(): List<() -> Unit> = listOf(
+        { ownerToken?.let { token -> ownership.release(token) { benchmark?.recordCamera("unknown", "unknown", false, "unknown"); Unit } }; Unit },
+        { if (clearOwnedAnalyzer != null) clearOwnedAnalyzer.invoke() else analysis?.clearAnalyzer(); Unit },
+        { if (unbindOwnedUseCases != null) unbindOwnedUseCases.invoke() else {
+            val owned = listOfNotNull(preview, analysis).toTypedArray()
+            if (owned.isNotEmpty()) provider?.unbind(*owned)
+          }; Unit },
+        { analysisExecutor.shutdown() })
     override fun dispose() {
+        if (disposed) return
         disposed = true
-        benchmark?.recordCamera("unknown", "unknown", false, "unknown")
-        analysis?.clearAnalyzer()
-        val owned = listOfNotNull(preview, analysis).toTypedArray()
-        if (owned.isNotEmpty()) provider?.unbind(*owned)
-        engine.cancelAttempt()
-        analysisExecutor.shutdown()
+        completeCleanup(disposalActions())
     }
 }

@@ -1,0 +1,26 @@
+{
+  "source_hashes": {
+    "benchmarking/pipeline_parity.py": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4",
+    "benchmarking/test_pipeline_parity.py": "73d9c465ade5ca177619371a8cc6b62a9639e34ffee63faca30aa1d20ce24c25",
+    "benchmarking/test_inspect_release.py": "75ae48ac36ccc1a753260aafd660998ea5b5fab53f8512cc16d046fd448d1498",
+    "evaluation/test_export_cli.py": "66640847482f3421ffdc90e2912e7bdcd0963127a14bc66c8aba7dae0eb3fa43"
+  },
+  "parent_logs": {
+    "parent-compatible-1": {
+      "tests": 17,
+      "sha256": "3fb7e23b103d546288b55a298cd8dd1f4ad4f3a6bf715bc58c39885eabf7c604"
+    },
+    "parent-inspector-1": {
+      "tests": 31,
+      "sha256": "34807f3434e39247888234affa808346d3cab112a1f2de92270c678893a650d6"
+    },
+    "parent-evaluation-1": {
+      "tests": 18,
+      "sha256": "319a0a54abc634d8b19916807e2e816eaf193dc0efa4cd7ccf322578b5fe3eb7"
+    }
+  },
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "review_status": "PENDING",
+  "historical_binding": "OldB1comparator retained before snapshot; nofixture/configrebinding permitted"
+}

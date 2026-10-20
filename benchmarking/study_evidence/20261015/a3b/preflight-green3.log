@@ -1,0 +1,6 @@
+test_pinned_preflight_emits_verified_payload_hashes (test_host_producer_replay.HostProducerReplayTest.test_pinned_preflight_emits_verified_payload_hashes) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.069s
+
+OK

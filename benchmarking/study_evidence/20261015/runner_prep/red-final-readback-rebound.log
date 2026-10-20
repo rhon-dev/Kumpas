@@ -1,0 +1,14 @@
+test_final_readback_fault_never_leaves_a_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_final_readback_fault_never_leaves_a_success_receipt) ... FAIL
+
+======================================================================
+FAIL: test_final_readback_fault_never_leaves_a_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_final_readback_fault_never_leaves_a_success_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 76, in test_final_readback_fault_never_leaves_a_success_receipt
+    self.assertFalse((prepared.root/'completion.json').exists(), 'failed final readback must not leave success')
+AssertionError: True is not false : failed final readback must not leave success
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (failures=1)

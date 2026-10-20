@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.DataExporterTest" tests="22" skipped="0" failures="0" errors="0" timestamp="2026-10-18T05:44:06.465Z" hostname="192.168.1.151" time="2.397">
+  <properties/>
+  <testcase name="export_committedReadFailureCannotReturnSuccess" classname="com.kumpas.kumpas_app.DataExporterTest" time="2.056"/>
+  <testcase name="export_allActualStagingAndCompletedNamesAreManagedByPurge" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.032"/>
+  <testcase name="export_unavailableExternalStorageUsesInternalFallbackAndLeavesBorrowedHelperOpen" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.017"/>
+  <testcase name="export_silentShortWriteFailsStagingVerification" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.026"/>
+  <testcase name="export_afterClearAllProducesEmptyPayload" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.015"/>
+  <testcase name="export_closeFailureRemovesOnlyNewArtifacts" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.024"/>
+  <testcase name="export_writeFailurePropagatesWithoutClosingBorrowedHelper" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.01"/>
+  <testcase name="export_fileNameCarriesParticipantPrefix" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.009"/>
+  <testcase name="export_summaryCountsOnlyNestedParticipantAttempts" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.011"/>
+  <testcase name="export_publicationFailureRemovesOnlyNewArtifacts" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.019"/>
+  <testcase name="export_metadataIdentifiesParticipantAndDevice" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.012"/>
+  <testcase name="export_nestsAttemptsUnderTheirSession" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.012"/>
+  <testcase name="export_repeatedSameTimeDoesNotOverwriteCompletedData" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.022"/>
+  <testcase name="export_isEmptyButValidWhenNoDataRecorded" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.014"/>
+  <testcase name="export_corruptPublicationCannotReturnSuccess" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.023"/>
+  <testcase name="export_partialWriteFailureRemovesOnlyNewArtifacts" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.019"/>
+  <testcase name="export_containsEverySessionAttemptAndAssessment" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.011"/>
+  <testcase name="export_errorAfterRenameRemovesOnlyNewArtifacts" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.016"/>
+  <testcase name="export_excludesOtherParticipantsData" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.013"/>
+  <testcase name="export_writesParsableJsonWithTopLevelSections" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.01"/>
+  <testcase name="export_preservesSessionSummaryFields" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.012"/>
+  <testcase name="export_successLeavesBorrowedDatabaseOpenUntilCallerClosesIt" classname="com.kumpas.kumpas_app.DataExporterTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

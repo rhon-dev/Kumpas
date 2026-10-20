@@ -1,0 +1,40 @@
+{
+  "event": "end",
+  "label": "training-full",
+  "command": [
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+    "-B",
+    "-E",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "training/tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+  "at": "2026-10-18T13:43:28.967720+08:00",
+  "source_manifest": "training-full-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "ended_at": "2026-10-18T13:43:37.619344+08:00",
+  "log": "training-full.log",
+  "log_sha256": "d224ffc519a7a7356b796d68acfe138407c8d8b89ba0d2153fd1cb83c9aeebe1",
+  "source_changes": [],
+  "tests": 29,
+  "summary": [
+    "OK"
+  ],
+  "skip_lines": []
+}

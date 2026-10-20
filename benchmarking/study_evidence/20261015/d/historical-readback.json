@@ -1,0 +1,172 @@
+{
+  "at": "2026-10-18T14:12:55.902528+08:00",
+  "b1": {
+    "fixtures": 6,
+    "pngs": 180,
+    "manifest_sha256": "1cca1526355e9d4ce6c41102a0a6fa474a15dd77bbac2b09daee1ec85e70c452",
+    "selection_sha256": "bc7bb2bd85359cc7242ecfb4bba84e267303c911061a0c1a8fa8ce9c980bf8ad",
+    "source_bindings": [
+      {
+        "path": "benchmarking/pipeline_parity.py",
+        "historical_sha256": "cc905b5494e1fe78d7c4d3de3bcf05772499946538d42f404f17acad3c43d93d",
+        "current_sha256": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/followups/before/benchmarking/pipeline_parity.py"
+      },
+      {
+        "path": "benchmarking/parity_fixtures.py",
+        "historical_sha256": "993703b492a283692ed678a9cb44b62383c52bd7068974c50bf290dd559c036b",
+        "current_sha256": "993703b492a283692ed678a9cb44b62383c52bd7068974c50bf290dd559c036b",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/parity_fixtures.py"
+      },
+      {
+        "path": "training/preprocessing/extract_landmarks.py",
+        "historical_sha256": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+        "current_sha256": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/extract_landmarks.py"
+      },
+      {
+        "path": "training/preprocessing/build_sequences.py",
+        "historical_sha256": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+        "current_sha256": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/build_sequences.py"
+      }
+    ]
+  },
+  "b2": {
+    "outputs": {
+      "INCOMPLETE.json": "ddff140175fe36a1874739f3d4daa349bad87a8734eeea796a53140513f518e6",
+      "campaign.json": "5dead49dd2257df34af9242f623f82345b6108ed9b66e2fda5837c3b9b0c77d0",
+      "clips.jsonl": "0529028d39eedcc23e1e550f96b1891d4e757bf6428e26593351007d9db051ad",
+      "events.jsonl": "1e7b53fe5ce26c87c5a2ed0b74c2e3430ed0c50b35784b7d28fb4ddea712d285",
+      "runtime.json": "ccc8e9e472471665518f662864879c81ca4d47542ba0561c43bf3d0631e52752",
+      "summary.json": "7e7b51f6b9d6d92e019a386ba57e6e9db476087df1328a59dc36ec81967b912d"
+    },
+    "config_sha256": "0df969259b620e64ea0b3ea40484492178dfcb4f719437684af94471c50bb78e",
+    "campaign_sha256": "5dead49dd2257df34af9242f623f82345b6108ed9b66e2fda5837c3b9b0c77d0",
+    "incomplete_manifest_sha256": "013f3933fe898dadf2fc25fcf7a12cc50689964f7fba39400cba38e0199b497d",
+    "source_code_roles": [
+      {
+        "role": "source_code_0",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/validation_campaign.py",
+        "historical_sha256": "bc7c342a768334c3f0c640451af11b05f2839f23c0ea9ce5736512a2a9998019",
+        "current_sha256": "8e28d5ad110b76881e65d75e1e851ecb71fa2a6e21e232bc2d0a7fe8cea22998",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/b2/review-fix-1-before-validation_campaign.py.txt"
+      },
+      {
+        "role": "source_code_1",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py",
+        "historical_sha256": "4fdae28615d80488ca6d313e1d15f15585e0de45ecc9cb50b9df5247af0381f8",
+        "current_sha256": "5d9f2e13f0896b36940fdd81384ee6db9c2708417edcfce5e8064eefe019fe46",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/b2/review-fix-1-before-test_validation_campaign.py.txt"
+      },
+      {
+        "role": "source_code_10",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/augmentation/augment_landmarks.py",
+        "historical_sha256": "b06656d8d433b5f1f1402151ede2f159719f7aaabd54e8e67ae6590f304931dd",
+        "current_sha256": "b06656d8d433b5f1f1402151ede2f159719f7aaabd54e8e67ae6590f304931dd",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/augmentation/augment_landmarks.py"
+      },
+      {
+        "role": "source_code_11",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/pipeline_parity.py",
+        "historical_sha256": "cc905b5494e1fe78d7c4d3de3bcf05772499946538d42f404f17acad3c43d93d",
+        "current_sha256": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/followups/before/benchmarking/pipeline_parity.py"
+      },
+      {
+        "role": "source_code_12",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/parity_fixtures.py",
+        "historical_sha256": "993703b492a283692ed678a9cb44b62383c52bd7068974c50bf290dd559c036b",
+        "current_sha256": "993703b492a283692ed678a9cb44b62383c52bd7068974c50bf290dd559c036b",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/parity_fixtures.py"
+      },
+      {
+        "role": "source_code_2",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/evaluation_protocol.py",
+        "historical_sha256": "9fba8862e7f9aca098f98c485777d9dd9f8ba0a3d502838274461f02c366e116",
+        "current_sha256": "9fba8862e7f9aca098f98c485777d9dd9f8ba0a3d502838274461f02c366e116",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/evaluation_protocol.py"
+      },
+      {
+        "role": "source_code_3",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/train_cnn_lstm.py",
+        "historical_sha256": "a5560e5dec1e8ef68d46a7e1ed739c864b98f68b8575f0c491a7a9f3d02536c1",
+        "current_sha256": "a5560e5dec1e8ef68d46a7e1ed739c864b98f68b8575f0c491a7a9f3d02536c1",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/train_cnn_lstm.py"
+      },
+      {
+        "role": "source_code_4",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/freeze_selection.py",
+        "historical_sha256": "60fe56961e49a81000379145a407814cd40d4f93825a3cc73693bba2cb2266d7",
+        "current_sha256": "60fe56961e49a81000379145a407814cd40d4f93825a3cc73693bba2cb2266d7",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/freeze_selection.py"
+      },
+      {
+        "role": "source_code_5",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/evaluate_frozen.py",
+        "historical_sha256": "3e72c2aaf77562d452bc1f65b875f742fb61d92a10be9bf42d8c2f234cafe8e1",
+        "current_sha256": "3e72c2aaf77562d452bc1f65b875f742fb61d92a10be9bf42d8c2f234cafe8e1",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/evaluate_frozen.py"
+      },
+      {
+        "role": "source_code_6",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tflite_export/export_frozen.py",
+        "historical_sha256": "cd4490a27e349ed1fe32176183f547dd5674ab20f1da7997a76692e6a80d1064",
+        "current_sha256": "cd4490a27e349ed1fe32176183f547dd5674ab20f1da7997a76692e6a80d1064",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tflite_export/export_frozen.py"
+      },
+      {
+        "role": "source_code_7",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/build_sequences.py",
+        "historical_sha256": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+        "current_sha256": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/build_sequences.py"
+      },
+      {
+        "role": "source_code_8",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/extract_landmarks.py",
+        "historical_sha256": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+        "current_sha256": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/extract_landmarks.py"
+      },
+      {
+        "role": "source_code_9",
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/selected_classes.json",
+        "historical_sha256": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5",
+        "current_sha256": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5",
+        "historical_readback": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/preprocessing/selected_classes.json"
+      }
+    ],
+    "model_counts": {
+      "keras": {
+        "count": 150,
+        "correct": 144
+      },
+      "candidate": {
+        "count": 150,
+        "correct": 144
+      }
+    },
+    "missing_source_records": 134,
+    "successful_manifest_exists": false
+  },
+  "current_acceptance_matches": {
+    "a3b-acceptance-20261017.json": {
+      "benchmarking/host_fixture_replay.py": "08e259ba337a10eabc05be184386a1e1c52fabb33ffd0b848779a3c2e795819f",
+      "benchmarking/test_host_producer_replay.py": "07a0754b66ad97a10dd12731b65c6e906e8870ada2270a7ce02553fd1c66450f",
+      "app/test/host_study_flow_test.dart": "332bd04f11120334ceaf95f30222de43d92b157a4426400b7066b6b09a9ea831",
+      "app/test/support/host_fixture.dart": "2d7de2a0c04c8ef5688af85ae1172892c89f858ac3517d61521920efd21605e6"
+    },
+    "b2-bounded-acceptance-20261018.json": {
+      "training/models/validation_campaign.py": "8e28d5ad110b76881e65d75e1e851ecb71fa2a6e21e232bc2d0a7fe8cea22998",
+      "training/tests/test_validation_campaign.py": "5d9f2e13f0896b36940fdd81384ee6db9c2708417edcfce5e8064eefe019fe46"
+    },
+    "followups-acceptance-20261018.json": {
+      "benchmarking/pipeline_parity.py": "d9d1e4ba4a938b080cd408936f978a166dc19bf7eab1ee4a56c18e875a6342b4",
+      "benchmarking/test_pipeline_parity.py": "73d9c465ade5ca177619371a8cc6b62a9639e34ffee63faca30aa1d20ce24c25",
+      "benchmarking/test_inspect_release.py": "75ae48ac36ccc1a753260aafd660998ea5b5fab53f8512cc16d046fd448d1498",
+      "evaluation/test_export_cli.py": "66640847482f3421ffdc90e2912e7bdcd0963127a14bc66c8aba7dae0eb3fa43"
+    }
+  },
+  "limits": "Generated artifact and historical-source readback only. No old current-source verifier, raw video/NPZ read, inference, regeneration, metadata repair, source rebinding or final-test/generalization claim."
+}

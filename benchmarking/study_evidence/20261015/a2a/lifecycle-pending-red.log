@@ -1,0 +1,51 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: practice entry and duplicate resume share one pending start
+00:00 +0 -1: practice entry and duplicate resume share one pending start [E]
+  Expected: <1>
+    Actual: <3>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/session_lifecycle_race_test.dart 46:5          main.<fn>
+  
+00:00 +0 -1: leave while start pending eventually ends owned session
+00:00 +0 -2: leave while start pending eventually ends owned session [E]
+  Expected: ['startSession', 'endSession']
+    Actual: ['startSession']
+     Which: at location [1] is ['startSession'] which shorter than expected
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/session_lifecycle_race_test.dart 78:7          main.<fn>
+  
+00:00 +0 -2: paused while start pending eventually ends owned session
+00:00 +0 -3: paused while start pending eventually ends owned session [E]
+  Expected: ['startSession', 'endSession']
+    Actual: ['startSession']
+     Which: at location [1] is ['startSession'] which shorter than expected
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/session_lifecycle_race_test.dart 78:7          main.<fn>
+  
+00:00 +0 -3: hidden while start pending eventually ends owned session
+00:00 +0 -4: hidden while start pending eventually ends owned session [E]
+  Expected: ['startSession', 'endSession']
+    Actual: ['startSession']
+     Which: at location [1] is ['startSession'] which shorter than expected
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/session_lifecycle_race_test.dart 78:7          main.<fn>
+  
+00:00 +0 -4: detached while start pending eventually ends owned session
+00:00 +0 -5: detached while start pending eventually ends owned session [E]
+  Expected: ['startSession', 'endSession']
+    Actual: ['startSession']
+     Which: at location [1] is ['startSession'] which shorter than expected
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/session_lifecycle_race_test.dart 78:7          main.<fn>
+  
+00:00 +0 -5: Some tests failed.

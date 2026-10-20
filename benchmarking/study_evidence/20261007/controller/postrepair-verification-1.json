@@ -1,0 +1,157 @@
+{
+  "date": "2026-10-07",
+  "head": "6b8b1b6770e46bea7728a8e9ca4ae6d78e857640",
+  "native": {
+    "tests": 121,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "native_suites": [
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.AttemptBoundaryTest.xml",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.BenchmarkModeTest.xml",
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.DataExporterTest.xml",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.FeatureNormalizerTest.xml",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.FeedbackEngineParityTest.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.MainActivityBoundaryTest.xml",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.PipelineMetricsTest.xml",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.PipelineTraceTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.ResourceCleanupTest.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.RgbaFramePackingTest.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.SessionDatabaseTest.xml",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.SessionManagerTest.xml",
+      "tests": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "app/build/app/test-results/testDebugUnitTest/TEST-com.kumpas.kumpas_app.StudyBackupPolicyTest.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "native_exit": 0,
+  "instrumentation_compile": "command succeeded; UP-TO-DATE source compilation, not runtime execution",
+  "flutter_analysis_exit": 0,
+  "flutter_tests": {
+    "passed": 20,
+    "failed": 1,
+    "reason": "foundation debugPrint invariant in new late cleanup diagnostic test",
+    "complete": false
+  },
+  "python_tests": 38,
+  "python_exit": 0,
+  "protected_assets": {
+    "app/android/app/src/main/assets/pose_landmarker_lite.task": {
+      "expected": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+      "actual": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a"
+    },
+    "app/android/app/src/main/assets/label_map.json": {
+      "expected": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+      "actual": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0"
+    },
+    "app/android/app/src/main/assets/hand_landmarker.task": {
+      "expected": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "actual": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1"
+    },
+    "app/android/app/src/main/assets/kumpas_50sign.tflite": {
+      "expected": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+      "actual": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb"
+    }
+  },
+  "changed_tracked": [
+    ".superpowers/sdd/progress.md",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/BenchmarkModeTest.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/MainActivityBoundaryTest.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt",
+    "app/lib/ui/practice_screen.dart",
+    "app/test/practice_flow_test.dart",
+    "benchmarking/README.md",
+    "benchmarking/collect_fps.py",
+    "benchmarking/environment_protocol.md",
+    "benchmarking/study_readiness.md",
+    "benchmarking/test_collectors.py",
+    "benchmarking/test_history.py"
+  ],
+  "status": "partial repairs exercised; blocked by actual Flutter test harness failure and unfinished worker final report; no acceptance",
+  "logs": [
+    "controller/native-postrepair-full-1.log",
+    "controller/flutter-postrepair-full-1.log",
+    "controller/python-postrepair-full-1.log"
+  ]
+}

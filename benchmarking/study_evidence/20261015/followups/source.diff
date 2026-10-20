@@ -1,0 +1,276 @@
+--- before/benchmarking/pipeline_parity.py
++++ after/benchmarking/pipeline_parity.py
+@@ -220,12 +220,23 @@
+     for index in ordered:
+         if reference[index].get("sha256") != observed[index].get("sha256"):
+             raise ValueError(f"frame image hash mismatch at index {index}")
+-    errors = np.abs(np.asarray([reference[i]["features"] for i in ordered], dtype=np.float64) -
+-                    np.asarray([observed[i]["features"] for i in ordered], dtype=np.float64))
++    # Finite operands do not guarantee finite differences or reductions.
++    # Reject overflow rather than clamp inputs or alter the existing math.
++    try:
++        with np.errstate(over="raise", invalid="raise"):
++            errors = np.abs(np.asarray([reference[i]["features"] for i in ordered], dtype=np.float64) -
++                            np.asarray([observed[i]["features"] for i in ordered], dtype=np.float64))
++            block_mae = {k: float(errors[:, lo:hi].mean()) for k, (lo, hi) in BLOCKS.items()}
++            block_max_abs = {k: float(errors[:, lo:hi].max()) for k, (lo, hi) in BLOCKS.items()}
++    except FloatingPointError:
++        raise ValueError("nonfinite comparison arithmetic") from None
++    if (not np.isfinite(errors).all() or
++            not all(math.isfinite(x) for x in (*block_mae.values(), *block_max_abs.values()))):
++        raise ValueError("nonfinite comparison arithmetic")
+     presence = {k: sum(reference[i][k] != observed[i][k] for i in ordered) for k in PRESENCE}
+     report = {"matched_frames": len(ordered),
+-              "block_mae": {k: float(errors[:, lo:hi].mean()) for k, (lo, hi) in BLOCKS.items()},
+-              "block_max_abs": {k: float(errors[:, lo:hi].max()) for k, (lo, hi) in BLOCKS.items()},
++              "block_mae": block_mae,
++              "block_max_abs": block_max_abs,
+               "presence_disagreements": presence,
+               "anatomical_left_right": "unverified",
+               "reason": "No independently labeled anatomical hands or on-phone signer calibration.",
+@@ -319,7 +330,12 @@
+         result = generate_python_reference(args.frames_dir, args.output)
+         print(f"Python Holistic reference: {len(result['frames'])} frames -> {args.output}")
+     else:
+-        result = compare_vectors(json.loads(args.python_json.read_text()), json.loads(args.android_json.read_text()),
+-                                 require_clip_binding=not args.legacy_frame_only)
+-        args.output.write_text(json.dumps(result, indent=2))
+-        print(json.dumps(result, indent=2))
++        try:
++            result = compare_vectors(json.loads(args.python_json.read_text()), json.loads(args.android_json.read_text()),
++                                     require_clip_binding=not args.legacy_frame_only)
++            serialized = json.dumps(result, indent=2, allow_nan=False)
++            args.output.write_text(serialized)
++        except (ValueError, OSError):
++            print(json.dumps({"ok": False, "error": "comparison_failed"}, allow_nan=False))
++            raise SystemExit(1)
++        print(serialized)
+--- before/benchmarking/test_pipeline_parity.py
++++ after/benchmarking/test_pipeline_parity.py
+@@ -17,6 +17,84 @@
+     def _frame(self, index, digest, value, left=True):
+         return {"index": index, "sha256": hashlib.sha256(digest.encode()).hexdigest(), "features": [value] * 258,
+                 "pose_seen": True, "left_seen": left, "right_seen": False}
++
++    def test_finite_extremes_reject_nonfinite_arithmetic_without_warnings(self):
++        import warnings
++        # Finite operands: subtraction, within-block reduction, then a
++        # reduction that overflows only when multiple frames are aggregated.
++        for value, other, count in ((1e308, -1e308, 1), (1e308, 0.0, 1),
++                                    (1e306, 0.0, 4)):
++            for strict in (False, True):
++                with self.subTest(value=value, other=other, count=count, strict=strict):
++                    ref, app = self._extreme_documents(value, other, count, strict)
++                    with warnings.catch_warnings(record=True) as caught:
++                        warnings.simplefilter('always')
++                        with self.assertRaisesRegex(ValueError, '^nonfinite comparison arithmetic$'):
++                            compare_vectors(ref, app, require_clip_binding=strict)
++                    self.assertEqual(caught, [])
++
++    def _extreme_documents(self, value, other, count=1, bound=True):
++        ref = {'schema': 'kumpas-feature-reference-v1',
++               'frames': [self._frame(i, str(i), value) for i in range(count)]}
++        app = {'schema': 'kumpas-android-replay-v1',
++               'frames': [self._frame(i, str(i), other) for i in range(count)]}
++        if bound:
++            binding = {'schema': 'kumpas-clip-binding-v1', 'clip_id': 'clips_22_14.npz',
++                       'source_video_sha256': 'a' * 64, 'replay_manifest_sha256': 'b' * 64}
++            ref['fixture_binding'] = copy.deepcopy(binding)
++            app['fixture_binding'] = copy.deepcopy(binding)
++        return ref, app
++
++    def test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output(self):
++        import json
++        import subprocess
++        for value, other, count in ((1e308, -1e308, 1), (1e308, 0.0, 1), (1e306, 0.0, 4)):
++            for legacy in (False, True):
++                with self.subTest(value=value, other=other, count=count, legacy=legacy):
++                    with tempfile.TemporaryDirectory() as temp:
++                        root = Path(temp)
++                        ref, app = self._extreme_documents(value, other, count, not legacy)
++                        for name, document in (('python', ref), ('android', app)):
++                            (root / (name + '.json')).write_text(json.dumps(document, allow_nan=False))
++                        output = root / 'report.json'
++                        command = [sys.executable, '-B', '-E', str(Path(__file__).with_name('pipeline_parity.py')),
++                                   'compare', str(root / 'python.json'), str(root / 'android.json'), str(output)]
++                        if legacy:
++                            command.append('--legacy-frame-only')
++                        for existing in (False, True):
++                            if existing:
++                                output.write_bytes(b'SYNTHETIC SENTINEL')
++                            result = subprocess.run(command, capture_output=True, text=True)
++                            self.assertNotEqual(result.returncode, 0)
++                            self.assertEqual(result.stderr, '')
++                            self.assertEqual(json.loads(result.stdout), {'ok': False, 'error': 'comparison_failed'})
++                            self.assertNotIn('Infinity', result.stdout)
++                            if existing:
++                                self.assertEqual(output.read_bytes(), b'SYNTHETIC SENTINEL')
++                            else:
++                                self.assertFalse(output.exists())
++
++    def test_extreme_finite_controls_and_public_cli_strict_json(self):
++        import json
++        import subprocess
++        for value, other, count in ((1e308, 1e308, 1), (1e306, 0.0, 1),
++                                    (1e100, 0.0, 4), (1.0, 0.0, 2)):
++            ref, app = self._extreme_documents(value, other, count)
++            report = compare_vectors(ref, app, require_clip_binding=True)
++            json.dumps(report, allow_nan=False)
++            self.assertEqual(report['block_max_abs']['pose'], abs(value - other))
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp)
++            ref, app = self._extreme_documents(1.0, 0.0, 2)
++            for name, document in (('python', ref), ('android', app)):
++                (root / (name + '.json')).write_text(json.dumps(document))
++            result = subprocess.run([sys.executable, '-B', '-E', str(Path(__file__).with_name('pipeline_parity.py')),
++                                     'compare', str(root / 'python.json'), str(root / 'android.json'),
++                                     str(root / 'report.json')], capture_output=True, text=True)
++            self.assertEqual(result.returncode, 0, result.stderr)
++            self.assertEqual(result.stderr, '')
++            self.assertEqual(json.loads(result.stdout), report)
++            self.assertEqual(json.loads((root / 'report.json').read_text()), report)
+ 
+     def test_same_frame_comparison_and_explicit_anatomical_unknown(self):
+         ref = {"schema": "kumpas-feature-reference-v1", "frames": [self._frame(0, "abc", 0), self._frame(1, "def", 1)]}
+--- before/benchmarking/test_inspect_release.py
++++ after/benchmarking/test_inspect_release.py
+@@ -282,6 +282,77 @@
+         self.assertFalse(self.out.exists())
+         self.assertEqual(list(self.root.glob('.inspect-*')), [])
+ 
++    def _publication_sentinels(self):
++        sentinels = {self.root / '.inspect-preexisting': b'SYNTHETIC STAGE SENTINEL',
++                     self.root / 'prior-result.json': b'SYNTHETIC COMPLETED SENTINEL'}
++        for path, data in sentinels.items():
++            path.write_bytes(data)
++        return sentinels
++
++    def _assert_owned_publication_removed(self, sentinels):
++        self.assertFalse(self.out.exists())
++        self.assertEqual(list(self.root.glob('.inspect-*')), [self.root / '.inspect-preexisting'])
++        for path, data in sentinels.items():
++            self.assertEqual(path.read_bytes(), data)
++
++    def test_second_fsync_after_link_cleans_only_owned_publication(self):
++        from unittest.mock import patch
++        from benchmarking import inspect_release as tool
++        sentinels = self._publication_sentinels()
++        original, calls = os.fsync, []
++        def fail_second(fd):
++            calls.append(fd)
++            if len(calls) == 2:
++                self.assertEqual(self.out.read_bytes(), b'{}\n')
++                self.assertEqual(list(self.root.glob('.inspect-*')), [self.root / '.inspect-preexisting'])
++                raise OSError('PRIVATE_MARKER')
++            return original(fd)
++        with patch.object(tool.os, 'fsync', side_effect=fail_second):
++            with self.assertRaises(OSError):
++                tool.publish(self.root, self.out, b'{}\n')
++        self.assertEqual(len(calls), 2)
++        self._assert_owned_publication_removed(sentinels)
++
++    def test_partial_write_cleans_only_owned_stage(self):
++        import contextlib
++        from unittest.mock import patch
++        from benchmarking import inspect_release as tool
++        sentinels = self._publication_sentinels()
++        original, written = os.fdopen, []
++        @contextlib.contextmanager
++        def partial_stream(fd, mode):
++            with original(fd, mode) as stream:
++                class Partial:
++                    def __getattr__(self, name):
++                        return getattr(stream, name)
++                    def write(self, data):
++                        written.append(stream.write(data[:1]))
++                        stream.flush()
++                        raise OSError('PRIVATE_MARKER')
++                yield Partial()
++        with patch.object(tool.os, 'fdopen', side_effect=partial_stream):
++            with self.assertRaises(OSError):
++                tool.publish(self.root, self.out, b'{}\n')
++        self.assertEqual(written, [1])
++        self._assert_owned_publication_removed(sentinels)
++
++    def test_final_target_open_failure_cleans_only_owned_publication(self):
++        from unittest.mock import patch
++        from benchmarking import inspect_release as tool
++        sentinels = self._publication_sentinels()
++        original, calls = os.open, []
++        def fail_final(path, flags, *args, **kwargs):
++            if path == self.out.name:
++                calls.append(path)
++                self.assertEqual(self.out.read_bytes(), b'{}\n')
++                raise OSError('PRIVATE_MARKER')
++            return original(path, flags, *args, **kwargs)
++        with patch.object(tool.os, 'open', side_effect=fail_final):
++            with self.assertRaises(OSError):
++                tool.publish(self.root, self.out, b'{}\n')
++        self.assertEqual(calls, [self.out.name])
++        self._assert_owned_publication_removed(sentinels)
++
+     def test_fresh_build_label_is_not_source_provenance(self):
+         self.manifest['artifact_kind'] = 'fresh_build'
+         code, report = self.run_cli()
+--- before/evaluation/test_export_cli.py
++++ after/evaluation/test_export_cli.py
+@@ -112,6 +112,59 @@
+         os.mkfifo(self.root/'pipe')
+         self.assertEqual(self.run_cli(self.args(input='pipe'))[0],2)
+ 
++    def test_input_path_replacement_after_snapshot_hashes_original_report_bytes(self):
++        original_bytes = (self.root / 'input.json').read_bytes()
++        original_publish = export_cli._publish
++        calls = []
++        def replace_then_publish(root, label, report, manifest):
++            calls.append(label)
++            replacement = self.root / 'replacement.json'
++            replacement.write_bytes(b'INVALID SYNTHETIC REPLACEMENT')
++            os.replace(replacement, self.root / 'input.json')
++            return original_publish(root, label, report, manifest)
++        with patch.object(export_cli, '_publish', side_effect=replace_then_publish), contextlib.redirect_stdout(io.StringIO()) as output:
++            status = export_cli.main(self.args())
++        self.assertEqual(status, 0)
++        self.assertEqual(calls, ['SYNTHETIC-001'])
++        self.assertEqual(json.loads(output.getvalue())['code'], 'PUBLISHED')
++        out = self.root / 'SYNTHETIC-001'
++        manifest = json.loads((out / 'manifest.json').read_bytes())
++        report_bytes = (out / 'report.json').read_bytes()
++        self.assertEqual(manifest['inputs'][0]['sha256'], hashlib.sha256(original_bytes).hexdigest())
++        self.assertNotEqual(manifest['inputs'][0]['sha256'], hashlib.sha256((self.root / 'input.json').read_bytes()).hexdigest())
++        self.assertEqual(manifest['artifacts']['report.json'], hashlib.sha256(report_bytes).hexdigest())
++        self.assertEqual(json.loads(report_bytes), export_cli.describe_exports([original_bytes], source='SYNTHETIC'))
++
++    def test_failure_preserves_replacement_of_already_owned_manifest_inode(self):
++        original_write = export_cli._write_read
++        acquired = []
++        sentinel = b'SYNTHETIC UNOWNED SENTINEL'
++        def replace_owned_then_fail(directory, name, data, **kwargs):
++            original_write(directory, name, data, **kwargs)
++            if name == 'manifest.json':
++                owned = os.stat(name, dir_fd=directory)
++                self.assertEqual(kwargs['owned'][name], (owned.st_dev, owned.st_ino))
++                # Retain the displaced inode until the test root is cleaned;
++                # unlink/recreate would permit nondeterministic inode reuse.
++                os.rename(name, 'displaced-owned-manifest.json', src_dir_fd=directory, dst_dir_fd=directory)
++                fd = os.open(name, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600, dir_fd=directory)
++                with os.fdopen(fd, 'wb') as stream:
++                    stream.write(sentinel)
++                replacement = os.stat(name, dir_fd=directory)
++                self.assertNotEqual((owned.st_dev, owned.st_ino), (replacement.st_dev, replacement.st_ino))
++                acquired.append((owned.st_dev, owned.st_ino))
++                raise export_cli.Rejected('OUTPUT_READBACK')
++        with patch.object(export_cli, '_write_read', side_effect=replace_owned_then_fail), contextlib.redirect_stdout(io.StringIO()) as output:
++            status = export_cli.main(self.args())
++        self.assertEqual(status, 2)
++        self.assertEqual(json.loads(output.getvalue()), {'valid': False, 'diagnostics': [{'code': 'OUTPUT_READBACK'}]})
++        self.assertEqual(len(acquired), 1)
++        out = self.root / 'SYNTHETIC-001'
++        self.assertEqual((out / 'manifest.json').read_bytes(), sentinel)
++        displaced = out / 'displaced-owned-manifest.json'
++        self.assertEqual((displaced.stat().st_dev, displaced.stat().st_ino), acquired[0])
++        self.assertEqual(json.loads(displaced.read_bytes())['artifacts']['report.json'], hashlib.sha256((out / 'report.json').read_bytes()).hexdigest())
++
+     def test_publication_collision_preserves_unowned_manifest(self):
+         original=export_cli._write_read
+         def insert_collision(directory,name,data,**kwargs):

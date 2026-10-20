@@ -1,0 +1,95 @@
+{
+  "disposition": "DONE_WITH_CONCERNS",
+  "source_hashes": {
+    "benchmarking/inspect_release.py": "ecf9f2f33f2fc1f28bf9d6efc47a2f6f661e1e9fef929180cafe920c42eb5bb3",
+    "benchmarking/test_inspect_release.py": "03450c2a0035116910d78d514a9d90e446f0679c8eb1626ea0870090ee98eae9"
+  },
+  "tests": {
+    "slice8-green-final-focused.log": {
+      "total": 28,
+      "passed": 28,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    "current-source-broad.log": {
+      "total": 118,
+      "passed": 116,
+      "skipped": 2,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "preserved_preexisting_files": 1193,
+  "preexisting_mismatches": [],
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "existing_apk_count": 6,
+  "real_result": "benchmarking/study_evidence/20261015/c1/historical-release-current-source-result.json",
+  "real_result_sha256": "ea6af87cb75419d631e099955aa74dcb18c3e12e1606f3f7b7858e5ebe149a83",
+  "inventory_sha256": "8f65742711c97073ae94b69bc406ed44f4167d9ebbe74615bc9e12ee005ed0a0",
+  "real_apk_sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+  "real_apk_bytes": 66969546,
+  "native_abis": [
+    "arm64-v8a",
+    "armeabi-v7a",
+    "x86_64"
+  ],
+  "flutter_abis": [
+    "arm64-v8a"
+  ],
+  "strict_arm64_acceptance": false,
+  "current_source_build_provenance": false,
+  "new_source_files": [
+    "benchmarking/inspect_release.py",
+    "benchmarking/test_inspect_release.py"
+  ],
+  "evidence_files": [
+    "broad-benchmark.log",
+    "command-ledger.jsonl",
+    "current-source-broad.log",
+    "final-broad.log",
+    "final-focused.log",
+    "final-verification.log",
+    "finalize.py",
+    "historical-apk-inventory.json",
+    "historical-inventory.log",
+    "historical-native-policy.log",
+    "historical-rejection-diagnosis.log",
+    "historical-release-arm64-expectation.json",
+    "historical-release-current-source-result.json",
+    "historical-release-current-source.log",
+    "historical-release-packaging-2.log",
+    "historical-release-packaging-expectation.json",
+    "historical-release-packaging-final-result.json",
+    "historical-release-packaging-final.log",
+    "historical-release-packaging-result.json",
+    "historical-release-packaging.log",
+    "historical-release-strict-arm64-final.log",
+    "historical-release-strict-arm64.log",
+    "historical-release-zip-aliases.json",
+    "historical-zip-aliases.log",
+    "initial-snapshot.log",
+    "inspect_historical.py",
+    "preservation-before.json",
+    "report.md",
+    "run.py",
+    "slice1-green.log",
+    "slice1-red.log",
+    "slice2-green.log",
+    "slice2-red.log",
+    "slice3-green.log",
+    "slice3-red.log",
+    "slice4-green.log",
+    "slice4-red.log",
+    "slice5-green.log",
+    "slice5-red.log",
+    "slice6-green.log",
+    "slice6-red.log",
+    "slice7-green.log",
+    "slice7-red.log",
+    "slice8-green-final-focused.log",
+    "slice8-red.log",
+    "taskbrief.md"
+  ]
+}

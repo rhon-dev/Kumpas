@@ -1,0 +1,16 @@
+{
+  "documents": {
+    "docs/phase-gates.md": {
+      "sha256": "58fd920d6878e4de2317f46e165ab18ef1876f203328a4a2f1b80a88eead5b1d",
+      "historical_body_preserved": true
+    },
+    "benchmarking/study_readiness.md": {
+      "sha256": "54f57a66ff0611d9c2106437f788fadc855a5475612fa124832aef9a190508aa",
+      "historical_body_preserved": true
+    }
+  },
+  "protected_unchanged": 82,
+  "diff_check": "passed",
+  "tests_rerun": false,
+  "runner": "deferred;notresumed"
+}

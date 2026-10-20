@@ -1,0 +1,23 @@
+{
+  "source_hashes": {
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt": "d5b234ae31c68a1f4000b1bd2625560c9c0f4e7ed79fb38d7cc11862fc77a17c",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ExportPublication.kt": "9411b02efbc6d94f7a31b6f7ec1424ab6e9053340c4538677946e3f45bc50d59",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt": "6a5b9766ac925bb1ab3386708980eeb262a1b49b48a0a658288dcb25ff315246",
+    "app/lib/ui/assessment_screen.dart": "4882adbdd07d6e0bfeedbb9c029fa4530c8162fcf111dd4fd0aeafe6c551e491",
+    "app/test/assessment_save_failure_test.dart": "9ced1c9314cf1b6f3718cd73cd09b519893491cce9205243058f086a718d8f9f"
+  },
+  "jvm": {
+    "tests": 61,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "flutter_tests": 2,
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "logs": [
+    "a1/parent-jvm-1.log",
+    "a1/parent-flutter-1.log"
+  ],
+  "review_status": "pending"
+}

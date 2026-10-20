@@ -1,0 +1,506 @@
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt
+index f0489d0..40a2b6c 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt
+@@ -123,7 +123,27 @@ class BenchmarkMode(private val context: Context, private val onComplete: (Strin
+         invalid(setupMetadata.optString("device_fingerprint") == Build.FINGERPRINT, "setup_device_mismatch")
+         flags.forEach { invalid(setupMetadata.opt(it) == true, "setup_verification_missing") }
+         invalid(setupMetadata.optString("setup_id").matches(Regex("[A-Za-z0-9_.:-]{1,128}")), "setup_identity_invalid")
+-        invalid(setupMetadata.optString("apk_sha256").matches(Regex("[0-9a-f]{64}")), "setup_apk_identity_invalid")
++        val declaredApk = setupMetadata.optString("apk_sha256")
++        invalid(declaredApk.matches(Regex("[0-9a-f]{64}")), "setup_apk_identity_invalid")
++        // Hash before creating PipelineMetrics: setup I/O is outside observation.
++        val installedApk = try {
++            val appInfo = context.applicationInfo
++            require(appInfo.splitSourceDirs.isNullOrEmpty()) { "Split APK unsupported" }
++            val source = File(requireNotNull(appInfo.sourceDir))
++            require(source.isFile && source.canRead()) { "APK unavailable" }
++            val digest = MessageDigest.getInstance("SHA-256")
++            source.inputStream().use { input ->
++                val buffer = ByteArray(8192)
++                var size = input.read(buffer)
++                while (size >= 0) {
++                    digest.update(buffer, 0, size)
++                    size = input.read(buffer)
++                }
++            }
++            digest.digest().joinToString("") { "%02x".format(it.toInt() and 0xff) }
++        } catch (_: Exception) { null }
++        invalid(installedApk != null, "setup_apk_identity_unavailable")
++        if (installedApk != null) invalid(declaredApk == installedApk, "setup_apk_identity_mismatch")
+         invalid(setupMetadata.optString("revision").matches(Regex("[0-9a-f]{40}|[0-9a-f]{64}")), "setup_revision_invalid")
+         invalid(setupMetadata.optString("thermal_state") in setOf("nominal", "fair", "serious", "critical"), "setup_thermal_missing")
+         setupErrors = errors.distinct()
+@@ -286,15 +306,7 @@ class BenchmarkMode(private val context: Context, private val onComplete: (Strin
+             atomicWrite(file, immutable.toString(2))
+             report.put("storage_state", "latest_published")
+             val json = report.toString(2)
+-            val latest = android.util.AtomicFile(File(directory, "latest.json"))
+-            val stream = latest.startWrite()
+-            try {
+-                stream.write(json.toByteArray(Charsets.UTF_8))
+-                latest.finishWrite(stream)
+-            } catch (error: Exception) {
+-                latest.failWrite(stream)
+-                throw error
+-            }
++            atomicWrite(File(directory, "latest.json"), json)
+             reportPath = file.absolutePath
+         } catch (error: Exception) {
+             report.put("storage_state", "publication_failed").put("storage_error", error.javaClass.simpleName)
+@@ -313,6 +325,11 @@ class BenchmarkMode(private val context: Context, private val onComplete: (Strin
+         val stream = atomic.startWrite()
+         try { stream.write(json.toByteArray(Charsets.UTF_8)); atomic.finishWrite(stream) }
+         catch (error: Exception) { atomic.failWrite(stream); throw error }
++        // AtomicFile.finishWrite can log a failed rename without throwing.
++        // Verify the exact target, not .new or a helper's successful return.
++        val expected = json.toByteArray(Charsets.UTF_8)
++        check(file.isFile && file.readBytes().contentEquals(expected)) { "Report commit verification failed" }
++        check(JSONObject(file.readText()).getString("run_id") == runId) { "Report commit identity mismatch" }
+     }
+     @Synchronized fun reportFor(expectedRunId: String): String? {
+         require(expectedRunId.matches(Regex("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"))) { "Invalid run UUID" }
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt
+index cc09e85..0c332fb 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt
+@@ -115,13 +115,15 @@ class CameraPreviewView(
+         }, ContextCompat.getMainExecutor(context))
+     }
+     override fun getView(): View = previewView
++    private val disposalActions: List<() -> Unit> = listOf(
++        { benchmark?.recordCamera("unknown", "unknown", false, "unknown"); Unit },
++        { analysis?.clearAnalyzer(); Unit },
++        { val owned = listOfNotNull(preview, analysis).toTypedArray()
++          if (owned.isNotEmpty()) provider?.unbind(*owned); Unit },
++        { engine.cancelAttempt(); Unit }, { analysisExecutor.shutdown() })
+     override fun dispose() {
++        if (disposed) return
+         disposed = true
+-        benchmark?.recordCamera("unknown", "unknown", false, "unknown")
+-        analysis?.clearAnalyzer()
+-        val owned = listOfNotNull(preview, analysis).toTypedArray()
+-        if (owned.isNotEmpty()) provider?.unbind(*owned)
+-        engine.cancelAttempt()
+-        analysisExecutor.shutdown()
++        completeCleanup(disposalActions)
+     }
+ }
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
+index fec92cf..54c10d5 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
+@@ -141,6 +141,11 @@ class MainActivity : FlutterActivity() {
+             current?.let { benchmarkMode?.recordOutcome(it, outcome) }
+             pendingTrace = null
+             visionEngine?.cancelAttempt(id)
++        } else if (id != null && outcome == "timeout") {
++            // A delayed start response may describe a recognized older attempt.
++            // Ledger deduplicates and ignores unknown/closed-run identities; do
++            // not invalidate or cancel the replacement camera capture.
++            benchmarkMode?.recordOutcome(id, "timeout")
+         }
+     }
+ 
+@@ -209,19 +214,18 @@ class MainActivity : FlutterActivity() {
+         synchronized(pipelineLock) { sessionManager?.onResume() }
+     }
+     override fun onDestroy() {
+-        synchronized(pipelineLock) {
+-            attempts.invalidate()
+-            pendingTrace = null
+-            try { sessionManager?.close() }
+-            catch (error: Exception) { android.util.Log.e("KumpasLifecycle", "Session teardown failed", error) }
+-            finally {
+-                try { visionEngine?.close() }
+-                finally {
+-                    try { if (benchmarkMode?.isActive == true) benchmarkMode?.finish() }
+-                    finally { eventSink = null }
++        completeCleanup(listOf(
++            {
++                synchronized(pipelineLock) {
++                    attempts.invalidate()
++                    pendingTrace = null
++                    completeCleanup(listOf(
++                        { sessionManager?.close(); Unit },
++                        { visionEngine?.close(); Unit },
++                        { if (benchmarkMode?.isActive == true) benchmarkMode?.finish(); Unit },
++                        { eventSink = null }))
+                 }
+-            }
+-        }
+-        super.onDestroy()
++            },
++            { super.onDestroy() }))
+     }
+ }
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt
+index bffcd9b..f4fc90f 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt
+@@ -24,7 +24,8 @@ import java.util.UUID
+  * starts. If the app resumes before timeout, the session stays active.
+  * If the timer fires, the session is closed.
+  */
+-class SessionManager(private val context: Context) {
++class SessionManager(private val context: Context,
++    databaseFactory: (Context) -> SessionDatabase = ::SessionDatabase) {
+ 
+     companion object {
+         private const val TAG = "KumpasSession"
+@@ -34,10 +35,11 @@ class SessionManager(private val context: Context) {
+         private const val AUTO_CLOSE_DELAY_MS = 60_000L
+     }
+ 
+-    private val db = SessionDatabase(context)
+     private val prefs: SharedPreferences =
+         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+     private val handler = Handler(Looper.getMainLooper())
++    // Factory transfers ownership of a fresh helper; never pass a borrowed one.
++    private val db = databaseFactory(context)
+ 
+     private var activeSessionId: String? = null
+     private var autoCloseRunnable: Runnable? = null
+@@ -48,10 +50,15 @@ class SessionManager(private val context: Context) {
+         get() = getOrCreateParticipantId()
+ 
+     init {
+-        ensureParticipant()
+-        migrateIfNeeded()
+-        // Recover any unclosed session from a crash
+-        activeSessionId = db.getActiveSession(participantId)
++        try {
++            ensureParticipant()
++            migrateIfNeeded()
++            // Recover any unclosed session from a crash
++            activeSessionId = db.getActiveSession(participantId)
++        } catch (error: Throwable) {
++            try { db.close() } catch (cleanup: Throwable) { error.addSuppressed(cleanup) }
++            throw error
++        }
+     }
+ 
+     // ─── Participant ────────────────────────────────────────────────
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt
+index 6b187c0..325b070 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt
+@@ -319,11 +319,13 @@ class VisionEngine(
+             "cameraGeneration" to generation)).toString())
+     }
+ 
++    private val closeActions: List<() -> Unit> = listOf(
++        { poseLandmarker.close() }, { handLandmarker.close() }, { tflite.close() })
++
+     fun close() = synchronized(sharedLock) {
+         if (!closed) {
+             closed = true
+-            cancelAttempt()
+-            poseLandmarker.close(); handLandmarker.close(); tflite.close()
++            completeCleanup(listOf<() -> Unit>({ cancelAttempt(); Unit }) + closeActions)
+         }
+     }
+ }
+diff --git a/app/lib/ui/practice_screen.dart b/app/lib/ui/practice_screen.dart
+index a37e028..1468cfc 100644
+--- a/app/lib/ui/practice_screen.dart
++++ b/app/lib/ui/practice_screen.dart
+@@ -37,9 +37,12 @@ class _PracticeScreenState extends State<PracticeScreen>
+   bool _signerVisible = true;
+   String? _attemptId;
+   int _requestGeneration = 0;
++  final Map<int, String> _pendingAttemptOutcomes = {};
+   Timer? _attemptTimeout;
+   bool _benchmarkStarted = false;
+   bool _benchmarkStarting = false;
++  int _benchmarkGeneration = 0;
++  Timer? _benchmarkStartTimeout;
+   Timer? _benchmarkWarmup;
+   String? _benchmarkRunId;
+   late SessionLifecycleObserver _lifecycleObserver;
+@@ -144,6 +147,7 @@ class _PracticeScreenState extends State<PracticeScreen>
+   Future<void> _startAttempt() async {
+     if (_attemptRunning) return;
+     final generation = ++_requestGeneration;
++    _pendingAttemptOutcomes[generation] = 'cancelled';
+     HapticFeedback.lightImpact();
+     setState(() {
+       _attemptRunning = true;
+@@ -158,7 +162,8 @@ class _PracticeScreenState extends State<PracticeScreen>
+     try {
+       final id = await KumpasChannel.startAttempt(widget.sign.id);
+       if (!mounted || generation != _requestGeneration || !_attemptRunning) {
+-        await KumpasChannel.cancelAttempt(attemptId: id);
++        await KumpasChannel.cancelAttempt(
++          attemptId: id, outcome: _pendingAttemptOutcomes[generation] ?? 'cancelled');
+         return;
+       }
+       _attemptId = id;
+@@ -166,31 +171,63 @@ class _PracticeScreenState extends State<PracticeScreen>
+       if (mounted && generation == _requestGeneration) {
+         _captureError('Could not start capture: $error');
+       }
++    } finally {
++      _pendingAttemptOutcomes.remove(generation);
+     }
+   }
+ 
+   Future<void> _startBenchmark() async {
+     if (_benchmarkStarted || _benchmarkStarting || !mounted) return;
++    final generation = ++_benchmarkGeneration;
+     _benchmarkStarting = true;
++    // Control response deadline is independent of the >=60s observation window.
++    _benchmarkStartTimeout?.cancel();
++    _benchmarkStartTimeout = Timer(const Duration(seconds: 30), () {
++      if (!mounted || generation != _benchmarkGeneration) return;
++      _benchmarkGeneration++;
++      _benchmarkStarting = false;
++      _benchmarkStartError('Control response timed out; any late run is diagnostic.');
++    });
+     try {
+       final id = await KumpasChannel.startBenchmark(
+         durationSeconds: widget.benchmarkDurationSeconds!,
+       );
++      if (!mounted || generation != _benchmarkGeneration) {
++        // Native stop verifies the old run ID; a replacement can never be stopped.
++        try {
++          await KumpasChannel.stopBenchmark(runId: id).timeout(const Duration(seconds: 30));
++        } catch (_) {
++          // Retain a fixed-code diagnostic even after disposal or replacement;
++          // never print channel exception text/private payloads.
++          debugPrint('Late run cleanup failed; run_id=$id; retain USB diagnostics.');
++          if (mounted && !_benchmarkStarted && !_benchmarkStarting) {
++            _benchmarkStartError('Late run cleanup failed; retain USB diagnostics.');
++          }
++        }
++        return;
++      }
+       _benchmarkStarted = true;
+       _benchmarkRunId = id;
+-      if (mounted) _showBenchmarkIdentity('Benchmark running');
++      _showBenchmarkIdentity('Benchmark running');
+     } catch (error) {
+-      if (mounted) {
+-        ScaffoldMessenger.of(context).showSnackBar(
+-          SnackBar(content: Text('Benchmark could not start: $error'),
+-            action: SnackBarAction(label: 'Retry', onPressed: _startBenchmark)),
+-        );
++      if (mounted && generation == _benchmarkGeneration) {
++        _benchmarkStartError('$error');
+       }
+     } finally {
+-      _benchmarkStarting = false;
++      if (generation == _benchmarkGeneration) {
++        _benchmarkStartTimeout?.cancel();
++        _benchmarkStarting = false;
++      }
+     }
+   }
+ 
++  void _benchmarkStartError(String message) {
++    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
++      content: Text('Benchmark could not start: $message'),
++      action: SnackBarAction(label: 'Retry', onPressed: _startBenchmark),
++    ));
++  }
++
+   void _showBenchmarkIdentity(String status) {
+     final id = _benchmarkRunId!;
+     ScaffoldMessenger.of(context).hideCurrentSnackBar();
+@@ -205,6 +242,9 @@ class _PracticeScreenState extends State<PracticeScreen>
+ 
+   Future<void> _cancelAttempt({String outcome = 'cancelled'}) async {
+     final id = _attemptId;
++    if (_pendingAttemptOutcomes.containsKey(_requestGeneration)) {
++      _pendingAttemptOutcomes[_requestGeneration] = outcome;
++    }
+     _requestGeneration++;
+     _attemptId = null;
+     _attemptTimeout?.cancel();
+@@ -243,6 +283,8 @@ class _PracticeScreenState extends State<PracticeScreen>
+     _requestGeneration++;
+     _attemptTimeout?.cancel();
+     _benchmarkWarmup?.cancel();
++    _benchmarkGeneration++;
++    _benchmarkStartTimeout?.cancel();
+     _lifecycleObserver.setPracticeActive(false);
+     WidgetsBinding.instance.removeObserver(_lifecycleObserver);
+     _sub?.cancel();
+diff --git a/app/test/practice_flow_test.dart b/app/test/practice_flow_test.dart
+index afb7241..7f10aa3 100644
+--- a/app/test/practice_flow_test.dart
++++ b/app/test/practice_flow_test.dart
+@@ -20,6 +20,9 @@ void main() {
+   var sequence = 0;
+   var benchmarkCalls = 0;
+   var failBenchmark = false;
++  var failStop = false;
++  Completer<String>? pendingBenchmark;
++  final stoppedRuns = <String>[];
+   setUp(() {
+     failStart = false;
+     pendingStart = null;
+@@ -30,6 +33,9 @@ void main() {
+     sequence = 0;
+     benchmarkCalls = 0;
+     failBenchmark = false;
++    failStop = false;
++    pendingBenchmark = null;
++    stoppedRuns.clear();
+     final messenger =
+         TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+     messenger.setMockMethodCallHandler(KumpasChannel.control, (call) async {
+@@ -57,7 +63,12 @@ void main() {
+           expect(call.arguments['durationSeconds'], 60);
+           benchmarkCalls++;
+           if (failBenchmark) throw PlatformException(code: 'BUSY');
++          if (pendingBenchmark != null) return pendingBenchmark!.future;
+           return '11111111-1111-4111-8111-111111111111';
++        case 'stopBenchmark':
++          stoppedRuns.add(call.arguments['runId'] as String);
++          if (failStop) throw PlatformException(code: 'STOP_FAILED');
++          return '{"complete":false}';
+         default:
+           return null;
+       }
+@@ -235,6 +246,56 @@ void main() {
+     expect(benchmarkCalls, 2);
+     await tester.pumpWidget(const SizedBox());
+   });
++  testWidgets('hung benchmark control response recovers and late run cannot stop replacement', (tester) async {
++    final old = pendingBenchmark = Completer<String>();
++    await open(tester, benchmarkDurationSeconds: 60);
++    await tester.pump(const Duration(seconds: 4));
++    await tester.pump(const Duration(seconds: 31));
++    await tester.pump(const Duration(milliseconds: 500));
++    expect(find.text('Retry'), findsOneWidget);
++    pendingBenchmark = null;
++    await tester.tap(find.text('Retry'));
++    await tester.pump();
++    expect(benchmarkCalls, 2);
++    old.complete('22222222-2222-4222-8222-222222222222');
++    await tester.pump();
++    expect(stoppedRuns, ['22222222-2222-4222-8222-222222222222']);
++    await tester.pump(const Duration(milliseconds: 500));
++    expect(find.textContaining('Benchmark running: 11111111'), findsOneWidget);
++    expect(tester.takeException(), isNull);
++    await tester.pumpWidget(const SizedBox());
++  });
++  testWidgets('late benchmark cleanup failure after disposal retains coded diagnostics', (tester) async {
++    final messages = <String?>[];
++    final priorPrint = debugPrint;
++    debugPrint = (String? message, {int? wrapWidth}) => messages.add(message);
++    try {
++      pendingBenchmark = Completer<String>();
++      failStop = true;
++      await open(tester, benchmarkDurationSeconds: 60);
++      await tester.pump(const Duration(seconds: 4));
++      await tester.pumpWidget(const SizedBox());
++      pendingBenchmark!.complete('22222222-2222-4222-8222-222222222222');
++      await tester.pump();
++      expect(stoppedRuns, ['22222222-2222-4222-8222-222222222222']);
++      expect(messages.any((message) => message?.contains('Late run cleanup failed') == true), isTrue);
++      expect(tester.takeException(), isNull);
++    } finally {
++      // Binding invariants run before addTearDown callbacks.
++      debugPrint = priorPrint;
++    }
++  });
++
++  testWidgets('late benchmark identity after disposal is stopped by its own run ID', (tester) async {
++    final old = pendingBenchmark = Completer<String>();
++    await open(tester, benchmarkDurationSeconds: 60);
++    await tester.pump(const Duration(seconds: 4));
++    await tester.pumpWidget(const SizedBox());
++    old.complete('22222222-2222-4222-8222-222222222222');
++    await tester.pump();
++    expect(stoppedRuns, ['22222222-2222-4222-8222-222222222222']);
++    expect(tester.takeException(), isNull);
++  });
+   testWidgets('pending start times out and late identity cannot cancel replacement', (tester) async {
+     await open(tester);
+     final old = pendingStart = Completer<String>();
+@@ -248,10 +309,33 @@ void main() {
+     old.complete('late-old');
+     await tester.pump();
+     expect(cancelledIds, ['late-old']);
++    expect(cancelOutcomes, ['timeout']);
+     await event(tester, result());
+     expect(find.byType(FeedbackSheet), findsOneWidget);
+     await tester.pumpWidget(const SizedBox());
+   });
++  testWidgets('pending identity preserves timeout without replacement and cancel on disposal', (tester) async {
++    for (final terminal in ['timeout', 'cancelled', 'dispose']) {
++      await open(tester);
++      final old = pendingStart = Completer<String>();
++      await tester.tap(find.text('Subukan ang Senyas'));
++      await tester.pump();
++      if (terminal == 'timeout') {
++        await tester.pump(const Duration(seconds: 31));
++      } else if (terminal == 'cancelled') {
++        await tester.tap(find.text('Kanselahin'));
++        await tester.pump();
++      } else {
++        await tester.pumpWidget(const SizedBox());
++      }
++      old.complete('old-$terminal');
++      await tester.pump();
++      expect(cancelledIds.last, 'old-$terminal');
++      expect(cancelOutcomes.last, terminal == 'timeout' ? 'timeout' : 'cancelled');
++      pendingStart = null;
++      await tester.pumpWidget(const SizedBox());
++    }
++  });
+   testWidgets('timeout cancels identity and restores capture' , (tester) async {
+     await open(tester);
+     await tester.tap(find.text('Subukan ang Senyas'));
+diff --git a/benchmarking/collect_fps.py b/benchmarking/collect_fps.py
+index 86aa5a2..dde82ed 100644
+--- a/benchmarking/collect_fps.py
++++ b/benchmarking/collect_fps.py
+@@ -377,6 +377,36 @@ REPORT.update(complete=bool, physical_fps_gate_pass=bool, device=DEVICE,
+     outcomes=[{'attempt_id': TEXT, 'code': TEXT, 'at_ns': NUMBER, 'attempt_started_ns': NUMBER}],
+     excluded_samples=[{'attempt_id': TEXT, 'reason': TEXT, 'at_ns': NUMBER}],
+     setup=SETUP, setup_errors=[TEXT], camera={'lens': TEXT, 'selector': TEXT, 'bound': bool, 'changed': bool, 'camera_id': TEXT})
++# Diagnostic text is a code contract, never a place for exception messages.
++ERROR_CODES = frozenset(('IOException', 'FileNotFoundException', 'IllegalStateException',
++    'IllegalArgumentException', 'RuntimeException', 'SecurityException', 'storage_failed', 'metadata_failed'))
++SETUP_CODES = frozenset('setup_missing setup_invalid_field setup_malformed setup_condition_invalid '
++    'setup_lux_invalid setup_background_invalid setup_distance_invalid setup_ram_invalid setup_chip_invalid '
++    'setup_device_mismatch setup_verification_missing setup_identity_invalid setup_apk_identity_invalid '
++    'setup_apk_identity_mismatch setup_apk_identity_unavailable setup_revision_invalid setup_thermal_missing'.split())
++EXCLUDED_CODES = frozenset('attempt_start_outside_window outcome_unbound_attempt outcome_outside_window '
++    'malformed_trace trace_outside_window_or_order ack_outside_window_or_order'.split())
++REPORT['storage_error'] = ERROR_CODES
++REPORT['model']['metadata_error'] = ERROR_CODES
++REPORT['setup_errors'] = [SETUP_CODES]
++REPORT['excluded_samples'][0]['reason'] = EXCLUDED_CODES
++# Other fixed-contract labels are equally untrusted; identity/device text remains
++# independently compared by the collectors rather than arbitrarily stripped.
++for key, codes in {
++    'package': (APP_PACKAGE,), 'source': ('camerax_analyzer',), 'clock': ('elapsedRealtimeNanos',),
++    'origin': ('analyzer_entry_not_sensor_exposure',),
++    'ui_endpoint': ('post_frame_native_ack_upper_bound_not_physical_display',),
++    'storage_state': ('latest_published', 'immutable_only_latest_unverified', 'publication_failed'),
++    'measurement_status': ('qualified_setup', 'diagnostic'),
++}.items(): REPORT[key] = frozenset(codes)
++REPORT['model']['asset'] = frozenset(('kumpas_50sign.tflite',))
++TRACE['clock'] = frozenset(('elapsedRealtimeNanos',))
++REPORT['outcomes'][0]['code'] = frozenset('success no_signer cancelled timeout camera_error persistence_failed failure censored_at_close'.split())
++for key, codes in {'condition': ('optimal', 'low_light', 'cluttered'),
++    'background': ('plain', 'complex'), 'thermal_state': ('nominal', 'fair', 'serious', 'critical')}.items():
++    SETUP[key] = frozenset(codes)
++REPORT['camera']['lens'] = frozenset(('front', 'back', 'unknown'))
++REPORT['camera']['selector'] = frozenset(('default_front', 'default_back_fallback', 'unknown'))
+ SUMMARY = {'n': NUMBER, 'p50': NUMBER, 'p95': NUMBER}
+ ASSESSMENT: dict[str, Any] = {k: SUMMARY for k in ('event_latency_ms', 'ui_ack_upper_bound_ms',
+     'first_analyzer_to_ui_ack_upper_bound_ms', 'collection_interval_ms', 'interpreter_inference_diagnostic_ms')}
+@@ -406,6 +436,8 @@ def safe_payload(value, schema) -> tuple[Any, bool]:
+             if not bad or isinstance(schema[0], dict):
+                 result.append(copied)
+         return result, unsafe
++    if isinstance(schema, frozenset):
++        return (value, False) if isinstance(value, str) and value in schema else (None, True)
+     valid = (value is None or
+              (schema == NUMBER and finite_number(value)) or
+              (schema == TEXT and isinstance(value, str) and len(value) <= 256 and '\n' not in value) or

@@ -30,9 +30,21 @@ class VisionEngine(
     context: Context,
     private val sharedLock: Any = Any(),
     private val requestGeneration: (() -> Long)? = null,
+    private val resourceFactory: VisionResourceFactory = AndroidVisionResourceFactory(context),
     private val onResult: (String) -> Unit,
 ) {
 
+    val cameraViews = CameraViewOwnership(sharedLock) { cancelAttempt() }
+    private var emittingViewOwner: Long? = null
+    internal fun withViewOwner(token: Long, action: () -> Unit) = synchronized(sharedLock) {
+        val previous = emittingViewOwner
+        emittingViewOwner = token
+        try { action() } finally { emittingViewOwner = previous }
+    }
+    private fun emitResult(json: String) {
+        val token = emittingViewOwner
+        onResult(if (token == null) json else JSONObject(json).put("viewOwner", token).toString())
+    }
     private val appContext: Context = context.applicationContext
 
     companion object {
@@ -44,9 +56,12 @@ class VisionEngine(
         const val L_HIP = 23; const val R_HIP = 24
     }
 
-    private val poseLandmarker: PoseLandmarker
-    private val handLandmarker: HandLandmarker
-    private val tflite: Interpreter
+    private val ownedPose: OwnedNative<PoseLandmarker>
+    private val ownedHand: OwnedNative<HandLandmarker>
+    private val ownedInterpreter: OwnedNative<Interpreter>
+    private val poseLandmarker get() = checkNotNull(ownedPose.value)
+    private val handLandmarker get() = checkNotNull(ownedHand.value)
+    private val tflite get() = checkNotNull(ownedInterpreter.value)
     private val labels: List<String>
 
     private val buffer = ArrayDeque<FloatArray>()  // SEQ_LEN newest samples
@@ -69,14 +84,13 @@ class VisionEngine(
     private val goldStandards: Array<Array<FloatArray>> by lazy { loadGold() }
 
     private fun loadGold(): Array<Array<FloatArray>> {
-        val bytes = appContext.assets.open("gold_standards.bin").readBytes()
+        val bytes = resourceFactory.asset("gold_standards.bin").use { it.readBytes() }
         val buf = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
         return Array(50) { Array(SEQ_LEN) { FloatArray(N_FEATURES) { buf.float } } }
     }
 
     fun labelsJson(): String {
-        val ctx = appContext
-        return ctx.assets.open("label_map.json").readBytes().decodeToString()
+        return resourceFactory.asset("label_map.json").use { it.readBytes().decodeToString() }
     }
 
     private var localGeneration = 0L
@@ -105,29 +119,26 @@ class VisionEngine(
     }
 
     init {
-        poseLandmarker = PoseLandmarker.createFromOptions(
-            context,
-            PoseLandmarker.PoseLandmarkerOptions.builder()
-                .setBaseOptions(BaseOptions.builder().setModelAssetPath("pose_landmarker_lite.task").build())
-                .setRunningMode(RunningMode.VIDEO)
-                .setNumPoses(1)
-                .build()
-        )
-        handLandmarker = HandLandmarker.createFromOptions(
-            context,
-            HandLandmarker.HandLandmarkerOptions.builder()
-                .setBaseOptions(BaseOptions.builder().setModelAssetPath("hand_landmarker.task").build())
-                .setRunningMode(RunningMode.VIDEO)
-                .setNumHands(2)
-                .build()
-        )
-        val modelBytes = context.assets.open("kumpas_50sign.tflite").readBytes()
-        val bb = ByteBuffer.allocateDirect(modelBytes.size).order(ByteOrder.nativeOrder())
-        bb.put(modelBytes); bb.rewind()
-        tflite = Interpreter(bb, Interpreter.Options().apply { numThreads = 2 })
-
-        val lm = JSONObject(context.assets.open("label_map.json").readBytes().decodeToString())
-        labels = (0 until lm.length()).map { lm.getJSONObject(it.toString()).getString("label") }
+        val acquired = mutableListOf<() -> Unit>()
+        try {
+            val pose = resourceFactory.pose().also { acquired.add(it.release) }
+            val hand = resourceFactory.hand().also { acquired.add(it.release) }
+            val modelBytes = resourceFactory.asset("kumpas_50sign.tflite").use { it.readBytes() }
+            val bb = ByteBuffer.allocateDirect(modelBytes.size).order(ByteOrder.nativeOrder())
+            bb.put(modelBytes); bb.rewind()
+            val interpreter = resourceFactory.interpreter(bb).also { acquired.add(it.release) }
+            val lm = JSONObject(resourceFactory.asset("label_map.json").use { it.readBytes().decodeToString() })
+            val parsedLabels = (0 until lm.length()).map { lm.getJSONObject(it.toString()).getString("label") }
+            ownedPose = pose
+            ownedHand = hand
+            ownedInterpreter = interpreter
+            labels = parsedLabels
+        } catch (original: Throwable) {
+            acquired.forEach { release ->
+                try { release() } catch (cleanup: Throwable) { if (cleanup !== original) original.addSuppressed(cleanup) }
+            }
+            throw original
+        }
     }
 
     /**
@@ -221,7 +232,7 @@ class VisionEngine(
             samplesSinceInfer = 0
             if (poseRate < 0.5) {
                 // no signer in frame — don't classify zeros (confident garbage)
-                onResult(JSONObject(mapOf(
+                emitResult(JSONObject(mapOf(
                     "state" to "no_signer", "cameraFps" to cameraFps,
                     "landmarkMs" to landmarkMs, "handsVisible" to handsSeen
                 )).toString())
@@ -237,7 +248,7 @@ class VisionEngine(
             emit(output[0], landmarkMs, inferMs, handsSeen)
         } else {
             // keep UI stats alive while the buffer warms up
-            onResult(JSONObject(mapOf(
+            emitResult(JSONObject(mapOf(
                 "state" to "warmup", "bufferFill" to buffer.size,
                 "cameraFps" to cameraFps, "landmarkMs" to landmarkMs,
                 "handsVisible" to handsSeen
@@ -251,7 +262,7 @@ class VisionEngine(
         attemptSamples.add(feat)
         if (poseSeen) attemptPoseFrames++
         if (attemptSamples.size < SEQ_LEN) {
-            onResult(JSONObject(mapOf(
+            emitResult(JSONObject(mapOf(
                 "state" to "attempt_progress", "attemptId" to attemptId, "collected" to attemptSamples.size,
                 "needed" to SEQ_LEN, "cameraFps" to cameraFps,
                 "landmarkMs" to landmarkMs, "handsVisible" to handsSeen
@@ -263,7 +274,7 @@ class VisionEngine(
         val window = attemptSamples.toTypedArray()
 
         if (attemptPoseFrames < SEQ_LEN / 2) {
-            onResult(JSONObject(mapOf(
+            emitResult(JSONObject(mapOf(
                 "state" to "attempt_failed",
                 "attemptId" to attemptId,
                 "outcome" to "no_signer",
@@ -281,7 +292,7 @@ class VisionEngine(
         val best = probs.indices.maxByOrNull { probs[it] } ?: 0
 
         val report = FeedbackEngine.compare(window, goldStandards[target], labels[target])
-        onResult(JSONObject(mapOf(
+        emitResult(JSONObject(mapOf(
             "state" to "attempt_result",
             "attemptId" to attemptId,
             "timing" to PipelineTrace(attemptId, firstAnalyzerNs, analyzerNs,
@@ -300,7 +311,7 @@ class VisionEngine(
 
     private fun emit(probs: FloatArray, landmarkMs: Long, inferMs: Long, handsSeen: Int) {
         val idx = probs.indices.sortedByDescending { probs[it] }.take(3)
-        onResult(JSONObject(mapOf(
+        emitResult(JSONObject(mapOf(
             "state" to "prediction",
             "label" to labels[idx[0]],
             "confidence" to probs[idx[0]].toDouble(),
@@ -315,15 +326,17 @@ class VisionEngine(
     fun reportCameraError(reason: String, generation: Long = cameraRequestGeneration()) = synchronized(sharedLock) {
         if (closed || generation != cameraRequestGeneration()) return@synchronized
         cancelAttempt()
-        onResult(JSONObject(mapOf("state" to "camera_error", "reason" to reason,
+        emitResult(JSONObject(mapOf("state" to "camera_error", "reason" to reason,
             "cameraGeneration" to generation)).toString())
     }
+
+    private val closeActions: List<() -> Unit> = listOf(
+        { ownedPose.release() }, { ownedHand.release() }, { ownedInterpreter.release() })
 
     fun close() = synchronized(sharedLock) {
         if (!closed) {
             closed = true
-            cancelAttempt()
-            poseLandmarker.close(); handLandmarker.close(); tflite.close()
+            completeCleanup(listOf<() -> Unit>({ cancelAttempt(); Unit }) + closeActions)
         }
     }
 }

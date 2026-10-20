@@ -1,0 +1,72 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/host_study_flow_test.dart
+00:00 +0: exact Handler bytes through mocked EventChannel open one sheet and ACK native identity
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "80%": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/host_study_flow_test.dart:94:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/host_study_flow_test.dart line 94
+The test description was:
+  exact Handler bytes through mocked EventChannel open one sheet and ACK native identity
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: exact Handler bytes through mocked EventChannel open one sheet and ACK native identity [E]
+  Test failed. See exception logs above.
+  The test description was: exact Handler bytes through mocked EventChannel open one sheet and ACK native identity
+  
+00:00 +0 -1: captured controls exercise repository, failed clear invalidation and reopened identity
+00:01 +1 -1: retained exports match independent scoped SQLite rows and reopened empty export
+00:01 +1 -2: retained exports match independent scoped SQLite rows and reopened empty export [E]
+  Expected: contains {
+              'id': '7823c75f-05e2-4765-8311-104e1d36dd8f',
+              'participant_id': '254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9',
+              'started_at': 1792117798409,
+              'ended_at': null,
+              'attempt_count': 0,
+              'signs_attempted': 0,
+              'avg_match': 0,
+              'duration_s': 0,
+              'source': 'app'
+            }
+    Actual: [
+              {
+                'id': '7823c75f-05e2-4765-8311-104e1d36dd8f',
+                'participant_id': '254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9',
+                'started_at': 1792117798409,
+                'ended_at': null,
+                'attempt_count': 0,
+                'signs_attempted': 0,
+                'avg_match': 0,
+                'duration_s': 0,
+                'source': 'app'
+              }
+            ]
+     Which: does not contain {
+              'id': '7823c75f-05e2-4765-8311-104e1d36dd8f',
+              'participant_id': '254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9',
+              'started_at': 1792117798409,
+              'ended_at': null,
+              'attempt_count': 0,
+              'signs_attempted': 0,
+              'avg_match': 0,
+              'duration_s': 0,
+              'source': 'app'
+            }
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/host_study_flow_test.dart 209:9                main.<fn>
+  
+00:01 +1 -2: current execution loads pinned verified native fixture without skip
+00:01 +2 -2: Some tests failed.

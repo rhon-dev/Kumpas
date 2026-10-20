@@ -1,0 +1,23 @@
+test_apk_digest_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_apk_digest_mismatch_rejected) ... ok
+test_checkout_source_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_checkout_source_symlink_rejected) ... ok
+test_corrupt_archive_rejected (benchmarking.test_inspect_release.ReleaseTests.test_corrupt_archive_rejected) ... ok
+test_duplicate_zip_member_rejected_even_when_not_required (benchmarking.test_inspect_release.ReleaseTests.test_duplicate_zip_member_rejected_even_when_not_required) ... ok
+test_missing_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_asset_rejected) ... ok
+test_missing_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_native_file_rejected) ... ok
+test_output_escape_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_escape_rejected) ... ok
+test_output_existing_preserved (benchmarking.test_inspect_release.ReleaseTests.test_output_existing_preserved) ... ok
+test_output_symlink_and_parent_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_symlink_and_parent_symlink_rejected) ... ok
+test_protected_checkout_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_protected_checkout_mismatch_rejected) ... ok
+test_stdout_only_does_not_write (benchmarking.test_inspect_release.ReleaseTests.test_stdout_only_does_not_write) ... ok
+test_strict_expectation_schema_types_and_independent_asset_binding (benchmarking.test_inspect_release.ReleaseTests.test_strict_expectation_schema_types_and_independent_asset_binding) ... ok
+test_valid_explicit_expectations_publish_bound_report (benchmarking.test_inspect_release.ReleaseTests.test_valid_explicit_expectations_publish_bound_report) ... ok
+test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) ... ok
+test_wrong_embedded_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_embedded_asset_rejected) ... ok
+test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) ... ok
+test_zip_file_directory_alias_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_file_directory_alias_rejected) ... ok
+test_zip_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_symlink_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.501s
+
+OK

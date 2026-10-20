@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.HostStudyFlowTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:24:47.226Z" hostname="Ahrons-MacBook-Pro.local" time="6.161">
+  <properties/>
+  <testcase name="staleControlOwnerFailsThroughProductionCallableWithoutDefaultStores" classname="com.kumpas.kumpas_app.HostStudyFlowTest" time="4.107"/>
+  <testcase name="executedStudyAndBenchmarkProducer" classname="com.kumpas.kumpas_app.HostStudyFlowTest" time="1.994"/>
+  <testcase name="omittedExportAcquisitionFailsClosedWithoutDefaultStoreFallback" classname="com.kumpas.kumpas_app.HostStudyFlowTest" time="0.023"/>
+  <testcase name="actualControlExportUsesOnlyExplicitFixtureDatabaseAndClosesTemporaryHelper" classname="com.kumpas.kumpas_app.HostStudyFlowTest" time="0.021"/>
+  <testcase name="publisherRejectsExistingEscapingDuplicateMissingTamperedAndStaleOutput" classname="com.kumpas.kumpas_app.HostStudyFlowTest" time="0.016"/>
+  <system-out><![CDATA[HOST_STUDY_FIXTURE_ROOT /Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-a3a/host-handoff-18182454896030444284/output/78e52806-5abd-4eb2-8283-5cbb3cc8b5d0
+HOST_STUDY_FIXTURE_MANIFEST /Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-a3a/host-handoff-18182454896030444284/output/78e52806-5abd-4eb2-8283-5cbb3cc8b5d0/manifest.json
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

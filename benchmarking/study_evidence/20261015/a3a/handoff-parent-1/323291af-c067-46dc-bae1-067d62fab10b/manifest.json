@@ -1,0 +1,215 @@
+{
+  "test_schema_version": 1,
+  "run_id": "323291af-c067-46dc-bae1-067d62fab10b",
+  "synthetic_origin": true,
+  "producer_outcome": "success",
+  "transport": "host-native-callable-and-handler; later consumer transport is mocked",
+  "source_hashes": {
+    "app\/android\/app\/build.gradle.kts": "f2f5136694dc3ddabcf5b0f45907f3bc53cdca811a53be6a23107dc2811e0ea9",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/ActivityResourceFactory.kt": "6d68f2b96ad154af94ad8eb05cb99c990ead3b4c6e1da92b8fb6aa45194c6431",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/AttemptBoundary.kt": "9b39c543eac7732e541c227e5e13b1de809b665c4c382d348e6f8c01314a937c",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/BenchmarkMode.kt": "450196e45cae22fc97145440ca544dfa833df07c06730221729e5211f7090c48",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/CameraPreviewView.kt": "0e24035b805155473de162bc5376661f5cf1c1b7136f091e2a260552912c6bfa",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/CameraViewOwnership.kt": "cd9cf5e224fd990602f9e831eec1ed3b23c52549501513c5d8e7b249f7e63dd5",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/CameraViewResourceFactory.kt": "1cb92dd90df8407c46996b42fe7cb2c9f365c19ade991ef40eda799197832a86",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/DataExporter.kt": "d5b234ae31c68a1f4000b1bd2625560c9c0f4e7ed79fb38d7cc11862fc77a17c",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/ExportPublication.kt": "9411b02efbc6d94f7a31b6f7ec1424ab6e9053340c4538677946e3f45bc50d59",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/FeatureNormalizer.kt": "222168905289be7292a1c25542e7b22d9d0836403008afab97faec903c3dde38",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/FeedbackEngine.kt": "73f895b0fe6990f0cf92b01a0d423c8ac069647835b3cc650a15fc63bde9dbfe",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/MainActivity.kt": "50dab3cd90cedd2f41d5bcbc0d9fa26da607f0e8c6716f9e7ad47632000d0588",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/OwnedCleanup.kt": "5b91ad3d2be80610cb7b7f63f160d2c7edda4c3061d31bfafe5593d7f62da8c1",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/PipelineMetrics.kt": "53831c757802033c95cc5840e6a37e6572923ad81a6b200c5c5a4fc6647cbe0c",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/PipelineTrace.kt": "e631ae23434816916fb1a11f73a29e38d3eb7786014d3f003d4b584f9c955e35",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/RgbaFramePacking.kt": "497f4380e527c01fa669c0ec28a5e73db84fb90b3788ed16990706db57ca37a0",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/SessionDatabase.kt": "6278b07f867db481363e9056315e84c5a6b942d8f8ebf3b3212dd47685061f64",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/SessionLog.kt": "585138ed66ed469196327992245cfb24b31ab74bd40f2500a8ab4247d2c682ee",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/SessionManager.kt": "9dd3812de9e0d1088ef0c9286909411e906d96b4c5d1963241873fd39bb5dc0b",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/StudyDataFiles.kt": "b084c61ecf31ce4fa85086895aa5d2d2a82e614e26df0ffa92935ccaff67899d",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/VisionEngine.kt": "a86071c63501ae63fcd96a3527b5c978f7b0e81ac990e2b95ef348b17941ddd8",
+    "app\/android\/app\/src\/main\/kotlin\/com\/kumpas\/kumpas_app\/VisionResourceFactory.kt": "be9c8d80c1f8b9a274ace80b8713d21408d799f3fa858291ba3fe147c275cd23",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/ActivityInitializationTest.kt": "c817fdf081082e2c17666a3df9381a0e7f065afdd7f3737c30aa1ff712a57d7c",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/AttemptBoundaryTest.kt": "dde0282450c23364e3e7461e295b318c7bc647600b62ed07107656681540a695",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/BenchmarkModeTest.kt": "5c9a6b6e158e079faee98bb85f7c3565e585fad72d932e8bbfaab35f31f07798",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/CameraViewOwnershipTest.kt": "6b35e4f0adc05277f5c363c18e0c55233454daee492e38bbd4cd6faf811156f7",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/DataExporterTest.kt": "cff582459305ac62e7f6726b6426a5c48b5aab6b864a17bb37ddb3a3684f4d89",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/FeatureNormalizerTest.kt": "75ac9f445c0932068b2fe4013970993c5afa2a1803202ba01fa9cfbc7ac71373",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/FeedbackEngineParityTest.kt": "5ac0bc2f3334bf9f7b7ccf5d977d2ff61533365c95349c38d94e5a65627d7e5d",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/HostArtifactRun.kt": "55f9e6fae1b2dd326176ddbb35b0068a03d45628b66137bfdbdd00618ab96e05",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/HostStudyFixture.kt": "821b3dc5c018d03cae274a0ce2404fcc8bb6938e7427cf36d36756391cf294d7",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/HostStudyFlowTest.kt": "a78b0d37efd5e9bcee0817536e529963d42288a293ae181e558f98ffaabcf8aa",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/HostStudyProducer.kt": "7a27f1430b49996142303dc25381ca9e1fd5661885c6d8824ec13e4f55fb4ab3",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/MainActivityBoundaryTest.kt": "c0126b30434b7b095f820ab64c4e04cc27e3de031799a58761139367819f865a",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/PipelineMetricsTest.kt": "dbe1db2f6a2dac8cf443fd945ca06230f1d83dfc52e2dae9e26e19b54df8dff0",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/PipelineTraceTest.kt": "7cab9d4275f22d56bffdbc062c2d2e11c9a83dcf841eee1ca51c823eb25d2af5",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/ResourceCleanupTest.kt": "76ed417a343ee46e10ca2cd76c7b34dabb5fe3903e17c30ef2bba3f96064e0b0",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/RgbaFramePackingTest.kt": "caec130f7d3dafd9f1565206cd8f0642924bf263e1cc9ce25a3cf1715a1e911d",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/SessionDatabaseTest.kt": "77521b3d4c8f4237cf488c2fe6d4acfc1b39d8b6d79137097cbf9b68ab4cbe6e",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/SessionManagerTest.kt": "aa6bb10fd6d06e8eb29eea4efa39bbafed0c760e91b3727d41eb2b7d88db0f21",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/StudyBackupPolicyTest.kt": "4bb5b0b6735f228a828ce4fa7e3ddf2ab90b88c92893088e8298b0d9ab99c6fc",
+    "app\/android\/app\/src\/test\/kotlin\/com\/kumpas\/kumpas_app\/VisionInitializationTest.kt": "5b5ef76c016a29f3d1552ff19bc35d8fe83c0af949e31a209a18a9c82586a721"
+  },
+  "source_hash_stage": "JVM runtime snapshot; runner independently compares before compile and after execution",
+  "artifacts": [
+    {
+      "path": "attempt-event.json",
+      "sha256": "50288609a688a8f30ca6e8f82f722f0afbd5523087a0e079619d4139143f5e18",
+      "bytes": 759,
+      "kind": "event",
+      "identity": "study"
+    },
+    {
+      "path": "external-export.json",
+      "sha256": "2f4a52af6f6591cb48cb81a5d819cacd33707e0a70e6cd23bd29d30ec04a4dd0",
+      "bytes": 1637,
+      "kind": "export",
+      "identity": "study"
+    },
+    {
+      "path": "internal-export.json",
+      "sha256": "2f4a52af6f6591cb48cb81a5d819cacd33707e0a70e6cd23bd29d30ec04a4dd0",
+      "bytes": 1637,
+      "kind": "export",
+      "identity": "study"
+    },
+    {
+      "path": "reopened-export.json",
+      "sha256": "94a295a2362637dff82293198c67c0f8de1c45561502fa705d6e3073adb6d408",
+      "bytes": 371,
+      "kind": "export",
+      "identity": "study"
+    },
+    {
+      "path": "study.json",
+      "sha256": "17f39afdd0c715002e8edfd539fb812f63d2fc7577b7ba2918ae359f8229711f",
+      "bytes": 22005,
+      "kind": "study",
+      "identity": "study"
+    },
+    {
+      "path": "confirmed-report.json",
+      "sha256": "0f0ad909b0712495bc3b2574e5d512848be1e86cc641c404b46f856f45899231",
+      "bytes": 5883,
+      "kind": "benchmark_report",
+      "identity": "confirmed"
+    },
+    {
+      "path": "confirmed-control.json",
+      "sha256": "1095ae1f213f4d2a7774a7020fca3784049217f6db434efd2cf3345dde811b8c",
+      "bytes": 89,
+      "kind": "benchmark_control",
+      "identity": "confirmed"
+    },
+    {
+      "path": "unconfirmed-report.json",
+      "sha256": "99e87effa46eac2f4ceb6db1924b0ae15123edcb428f25012734dda9e84c9632",
+      "bytes": 5895,
+      "kind": "benchmark_report",
+      "identity": "unconfirmed"
+    },
+    {
+      "path": "unconfirmed-control.json",
+      "sha256": "17b5fbce4c887a5d07062f86773c1de8475f33768a33b18377d7096626a5ca25",
+      "bytes": 91,
+      "kind": "benchmark_control",
+      "identity": "unconfirmed"
+    },
+    {
+      "path": "faulted-report.json",
+      "sha256": "60d6e400f13cdf4c82567d9adfbe28df1bd56754d3df7540fbf2ab15b97327f5",
+      "bytes": 5903,
+      "kind": "benchmark_report",
+      "identity": "faulted"
+    },
+    {
+      "path": "benchmark-index.json",
+      "sha256": "dd9f99da379d1a803d0bfbe0befe2f7f278419fbc520368a28cd47a3d7bc6f64",
+      "bytes": 2582,
+      "kind": "benchmark_index",
+      "identity": "study"
+    }
+  ],
+  "scenarios": {
+    "study": {
+      "scenario_id": "679851f2-3300-4c6a-aa92-c1c20ce18da5",
+      "outcome": "passed",
+      "primary_result_count": 1
+    },
+    "benchmark_modes": [
+      {
+        "mode": "confirmed",
+        "run_id": "b8ea26b4-ab5f-4171-9893-9cecd8bfc0d2",
+        "report": "confirmed-report.json",
+        "control": "confirmed-control.json",
+        "control_observation": "native exact bytes",
+        "setup_input": {
+          "setup_id": "26cbb1b1-6818-453c-9c0d-201cd34ab5ce",
+          "condition": "optimal",
+          "lux": 400,
+          "background": "plain",
+          "distance_cm": 75,
+          "device_fingerprint": "robolectric",
+          "chip": "Snapdragon 680",
+          "ram_gb": 4,
+          "setup_verified": true,
+          "device_verified": true,
+          "front_camera_verified": true,
+          "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+          "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "thermal_state": "nominal"
+        },
+        "synthetic_origin": true,
+        "not_physical_measurement": true
+      },
+      {
+        "mode": "unconfirmed",
+        "run_id": "458e4cb3-e49c-43ac-bc0c-e6db00140737",
+        "report": "unconfirmed-report.json",
+        "control": "unconfirmed-control.json",
+        "control_observation": "native exact bytes",
+        "setup_input": {
+          "setup_id": "d97a6122-0395-4ae4-85a1-a2972e0ffd83",
+          "condition": "optimal",
+          "lux": 400,
+          "background": "plain",
+          "distance_cm": 75,
+          "device_fingerprint": "robolectric",
+          "chip": "Snapdragon 680",
+          "ram_gb": 4,
+          "setup_verified": true,
+          "device_verified": true,
+          "front_camera_verified": true,
+          "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+          "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "thermal_state": "nominal"
+        },
+        "synthetic_origin": true,
+        "not_physical_measurement": true
+      },
+      {
+        "mode": "faulted",
+        "run_id": "2e8e5da6-6c3d-4c16-9b54-5b938c1b3f62",
+        "report": "faulted-report.json",
+        "control": null,
+        "control_observation": "publication fault: companion path is nonempty directory, no companion bytes",
+        "setup_input": {
+          "setup_id": "c27ed375-cd3c-4f7b-84db-99ba4293eb6f",
+          "condition": "optimal",
+          "lux": 400,
+          "background": "plain",
+          "distance_cm": 75,
+          "device_fingerprint": "robolectric",
+          "chip": "Snapdragon 680",
+          "ram_gb": 4,
+          "setup_verified": true,
+          "device_verified": true,
+          "front_camera_verified": true,
+          "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+          "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "thermal_state": "nominal"
+        },
+        "synthetic_origin": true,
+        "not_physical_measurement": true
+      }
+    ]
+  }
+}

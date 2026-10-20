@@ -1,0 +1,33 @@
+{
+  "event": "dex-quarantine",
+  "at": "2026-10-18T13:58:47.239187+08:00",
+  "failure_log": "release-build-retry2.log",
+  "before": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/dex/release/minifyReleaseWithR8/classes 2.dex",
+    "bytes": 1520620,
+    "inode": 27581963,
+    "device": 16777232,
+    "flags": 1073741920,
+    "sha256": null
+  },
+  "counterpart": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex",
+    "bytes": 1521432,
+    "inode": 27581524,
+    "device": 16777232,
+    "flags": 64,
+    "sha256": "82c7b2bc1d3ce4738aa6f5df30f3b886c27654f2ff73ee90d85b12ec7ced36cf"
+  },
+  "git_ignored": "app/.gitignore:33:/build/\tapp/build/app/intermediates/dex/release/minifyReleaseWithR8/classes 2.dex\napp/.gitignore:33:/build/\tapp/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex\napp/.gitignore:33:/build/\tapp/build/kumpas-d-quarantine/classes 2.dex\n",
+  "method": "same-provider same-volume rename of only implicated generated DEX; preserve inode, do not delete",
+  "limits": "DATALESS byte digest unavailable before rename; no claim of content equality, filesystem origin or broad cleanup. No source or protected asset moved.",
+  "exit": 0,
+  "after": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/classes 2.dex",
+    "bytes": 1520620,
+    "inode": 27581963,
+    "device": 16777232,
+    "flags": 1073741920,
+    "sha256": null
+  }
+}

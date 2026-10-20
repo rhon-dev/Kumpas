@@ -1,0 +1,962 @@
+{
+  "reason": "macOS DATALESS NPZ placeholders cause blocked content reads; not a dependency/model inference failure",
+  "first_blocked_clip": "clips_10_1.npz",
+  "first_observed_stat": {
+    "size": 1404854,
+    "blocks": 0,
+    "flags": 1073741920
+  },
+  "observed_stack": "native sample857/857 samples in read() under Python FileIO; lsof descriptor3 exact blocked NPZ",
+  "sample_sha256": "b87249bb96619aa0e8b78d1332ebc37a6c9984afa9dd2a7981bdc959f5c5f9f4",
+  "prior_stat_snapshot": {
+    "dataless_npz": 140,
+    "resident_npz": 10
+  },
+  "v3_source_metadata": {
+    "available": 16,
+    "unavailable": 134
+  },
+  "unavailable_source_stat_readback": [
+    {
+      "clip": "clips_12_12.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_12_13.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_13_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_13_5.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_13_8.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_14_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_14_10.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_14_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_15_13.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_15_16.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_15_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_16_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_16_11.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_16_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_17_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_17_10.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_17_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_18_14.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_18_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_18_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_19_17.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_19_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_19_2.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_1_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_1_12.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_1_2.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_20_11.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_20_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_20_2.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_21_15.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_21_18.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_21_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_23_16.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_23_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_23_5.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_2_1.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_2_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_2_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_3_11.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_3_12.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_3_8.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_49_1.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_49_15.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_49_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_4_10.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_4_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_4_8.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_50_1.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_50_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_50_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_51_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_51_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_51_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_52_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_52_14.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_52_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_53_10.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_53_16.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_53_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_54_14.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_54_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_54_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_55_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_55_18.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_55_4.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_56_12.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_56_15.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_56_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_57_18.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_57_2.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_57_4.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_5_1.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_5_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_5_4.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_62_13.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_62_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_62_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_63_1.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_63_11.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_63_17.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_64_16.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_64_18.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_64_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_65_15.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_65_4.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_65_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_66_1.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_66_4.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_66_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_67_14.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_67_5.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_67_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_6_13.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_6_15.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_6_16.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_72_15.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_72_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_72_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_74_16.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_74_18.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_74_4.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_76_12.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_76_17.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_76_5.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_77_13.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_77_2.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_77_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_7_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_7_14.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_7_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_85_12.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_85_15.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_85_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_86_12.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_86_16.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_86_6.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_89_10.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_89_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_89_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_8_11.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_8_13.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_8_8.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_91_1.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_91_13.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_91_18.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_95_14.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_95_4.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_95_9.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_96_0.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_96_3.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_96_7.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_9_11.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_9_19.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    },
+    {
+      "clip": "clips_9_8.npz",
+      "npz_dataless_now": true,
+      "video_dataless_now": true,
+      "npz_blocks": 0,
+      "video_blocks": 0
+    }
+  ],
+  "v2_failure_disposition": "SIGINT intentionally interrupted blocked read; CLI exit2 generic incomplete; no predictions",
+  "v3_disposition": "exit3 intentional INCOMPLETE_SOURCE_METADATA with real150+150 predictions; no successful manifest",
+  "shell_warning": "zle option warnings are separate shell-wrapper noise; not Python/TF root cause"
+}

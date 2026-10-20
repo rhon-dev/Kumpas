@@ -1,0 +1,6 @@
+Analyzing app...                                                
+
+   info • Statements in an if should be enclosed in a block • test/practice_flow_test.dart:164:22 • curly_braces_in_flow_control_structures
+   info • Statements in an if should be enclosed in a block • test/practice_flow_test.dart:165:12 • curly_braces_in_flow_control_structures
+
+2 issues found. (ran in 1.8s)

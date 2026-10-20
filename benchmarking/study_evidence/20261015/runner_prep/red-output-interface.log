@@ -1,0 +1,48 @@
+test_publication_interface_refuses_arbitrary_artifact_paths (training.tests.test_experiment_runner.RunnerTests.test_publication_interface_refuses_arbitrary_artifact_paths) ... 
+  test_publication_interface_refuses_arbitrary_artifact_paths (training.tests.test_experiment_runner.RunnerTests.test_publication_interface_refuses_arbitrary_artifact_paths) (path=PosixPath('/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpeo5f8j3q/checkpoint.keras')) ... FAIL
+  test_publication_interface_refuses_arbitrary_artifact_paths (training.tests.test_experiment_runner.RunnerTests.test_publication_interface_refuses_arbitrary_artifact_paths) (path=PosixPath('/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/NEW-FORBIDDEN.json')) ... FAIL
+
+======================================================================
+FAIL: test_publication_interface_refuses_arbitrary_artifact_paths (training.tests.test_experiment_runner.RunnerTests.test_publication_interface_refuses_arbitrary_artifact_paths) (path=PosixPath('/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpeo5f8j3q/checkpoint.keras'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 72, in test_publication_interface_refuses_arbitrary_artifact_paths
+    with self.assertRaises(runner.RunnerError):runner.publish(path,{'synthetic':True})
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py", line 223, in publish
+    with path.open('xb') as stream:
+         ^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1183, in _execute_mock_call
+    raise effect
+AssertionError: writer must not be reached
+
+======================================================================
+FAIL: test_publication_interface_refuses_arbitrary_artifact_paths (training.tests.test_experiment_runner.RunnerTests.test_publication_interface_refuses_arbitrary_artifact_paths) (path=PosixPath('/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/NEW-FORBIDDEN.json'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 72, in test_publication_interface_refuses_arbitrary_artifact_paths
+    with self.assertRaises(runner.RunnerError):runner.publish(path,{'synthetic':True})
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py", line 223, in publish
+    with path.open('xb') as stream:
+         ^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py", line 1183, in _execute_mock_call
+    raise effect
+AssertionError: writer must not be reached
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=2)

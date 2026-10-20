@@ -1,0 +1,27 @@
+test_cli_fails_closed_without_payload_echo (evaluation.test_export_cli.CliTests.test_cli_fails_closed_without_payload_echo) ... FAIL
+test_cli_publishes_readback_and_hash_bound_manifest (evaluation.test_export_cli.CliTests.test_cli_publishes_readback_and_hash_bound_manifest) ... FAIL
+test_symlink_inputs_roots_and_outputs_rejected (evaluation.test_export_cli.CliTests.test_symlink_inputs_roots_and_outputs_rejected) ... ok
+
+======================================================================
+FAIL: test_cli_fails_closed_without_payload_echo (evaluation.test_export_cli.CliTests.test_cli_fails_closed_without_payload_echo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py", line 57, in test_cli_fails_closed_without_payload_echo
+    self.assertEqual(result['diagnostics'][0]['code'],'JSON_INVALID')
+AssertionError: 'CLI_UNSUPPORTED' != 'JSON_INVALID'
+- CLI_UNSUPPORTED
++ JSON_INVALID
+
+
+======================================================================
+FAIL: test_cli_publishes_readback_and_hash_bound_manifest (evaluation.test_export_cli.CliTests.test_cli_publishes_readback_and_hash_bound_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_export_cli.py", line 37, in test_cli_publishes_readback_and_hash_bound_manifest
+    self.assertEqual(status,0,result)
+AssertionError: 2 != 0 : {'valid': False, 'diagnostics': [{'code': 'CLI_UNSUPPORTED'}]}
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.265s
+
+FAILED (failures=2)

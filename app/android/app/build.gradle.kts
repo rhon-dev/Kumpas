@@ -35,6 +35,12 @@ android {
     testOptions {
         // Robolectric needs the merged manifest + resources on the test classpath
         unitTests.isIncludeAndroidResources = true
+        unitTests.all {
+            it.systemProperty("kumpas.hostSourceRoot", rootProject.projectDir.parentFile.parentFile.absolutePath)
+            providers.gradleProperty("kumpas.hostFixtureDir").orNull?.let { destination ->
+                it.systemProperty("kumpas.hostFixtureDir", destination)
+            }
+        }
     }
 
     buildTypes {

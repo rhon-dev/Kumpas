@@ -1,0 +1,36 @@
+{
+  "cli_exits": {
+    "cli-authflag": 3,
+    "cli-command-refusal": 3,
+    "cli-demo": 0,
+    "cli-execute": 3,
+    "cli-invalid": 2,
+    "cli-no-overwrite": 2,
+    "cli-prepare": 0,
+    "cli-timeout": 1,
+    "cli-train": 3
+  },
+  "evidence_file_count": 51,
+  "external_file_count": 18,
+  "git_diff_check_exit": 0,
+  "ok": true,
+  "preserved": {
+    "accepted69": 69,
+    "evidence206": 206,
+    "frozen279": 279,
+    "protected82": 82
+  },
+  "scope": "SYNTHETIC_PREPARATION_ONLY_PARENT_REVIEW_REQUIRED",
+  "source_file_count": 5,
+  "sources": {
+    "benchmarking/study_evidence/20261015/runner_prep/capture-cli.py": "246eed9d1c23b57999562870fd194f7a4bb3aa452928874abae4377d3d854086",
+    "benchmarking/study_evidence/20261015/runner_prep/run-check.py": "6225e7ded2613b214a7b2ba9c8e91ac9adea3a68a6084ed03e96283b5b02dff6",
+    "benchmarking/study_evidence/20261015/runner_prep/verify-evidence.py": "1f6909e01d35ca5de5aceb677bcb5153ebb0ad204327bfb8c4db7d586df9c589",
+    "training/models/experiment_runner.py": "a2d7df7d8616976358eb5a9cafd11e9de3b434a0213878e7659c805945598dbd",
+    "training/tests/test_experiment_runner.py": "f3755d35eebf885561751cbeea05d2accf31800a7cc2a107ef3bcb1396792ee3"
+  },
+  "tests": {
+    "focused-final": 22,
+    "full": 51
+  }
+}

@@ -1,0 +1,905 @@
+{
+  "notice": "stat flags only; not content hashes; no claims of detector data availability",
+  "files": [
+    {
+      "clip": "clips_0_19.npz",
+      "dataless": false,
+      "blocks": 2744,
+      "bytes": 1403363
+    },
+    {
+      "clip": "clips_0_6.npz",
+      "dataless": false,
+      "blocks": 2736,
+      "bytes": 1399343
+    },
+    {
+      "clip": "clips_0_9.npz",
+      "dataless": false,
+      "blocks": 2704,
+      "bytes": 1383000
+    },
+    {
+      "clip": "clips_10_1.npz",
+      "dataless": false,
+      "blocks": 2744,
+      "bytes": 1404854
+    },
+    {
+      "clip": "clips_10_17.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1395390
+    },
+    {
+      "clip": "clips_10_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1398857
+    },
+    {
+      "clip": "clips_11_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394259
+    },
+    {
+      "clip": "clips_11_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396112
+    },
+    {
+      "clip": "clips_11_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1399558
+    },
+    {
+      "clip": "clips_12_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394534
+    },
+    {
+      "clip": "clips_12_12.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1395101
+    },
+    {
+      "clip": "clips_12_13.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1393705
+    },
+    {
+      "clip": "clips_13_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1397750
+    },
+    {
+      "clip": "clips_13_5.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1398366
+    },
+    {
+      "clip": "clips_13_8.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1400533
+    },
+    {
+      "clip": "clips_14_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1398549
+    },
+    {
+      "clip": "clips_14_10.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396350
+    },
+    {
+      "clip": "clips_14_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394055
+    },
+    {
+      "clip": "clips_15_13.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1385719
+    },
+    {
+      "clip": "clips_15_16.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1386871
+    },
+    {
+      "clip": "clips_15_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391411
+    },
+    {
+      "clip": "clips_16_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391717
+    },
+    {
+      "clip": "clips_16_11.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1386375
+    },
+    {
+      "clip": "clips_16_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1390086
+    },
+    {
+      "clip": "clips_17_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1411679
+    },
+    {
+      "clip": "clips_17_10.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391879
+    },
+    {
+      "clip": "clips_17_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1410745
+    },
+    {
+      "clip": "clips_18_14.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1405474
+    },
+    {
+      "clip": "clips_18_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1419145
+    },
+    {
+      "clip": "clips_18_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409540
+    },
+    {
+      "clip": "clips_19_17.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394435
+    },
+    {
+      "clip": "clips_19_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1384216
+    },
+    {
+      "clip": "clips_19_2.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1387270
+    },
+    {
+      "clip": "clips_1_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409175
+    },
+    {
+      "clip": "clips_1_12.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1402502
+    },
+    {
+      "clip": "clips_1_2.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1403885
+    },
+    {
+      "clip": "clips_20_11.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396270
+    },
+    {
+      "clip": "clips_20_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1395674
+    },
+    {
+      "clip": "clips_20_2.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391347
+    },
+    {
+      "clip": "clips_21_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391982
+    },
+    {
+      "clip": "clips_21_18.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1393212
+    },
+    {
+      "clip": "clips_21_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392830
+    },
+    {
+      "clip": "clips_22_14.npz",
+      "dataless": false,
+      "blocks": 2720,
+      "bytes": 1391838
+    },
+    {
+      "clip": "clips_22_8.npz",
+      "dataless": false,
+      "blocks": 2728,
+      "bytes": 1395903
+    },
+    {
+      "clip": "clips_22_9.npz",
+      "dataless": false,
+      "blocks": 2728,
+      "bytes": 1395059
+    },
+    {
+      "clip": "clips_23_16.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392605
+    },
+    {
+      "clip": "clips_23_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1417561
+    },
+    {
+      "clip": "clips_23_5.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396114
+    },
+    {
+      "clip": "clips_24_10.npz",
+      "dataless": false,
+      "blocks": 2728,
+      "bytes": 1392943
+    },
+    {
+      "clip": "clips_24_11.npz",
+      "dataless": false,
+      "blocks": 2720,
+      "bytes": 1391482
+    },
+    {
+      "clip": "clips_24_18.npz",
+      "dataless": false,
+      "blocks": 2736,
+      "bytes": 1396808
+    },
+    {
+      "clip": "clips_2_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1410639
+    },
+    {
+      "clip": "clips_2_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409424
+    },
+    {
+      "clip": "clips_2_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409724
+    },
+    {
+      "clip": "clips_3_11.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392350
+    },
+    {
+      "clip": "clips_3_12.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391515
+    },
+    {
+      "clip": "clips_3_8.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392901
+    },
+    {
+      "clip": "clips_49_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1406668
+    },
+    {
+      "clip": "clips_49_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409236
+    },
+    {
+      "clip": "clips_49_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1402478
+    },
+    {
+      "clip": "clips_4_10.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1411938
+    },
+    {
+      "clip": "clips_4_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1410456
+    },
+    {
+      "clip": "clips_4_8.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1413859
+    },
+    {
+      "clip": "clips_50_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1389634
+    },
+    {
+      "clip": "clips_50_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1389688
+    },
+    {
+      "clip": "clips_50_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1386900
+    },
+    {
+      "clip": "clips_51_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1389187
+    },
+    {
+      "clip": "clips_51_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1390560
+    },
+    {
+      "clip": "clips_51_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1390898
+    },
+    {
+      "clip": "clips_52_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1405809
+    },
+    {
+      "clip": "clips_52_14.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396531
+    },
+    {
+      "clip": "clips_52_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1388304
+    },
+    {
+      "clip": "clips_53_10.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1384736
+    },
+    {
+      "clip": "clips_53_16.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391040
+    },
+    {
+      "clip": "clips_53_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392633
+    },
+    {
+      "clip": "clips_54_14.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1399630
+    },
+    {
+      "clip": "clips_54_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1402627
+    },
+    {
+      "clip": "clips_54_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1403346
+    },
+    {
+      "clip": "clips_55_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1410610
+    },
+    {
+      "clip": "clips_55_18.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1415903
+    },
+    {
+      "clip": "clips_55_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1403545
+    },
+    {
+      "clip": "clips_56_12.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1398411
+    },
+    {
+      "clip": "clips_56_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1406061
+    },
+    {
+      "clip": "clips_56_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1398489
+    },
+    {
+      "clip": "clips_57_18.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1399600
+    },
+    {
+      "clip": "clips_57_2.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1393879
+    },
+    {
+      "clip": "clips_57_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394926
+    },
+    {
+      "clip": "clips_5_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1386658
+    },
+    {
+      "clip": "clips_5_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394465
+    },
+    {
+      "clip": "clips_5_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1378511
+    },
+    {
+      "clip": "clips_62_13.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392733
+    },
+    {
+      "clip": "clips_62_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1402618
+    },
+    {
+      "clip": "clips_62_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396180
+    },
+    {
+      "clip": "clips_63_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1398134
+    },
+    {
+      "clip": "clips_63_11.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392037
+    },
+    {
+      "clip": "clips_63_17.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396748
+    },
+    {
+      "clip": "clips_64_16.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1403412
+    },
+    {
+      "clip": "clips_64_18.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1407053
+    },
+    {
+      "clip": "clips_64_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1400462
+    },
+    {
+      "clip": "clips_65_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1403197
+    },
+    {
+      "clip": "clips_65_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1395337
+    },
+    {
+      "clip": "clips_65_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1397283
+    },
+    {
+      "clip": "clips_66_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1393964
+    },
+    {
+      "clip": "clips_66_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396737
+    },
+    {
+      "clip": "clips_66_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394373
+    },
+    {
+      "clip": "clips_67_14.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1388018
+    },
+    {
+      "clip": "clips_67_5.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396255
+    },
+    {
+      "clip": "clips_67_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1395433
+    },
+    {
+      "clip": "clips_6_13.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1414831
+    },
+    {
+      "clip": "clips_6_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1419534
+    },
+    {
+      "clip": "clips_6_16.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1417346
+    },
+    {
+      "clip": "clips_72_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1400765
+    },
+    {
+      "clip": "clips_72_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1394580
+    },
+    {
+      "clip": "clips_72_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1389926
+    },
+    {
+      "clip": "clips_74_16.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392533
+    },
+    {
+      "clip": "clips_74_18.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396565
+    },
+    {
+      "clip": "clips_74_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391227
+    },
+    {
+      "clip": "clips_76_12.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1389290
+    },
+    {
+      "clip": "clips_76_17.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1404098
+    },
+    {
+      "clip": "clips_76_5.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392878
+    },
+    {
+      "clip": "clips_77_13.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1389816
+    },
+    {
+      "clip": "clips_77_2.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391477
+    },
+    {
+      "clip": "clips_77_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1390659
+    },
+    {
+      "clip": "clips_7_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409566
+    },
+    {
+      "clip": "clips_7_14.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1402247
+    },
+    {
+      "clip": "clips_7_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1407462
+    },
+    {
+      "clip": "clips_85_12.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1412765
+    },
+    {
+      "clip": "clips_85_15.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409879
+    },
+    {
+      "clip": "clips_85_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1418810
+    },
+    {
+      "clip": "clips_86_12.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1406139
+    },
+    {
+      "clip": "clips_86_16.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1413721
+    },
+    {
+      "clip": "clips_86_6.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1413602
+    },
+    {
+      "clip": "clips_89_10.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391385
+    },
+    {
+      "clip": "clips_89_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1395529
+    },
+    {
+      "clip": "clips_89_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1393571
+    },
+    {
+      "clip": "clips_8_11.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1386681
+    },
+    {
+      "clip": "clips_8_13.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1389220
+    },
+    {
+      "clip": "clips_8_8.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391283
+    },
+    {
+      "clip": "clips_91_1.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1412056
+    },
+    {
+      "clip": "clips_91_13.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1404880
+    },
+    {
+      "clip": "clips_91_18.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1409254
+    },
+    {
+      "clip": "clips_95_14.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392870
+    },
+    {
+      "clip": "clips_95_4.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1391316
+    },
+    {
+      "clip": "clips_95_9.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1396341
+    },
+    {
+      "clip": "clips_96_0.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1423280
+    },
+    {
+      "clip": "clips_96_3.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1414544
+    },
+    {
+      "clip": "clips_96_7.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1408186
+    },
+    {
+      "clip": "clips_9_11.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1392091
+    },
+    {
+      "clip": "clips_9_19.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1412394
+    },
+    {
+      "clip": "clips_9_8.npz",
+      "dataless": true,
+      "blocks": 0,
+      "bytes": 1383884
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "before": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data 2",
+    "bytes": 15011,
+    "inode": 17090019,
+    "device": 16777232,
+    "flags": 64,
+    "sha256": "be86b27a577670a3bfc5380a1ff3c6e900f8c732c3f66dfb578894bcd3cc830c"
+  },
+  "counterpart": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data",
+    "bytes": 15011,
+    "inode": 16242045,
+    "device": 16777232,
+    "flags": 64,
+    "sha256": "be86b27a577670a3bfc5380a1ff3c6e900f8c732c3f66dfb578894bcd3cc830c"
+  },
+  "target": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/vm_snapshot_data 2",
+  "ignored": "app/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data 2\napp/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data\n"
+}

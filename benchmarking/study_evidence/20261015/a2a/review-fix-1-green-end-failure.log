@@ -1,0 +1,6 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: replacement after failed end effect=false
+Session lifecycle operation failed; retry on next event.
+00:00 +1: replacement after failed end effect=true
+Session lifecycle operation failed; retry on next event.
+00:00 +2: All tests passed!

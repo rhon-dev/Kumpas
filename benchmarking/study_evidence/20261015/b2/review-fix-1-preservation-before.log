@@ -1,0 +1,34 @@
+{
+  "baseline": {
+    "initial288": {
+      "count": 288,
+      "mismatches": []
+    },
+    "protected82": {
+      "count": 82,
+      "mismatches": []
+    },
+    "native42": {
+      "count": 42,
+      "mismatches": []
+    },
+    "a3b4": {
+      "count": 4,
+      "mismatches": []
+    },
+    "b1source4": {
+      "count": 4,
+      "mismatches": []
+    },
+    "b1manifest": {
+      "count": 1,
+      "mismatches": []
+    }
+  },
+  "old_evidence_files": 279,
+  "sources": {
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/validation_campaign.py": "bc7c342a768334c3f0c640451af11b05f2839f23c0ea9ce5736512a2a9998019",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py": "4fdae28615d80488ca6d313e1d15f15585e0de45ecc9cb50b9df5247af0381f8"
+  },
+  "authorized_in_initial288": []
+}

@@ -32,6 +32,8 @@ def validate_setup(report, expected_condition=None):
     if not isinstance(report, dict):
         return ["missing run-bound setup"]
     errors = []
+    if report.get("control_status") != "confirmed":
+        errors.append("benchmark start ownership unconfirmed")
     if report.get("storage_state") != "latest_published":
         errors.append("report latest publication unverified")
     if report.get("measurement_status") != "qualified_setup" or report.get("setup_errors") != []:
@@ -51,20 +53,20 @@ def validate_setup(report, expected_condition=None):
         errors.append("invalid setup distance")
     if not finite_number(setup.get("ram_gb")) or not 4 <= setup["ram_gb"] <= 64:
         errors.append("unqualified device RAM")
-    if not isinstance(setup.get("chip"), str) or not re.fullmatch(r"(?:Snapdragon 6[0-9]{2}[A-Za-z]*|Helio G[0-9]{2,3})", setup["chip"]):
+    if not isinstance(setup.get("chip"), str) or setup['chip'] not in SETUP["chip"]:
         errors.append("unqualified device chip")
     if any(setup.get(k) is not True for k in ("setup_verified", "device_verified", "front_camera_verified")):
         errors.append("manual setup/device/front camera verification missing")
     device = report.get("device")
     if not isinstance(device, dict) or not setup.get("device_fingerprint") or setup.get("device_fingerprint") != device.get("fingerprint"):
         errors.append("run setup/device identity mismatch")
-    for key, pattern in (("setup_id", r"[A-Za-z0-9_.:-]{1,128}"), ("apk_sha256", r"[0-9a-f]{64}"),
+    for key, pattern in (("setup_id", UUID.pattern), ("apk_sha256", r"[0-9a-f]{64}"),
                          ("revision", r"[0-9a-f]{40}|[0-9a-f]{64}")):
         if not isinstance(setup.get(key), str) or not re.fullmatch(pattern, setup[key]):
             errors.append("invalid setup " + key)
     if setup.get("thermal_state") not in ("nominal", "fair", "serious", "critical"):
         errors.append("setup thermal state missing")
-    if not isinstance(camera, dict) or camera.get("bound") is not True or camera.get("changed") is not False or camera.get("lens") != "front" or camera.get("selector") != "default_front" or not isinstance(camera.get("camera_id"), str) or camera.get("camera_id") in ("", "unknown"):
+    if not isinstance(camera, dict) or camera.get("bound") is not True or camera.get("changed") is not False or camera.get("lens") != "front" or camera.get("selector") != "default_front" or not isinstance(camera.get("camera_id"), str) or not REPORT["camera"]["camera_id"].fullmatch(camera["camera_id"]):
         errors.append("actual front camera unbound, changed or unverified")
     return errors
 
@@ -116,6 +118,8 @@ def validate_report(report: Any, expected_run_id, require_fps=True):
     if not isinstance(report, dict):
         return ["report must be an object"]
     errors = []
+    if type(report.get('schema_version')) is not int:
+        errors.append('invalid schema_version')
     for field, expected in [("schema_version", 2), ("run_id", expected_run_id),
                             ("package", APP_PACKAGE), ("source", "camerax_analyzer"),
                             ("clock", "elapsedRealtimeNanos")]:
@@ -322,11 +326,25 @@ def read_report(serial, package=APP_PACKAGE):
             errors.append("report device does not match selected serial fingerprint")
     if device["is_emulator"]:
         errors.append("selected serial is an emulator, not physical hardware")
+    build = read_package_build(serial)
+    if not build: errors.append("installed package metadata unavailable")
     if report is not None:
+        report, identity_errors = bind_report_metadata(report, device, build)
+        errors.extend(identity_errors)
         report, unsafe = safe_payload(report, REPORT)
         if unsafe:
             errors.append("unsafe or unsupported report fields rejected")
-    return {"report": report, "device": device, "collection_errors": errors}
+    control = None
+    if isinstance(report, dict) and isinstance(report.get('run_id'), str) and UUID.fullmatch(report['run_id']):
+        try:
+            control = strict_json_loads(adb(serial, 'shell', 'run-as', package, 'cat',
+                                           'files/benchmarks/' + report['run_id'] + '.control.json'))
+        except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
+            errors.append('benchmark control disposition unreadable')
+        if not valid_control(control, report['run_id']):
+            control = None
+            errors.append('benchmark control disposition malformed or unavailable')
+    return {"report": report, "device": device, "build": build, "control": control, "collection_errors": errors}
 
 
 def parser(description=__doc__):
@@ -372,11 +390,57 @@ REPORT.update(complete=bool, physical_fps_gate_pass=bool, device=DEVICE,
     build={'version_code': NUMBER, 'version_name': TEXT, 'debuggable': bool},
     fps={k: RATE for k in ('analyzer', 'selected', 'processed', 'event')}, traces=[TRACE],
     failures={k: NUMBER for k in ('no_signer', 'persistence_failed', 'failure',
-        'IOException', 'IllegalStateException', 'IllegalArgumentException', 'RuntimeException')},
+        'IOException', 'FileNotFoundException', 'SecurityException', 'IllegalStateException', 'IllegalArgumentException', 'RuntimeException')},
     attempts=[{'attempt_id': TEXT, 'attempt_started_ns': NUMBER}],
     outcomes=[{'attempt_id': TEXT, 'code': TEXT, 'at_ns': NUMBER, 'attempt_started_ns': NUMBER}],
     excluded_samples=[{'attempt_id': TEXT, 'reason': TEXT, 'at_ns': NUMBER}],
     setup=SETUP, setup_errors=[TEXT], camera={'lens': TEXT, 'selector': TEXT, 'bound': bool, 'changed': bool, 'camera_id': TEXT})
+# Diagnostic text is a code contract, never a place for exception messages.
+ERROR_CODES = frozenset(('IOException', 'FileNotFoundException', 'IllegalStateException',
+    'IllegalArgumentException', 'RuntimeException', 'SecurityException', 'storage_failed', 'metadata_failed', 'failure'))
+SETUP_CODES = frozenset('setup_missing setup_invalid_field setup_malformed setup_condition_invalid '
+    'setup_lux_invalid setup_background_invalid setup_distance_invalid setup_ram_invalid setup_chip_invalid '
+    'setup_device_mismatch setup_verification_missing setup_identity_invalid setup_apk_identity_invalid '
+    'setup_apk_identity_mismatch setup_apk_identity_unavailable setup_revision_invalid setup_thermal_missing'.split())
+EXCLUDED_CODES = frozenset('attempt_start_outside_window outcome_unbound_attempt outcome_outside_window '
+    'malformed_trace trace_outside_window_or_order ack_outside_window_or_order'.split())
+REPORT['schema_version'] = int
+REPORT['control_status'] = frozenset(('confirmed', 'unconfirmed'))
+REPORT['storage_error'] = ERROR_CODES
+REPORT['model']['metadata_error'] = ERROR_CODES
+REPORT['setup_errors'] = [SETUP_CODES]
+REPORT['excluded_samples'][0]['reason'] = EXCLUDED_CODES
+# Other fixed-contract labels are equally untrusted; identity/device text remains
+# independently compared by the collectors rather than arbitrarily stripped.
+for key, codes in {
+    'package': (APP_PACKAGE,), 'source': ('camerax_analyzer',), 'clock': ('elapsedRealtimeNanos',),
+    'origin': ('analyzer_entry_not_sensor_exposure',),
+    'ui_endpoint': ('post_frame_native_ack_upper_bound_not_physical_display',),
+    'storage_state': ('latest_published', 'immutable_only_latest_unverified', 'publication_failed'),
+    'measurement_status': ('qualified_setup', 'diagnostic'),
+}.items(): REPORT[key] = frozenset(codes)
+REPORT['model']['asset'] = frozenset(('kumpas_50sign.tflite',))
+TRACE['clock'] = frozenset(('elapsedRealtimeNanos',))
+REPORT['outcomes'][0]['code'] = frozenset('success no_signer cancelled timeout camera_error persistence_failed failure censored_at_close'.split())
+for key, codes in {'condition': ('optimal', 'low_light', 'cluttered'),
+    'background': ('plain', 'complex'), 'thermal_state': ('nominal', 'fair', 'serious', 'critical')}.items():
+    SETUP[key] = frozenset(codes)
+REPORT['camera']['lens'] = frozenset(('front', 'back', 'unknown'))
+REPORT['camera']['selector'] = frozenset(('default_front', 'default_back_fallback', 'unknown'))
+# Exact native formats, not arbitrary bounded text. Names require host binding.
+HASH = re.compile(r'[0-9a-f]{64}')
+REVISION = re.compile(r'(?:[0-9a-f]{40}|[0-9a-f]{64})')
+IDENTITY = re.compile(r'[A-Za-z0-9_.:-]{1,128}')
+UUID = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}')
+REPORT['model']['sha256'] = HASH
+DEVICE['apk_sha256'] = SETUP['apk_sha256'] = HASH
+SETUP['revision'] = REVISION
+SETUP['chip'] = frozenset(('Snapdragon 680', 'Helio G80'))
+SETUP['setup_id'] = UUID
+REPORT['camera']['camera_id'] = re.compile(r'camera2-sha256:[0-9a-f]{64}')
+REPORT['run_id'] = TRACE['run_id'] = UUID
+TRACE['attempt_id'] = UUID
+for items in ('attempts', 'outcomes', 'excluded_samples'): REPORT[items][0]['attempt_id'] = UUID
 SUMMARY = {'n': NUMBER, 'p50': NUMBER, 'p95': NUMBER}
 ASSESSMENT: dict[str, Any] = {k: SUMMARY for k in ('event_latency_ms', 'ui_ack_upper_bound_ms',
     'first_analyzer_to_ui_ack_upper_bound_ms', 'collection_interval_ms', 'interpreter_inference_diagnostic_ms')}
@@ -406,6 +470,12 @@ def safe_payload(value, schema) -> tuple[Any, bool]:
             if not bad or isinstance(schema[0], dict):
                 result.append(copied)
         return result, unsafe
+    if isinstance(schema, re.Pattern):
+        return (value, False) if isinstance(value, str) and schema.fullmatch(value) else (None, True)
+    if isinstance(schema, frozenset):
+        return (value, False) if isinstance(value, str) and value in schema else (None, True)
+    if schema is int:
+        return (value, False) if type(value) is int else (None, True)
     valid = (value is None or
              (schema == NUMBER and finite_number(value)) or
              (schema == TEXT and isinstance(value, str) and len(value) <= 256 and '\n' not in value) or
@@ -413,13 +483,84 @@ def safe_payload(value, schema) -> tuple[Any, bool]:
     return (value, False) if valid else (None, True)
 
 
+def bind_report_metadata(report, device, build=None):
+    """Replace untrusted identity labels with selected-host values before retention.
+
+    Formats are only syntax checks. Device names/fingerprints require independent
+    getprop provenance; package version text requires installed package metadata.
+    """
+    if not isinstance(report, dict):
+        return report, []
+    report = dict(report)
+    errors = []
+    if 'device' in report:
+        source = report['device'] if isinstance(report['device'], dict) else {}
+        if not isinstance(report['device'], dict) or set(source) - set(DEVICE):
+            errors.append('unsafe or unsupported report fields rejected')
+        verified = {}
+        for key in ('model', 'manufacturer', 'hardware', 'fingerprint'):
+            trusted = device.get(key)
+            if not isinstance(trusted, str) or not trusted:
+                errors.append('selected device identity unavailable')
+            else:
+                verified[key] = trusted
+                if source.get(key) != trusted:
+                    errors.append('selected device/report identity mismatch')
+        for key in ('sdk_int', 'is_emulator'):
+            if key in source: verified[key] = source[key]
+        report['device'] = verified
+    if isinstance(report.get('setup'), dict):
+        setup = dict(report['setup'])
+        if 'device_fingerprint' in setup:
+            trusted = device.get('fingerprint')
+            if not trusted or setup['device_fingerprint'] != trusted:
+                errors.append('selected device/setup identity mismatch')
+            setup.pop('device_fingerprint', None)
+            if trusted: setup['device_fingerprint'] = trusted
+        report['setup'] = setup
+    name = (build or {}).get('version_name')
+    if not name:
+        errors.append('installed package metadata unavailable')
+    if isinstance(report.get('build'), dict):
+        verified = dict(report['build'])
+        if not name or verified.get('version_name') != name:
+            errors.append('installed package version unavailable or mismatched')
+        verified.pop('version_name', None)
+        if name: verified['version_name'] = name
+        report['build'] = verified
+    elif report.get('source') == 'camerax_analyzer':
+        errors.append('installed package version unavailable or mismatched')
+    return report, errors
+
+
+def read_package_build(serial):
+    try:
+        output = adb(serial, 'shell', 'dumpsys', 'package', APP_PACKAGE)
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
+        return {}
+    names = re.findall(r'^\s*versionName=([^\r\n]+)$', output, re.MULTILINE)
+    return {'version_name': names[0]} if len(names) == 1 else {}
+
+
+def valid_control(control, run_id):
+    return (isinstance(control, dict) and set(control) == {'schema_version', 'run_id', 'status'}
+            and type(control.get('schema_version')) is int and control['schema_version'] == 1
+            and isinstance(control.get('run_id'), str) and UUID.fullmatch(control['run_id']) is not None
+            and control['run_id'] == run_id and isinstance(control.get('status'), str)
+            and control['status'] in ('confirmed', 'unconfirmed'))
+
+
 def log_collection(args, collected, benchmark_type, assessment):
-    report, unsafe = safe_payload(collected.get("report") or {}, REPORT)
+    bound, identity_errors = bind_report_metadata(collected.get('report') or {}, collected.get('device') or {}, collected.get('build'))
+    report, unsafe = safe_payload(bound, REPORT)
     device, device_unsafe = safe_payload(collected.get("device") or {}, DEVICE)
     clean_assessment, assessment_unsafe = safe_payload({k: v for k, v in assessment.items() if k != "rejection_reasons"}, ASSESSMENT)
-    errors = (["collection read rejected"] if collected.get("collection_errors") else []) + assessment["rejection_reasons"]
+    errors = identity_errors + (["collection read rejected"] if collected.get("collection_errors") else []) + assessment["rejection_reasons"]
     if benchmark_type != "interpreter_latency_diagnostic":
         errors.extend(validate_setup(report, args.condition))
+        control = collected.get('control')
+        if not valid_control(control, args.run_id) or control['status'] != 'confirmed':
+            errors.append('authoritative benchmark control disposition missing or unconfirmed')
         if not isinstance(report.get("device"), dict) or report["device"].get("fingerprint") != device.get("fingerprint"):
             errors.append("selected device/report fingerprint mismatch")
         if not isinstance(report.get("setup"), dict) or not device.get("apk_sha256") or report["setup"].get("apk_sha256") != device["apk_sha256"]:

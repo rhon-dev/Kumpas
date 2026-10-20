@@ -1,0 +1,162 @@
+{
+  "event": "end",
+  "label": "jvm-full",
+  "command": [
+    "./gradlew",
+    "--offline",
+    "--console=plain",
+    ":app:testDebugUnitTest",
+    "--rerun",
+    ":app:compileDebugAndroidTestKotlin",
+    "--rerun"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android",
+  "at": "2026-10-18T13:43:50.143474+08:00",
+  "source_manifest": "jvm-full-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "ended_at": "2026-10-18T13:44:16.741042+08:00",
+  "log": "jvm-full.log",
+  "log_sha256": "8a11ae100774a116f1ca57e335f49a10478558c7a77d2c2c15972765dd8fe6cd",
+  "source_changes": [],
+  "xml": [
+    {
+      "suite": "com.kumpas.kumpas_app.ActivityInitializationTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.AttemptBoundaryTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.BenchmarkModeTest",
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.CameraViewOwnershipTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.DataExporterTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.FeatureNormalizerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.FeedbackEngineParityTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.HostStudyFlowTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.MainActivityBoundaryTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.PipelineMetricsTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.PipelineTraceTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.ResourceCleanupTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.RgbaFramePackingTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.SessionDatabaseTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.SessionManagerTest",
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.StudyBackupPolicyTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.kumpas.kumpas_app.VisionInitializationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "totals": {
+    "tests": 170,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "required_executed_tasks": {
+    ":app:testDebugUnitTest": true,
+    ":app:compileDebugAndroidTestKotlin": true
+  }
+}

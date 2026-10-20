@@ -1,0 +1,16 @@
+# A2b F1 replacement subscriber repair
+
+Read controller/a2b-review-1.md in full, original a2b/task-brief.md and current MainActivity/ActivityInitializationTest. Spec and quality NEEDS_CHANGES; A2b not accepted. Parent previously forced162 JVM/zero failures and instrumentation source compile;82protected and8A2a hashes unchanged, but those are pre-fix evidence.
+
+F1 is source-traced, not yet reproduced: successful publication of initialization B inherits A's eventSink before B onListen. New B events capture ownerB/sinkA and pass final checks; B benchmark callback also uses inherited sink. Existing tests set B sink immediately, masking the transition.
+
+Required vertical slice:
+1. Add deterministic actual production initializeResources/event-handler regression: A listened/collecting; B successfully initializes without assigning sink; emit B visibility or prediction through real event handler; drain Handler; A receives nothing. Attach B listener/sink via production-used subscription seam or existing honest test seam; verify new B delivery. Before production change run behavioral RED and save exact failure.
+2. Include reentrant registration: older registration fails after newer owner publishes but before newer listens; A subscriber must not leak into newer events, newer ownership/handles survive and later listener delivers. Early acquisition failure must still preserve viable A listener. Exercise benchmark delivery ownership too where feasible; do not fabricate real BinaryMessenger runtime.
+3. Minimal repair: sever subscriber ownership at new-owner publication before registration, OR bind subscriber owner and enforce at all relevant deliveries. Stale rollback must never clear newer subscriber. Preserve current queued old event, view-owner, subscriber identity fencing and original exception/resource rollback semantics.
+
+Ownership ONLY MainActivity.kt and ActivityInitializationTest.kt unless another exact test is necessary and reported. Do not modify A2a/export/VisionEngine/camera/model/benchmark production. No broad registry redesign. C1 inert-versus-detached and same-registry retry limits remain explicit, not newly solved by clearing shared sink.
+
+Load study-readiness/TDD skills. Sole implementer; create review-fix-1-report.md before edits and append actual command/exits/log after each step. Preserve old reports/logs. Use existing cached JDK17/SDK and shared fcntl lock ~/.hermes/cache/scratch/kumpas-gradle.lock; TMPDIR session scratch. No installations/commits/reset/clean/worktree/emulator/phone/ADB/default stores/training.
+
+Run focused ActivityInitialization/MainActivityBoundary/resource tests, then full JVM plus instrumentation source compile. IMPORTANT: Gradle --rerun applies per task; use :app:testDebugUnitTest --rerun :app:compileDebugAndroidTestKotlin --rerun. Existing a2b runner full mode originally only forced final compile; fix its new execution plumbing if needed without overwriting prior logs, and disclose runner correction. Verify actual test task executed, parse XML counts. Compare82protected and8acceptedA2a hashes, diff check. Return actual tests/change paths/concerns, no acceptance claim. Parent will independently verify and re-review.

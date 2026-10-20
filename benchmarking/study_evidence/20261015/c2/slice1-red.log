@@ -1,0 +1,14 @@
+test_actual_encoded_shape_counts_and_privacy (evaluation.test_legacy_export.LegacyTests.test_actual_encoded_shape_counts_and_privacy) ... FAIL
+
+======================================================================
+FAIL: test_actual_encoded_shape_counts_and_privacy (evaluation.test_legacy_export.LegacyTests.test_actual_encoded_shape_counts_and_privacy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 27, in test_actual_encoded_shape_counts_and_privacy
+    self.assertTrue(result["valid"], result)
+AssertionError: False is not true : {'valid': False, 'diagnostics': [{'code': 'LEGACY_UNSUPPORTED'}]}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

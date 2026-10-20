@@ -1,0 +1,381 @@
+"""Public CLI regression fixtures; these ZIPs are not runnable Android apps."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+import unittest
+import zipfile
+
+TOOL = Path(__file__).with_name('inspect_release.py')
+NAMES = ('gold_standards.bin', 'hand_landmarker.task', 'kumpas_50sign.tflite', 'label_map.json', 'pose_landmarker_lite.task')
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+class ReleaseTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR'))
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self.apk = self.root / 'input.apk'
+        self.config = self.root / 'expect.json'
+        self.out = self.root / 'result.json'
+        self.entries = {'assets/' + n: n.encode() for n in NAMES}
+        self.entries.update({'lib/arm64-v8a/libapp.so': b'app', 'lib/arm64-v8a/libflutter.so': b'flutter'})
+        self.manifest = {'schema_version': 1, 'artifact_kind': 'historical', 'abis': ['arm64-v8a'], 'native_files': sorted(n for n in self.entries if n.startswith('lib/')), 'assets': {}, 'protected': {}}
+        for n in NAMES:
+            rel = 'app/android/app/src/main/assets/' + n
+            p = self.root / rel
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_bytes(n.encode())
+            self.manifest['assets']['assets/' + n] = {'source': rel, 'sha256': digest(n.encode())}
+            self.manifest['protected'][rel] = digest(n.encode())
+        self.zip()
+
+    def zip(self, entries=None):
+        with zipfile.ZipFile(self.apk, 'w') as z:
+            for n, data in (self.entries if entries is None else entries).items():
+                z.writestr(n, data)
+        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
+
+    def run_cli(self, raw=None, output=True, output_root=None):
+        self.config.write_text(json.dumps(self.manifest) if raw is None else raw)
+        cmd = [sys.executable, '-B', '-E', str(TOOL), '--repo-root', str(self.root), '--expectation', str(self.config), '--apk', str(self.apk)]
+        if output:
+            cmd += ['--output-root', str(self.root if output_root is None else output_root), '--output', str(self.out)]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        self.assertEqual(result.stderr, '')
+        payload = json.loads(result.stdout)
+        return result.returncode, payload
+
+    def assert_rejected(self, raw=None):
+        code, report = self.run_cli(raw=raw)
+        self.assertNotEqual(code, 0, report)
+        self.assertEqual(report, {'ok': False, 'error': 'verification_failed'})
+        self.assertFalse(self.out.exists())
+
+    def test_strict_expectation_schema_types_and_independent_asset_binding(self):
+        import copy
+        original = copy.deepcopy(self.manifest)
+        mutations = [
+            lambda m: m.update(schema_version=True),
+            lambda m: m.update(schema_version=1.0),
+            lambda m: m.update(schema_version=2),
+            lambda m: m.update(untrusted='PRIVATE_MARKER'),
+            lambda m: m.pop('apk_sha256'),
+            lambda m: m.update(apk_sha256='x' * 64),
+            lambda m: m.update(artifact_kind='pretend_attested'),
+            lambda m: m.update(abis='arm64-v8a'),
+            lambda m: m.update(abis=[]),
+            lambda m: m.update(abis=['arm64-v8a', 'arm64-v8a']),
+            lambda m: m.update(abis=['PRIVATE_MARKER']),
+            lambda m: m.update(native_files=[]),
+            lambda m: m.update(native_files=['lib/arm64-v8a/../bad.so']),
+            lambda m: m.update(protected={}),
+            lambda m: m['protected'].update({'../private': '0' * 64}),
+            lambda m: m['protected'].update({'bad': False}),
+            lambda m: m.update(assets={}),
+            lambda m: m['assets']['assets/label_map.json'].update(sha256=True),
+            lambda m: m['assets']['assets/label_map.json'].update(source='../private'),
+            lambda m: m['assets']['assets/label_map.json'].update(extra=1),
+            lambda m: m['protected'].pop('app/android/app/src/main/assets/label_map.json'),
+        ]
+        for mutation in mutations:
+            with self.subTest(mutation=mutations.index(mutation)):
+                self.out = self.root / ('mutation-' + str(mutations.index(mutation)) + '.json')
+                self.manifest = copy.deepcopy(original)
+                mutation(self.manifest)
+                self.assert_rejected()
+        self.manifest = original
+        for raw in ['null', '[]', '{', '{"schema_version":NaN}', json.dumps(original)[:-1] + ',"schema_version":1}']:
+            with self.subTest(raw=raw[:20]):
+                self.assert_rejected(raw)
+
+    def test_duplicate_zip_member_rejected_even_when_not_required(self):
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore', UserWarning)
+            with zipfile.ZipFile(self.apk, 'a') as z:
+                z.writestr('unrelated', b'one')
+                z.writestr('unrelated', b'two')
+        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
+        self.assert_rejected()
+
+    def test_zip_ambiguous_names_rejected(self):
+        for i, name in enumerate(['../private', '/absolute', 'assets//foo', 'assets/./foo', 'assets/../foo', 'assets\\foo', 'C:/private', 'assets/%2e/foo', 'assets/Label_map.json', 'lib/arm64-v8a/nested/odd.so']):
+            with self.subTest(name=name):
+                self.out = self.root / ('zip-' + str(i) + '.json')
+                self.zip(dict(self.entries, **{name: b'x'}))
+                self.assert_rejected()
+
+    def test_zip_file_directory_alias_rejected(self):
+        self.zip(dict(self.entries, **{'unrelated': b'x', 'unrelated/child': b'y'}))
+        self.assert_rejected()
+
+    def test_zip_symlink_rejected(self):
+        import stat
+        with zipfile.ZipFile(self.apk, 'a') as z:
+            info = zipfile.ZipInfo('link')
+            info.create_system = 3
+            info.external_attr = (stat.S_IFLNK | 0o777) << 16
+            z.writestr(info, '../private')
+        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
+        self.assert_rejected()
+
+    def test_missing_asset_rejected(self):
+        entries = dict(self.entries)
+        del entries['assets/label_map.json']
+        self.zip(entries)
+        self.assert_rejected()
+
+    def test_wrong_embedded_asset_rejected(self):
+        for i, name in enumerate(NAMES):
+            with self.subTest(name=name):
+                self.out = self.root / ('asset-' + str(i) + '.json')
+                self.zip(dict(self.entries, **{'assets/' + name: b'wrong'}))
+                self.assert_rejected()
+
+    def test_wrong_abi_and_unexpected_native_file_rejected(self):
+        for i, name in enumerate(['lib/x86_64/libflutter.so', 'lib/arm64-v8a/libextra.so']):
+            with self.subTest(name=name):
+                self.out = self.root / ('abi-' + str(i) + '.json')
+                self.zip(dict(self.entries, **{name: b'extra'}))
+                self.assert_rejected()
+
+    def test_missing_native_file_rejected(self):
+        entries = dict(self.entries)
+        del entries['lib/arm64-v8a/libapp.so']
+        self.zip(entries)
+        self.assert_rejected()
+
+    def test_apk_digest_mismatch_rejected(self):
+        self.manifest['apk_sha256'] = '0' * 64
+        self.assert_rejected()
+
+    def test_protected_checkout_mismatch_rejected(self):
+        (self.root / 'app/android/app/src/main/assets/label_map.json').write_bytes(b'changed')
+        self.assert_rejected()
+
+    def test_corrupt_archive_rejected(self):
+        self.apk.write_bytes(b'not a zip')
+        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
+        self.assert_rejected()
+
+    def test_output_escape_rejected(self):
+        outside = tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR'))
+        self.addCleanup(outside.cleanup)
+        self.out = Path(outside.name) / 'escape.json'
+        self.assert_rejected()
+
+    def test_output_existing_preserved(self):
+        self.out.write_bytes(b'sentinel')
+        code, report = self.run_cli()
+        self.assertNotEqual(code, 0, report)
+        self.assertEqual(self.out.read_bytes(), b'sentinel')
+
+    def test_output_symlink_and_parent_symlink_rejected(self):
+        target = self.root / 'target'
+        target.write_bytes(b'sentinel')
+        self.out.symlink_to(target)
+        code, report = self.run_cli()
+        self.assertNotEqual(code, 0, report)
+        self.assertTrue(self.out.is_symlink())
+        self.assertEqual(target.read_bytes(), b'sentinel')
+        alias = self.root / 'alias'
+        alias.symlink_to(self.root, target_is_directory=True)
+        self.out = alias / 'parent-escape.json'
+        self.assert_rejected()
+
+    def test_checkout_source_symlink_rejected(self):
+        source = self.root / 'app/android/app/src/main/assets/label_map.json'
+        target = self.root / 'copied-label'
+        target.write_bytes(source.read_bytes())
+        source.unlink()
+        source.symlink_to(target)
+        self.assert_rejected()
+
+    def test_stdout_only_does_not_write(self):
+        code, report = self.run_cli(output=False)
+        self.assertEqual(code, 0, report)
+        self.assertFalse(self.out.exists())
+
+    def test_expectation_digest_and_checkout_capture_are_bound(self):
+        code, report = self.run_cli()
+        self.assertEqual(code, 0, report)
+        self.assertEqual(report['expectation_sha256'], digest(self.config.read_bytes()))
+        self.assertEqual(report['protected_current_sha256'], self.manifest['protected'])
+        self.assertEqual(report['apk_size_bytes'], self.apk.stat().st_size)
+        self.assertEqual(report['flutter_abis'], ['arm64-v8a'])
+
+    def test_invalid_cli_has_fixed_json_no_argument_echo(self):
+        result = subprocess.run([sys.executable, '-B', '-E', str(TOOL), '--PRIVATE_MARKER'], capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(result.stderr, '')
+        self.assertEqual(json.loads(result.stdout), {'ok': False, 'error': 'verification_failed'})
+
+    def test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot(self):
+        from unittest.mock import patch
+        from benchmarking import inspect_release as tool
+        replacement = self.root / 'replacement.apk'
+        with zipfile.ZipFile(replacement, 'w') as z:
+            for name, data in dict(self.entries, **{'lib/arm64-v8a/libapp.so': b'replaced'}).items():
+                z.writestr(name, data)
+        original = zipfile.ZipFile
+        def replace_then_open(*args, **kwargs):
+            os.replace(replacement, self.apk)
+            return original(*args, **kwargs)
+        with patch.object(tool.zipfile, 'ZipFile', side_effect=replace_then_open):
+            report = tool.inspect(self.root, self.apk, self.manifest)
+        self.assertEqual(report['native_files']['lib/arm64-v8a/libapp.so'], digest(b'app'))
+        self.assertEqual(report['apk_sha256'], self.manifest['apk_sha256'])
+
+    def test_stage_collision_preserves_preexisting_file(self):
+        from unittest.mock import patch
+        from benchmarking import inspect_release as tool
+        stage = self.root / ('.inspect-' + 'a' * 32)
+        stage.write_bytes(b'sentinel')
+        with patch.object(tool.secrets, 'token_hex', return_value='a' * 32):
+            with self.assertRaises(OSError):
+                tool.publish(self.root, self.out, b'{}\n')
+        self.assertEqual(stage.read_bytes(), b'sentinel')
+        self.assertFalse(self.out.exists())
+
+    def test_unsupported_zip_compression_has_safe_error(self):
+        import struct
+        data = bytearray(self.apk.read_bytes())
+        offset = data.index(b'PK\x01\x02')
+        struct.pack_into('<H', data, offset + 10, 99)
+        self.apk.write_bytes(data)
+        self.manifest['apk_sha256'] = digest(data)
+        self.assert_rejected()
+
+    def test_zip_null_filename_rejected(self):
+        self.zip(dict(self.entries, **{'nullX': b'bad'}))
+        self.apk.write_bytes(self.apk.read_bytes().replace(b'nullX', b'null\x00'))
+        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
+        self.assert_rejected()
+
+    def test_publication_fsync_link_and_readback_faults_leave_no_success(self):
+        from unittest.mock import patch
+        from benchmarking import inspect_release as tool
+        for operation in ('fsync', 'link'):
+            with self.subTest(operation=operation):
+                with patch.object(tool.os, operation, side_effect=OSError('PRIVATE_MARKER')):
+                    with self.assertRaises(OSError):
+                        tool.publish(self.root, self.out, b'{}\n')
+                self.assertFalse(self.out.exists())
+                self.assertEqual(list(self.root.glob('.inspect-*')), [])
+        original = os.link
+        def corrupt_before_link(source, destination, **kwargs):
+            fd = os.open(source, os.O_WRONLY, dir_fd=kwargs['src_dir_fd'])
+            try:
+                os.write(fd, b'bad')
+            finally:
+                os.close(fd)
+            return original(source, destination, **kwargs)
+        with patch.object(tool.os, 'link', side_effect=corrupt_before_link):
+            with self.assertRaises(ValueError):
+                tool.publish(self.root, self.out, b'{}\n')
+        self.assertFalse(self.out.exists())
+        self.assertEqual(list(self.root.glob('.inspect-*')), [])
+
+    def _publication_sentinels(self):
+        sentinels = {self.root / '.inspect-preexisting': b'SYNTHETIC STAGE SENTINEL',
+                     self.root / 'prior-result.json': b'SYNTHETIC COMPLETED SENTINEL'}
+        for path, data in sentinels.items():
+            path.write_bytes(data)
+        return sentinels
+
+    def _assert_owned_publication_removed(self, sentinels):
+        self.assertFalse(self.out.exists())
+        self.assertEqual(list(self.root.glob('.inspect-*')), [self.root / '.inspect-preexisting'])
+        for path, data in sentinels.items():
+            self.assertEqual(path.read_bytes(), data)
+
+    def test_second_fsync_after_link_cleans_only_owned_publication(self):
+        from unittest.mock import patch
+        from benchmarking import inspect_release as tool
+        sentinels = self._publication_sentinels()
+        original, calls = os.fsync, []
+        def fail_second(fd):
+            calls.append(fd)
+            if len(calls) == 2:
+                self.assertEqual(self.out.read_bytes(), b'{}\n')
+                self.assertEqual(list(self.root.glob('.inspect-*')), [self.root / '.inspect-preexisting'])
+                raise OSError('PRIVATE_MARKER')
+            return original(fd)
+        with patch.object(tool.os, 'fsync', side_effect=fail_second):
+            with self.assertRaises(OSError):
+                tool.publish(self.root, self.out, b'{}\n')
+        self.assertEqual(len(calls), 2)
+        self._assert_owned_publication_removed(sentinels)
+
+    def test_partial_write_cleans_only_owned_stage(self):
+        import contextlib
+        from unittest.mock import patch
+        from benchmarking import inspect_release as tool
+        sentinels = self._publication_sentinels()
+        original, written = os.fdopen, []
+        @contextlib.contextmanager
+        def partial_stream(fd, mode):
+            with original(fd, mode) as stream:
+                class Partial:
+                    def __getattr__(self, name):
+                        return getattr(stream, name)
+                    def write(self, data):
+                        written.append(stream.write(data[:1]))
+                        stream.flush()
+                        raise OSError('PRIVATE_MARKER')
+                yield Partial()
+        with patch.object(tool.os, 'fdopen', side_effect=partial_stream):
+            with self.assertRaises(OSError):
+                tool.publish(self.root, self.out, b'{}\n')
+        self.assertEqual(written, [1])
+        self._assert_owned_publication_removed(sentinels)
+
+    def test_final_target_open_failure_cleans_only_owned_publication(self):
+        from unittest.mock import patch
+        from benchmarking import inspect_release as tool
+        sentinels = self._publication_sentinels()
+        original, calls = os.open, []
+        def fail_final(path, flags, *args, **kwargs):
+            if path == self.out.name:
+                calls.append(path)
+                self.assertEqual(self.out.read_bytes(), b'{}\n')
+                raise OSError('PRIVATE_MARKER')
+            return original(path, flags, *args, **kwargs)
+        with patch.object(tool.os, 'open', side_effect=fail_final):
+            with self.assertRaises(OSError):
+                tool.publish(self.root, self.out, b'{}\n')
+        self.assertEqual(calls, [self.out.name])
+        self._assert_owned_publication_removed(sentinels)
+
+    def test_fresh_build_label_is_not_source_provenance(self):
+        self.manifest['artifact_kind'] = 'fresh_build'
+        code, report = self.run_cli()
+        self.assertEqual(code, 0, report)
+        for field in ('current_source_build_provenance', 'signature_verified', 'runtime_verified'):
+            self.assertIs(report[field], False)
+
+    def test_case_sensitive_android_resource_names_remain_distinct(self):
+        self.zip(dict(self.entries, **{'res/9N.9.png': b'one', 'res/9n.9.png': b'two'}))
+        code, report = self.run_cli()
+        self.assertEqual(code, 0, report)
+
+    def test_output_root_must_be_an_existing_directory_not_target(self):
+        code, report = self.run_cli(output_root=self.out)
+        self.assertNotEqual(code, 0, report)
+        self.assertFalse(self.out.exists())
+
+    def test_valid_explicit_expectations_publish_bound_report(self):
+        code, report = self.run_cli()
+        self.assertEqual(code, 0, report)
+        self.assertEqual(report['apk_sha256'], self.manifest['apk_sha256'])
+        self.assertFalse(report['current_source_build_provenance'])
+        self.assertEqual(json.loads(self.out.read_text()), report)
+
+if __name__ == '__main__':
+    unittest.main()

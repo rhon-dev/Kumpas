@@ -1,0 +1,21 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: practice entry and duplicate resume share one pending start
+00:00 +1: leave immediately after cached resume is not lost behind completed work
+00:00 +1 -1: leave immediately after cached resume is not lost behind completed work [E]
+  Expected: ['startSession', 'endSession']
+    Actual: ['startSession']
+     Which: at location [1] is ['startSession'] which shorter than expected
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/session_lifecycle_race_test.dart 64:5          main.<fn>
+  
+00:00 +1 -1: fire-and-forget startSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:00 +2 -1: fire-and-forget endSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:00 +3 -1: leave while start pending eventually ends owned session
+00:00 +4 -1: paused while start pending eventually ends owned session
+00:00 +5 -1: hidden while start pending eventually ends owned session
+00:00 +6 -1: detached while start pending eventually ends owned session
+00:00 +7 -1: Some tests failed.

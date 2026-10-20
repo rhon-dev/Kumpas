@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.SessionManagerTest" tests="42" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:30:09.082Z" hostname="Ahrons-MacBook-Pro.local" time="0.692">
+  <properties/>
+  <testcase name="clearAllData_failedDeletionPreservesUnrelatedDirectoryContentsAndCanRetry" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.031"/>
+  <testcase name="pauseTimeoutKeepsSessionUntilExactlySixtySeconds" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.012"/>
+  <testcase name="ignoredAssessmentInsertMustNotSucceed" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.012"/>
+  <testcase name="clearAllData_redirectedExportDirectoryMustNotDeleteUnrelatedFiles" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.015"/>
+  <testcase name="clearAllData_databaseFailureAfterFileRemovalIsHonestAndRetryable" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.02"/>
+  <testcase name="clearAllData_removesRealMigrationAndPreventsReimportOnReopen" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.024"/>
+  <testcase name="onResume_cancelsPendingAutoClose" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.012"/>
+  <testcase name="migration_withNoLegacyFileIsANoOp" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.016"/>
+  <testcase name="participantId_isAStableUuid" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.014"/>
+  <testcase name="saveAssessment_isReadableBackForTheParticipant" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.011"/>
+  <testcase name="recordAttempt_startsASessionWhenNoneIsActive" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.015"/>
+  <testcase name="onPause_autoClosesSessionAfterTimeout" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.014"/>
+  <testcase name="migration_runsOnlyOnce" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.019"/>
+  <testcase name="failedInitializationClosesOnlyItsOwnDatabaseOnParticipantAndMigrationFaults" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.022"/>
+  <testcase name="init_registersParticipantRowExactlyOnce" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.019"/>
+  <testcase name="clearAllData_checksFreshParticipantPersistenceBeforeReportingSuccess" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.018"/>
+  <testcase name="clearAllData_failedPreferenceCommitIsHonestAndRetryable" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.019"/>
+  <testcase name="endSession_clearsActiveSessionAndPersistsSummary" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.015"/>
+  <testcase name="ignoredSessionInsertFailsWithoutCachingIdentity" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.013"/>
+  <testcase name="endSession_withoutActiveSessionIsANoOp" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.009"/>
+  <testcase name="closeCancelsTimerAndClosesOwnedHelperEvenWhenSessionSummaryFails" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.013"/>
+  <testcase name="ignoredMigrationInsertRollsBackAndRetainsSourceForRetry" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.018"/>
+  <testcase name="sessionRecoversUnclosedSessionOnRestart" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.013"/>
+  <testcase name="onPause_withoutActiveSessionSchedulesNothing" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.012"/>
+  <testcase name="clearAllData_wipesRowsEndsSessionAndRotatesParticipant" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.017"/>
+  <testcase name="clearAllData_preservesNonExportNamesAndModelDataAcrossBothRoots" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.017"/>
+  <testcase name="ignoredAttemptInsertMustNotSucceed" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.013"/>
+  <testcase name="clearAllData_redirectedManagedFileNeverDeletesItsTarget" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.014"/>
+  <testcase name="historyJson_spansMultipleSessionsNewestFirst" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.011"/>
+  <testcase name="recordAttempt_linksAttemptToActiveSession" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.011"/>
+  <testcase name="clearAllData_cannotListExternalStorageFailsClosed" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.012"/>
+  <testcase name="clearAllData_unavailableExternalStorageFailsWithoutClaimingSuccess" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.019"/>
+  <testcase name="clearAllData_removesActualExportsAndMigrationResidueAcrossRoots" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.019"/>
+  <testcase name="recordAttempt_preservesFieldsThroughHistoryJson" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.01"/>
+  <testcase name="repeatedPauseThenResumeCannotCloseForegroundOrReplacementSession" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.012"/>
+  <testcase name="startSession_twiceClosesThePreviousSession" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.013"/>
+  <testcase name="migration_importsLegacyJsonlIntoALegacySession" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.065"/>
+  <testcase name="startSession_returnsIdAndMarksItActive" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.015"/>
+  <testcase name="ignoredParticipantInsertMustNotSucceed" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.014"/>
+  <testcase name="repeatedPauseThenCloseRemovesEveryPendingCallback" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.014"/>
+  <testcase name="managerOperations_shareTheManagerMonitor" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.015"/>
+  <testcase name="participantId_persistsAcrossManagerInstances" classname="com.kumpas.kumpas_app.SessionManagerTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

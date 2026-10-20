@@ -1,0 +1,96 @@
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... 
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='bool') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='str') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='NoneType') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='dict') ... FAIL
+  test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='int') ... FAIL
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... FAIL
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='str')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='NoneType')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='dict')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) (value_type='int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 21, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 25, in test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking
+    with self.assertRaisesRegex(ValueError, '^INVALID_METRICS$'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=10)

@@ -1,0 +1,260 @@
+test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) ... 
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=0) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=1) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=2) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=3) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=4) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=5) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=6) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=8) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=9) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=10) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=11) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=12) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=13) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=0) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=1) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=2) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=3) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=4) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=5) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=6) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=8) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=9) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=10) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=11) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=12) ... FAIL
+  test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=13) ... FAIL
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='preflight', field='command', case=13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 376, in assert_bad_field
+    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+AssertionError: {'error_code': 'fixture_invalid'} != {'error_code': 'producer_ledger_mismatch'}
+- {'error_code': 'fixture_invalid'}
++ {'error_code': 'producer_ledger_mismatch'}
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+======================================================================
+FAIL: test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) (action='bundle', field='command', case=13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 374, in assert_bad_field
+    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+AssertionError: 0 != 2 : malformed ledger must not succeed
+
+----------------------------------------------------------------------
+Ran 1 test in 0.404s
+
+FAILED (failures=26)

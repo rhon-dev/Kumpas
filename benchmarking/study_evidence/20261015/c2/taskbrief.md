@@ -1,0 +1,11 @@
+# C2 Research/QA task brief
+
+Implement the owner-approved host11 legacy-export validation and host12 synthetic descriptive subset of Package C. Inputs are explicit synthetic files only for execution. App/native/Dart/training/B1/B2/C1 and historical artifacts are read-only. No participant stores, devices, inference, installs, rubric scoring, inferential statistics, commits or guessed approvals.
+
+## Source-audited acceptance
+
+The current assessment UI saves required integer 1–5 fslConfidence and signsKnown (an ordinal self-report, NOT a sign count), optional ageGroup and gender, and post ten integer 1–5 susScores plus optional string openFeedback. Empty feedback is now permitted; the older discovery finding is superseded by A1. No approved human instrument, rater, allocation, withdrawal or missingness policy exists in this input scope.
+
+SessionDatabase schema v1 exports UUID participant/session identities, integer database assessment/attempt IDs, integer timestamps, JSON-encoded responses and feedback_items strings. No schema version appears in legacy exports. Validate exact field types, UUID relations, duplicates, explicit pre/post labels, encoded JSON duplicate keys and nonfinite numbers, UI-defined response ranges, independently computed root counts. Session running summaries are potentially stale while active: do not require closed-session counts on active rows or infer a phase from time/order. Missing optional responses remain absent, never zero.
+
+Acceptance requires public behavior RED→GREEN per vertical slice; privacy-safe fixed codes and record indexes only; synthetic counts/completeness/explicit pair availability and known field frequencies only. Duplicate phases remain ambiguous, unmatched phases remain unmatched; never select newest. CLI requires explicit root/input/output label/source declaration, exclusive contained no-symlink output and readback before success manifest. Real-export validation capability is not authorization to execute on participant data. Execute valid and invalid synthetic CLI plus independent hash/count verification. Snapshot preexisting inventory/protected82 before/after; report remaining decisions and independent-review requirement.

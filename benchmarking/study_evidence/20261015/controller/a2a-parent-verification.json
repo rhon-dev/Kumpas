@@ -1,0 +1,28 @@
+{
+  "source_hashes": {
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt": "9dd3812de9e0d1088ef0c9286909411e906d96b4c5d1963241873fd39bb5dc0b",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt": "aa6bb10fd6d06e8eb29eea4efa39bbafed0c760e91b3727d41eb2b7d88db0f21",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt": "cff582459305ac62e7f6726b6426a5c48b5aab6b864a17bb37ddb3a3684f4d89",
+    "app/lib/session/session_repository.dart": "886b136046d3e05a93430a6c51ec5067c4f0af91a17241dac82f5d3a1b61c655",
+    "app/lib/session/session_lifecycle.dart": "e032bd57cff644b8aeeb8cdfca58bfd0b3e9a8a6c8dae35810a097fb6ab93d74",
+    "app/test/session_clear_test.dart": "db091bed4a8ffa02446095363218db053beb9f72a931a79600df5c200e9cd902",
+    "app/test/session_lifecycle_race_test.dart": "31ab20c45ad874b5d31e6c0c38bae20246648393e101a850269b488e689d3a26",
+    "app/test/session_repository_race_test.dart": "d758fdbab528cd785845a4c7b02be7e8b7c2fcf90c5b604a6f24b7b0533d7532"
+  },
+  "targeted_jvm": {
+    "tests": 64,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "full_flutter_tests": 67,
+  "analyze": "No issues found",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "logs": [
+    "a2a/parent-jvm-1.log",
+    "a2a/parent-analyze-1.log",
+    "a2a/parent-full-flutter-1.log"
+  ],
+  "scope": "Host A2a only;review pending"
+}

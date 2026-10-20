@@ -1,0 +1,23 @@
+{
+  "frameworkVersion": "3.41.6",
+  "channel": "stable",
+  "repositoryUrl": "https://github.com/flutter/flutter.git",
+  "frameworkRevision": "db50e20168db8fee486b9abf32fc912de3bc5b6a",
+  "frameworkCommitDate": "2026-03-25 16:21:00 -0700",
+  "engineRevision": "425cfb54d01a9472b3e81d9e76fd63a4a44cfbcb",
+  "engineCommitDate": "2026-03-25 20:14:42.000Z",
+  "engineContentHash": "5cdd32777948fa7a648fac915f8da7120ac7e97a",
+  "engineBuildDate": "2026-03-25 13:38:44.157",
+  "dartSdkVersion": "3.11.4",
+  "devToolsVersion": "2.54.2",
+  "flutterVersion": "3.41.6",
+  "flutterRoot": "/opt/homebrew/share/flutter"
+}
+openjdk version "17.0.18" 2026-01-20
+OpenJDK Runtime Environment Homebrew (build 17.0.18+0)
+OpenJDK 64-Bit Server VM Homebrew (build 17.0.18+0, mixed mode, sharing)
+ProductName:		macOS
+ProductVersion:		26.6
+BuildVersion:		25G5057c
+8589934592
+8

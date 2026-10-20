@@ -1,0 +1,8 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart
+00:00 +0: hung late stop deadline disposed=false completion=pending
+00:00 +1: hung late stop deadline disposed=false completion=success
+00:00 +2: hung late stop deadline disposed=false completion=error
+00:00 +3: hung late stop deadline disposed=true completion=pending
+00:00 +4: hung late stop deadline disposed=true completion=success
+00:00 +5: hung late stop deadline disposed=true completion=error
+00:00 +6: All tests passed!

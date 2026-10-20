@@ -1,0 +1,5 @@
+Analyzing app...                                                
+
+   info • Unnecessary use of multiple underscores • lib/session/session_repository.dart:32:38 • unnecessary_underscores
+
+1 issue found. (ran in 2.1s)

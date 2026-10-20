@@ -1,0 +1,867 @@
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
+@@ -34,6 +34,7 @@
+         val resources = mutableListOf<() -> Unit>()
+         val registrations = mutableListOf<() -> Unit>()
+         var released = false
++        var exportDatabase: (() -> SessionDatabase)? = null
+     }
+     private var initialization: Initialization? = null
+     internal fun isCurrent(owner: Initialization) = initialization === owner && !owner.released
+@@ -55,90 +56,92 @@
+             })
+             val control = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "kumpas/control")
+             cleanup { control.setMethodCallHandler(null) }
+-            control.setMethodCallHandler { call, result ->
+-                synchronized(pipelineLock) {
+-                    if (!isCurrent(owner)) {
+-                        result.error("CONTROL_FAILED", "Activity initialization is no longer current", null)
+-                        return@synchronized
+-                    }
+-                    try {
+-                        when (call.method) {
+-                            "getLabels" -> result.success(visionEngine!!.labelsJson())
+-                            "startAttempt" -> {
+-                                check(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+-                                    "Camera permission denied"
+-                                }
+-                                val target = requireNotNull(call.argument<Int>("classId")) { "Missing target class" }
+-                                val id = attempts.start(target)
+-                                pendingTrace = null
+-                                val startNs = SystemClock.elapsedRealtimeNanos()
+-                                visionEngine!!.startAttempt(target, id)
+-                                benchmarkMode?.recordAttemptStart(id, startNs)
+-                                result.success(id)
+-                            }
+-                            "cancelAttempt" -> {
+-                                val id = call.argument<String>("attemptId")
+-                                cancelCapture(id, call.argument<String>("outcome") ?: "cancelled")
+-                                result.success(null)
+-                            }
+-                            "feedbackPresented" -> {
+-                                val id = requireNotNull(call.argument<String>("attemptId")) { "Missing attempt identity" }
+-                                val trace = pendingTrace
+-                                if (trace != null && trace.attemptId == id && attempts.acknowledge(id)) {
+-                                    trace.acknowledged(SystemClock.elapsedRealtimeNanos())
+-                                    benchmarkMode?.recordTrace(trace.toJson())
+-                                    pendingTrace = null
+-                                }
+-                                result.success(null)
+-                            }
+-                            "getHistory" -> result.success(sessionManager!!.historyJson())
+-                            "startSession" -> result.success(sessionManager!!.startSession())
+-                            "endSession" -> {
+-                                sessionManager!!.endSession()
+-                                result.success(null)
+-                            }
+-                            "getActiveSession" -> result.success(sessionManager!!.getActiveSessionId())
+-                            "saveAssessment" -> {
+-                                sessionManager!!.saveAssessment(
+-                                    requireNotNull(call.argument<String>("type")),
+-                                    requireNotNull(call.argument<String>("responses")))
+-                                result.success(null)
+-                            }
+-                            "getAssessments" -> result.success(sessionManager!!.getAssessments())
+-                            "exportData" -> {
+-                                val database = SessionDatabase(applicationContext)
+-                                try {
+-                                    result.success(dataExporter!!.export(sessionManager!!.participantId, database))
+-                                } finally {
+-                                    database.close()
+-                                }
+-                            }
+-                            "clearAllData" -> {
+-                                // Invalidate before purge, including when purge reports partial failure.
+-                                cancelCapture(null, "cancelled")
+-                                sessionManager!!.clearAllData()
+-                                result.success(null)
+-                            }
+-                            "getParticipantId" -> result.success(sessionManager!!.participantId)
+-                            "startBenchmark" -> result.success(benchmarkMode!!.start(call.argument<Int>("durationSeconds") ?: 60))
+-                            "confirmBenchmarkStart" -> result.success(benchmarkMode!!.confirmStart(requireNotNull(call.argument<String>("runId"))))
+-                            "stopBenchmark" -> result.success(benchmarkMode!!.stop(requireNotNull(call.argument<String>("runId")) { "Missing run identity" }))
+-                            "getBenchmarkReport" -> result.success(benchmarkMode!!.reportFor(requireNotNull(call.argument<String>("runId")) { "Missing run identity" }))
+-                            "isBenchmarkActive" -> result.success(benchmarkMode!!.isActive)
+-                            else -> result.notImplemented()
++            control.setMethodCallHandler(controlHandler(owner))
++            registerCameraView(flutterEngine.platformViewsController.registry, owner)
++        }
++    }
++
++    internal fun controlHandler(owner: Initialization) = MethodChannel.MethodCallHandler { call, result ->
++        synchronized(pipelineLock) {
++            if (!isCurrent(owner)) {
++                result.error("CONTROL_FAILED", "Activity initialization is no longer current", null)
++                return@synchronized
++            }
++            try {
++                when (call.method) {
++                    "getLabels" -> result.success(visionEngine!!.labelsJson())
++                    "startAttempt" -> {
++                        check(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
++                            "Camera permission denied"
+                         }
+-                    } catch (error: Exception) {
+-                        val code = when (call.method) {
+-                            "clearAllData" -> "CLEAR_FAILED"
+-                            "exportData" -> "EXPORT_FAILED"
+-                            "startAttempt" -> "CAMERA_ERROR"
+-                            else -> "CONTROL_FAILED"
++                        val target = requireNotNull(call.argument<Int>("classId")) { "Missing target class" }
++                        val id = attempts.start(target)
++                        pendingTrace = null
++                        val startNs = SystemClock.elapsedRealtimeNanos()
++                        visionEngine!!.startAttempt(target, id)
++                        benchmarkMode?.recordAttemptStart(id, startNs)
++                        result.success(id)
++                    }
++                    "cancelAttempt" -> {
++                        val id = call.argument<String>("attemptId")
++                        cancelCapture(id, call.argument<String>("outcome") ?: "cancelled")
++                        result.success(null)
++                    }
++                    "feedbackPresented" -> {
++                        val id = requireNotNull(call.argument<String>("attemptId")) { "Missing attempt identity" }
++                        val trace = pendingTrace
++                        if (trace != null && trace.attemptId == id && attempts.acknowledge(id)) {
++                            trace.acknowledged(SystemClock.elapsedRealtimeNanos())
++                            benchmarkMode?.recordTrace(trace.toJson())
++                            pendingTrace = null
+                         }
+-                        result.error(code, error.message, null)
+-                    }
+-                }
+-            }
+-            registerCameraView(flutterEngine.platformViewsController.registry, owner)
++                        result.success(null)
++                    }
++                    "getHistory" -> result.success(sessionManager!!.historyJson())
++                    "startSession" -> result.success(sessionManager!!.startSession())
++                    "endSession" -> {
++                        sessionManager!!.endSession()
++                        result.success(null)
++                    }
++                    "getActiveSession" -> result.success(sessionManager!!.getActiveSessionId())
++                    "saveAssessment" -> {
++                        sessionManager!!.saveAssessment(
++                            requireNotNull(call.argument<String>("type")),
++                            requireNotNull(call.argument<String>("responses")))
++                        result.success(null)
++                    }
++                    "getAssessments" -> result.success(sessionManager!!.getAssessments())
++                    "exportData" -> {
++                        val database = checkNotNull(owner.exportDatabase) { "Export database acquisition not configured" }.invoke()
++                        try {
++                            result.success(dataExporter!!.export(sessionManager!!.participantId, database))
++                        } finally {
++                            database.close()
++                        }
++                    }
++                    "clearAllData" -> {
++                        // Invalidate before purge, including when purge reports partial failure.
++                        cancelCapture(null, "cancelled")
++                        sessionManager!!.clearAllData()
++                        result.success(null)
++                    }
++                    "getParticipantId" -> result.success(sessionManager!!.participantId)
++                    "startBenchmark" -> result.success(benchmarkMode!!.start(call.argument<Int>("durationSeconds") ?: 60))
++                    "confirmBenchmarkStart" -> result.success(benchmarkMode!!.confirmStart(requireNotNull(call.argument<String>("runId"))))
++                    "stopBenchmark" -> result.success(benchmarkMode!!.stop(requireNotNull(call.argument<String>("runId")) { "Missing run identity" }))
++                    "getBenchmarkReport" -> result.success(benchmarkMode!!.reportFor(requireNotNull(call.argument<String>("runId")) { "Missing run identity" }))
++                    "isBenchmarkActive" -> result.success(benchmarkMode!!.isActive)
++                    else -> result.notImplemented()
++                }
++            } catch (error: Exception) {
++                val code = when (call.method) {
++                    "clearAllData" -> "CLEAR_FAILED"
++                    "exportData" -> "EXPORT_FAILED"
++                    "startAttempt" -> "CAMERA_ERROR"
++                    else -> "CONTROL_FAILED"
++                }
++                result.error(code, error.message, null)
++            }
+         }
+     }
+ 
+@@ -172,6 +175,7 @@
+             val exporter = factory.exporter()
+             val benchmark = factory.benchmark().also { owner.resources.add(it.release) }
+             val vision = factory.vision().also { owner.resources.add(it.release) }
++            owner.exportDatabase = factory::exportDatabase
+             initialization = owner
+             // Publication revokes the displaced subscription before registration can reenter.
+             // Early acquisition failures above still preserve the viable owner's listener.
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt
+@@ -6,6 +6,8 @@
+ internal interface ActivityResourceFactory {
+     fun session(): OwnedNative<SessionManager>
+     fun exporter(): DataExporter?
++    /** Transfers a fresh helper. Injected factories must opt in; never fall back to default stores. */
++    fun exportDatabase(): SessionDatabase = error("Export database acquisition not configured")
+     fun benchmark(): OwnedNative<BenchmarkMode>
+     fun vision(): OwnedNative<VisionEngine>
+ }
+@@ -22,6 +24,7 @@
+         return OwnedNative(value) { value.close() }
+     }
+     override fun exporter() = DataExporter(context)
++    override fun exportDatabase() = SessionDatabase(context)
+     override fun benchmark(): OwnedNative<BenchmarkMode> {
+         val value = BenchmarkMode(context, onBenchmark)
+         return OwnedNative(value) { if (value.isActive) value.finish(); Unit }
+--- a/app/android/app/build.gradle.kts
++++ b/app/android/app/build.gradle.kts
+@@ -35,6 +35,12 @@
+     testOptions {
+         // Robolectric needs the merged manifest + resources on the test classpath
+         unitTests.isIncludeAndroidResources = true
++        unitTests.all {
++            it.systemProperty("kumpas.hostSourceRoot", rootProject.projectDir.parentFile.parentFile.absolutePath)
++            providers.gradleProperty("kumpas.hostFixtureDir").orNull?.let { destination ->
++                it.systemProperty("kumpas.hostFixtureDir", destination)
++            }
++        }
+     }
+ 
+     buildTypes {
+--- a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostArtifactRun.kt
++++ b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostArtifactRun.kt
+@@ -0,0 +1,85 @@
++package com.kumpas.kumpas_app
++
++import org.json.JSONArray
++import org.json.JSONObject
++import java.io.File
++import java.nio.file.Files
++import java.nio.file.LinkOption.NOFOLLOW_LINKS
++import java.nio.file.StandardOpenOption.CREATE_NEW
++import java.nio.file.StandardOpenOption.WRITE
++import java.security.MessageDigest
++import java.util.UUID
++
++/** Versioned TEST handoff publisher, not a production benchmark schema or consumer. */
++internal class HostArtifactRun(destination: File, private val sourceRoot: File) {
++    companion object {
++        const val SCHEMA = 1
++        fun sha(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
++        fun freshDestination(): File = System.getProperty("kumpas.hostFixtureDir")?.let(::File)
++            ?: File(Files.createTempDirectory(File(checkNotNull(System.getenv("TMPDIR"))).toPath(), "host-handoff-").toFile(), "output")
++        fun sourceRoot() = File(checkNotNull(System.getProperty("kumpas.hostSourceRoot")) { "Missing Gradle source root" })
++    }
++    val runId = UUID.randomUUID().toString()
++    val root: File
++    private val artifacts = linkedMapOf<String, JSONObject>()
++    private val sourceHashes: Map<String, String>
++    private var published = false
++    init {
++        require(destination.isAbsolute && destination.toPath().normalize() == destination.toPath()) { "Absolute normalized destination required" }
++        var ancestor: File? = destination
++        while (ancestor != null) { require(!Files.isSymbolicLink(ancestor.toPath())) { "Symlink destination" }; ancestor = ancestor.parentFile }
++        require(destination.parentFile!!.isDirectory) { "Destination parent missing" }
++        require(!Files.exists(destination.toPath(), NOFOLLOW_LINKS)) { "Refusing pre-existing destination" }
++        require(destination.mkdir()) { "Cannot reserve destination" }
++        root = File(destination, runId)
++        check(root.mkdir())
++        sourceHashes = sources()
++    }
++    private fun sources(): Map<String, String> {
++        val inputs = listOf("app/android/app/src/main/kotlin", "app/android/app/src/test/kotlin").flatMap { directory ->
++            val base = File(sourceRoot, directory)
++            check(base.isDirectory) { "Missing source directory" }
++            base.walkTopDown().filter { it.isFile && it.extension == "kt" }.toList()
++        } + File(sourceRoot, "app/android/app/build.gradle.kts")
++        check(inputs.isNotEmpty())
++        return inputs.sortedBy { it.path }.associate { file ->
++            check(file.canonicalPath.startsWith(sourceRoot.canonicalPath + File.separator))
++            file.relativeTo(sourceRoot).invariantSeparatorsPath to sha(file.readBytes())
++        }
++    }
++    fun write(name: String, bytes: ByteArray, kind: String, identity: String) {
++        check(!published) { "Already published" }
++        require(name.matches(Regex("[a-z0-9][a-z0-9.-]*")) && name !in setOf("manifest.json", "failure.log")) { "Invalid artifact path" }
++        require(kind in setOf("study", "event", "export", "benchmark_report", "benchmark_control", "benchmark_index")) { "Invalid artifact kind" }
++        require(identity == "study" || identity in setOf("confirmed", "unconfirmed", "faulted")) { "Invalid artifact identity" }
++        require(!artifacts.containsKey(name)) { "Duplicate artifact" }
++        val file = File(root, name)
++        Files.write(file.toPath(), bytes, CREATE_NEW, WRITE)
++        check(file.readBytes().contentEquals(bytes))
++        artifacts[name] = JSONObject().put("path", name).put("sha256", sha(bytes)).put("bytes", bytes.size).put("kind", kind).put("identity", identity)
++    }
++    fun publish(required: Set<String>, scenarios: JSONObject): File {
++        check(!published)
++        require(required.isNotEmpty() && artifacts.keys == required) { "Missing or unexpected artifacts" }
++        check(root.listFiles()!!.map { it.name }.toSet() == required) { "Unexpected output" }
++        check(sources() == sourceHashes) { "Stale source snapshot" }
++        artifacts.forEach { (name, record) ->
++            val file = File(root, name)
++            check(Files.isRegularFile(file.toPath(), NOFOLLOW_LINKS) && sha(file.readBytes()) == record.getString("sha256")) { "Missing or tampered artifact" }
++        }
++        val manifest = JSONObject().put("test_schema_version", SCHEMA).put("run_id", runId)
++            .put("synthetic_origin", true).put("producer_outcome", "success")
++            .put("transport", "host-native-callable-and-handler; later consumer transport is mocked")
++            .put("source_hashes", JSONObject(sourceHashes)).put("source_hash_stage", "JVM runtime snapshot; runner independently compares before compile and after execution")
++            .put("artifacts", JSONArray(artifacts.values.toList())).put("scenarios", scenarios)
++        val file = File(root, "manifest.json")
++        val bytes = manifest.toString(2).toByteArray(Charsets.UTF_8)
++        Files.write(file.toPath(), bytes, CREATE_NEW, WRITE)
++        check(file.readBytes().contentEquals(bytes))
++        published = true
++        return file
++    }
++    fun failure(error: Throwable) {
++        if (!published) Files.write(File(root, "failure.log").toPath(), error.stackTraceToString().toByteArray(), CREATE_NEW, WRITE)
++    }
++}
+--- a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFixture.kt
++++ b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFixture.kt
+@@ -0,0 +1,112 @@
++package com.kumpas.kumpas_app
++
++import android.content.Context
++import android.content.ContextWrapper
++import android.content.SharedPreferences
++import android.database.DatabaseErrorHandler
++import android.database.sqlite.SQLiteDatabase
++import io.flutter.plugin.common.EventChannel
++import org.robolectric.RuntimeEnvironment
++import java.io.ByteArrayInputStream
++import java.io.File
++import java.nio.file.Files
++import java.util.UUID
++
++/** Real isolated SQLite/preferences/files; fake native handles, no camera or inference. */
++internal class HostStudyFixture : AutoCloseable {
++    val root: File = Files.createTempDirectory(File(checkNotNull(System.getenv("TMPDIR"))).toPath(), "host-study-").toFile()
++    val namespace = "host_study_${UUID.randomUUID()}"
++    val external = child("external")
++    val internal = child("internal")
++    val preferences = child("preferences")
++    var externalAvailable = true
++    var failExport = false
++    val helpers = mutableListOf<SessionDatabase>()
++    val opened = mutableListOf<SQLiteDatabase>()
++    private val prefs = mutableMapOf<String, SharedPreferences>()
++    private val managers = mutableListOf<SessionManager>()
++    private val engines = mutableListOf<VisionEngine>()
++    private val benchmarks = mutableListOf<BenchmarkMode>()
++    private var disposed = false
++    val events = mutableListOf<String>()
++    val activity = MainActivity()
++    val owner = MainActivity.Initialization()
++    var exportAcquisitions = 0
++    private fun child(name: String): File = File(root, name).apply { check(mkdirs()); contained(this) }
++    fun contained(file: File): File {
++        check(file.canonicalPath.startsWith(root.canonicalPath + File.separator)) { "Fixture path escaped root" }
++        check(file.absoluteFile.toPath().normalize() == file.canonicalFile.toPath()) { "Fixture symlink" }
++        return file
++    }
++    val context = object : ContextWrapper(RuntimeEnvironment.getApplication()) {
++        override fun getApplicationContext(): Context = this
++        override fun getFilesDir() = internal
++        override fun getExternalFilesDir(type: String?): File? = if (externalAvailable) external else null
++        override fun getExternalFilesDirs(type: String?): Array<File> = if (externalAvailable) arrayOf(external) else emptyArray()
++        override fun getDatabasePath(name: String): File {
++            require(name.matches(Regex("[A-Za-z0-9_.-]+")))
++            return contained(File(root, "databases/$name")).apply { parentFile!!.mkdirs() }
++        }
++        override fun openOrCreateDatabase(name: String, mode: Int, factory: SQLiteDatabase.CursorFactory?): SQLiteDatabase =
++            openOrCreateDatabase(name, mode, factory, null)
++        override fun openOrCreateDatabase(name: String, mode: Int, factory: SQLiteDatabase.CursorFactory?, handler: DatabaseErrorHandler?): SQLiteDatabase =
++            SQLiteDatabase.openDatabase(getDatabasePath(name).path, factory, SQLiteDatabase.CREATE_IF_NECESSARY, handler).also { opened.add(it) }
++        override fun deleteDatabase(name: String) = SQLiteDatabase.deleteDatabase(getDatabasePath(name))
++        override fun getSharedPreferences(name: String, mode: Int): SharedPreferences = prefs.getOrPut(name) {
++            require(name.matches(Regex("[A-Za-z0-9_.-]+")))
++            // Actual Android preference implementation, explicitly file-scoped. No application preference API.
++            val constructor = Class.forName("android.app.SharedPreferencesImpl").getDeclaredConstructor(File::class.java, Int::class.javaPrimitiveType)
++            constructor.isAccessible = true
++            constructor.newInstance(contained(File(preferences, "${namespace}_$name.xml")), mode) as SharedPreferences
++        }
++    }
++    fun database(): SessionDatabase = SessionDatabase(context).also { helpers.add(it); opened.add(it.writableDatabase) }
++    fun manager(): SessionManager = SessionManager(context) { database() }.also { managers.add(it) }
++    val factory = object : ActivityResourceFactory {
++        override fun session(): OwnedNative<SessionManager> { val value = manager(); return OwnedNative(value) { value.close() } }
++        override fun exporter() = DataExporter(context, object : ExportPublication() {
++            override fun open(file: File): java.io.OutputStream {
++                if (failExport) throw java.io.IOException("synthetic export fault")
++                return super.open(file)
++            }
++        })
++        override fun benchmark(): OwnedNative<BenchmarkMode> {
++            val value = BenchmarkMode(context).also { benchmarks.add(it) }
++            return OwnedNative(value) { if (value.isActive) value.finish(); Unit }
++        }
++        override fun vision(): OwnedNative<VisionEngine> {
++            val value = VisionEngine(context, resourceFactory = object : VisionResourceFactory {
++                override fun pose() = OwnedNative<com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker>(null) {}
++                override fun hand() = OwnedNative<com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarker>(null) {}
++                override fun interpreter(model: java.nio.ByteBuffer) = OwnedNative<org.tensorflow.lite.Interpreter>(null) {}
++                override fun asset(name: String) = ByteArrayInputStream(if (name.endsWith("json")) "{\"0\":{\"label\":\"SYNTHETIC\"}}".toByteArray() else byteArrayOf(1))
++            }, onResult = {}).also { engines.add(it) }
++            return OwnedNative(value) { value.close() }
++        }
++        override fun exportDatabase(): SessionDatabase { exportAcquisitions++; return database() }
++    }
++    fun initialize() = activity.initializeResources(factory, owner) {
++        MainActivity::class.java.getDeclaredField("eventSink").apply { isAccessible = true }.set(activity, object : EventChannel.EventSink {
++            override fun success(event: Any?) { events.add(event as String) }
++            override fun error(code: String, message: String?, details: Any?) { error("Unexpected event error: $code") }
++            override fun endOfStream() {}
++        })
++    }
++    fun reloadPreferences() { prefs.clear() } // next manager reads committed isolated XML through a new real prefs instance
++    fun closeOwners() = completeCleanup(listOf<() -> Unit>({
++        val current = MainActivity::class.java.getDeclaredField("initialization").apply { isAccessible = true }.get(activity)
++        if (current != null) {
++            try {
++                MainActivity::class.java.getDeclaredMethod("releaseInitialization", MainActivity.Initialization::class.java, Throwable::class.java)
++                    .apply { isAccessible = true }.invoke(activity, current, null)
++            } catch (wrapped: java.lang.reflect.InvocationTargetException) { throw wrapped.targetException }
++        }
++    }) + managers.map { manager -> { manager.close() } } + engines.map { engine -> { engine.close() } } +
++        benchmarks.map { benchmark -> { if (benchmark.isActive) benchmark.finish(); Unit } } + helpers.map { helper -> { helper.close() } })
++    override fun close() {
++        if (disposed) return
++        disposed = true
++        completeCleanup(listOf<() -> Unit>({ closeOwners() }) + opened.map { database -> { if (database.isOpen) database.close() } } +
++            prefs.values.map { preferences -> { check(preferences.edit().clear().commit()) } } + listOf({ check(root.deleteRecursively()) }))
++    }
++}
+--- a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFlowTest.kt
++++ b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFlowTest.kt
+@@ -0,0 +1,122 @@
++package com.kumpas.kumpas_app
++
++import io.flutter.plugin.common.MethodCall
++import io.flutter.plugin.common.MethodChannel
++import org.junit.Assert.*
++import org.junit.Test
++import org.junit.runner.RunWith
++import org.robolectric.RobolectricTestRunner
++import org.robolectric.annotation.Config
++
++@RunWith(RobolectricTestRunner::class)
++@Config(sdk = [34])
++class HostStudyFlowTest {
++    private fun handler(activity: MainActivity, owner: MainActivity.Initialization): MethodChannel.MethodCallHandler {
++        return activity.controlHandler(owner)
++    }
++    private class Reply : MethodChannel.Result {
++        var code: String? = null
++        var message: String? = null
++        var value: Any? = null
++        var replies = 0
++        override fun success(result: Any?) { replies++; value = result }
++        override fun error(errorCode: String, message: String?, details: Any?) { replies++; code = errorCode; this.message = message }
++        override fun notImplemented() { replies++; code = "NOT_IMPLEMENTED" }
++    }
++    @Test fun actualControlExportUsesOnlyExplicitFixtureDatabaseAndClosesTemporaryHelper() {
++        HostStudyFixture().use { fixture ->
++            fixture.initialize()
++            val control = handler(fixture.activity, fixture.owner)
++            val assessment = Reply()
++            control.onMethodCall(MethodCall("saveAssessment", mapOf("type" to "pre", "responses" to "{\"synthetic\":true}")), assessment)
++            assertNull(assessment.code)
++            val reply = Reply()
++            control.onMethodCall(MethodCall("exportData", null), reply)
++            assertNull("Export must acquire the fixture helper, never Activity.applicationContext: ${reply.code}", reply.code)
++            val exported = fixture.contained(java.io.File(reply.value as String))
++            val payload = org.json.JSONObject(exported.readText())
++            assertEquals(1, payload.getJSONArray("assessments").length())
++            assertEquals(1, fixture.exportAcquisitions)
++            assertFalse(fixture.opened.last().isOpen)
++        }
++    }
++
++    @Test fun omittedExportAcquisitionFailsClosedWithoutDefaultStoreFallback() {
++        HostStudyFixture().use { f ->
++            val factory = object : ActivityResourceFactory {
++                override fun session() = f.factory.session()
++                override fun exporter() = f.factory.exporter()
++                override fun benchmark() = f.factory.benchmark()
++                override fun vision() = f.factory.vision()
++                // Deliberately omit exportDatabase: the default must fail, never use application stores.
++            }
++            f.activity.initializeResources(factory, f.owner) {}
++            val control = f.activity.controlHandler(f.owner)
++            val reply = Reply()
++            control.onMethodCall(MethodCall("exportData", null), reply)
++            assertEquals(1, reply.replies)
++            assertEquals("EXPORT_FAILED", reply.code)
++            assertEquals("Export database acquisition not configured", reply.message)
++            assertEquals(0, f.exportAcquisitions)
++            assertEquals(1, f.helpers.size) // only the explicitly isolated manager helper
++            val newer = MainActivity.Initialization()
++            f.activity.initializeResources(f.factory, newer) {}
++            val stale = Reply()
++            control.onMethodCall(MethodCall("startSession", null), stale)
++            assertEquals("CONTROL_FAILED", stale.code)
++            assertNull(stale.value)
++        }
++    }
++
++    @Test fun executedStudyAndBenchmarkProducer() {
++        val manifest = HostStudyProducer.execute()
++        assertEquals("success", org.json.JSONObject(manifest.readText()).getString("producer_outcome"))
++    }
++
++    @Test fun publisherRejectsExistingEscapingDuplicateMissingTamperedAndStaleOutput() {
++        HostStudyFixture().use { f ->
++            val sources = java.io.File(f.root, "source-fixture").apply { mkdir() }
++            for (name in listOf("main", "test")) java.io.File(sources, "app/android/app/src/$name/kotlin").mkdirs()
++            val source = java.io.File(sources, "app/android/app/src/main/kotlin/Synthetic.kt").apply { writeText("synthetic source digest fixture") }
++            java.io.File(sources, "app/android/app/build.gradle.kts").writeText("synthetic gradle digest fixture")
++            val destination = java.io.File(f.root, "output")
++            val run = HostArtifactRun(destination, sources)
++            assertThrows(IllegalArgumentException::class.java) { HostArtifactRun(destination, sources) }
++            assertThrows(IllegalArgumentException::class.java) { HostArtifactRun(java.io.File(f.root, "../escape"), sources) }
++            val link = java.io.File(f.root, "link")
++            java.nio.file.Files.createSymbolicLink(link.toPath(), f.internal.toPath())
++            assertThrows(IllegalArgumentException::class.java) { HostArtifactRun(java.io.File(link, "escape"), sources) }
++            assertThrows(IllegalArgumentException::class.java) { run.write("../escape", byteArrayOf(1), "study", "study") }
++            assertThrows(IllegalArgumentException::class.java) { run.write("bad.json", byteArrayOf(1), "unknown", "study") }
++            assertThrows(IllegalArgumentException::class.java) { run.write("bad.json", byteArrayOf(1), "study", "unknown") }
++            run.write("study.json", "synthetic".toByteArray(), "study", "study")
++            assertThrows(IllegalArgumentException::class.java) { run.write("study.json", byteArrayOf(1), "study", "study") }
++            assertThrows(IllegalArgumentException::class.java) { run.publish(setOf("missing.json"), org.json.JSONObject()) }
++            val artifact = java.io.File(run.root, "study.json")
++            artifact.writeText("tampered")
++            assertThrows(IllegalStateException::class.java) { run.publish(setOf("study.json"), org.json.JSONObject()) }
++            artifact.delete()
++            assertThrows(IllegalStateException::class.java) { run.publish(setOf("study.json"), org.json.JSONObject()) }
++            artifact.writeText("synthetic")
++            source.writeText("changed after snapshot")
++            assertThrows(IllegalStateException::class.java) { run.publish(setOf("study.json"), org.json.JSONObject()) }
++            assertFalse(java.io.File(run.root, "manifest.json").exists())
++            source.writeText("synthetic source digest fixture")
++            val manifest = run.publish(setOf("study.json"), org.json.JSONObject())
++            val decoded = org.json.JSONObject(manifest.readText())
++            assertEquals(1, decoded.get("test_schema_version"))
++            assertEquals(run.runId, decoded.getString("run_id"))
++            assertEquals(HostArtifactRun.sha(artifact.readBytes()), decoded.getJSONArray("artifacts").getJSONObject(0).getString("sha256"))
++            assertThrows(IllegalStateException::class.java) { run.publish(setOf("study.json"), org.json.JSONObject()) }
++            assertThrows(IllegalStateException::class.java) { run.write("later.json", byteArrayOf(1), "study", "study") }
++        }
++    }
++
++    @Test fun staleControlOwnerFailsThroughProductionCallableWithoutDefaultStores() {
++        val reply = Reply()
++        handler(MainActivity(), MainActivity.Initialization()).onMethodCall(MethodCall("getParticipantId", null), reply)
++        assertEquals(1, reply.replies)
++        assertEquals("CONTROL_FAILED", reply.code)
++        assertNull(reply.value)
++    }
++}
+--- a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyProducer.kt
++++ b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyProducer.kt
+@@ -0,0 +1,309 @@
++package com.kumpas.kumpas_app
++
++import android.os.Looper
++import android.os.SystemClock
++import io.flutter.plugin.common.MethodCall
++import io.flutter.plugin.common.MethodChannel
++import org.json.JSONArray
++import org.json.JSONObject
++import org.junit.Assert.*
++import org.robolectric.Shadows.shadowOf
++import java.io.File
++import java.time.Duration
++import java.util.UUID
++
++/** Executed host fixture. All terminal inputs are constructed, never recognized/inferred. */
++internal object HostStudyProducer {
++    private class Reply : MethodChannel.Result {
++        var value: Any? = null
++        var code: String? = null
++        var replies = 0
++        override fun success(result: Any?) { replies++; value = result }
++        override fun error(errorCode: String, message: String?, details: Any?) { replies++; code = errorCode }
++        override fun notImplemented() { replies++; code = "NOT_IMPLEMENTED" }
++    }
++    private fun rows(db: SessionDatabase, table: String): JSONArray {
++        require(table in setOf("participants", "sessions", "attempts", "assessments"))
++        val result = JSONArray()
++        db.readableDatabase.rawQuery("SELECT * FROM $table ORDER BY id", null).use { cursor ->
++            while (cursor.moveToNext()) result.put(JSONObject().apply {
++                cursor.columnNames.forEachIndexed { i, name -> put(name, when (cursor.getType(i)) {
++                    android.database.Cursor.FIELD_TYPE_NULL -> JSONObject.NULL
++                    android.database.Cursor.FIELD_TYPE_INTEGER -> cursor.getLong(i)
++                    android.database.Cursor.FIELD_TYPE_FLOAT -> cursor.getDouble(i)
++                    else -> cursor.getString(i)
++                }) }
++            })
++        }
++        return result
++    }
++    private fun snapshot(db: SessionDatabase) = JSONObject().apply {
++        for (table in listOf("participants", "sessions", "attempts", "assessments")) put(table, rows(db, table))
++    }
++    private fun syntheticResult(id: String, label: String): String {
++        val start = SystemClock.elapsedRealtimeNanos()
++        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(100))
++        return JSONObject().put("state", "attempt_result").put("attemptId", id)
++            .put("targetClass", 0).put("targetLabel", label).put("predictedLabel", label)
++            .put("predictedConfidence", 0.9).put("recognizedAsTarget", true).put("overallMatch", 0.8)
++            .put("items", JSONArray().put(JSONObject().put("dimension", "handshape").put("severity", 0.25).put("hand", "right").put("prompt", "SYNTHETIC feedback")))
++            .put("timing", JSONObject().put("first_analyzer_ns", start + 10_000_000)
++                .put("final_analyzer_ns", start + 50_000_000).put("native_result_ns", start + 75_000_000)
++                .put("attempt_started_ns", start).put("inference_ms", 1)).toString()
++    }
++    private fun emit(activity: MainActivity, json: String) = MainActivity::class.java.getDeclaredMethod("handleVisionEvent", String::class.java)
++        .apply { isAccessible = true }.invoke(activity, json)
++    private fun drain() = shadowOf(Looper.getMainLooper()).idle()
++
++    fun execute(): File {
++        val run = HostArtifactRun(HostArtifactRun.freshDestination(), HostArtifactRun.sourceRoot())
++        try {
++            val study = study(run)
++            val benchmark = benchmarks(run)
++            val required = setOf("study.json", "attempt-event.json", "external-export.json", "internal-export.json", "reopened-export.json",
++                "benchmark-index.json", "confirmed-report.json", "confirmed-control.json", "unconfirmed-report.json", "unconfirmed-control.json", "faulted-report.json")
++            val manifest = run.publish(required, JSONObject().put("study", study).put("benchmark_modes", benchmark))
++            println("HOST_STUDY_FIXTURE_ROOT ${run.root.absolutePath}")
++            println("HOST_STUDY_FIXTURE_MANIFEST ${manifest.absolutePath}")
++            return manifest
++        } catch (error: Throwable) { run.failure(error); throw error }
++    }
++    private fun study(run: HostArtifactRun): JSONObject {
++        val envelope = JSONObject().put("test_schema_version", HostArtifactRun.SCHEMA).put("run_id", run.runId)
++            .put("scenario_id", UUID.randomUUID().toString()).put("synthetic_origin", true)
++            .put("execution_boundary", "Real MainActivity callable, Handler/EventSink, SessionManager/SQLite/export/purge; no messenger, camera, detector or inference")
++            .put("attempt_setup", "Direct production AttemptBoundary.start because bare Activity has no permission context; terminal handler is real")
++            .put("history_correlation", "Unique synthetic target/predicted labels + class/confidence/match + exact row counts; no durable attempt UUID column")
++        HostStudyFixture().use { f ->
++            // Explicitly exercise both database-open overloads and canonical containment.
++            assertSame(f.context, f.context.applicationContext)
++            f.context.openOrCreateDatabase("overload-three.db", 0, null).use { assertEquals(f.context.getDatabasePath("overload-three.db").canonicalPath, File(it.path).canonicalPath) }
++            f.context.openOrCreateDatabase("overload-four.db", 0, null, null).use { assertEquals(f.context.getDatabasePath("overload-four.db").canonicalPath, File(it.path).canonicalPath) }
++            f.initialize()
++            var control = f.activity.controlHandler(f.owner)
++            val calls = JSONArray()
++            var stage = "initialized"
++            fun call(method: String, args: Map<String, Any?>? = null, error: String? = null): Any? {
++                val reply = Reply()
++                control.onMethodCall(MethodCall(method, args), reply)
++                assertEquals("$stage/$method replies", 1, reply.replies)
++                assertEquals("$stage/$method error", error, reply.code)
++                calls.put(JSONObject().put("stage", stage).put("method", method).put("arguments", args?.let { JSONObject(it.toMutableMap()) } ?: JSONObject.NULL)
++                    .put("response", reply.value ?: JSONObject.NULL).put("error_code", reply.code ?: JSONObject.NULL))
++                return reply.value
++            }
++            val participant = call("getParticipantId") as String
++            UUID.fromString(participant)
++            val session = call("startSession") as String
++            assertEquals(session, call("getActiveSession"))
++            call("saveAssessment", mapOf("type" to "pre", "responses" to "{\"synthetic\":true,\"stage\":\"pre\"}"))
++            val probe = f.database()
++            probe.writableDatabase.execSQL("CREATE TRIGGER synthetic_assessment_fault BEFORE INSERT ON assessments BEGIN SELECT RAISE(ABORT, 'synthetic'); END")
++            call("saveAssessment", mapOf("type" to "post", "responses" to "{\"synthetic\":true}"), "CONTROL_FAILED")
++            assertEquals(1, rows(probe, "assessments").length())
++            probe.writableDatabase.execSQL("DROP TRIGGER synthetic_assessment_fault")
++            call("saveAssessment", mapOf("type" to "post", "responses" to "{\"synthetic\":true,\"stage\":\"post\"}"))
++            assertEquals(2, JSONArray(call("getAssessments") as String).length())
++            val attempts = MainActivity::class.java.getDeclaredField("attempts").apply { isAccessible = true }.get(f.activity) as AttemptBoundary
++            stage = "one-terminal"
++            val id = attempts.start(0)
++            val input = syntheticResult(id, "SYNTHETIC_PRIMARY")
++            emit(f.activity, input)
++            assertEquals(1, rows(probe, "attempts").length()) // persistence precedes posted delivery
++            assertTrue(f.events.isEmpty())
++            drain()
++            assertEquals(1, f.events.size)
++            val event = JSONObject(f.events.single())
++            assertEquals("attempt_result", event.getString("state"))
++            assertEquals(id, event.getString("attemptId"))
++            assertEquals("SYNTHETIC_PRIMARY", event.getString("targetLabel"))
++            assertEquals(1, event.getJSONArray("items").length())
++            val feedback = event.getJSONArray("items").getJSONObject(0)
++            assertTrue("Synthetic feedback must satisfy the existing consumer's numeric severity contract", feedback.get("severity") is Number)
++            assertTrue(feedback.get("hand") is String)
++            assertTrue(feedback.get("prompt") is String)
++            assertTrue(event.getJSONObject("timing").getLong("event_delivery_ns") >= event.getJSONObject("timing").getLong("native_result_ns"))
++            run.write("attempt-event.json", f.events.single().toByteArray(), "event", "study")
++            call("feedbackPresented", mapOf("attemptId" to id))
++            call("feedbackPresented", mapOf("attemptId" to id)) // accepted ACK is once-only
++            assertNull(MainActivity::class.java.getDeclaredField("pendingTrace").apply { isAccessible = true }.get(f.activity))
++            emit(f.activity, input)
++            drain()
++            assertEquals(1, rows(probe, "attempts").length())
++            assertEquals(1, f.events.size)
++            val staleId = attempts.start(0)
++            val stale = syntheticResult(staleId, "SYNTHETIC_STALE")
++            call("cancelAttempt", mapOf("attemptId" to staleId))
++            emit(f.activity, stale)
++            drain()
++            assertEquals(1, rows(probe, "attempts").length())
++            assertEquals(1, f.events.size)
++            val history = call("getHistory") as String
++            assertEquals(1, JSONArray(history).length())
++            assertFalse(JSONArray(history).getJSONObject(0).has("attemptId"))
++            assertEquals(event.getString("targetLabel"), JSONArray(history).getJSONObject(0).getString("targetLabel"))
++            envelope.put("primary", JSONObject().put("attempt_id", id).put("input_event", input).put("delivered_event", f.events.single())
++                .put("history", history).put("independent_rows", snapshot(probe)).put("duplicate_event_count", f.events.size).put("stale_terminal_rows", (0 until rows(probe, "attempts").length()).count { rows(probe, "attempts").getJSONObject(it).getString("target_label") == "SYNTHETIC_STALE" }))
++            // Foreign participant with actual data exposes accidental global export counts.
++            val foreign = UUID.randomUUID().toString()
++            val foreignSession = UUID.randomUUID().toString()
++            probe.insertParticipant(foreign, "SYNTHETIC", "host")
++            probe.insertSession(foreignSession, foreign)
++            probe.insertAttempt(foreignSession, 1, 1, "SYNTHETIC_FOREIGN", "SYNTHETIC_FOREIGN", 0.7, true, 0.6, "[]")
++            probe.insertAssessment(foreign, "pre", "{\"synthetic\":true}")
++            stage = "export-before-queued-terminal"
++            val external = f.contained(File(call("exportData") as String))
++            assertEquals(f.external.canonicalFile, external.parentFile!!.canonicalFile)
++            val externalBytes = external.readBytes()
++            f.externalAvailable = false
++            val internal = f.contained(File(call("exportData") as String))
++            assertEquals(File(f.internal, "exports").canonicalFile, internal.parentFile!!.canonicalFile)
++            val internalBytes = internal.readBytes()
++            f.externalAvailable = true
++            for (bytes in listOf(externalBytes, internalBytes)) {
++                val export = JSONObject(bytes.toString(Charsets.UTF_8))
++                assertEquals(participant, export.getJSONObject("metadata").getString("participant_id"))
++                assertEquals(1, export.getJSONObject("summary").getInt("total_attempts"))
++                assertEquals(1, export.getJSONObject("summary").getInt("total_sessions"))
++                assertEquals(2, export.getJSONObject("summary").getInt("total_assessments"))
++                assertEquals(session, export.getJSONArray("sessions").getJSONObject(0).getString("id"))
++                assertEquals("SYNTHETIC_PRIMARY", export.getJSONArray("sessions").getJSONObject(0).getJSONArray("attempts").getJSONObject(0).getString("target_label"))
++                assertFalse(bytes.toString(Charsets.UTF_8).contains("SYNTHETIC_FOREIGN"))
++            }
++            envelope.put("export_stage_independent_rows", snapshot(probe))
++            run.write("external-export.json", externalBytes, "export", "study")
++            run.write("internal-export.json", internalBytes, "export", "study")
++            f.failExport = true
++            call("exportData", error = "EXPORT_FAILED")
++            assertFalse(f.opened.last().isOpen)
++            assertArrayEquals(externalBytes, external.readBytes())
++            assertArrayEquals(internalBytes, internal.readBytes())
++            f.failExport = false
++            stage = "persist-then-replace-before-handler-drain"
++            val queuedId = attempts.start(0)
++            emit(f.activity, syntheticResult(queuedId, "SYNTHETIC_QUEUED"))
++            assertEquals(3, rows(probe, "attempts").length())
++            val replacementAttemptId = attempts.start(0) // same explicitly declared direct boundary setup, no inference
++            call("cancelAttempt", mapOf("attemptId" to queuedId)) // stale cancellation must not cancel the replacement
++            assertTrue(attempts.canDeliver(replacementAttemptId))
++            drain()
++            assertEquals(1, f.events.size)
++            assertEquals(3, rows(probe, "attempts").length())
++            envelope.put("queued_persistence", JSONObject().put("independent_rows", snapshot(probe)).put("delivered_event_count", f.events.size)
++                .put("replacement_attempt_id", replacementAttemptId)
++                .put("ordering", "commit terminal; direct AttemptBoundary replacement; stale cancel via production control; drain Handler: committed row survives, stale UI suppressed")
++                .put("linked_coverage", "MainActivityBoundaryTest.queuedViewEventsCannotReachReplacementOrNewSubscriber; ActivityInitializationTest.failedInitializationQueuedEventCannotCrossRetryEvenWithSameSubscriber"))
++            val sentinel = File(f.internal, "keep.txt").apply { writeText("keep-internal") }
++            val externalSentinel = File(f.external, "keep.json").apply { writeText("keep-external") }
++            val legacy = listOf("attempt_history.jsonl", "attempt_history.jsonl.migrated").map { File(f.internal, it).apply { writeText("synthetic residue") } }
++            val blocked = File(internal.parentFile, "kumpas_export_blocked_20261016.json").apply { check(mkdir()) }
++            val blockedSentinel = File(blocked, "keep").apply { writeText("not traversed") }
++            stage = "partial-purge-failure"
++            call("clearAllData", error = "CLEAR_FAILED")
++            assertFalse(external.exists())
++            assertTrue(legacy.none { it.exists() })
++            assertEquals("not traversed", blockedSentinel.readText())
++            assertEquals(3, rows(probe, "attempts").length())
++            envelope.put("partial_clear", JSONObject().put("external_export_exists", external.exists()).put("internal_export_exists", internal.exists())
++                .put("legacy_exists", JSONArray(legacy.map { it.exists() })).put("independent_rows", snapshot(probe)).put("error_code", "CLEAR_FAILED"))
++            check(blockedSentinel.delete()); check(blocked.delete()) // remove only synthetic fault, then actual purge retry
++            stage = "clear-retry"
++            call("clearAllData")
++            val replacement = call("getParticipantId") as String
++            assertNotEquals(participant, replacement)
++            assertEquals("[]", call("getHistory"))
++            assertEquals("[]", call("getAssessments"))
++            assertNull(call("getActiveSession"))
++            assertFalse(external.exists()); assertFalse(internal.exists()); assertTrue(legacy.none { it.exists() })
++            assertEquals("keep-internal", sentinel.readText()); assertEquals("keep-external", externalSentinel.readText())
++            val cleared = snapshot(probe)
++            assertEquals(1, cleared.getJSONArray("participants").length())
++            for (table in listOf("attempts", "sessions", "assessments")) assertEquals(0, cleared.getJSONArray(table).length())
++            envelope.put("clear", JSONObject().put("old_participant_id", participant).put("participant_id", replacement).put("independent_rows", cleared)
++                .put("both_export_roots_purged", true).put("legacy_purged", true).put("unrelated_sentinels_survived", true))
++            f.closeOwners()
++            assertTrue(f.opened.none { it.isOpen })
++            f.reloadPreferences()
++            val reopenedOwner = MainActivity.Initialization()
++            f.activity.initializeResources(f.factory, reopenedOwner) {}
++            control = f.activity.controlHandler(reopenedOwner)
++            stage = "reopened"
++            assertEquals(replacement, call("getParticipantId"))
++            assertEquals("[]", call("getHistory")); assertEquals("[]", call("getAssessments"))
++            val reopenedProbe = f.database()
++            val reopened = snapshot(reopenedProbe)
++            assertEquals(1, reopened.getJSONArray("participants").length())
++            val emptyExport = File(call("exportData") as String).readBytes()
++            assertEquals(0, JSONObject(emptyExport.toString(Charsets.UTF_8)).getJSONObject("summary").getInt("total_attempts"))
++            assertEquals(0, JSONObject(emptyExport.toString(Charsets.UTF_8)).getJSONArray("sessions").length())
++            assertEquals(0, JSONObject(emptyExport.toString(Charsets.UTF_8)).getJSONArray("assessments").length())
++            run.write("reopened-export.json", emptyExport, "export", "study")
++            envelope.put("reopen", JSONObject().put("participant_id", replacement).put("independent_rows", reopened))
++            envelope.put("control_calls", calls).put("delivered_events", JSONArray(f.events))
++        }
++        run.write("study.json", envelope.toString(2).toByteArray(), "study", "study")
++        return JSONObject().put("scenario_id", envelope.getString("scenario_id")).put("outcome", "passed").put("primary_result_count", 1)
++    }
++
++    private fun benchmarks(run: HostArtifactRun): JSONArray {
++        val index = JSONArray()
++        for (mode in listOf("confirmed", "unconfirmed", "faulted")) HostStudyFixture().use { f ->
++            val apk = File(f.internal, "synthetic.apk").apply { writeText("synthetic APK bytes") }
++            val context = object : android.content.ContextWrapper(f.context) {
++                override fun getApplicationContext(): android.content.Context = this
++                override fun getApplicationInfo() = android.content.pm.ApplicationInfo(f.context.applicationInfo).apply { sourceDir = apk.absolutePath; splitSourceDirs = null }
++            }
++            val setup = JSONObject().put("setup_id", UUID.randomUUID().toString()).put("condition", "optimal").put("lux", 400)
++                .put("background", "plain").put("distance_cm", 75).put("device_fingerprint", android.os.Build.FINGERPRINT)
++                .put("chip", "Snapdragon 680").put("ram_gb", 4).put("setup_verified", true).put("device_verified", true)
++                .put("front_camera_verified", true).put("apk_sha256", HostArtifactRun.sha(apk.readBytes())).put("revision", "b".repeat(40)).put("thermal_state", "nominal")
++            File(f.internal, "benchmarks/next_setup.json").apply { parentFile!!.mkdirs(); writeText(setup.toString()) }
++            val benchmark = BenchmarkMode(context)
++            try {
++                benchmark.recordCamera("default_front", "front", true, "synthetic-front")
++                val id = benchmark.start(60)
++                val companion = File(f.internal, "benchmarks/$id.control.json")
++                repeat(60) { second ->
++                    repeat(30) { benchmark.recordAnalyzer() }
++                    if (second == 1) {
++                        val ns = SystemClock.elapsedRealtimeNanos()
++                        val attemptId = UUID.randomUUID().toString()
++                        benchmark.recordAttemptStart(attemptId, ns)
++                        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(100))
++                        benchmark.recordTrace(PipelineTrace(attemptId, ns, ns + 50_000_000, ns + 75_000_000, 1_000_000, ns).toJson().put("event_delivery_ns", ns + 100_000_000))
++                        benchmark.recordOutcome(attemptId, "success")
++                        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(900))
++                    } else if (second == 29) {
++                        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(999))
++                        if (mode == "faulted") { check(companion.delete()); check(companion.mkdir()); File(companion, "sentinel").writeText("unchanged") }
++                        if (mode != "unconfirmed") assertEquals(mode == "confirmed", benchmark.confirmStart(id))
++                        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(1))
++                    } else shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(1))
++                }
++                val reportFile = File(f.internal, "benchmarks/$id.json")
++                val bytes = reportFile.readBytes() // exact immutable native publication; never reconstructed
++                val report = JSONObject(bytes.toString(Charsets.UTF_8))
++                assertEquals(id, report.getString("run_id"))
++                assertTrue(report.getBoolean("complete"))
++                assertEquals(1800, report.getInt("analyzer_count"))
++                assertEquals(if (mode == "confirmed") "confirmed" else "unconfirmed", report.getString("control_status"))
++                val companionBytes = if (companion.isFile) companion.readBytes() else null
++                if (mode == "faulted") { assertNull(companionBytes); assertEquals("unchanged", File(companion, "sentinel").readText()) }
++                else { assertNotNull(companionBytes); assertEquals(id, JSONObject(companionBytes!!.toString(Charsets.UTF_8)).getString("run_id")) }
++                val replacement = benchmark.start(60)
++                assertNotEquals(id, replacement)
++                assertFalse(benchmark.confirmStart(id))
++                assertArrayEquals(bytes, reportFile.readBytes())
++                if (companionBytes != null) assertArrayEquals(companionBytes, companion.readBytes())
++                run.write("$mode-report.json", bytes, "benchmark_report", mode)
++                if (companionBytes != null) run.write("$mode-control.json", companionBytes, "benchmark_control", mode)
++                index.put(JSONObject().put("mode", mode).put("run_id", id).put("report", "$mode-report.json")
++                    .put("control", if (companionBytes != null) "$mode-control.json" else JSONObject.NULL)
++                    .put("control_observation", if (companionBytes == null) "publication fault: companion path is nonempty directory, no companion bytes" else "native exact bytes")
++                    .put("setup_input", setup).put("synthetic_origin", true).put("not_physical_measurement", true))
++            } finally { if (benchmark.isActive) benchmark.finish() }
++        }
++        run.write("benchmark-index.json", index.toString(2).toByteArray(), "benchmark_index", "study")
++        return index
++    }
++}

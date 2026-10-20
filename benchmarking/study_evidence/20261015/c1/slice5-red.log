@@ -1,0 +1,75 @@
+test_apk_digest_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_apk_digest_mismatch_rejected) ... ok
+test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot (benchmarking.test_inspect_release.ReleaseTests.test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot) ... FAIL
+test_checkout_source_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_checkout_source_symlink_rejected) ... ok
+test_corrupt_archive_rejected (benchmarking.test_inspect_release.ReleaseTests.test_corrupt_archive_rejected) ... ok
+test_duplicate_zip_member_rejected_even_when_not_required (benchmarking.test_inspect_release.ReleaseTests.test_duplicate_zip_member_rejected_even_when_not_required) ... ok
+test_expectation_digest_and_checkout_capture_are_bound (benchmarking.test_inspect_release.ReleaseTests.test_expectation_digest_and_checkout_capture_are_bound) ... ERROR
+test_invalid_cli_has_fixed_json_no_argument_echo (benchmarking.test_inspect_release.ReleaseTests.test_invalid_cli_has_fixed_json_no_argument_echo) ... FAIL
+test_missing_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_asset_rejected) ... ok
+test_missing_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_native_file_rejected) ... ok
+test_output_escape_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_escape_rejected) ... ok
+test_output_existing_preserved (benchmarking.test_inspect_release.ReleaseTests.test_output_existing_preserved) ... ok
+test_output_symlink_and_parent_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_symlink_and_parent_symlink_rejected) ... ok
+test_protected_checkout_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_protected_checkout_mismatch_rejected) ... ok
+test_stage_collision_preserves_preexisting_file (benchmarking.test_inspect_release.ReleaseTests.test_stage_collision_preserves_preexisting_file) ... ERROR
+test_stdout_only_does_not_write (benchmarking.test_inspect_release.ReleaseTests.test_stdout_only_does_not_write) ... ok
+test_strict_expectation_schema_types_and_independent_asset_binding (benchmarking.test_inspect_release.ReleaseTests.test_strict_expectation_schema_types_and_independent_asset_binding) ... ok
+test_valid_explicit_expectations_publish_bound_report (benchmarking.test_inspect_release.ReleaseTests.test_valid_explicit_expectations_publish_bound_report) ... ok
+test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) ... ok
+test_wrong_embedded_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_embedded_asset_rejected) ... ok
+test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) ... ok
+test_zip_file_directory_alias_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_file_directory_alias_rejected) ... ok
+test_zip_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_symlink_rejected) ... ok
+
+======================================================================
+ERROR: test_expectation_digest_and_checkout_capture_are_bound (benchmarking.test_inspect_release.ReleaseTests.test_expectation_digest_and_checkout_capture_are_bound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 208, in test_expectation_digest_and_checkout_capture_are_bound
+    self.assertEqual(report['expectation_sha256'], digest(self.config.read_bytes()))
+                     ~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'expectation_sha256'
+
+======================================================================
+ERROR: test_stage_collision_preserves_preexisting_file (benchmarking.test_inspect_release.ReleaseTests.test_stage_collision_preserves_preexisting_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 243, in test_stage_collision_preserves_preexisting_file
+    self.assertEqual(stage.read_bytes(), b'sentinel')
+                     ^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/tmpa7r_6w3p/.inspect-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+
+======================================================================
+FAIL: test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot (benchmarking.test_inspect_release.ReleaseTests.test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 232, in test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot
+    self.assertEqual(report['native_files']['lib/arm64-v8a/libapp.so'], digest(b'app'))
+AssertionError: '6c1aa50442a93e42c0eb2907cf4e017cd19547891fa190f3ea473582b0479290' != 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333'
+- 6c1aa50442a93e42c0eb2907cf4e017cd19547891fa190f3ea473582b0479290
++ a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333
+
+
+======================================================================
+FAIL: test_invalid_cli_has_fixed_json_no_argument_echo (benchmarking.test_inspect_release.ReleaseTests.test_invalid_cli_has_fixed_json_no_argument_echo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 216, in test_invalid_cli_has_fixed_json_no_argument_echo
+    self.assertEqual(result.stderr, '')
+AssertionError: 'usage: inspect_release.py [-h] --repo-roo[245 chars]pk\n' != ''
+- usage: inspect_release.py [-h] --repo-root REPO_ROOT --expectation EXPECTATION
+-                           --apk APK [--output-root OUTPUT_ROOT]
+-                           [--output OUTPUT]
+- inspect_release.py: error: the following arguments are required: --repo-root, --expectation, --apk
+
+
+----------------------------------------------------------------------
+Ran 22 tests in 2.572s
+
+FAILED (failures=2, errors=2)

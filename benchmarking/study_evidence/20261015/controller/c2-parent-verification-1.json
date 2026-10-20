@@ -1,0 +1,18 @@
+{
+  "source_hashes": {
+    "evaluation/README.md": "595dee123aad04571170a2aab10faec119f346eec65d27a23a2a4c8b125fc3db",
+    "evaluation/__init__.py": "268e24bb8d8792213f2773e72ee3529ab85aeb47bd4075cae338f29be5799536",
+    "evaluation/export_cli.py": "2975b0e7a0f2dd13f720166fdc85fbd4f7ea538b599d11c60f42c1bd453b18c7",
+    "evaluation/legacy_export.py": "170760c62bc54076bd119237d3eb8cddec957ed19abfb9e74f1ee2fea353298f",
+    "evaluation/synthetic_descriptive.py": "fc780891c71944154328380c7ce11952faf9c05638c95b4ee94d0baeaea22cde",
+    "evaluation/test_export_cli.py": "a3de3750f4acdcaa2938c2e1f9de97e803f502ed45aa541bcaec95c07d6b587b",
+    "evaluation/test_legacy_export.py": "8a6eb9c03cef606bacf62f716f3a0a8eb82c38ec6bafdd4ba018123ec130a939",
+    "evaluation/test_synthetic_descriptive.py": "782e0d7184594348e8f1433ecbb4e0dd2d5243090baec1708e64ae0f08fcd3a0"
+  },
+  "parent_tests": "16passed,zero skips",
+  "parent_cli": "c2/synthetic-cli-parent-1;fourCLIvalid0/0,invalid2/2;independentverificationcounts5exports5participants4sessions4attempts7assessments",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "status": "REVIEW_PENDING",
+  "limits": "Syntheticdescriptives only;nohumanrubric/inferential/participantauthorization"
+}

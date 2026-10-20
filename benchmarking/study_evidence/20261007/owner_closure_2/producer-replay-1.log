@@ -1,0 +1,356 @@
+{
+  "gate_pass": true,
+  "rejection_reasons": [],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": []
+  }
+}
+REPLAY confirmed/actual/fps: gate=True, retained=1800/50ms
+{
+  "gate_pass": true,
+  "rejection_reasons": [],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": [],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}
+REPLAY confirmed/actual/latency: gate=True, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": []
+  }
+}
+REPLAY confirmed/missing/fps: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": [],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}
+REPLAY confirmed/missing/latency: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": []
+  }
+}
+REPLAY confirmed/unconfirmed/fps: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": [],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}
+REPLAY confirmed/unconfirmed/latency: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": []
+  }
+}
+REPLAY confirmed/float/fps: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": [],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}
+REPLAY confirmed/float/latency: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": []
+  }
+}
+REPLAY confirmed/extra/fps: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": true,
+    "rejection_reasons": [],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}
+REPLAY confirmed/extra/latency: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "benchmark start ownership unconfirmed",
+    "benchmark start ownership unconfirmed",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed"
+    ]
+  }
+}
+REPLAY unconfirmed/actual/fps: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "benchmark start ownership unconfirmed",
+    "benchmark start ownership unconfirmed",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed"
+    ],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}
+REPLAY unconfirmed/actual/latency: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "benchmark start ownership unconfirmed",
+    "benchmark start ownership unconfirmed",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed"
+    ]
+  }
+}
+REPLAY faulted/actual/fps: gate=False, retained=1800/50ms
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "benchmark start ownership unconfirmed",
+    "benchmark start ownership unconfirmed",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed"
+    ],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}
+REPLAY faulted/actual/latency: gate=False, retained=1800/50ms
+Replay completed: actual JVM output, both actual host assessments/sinks, isolated real histories.

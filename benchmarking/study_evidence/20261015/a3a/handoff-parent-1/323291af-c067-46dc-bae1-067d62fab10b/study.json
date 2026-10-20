@@ -1,0 +1,609 @@
+{
+  "test_schema_version": 1,
+  "run_id": "323291af-c067-46dc-bae1-067d62fab10b",
+  "scenario_id": "679851f2-3300-4c6a-aa92-c1c20ce18da5",
+  "synthetic_origin": true,
+  "execution_boundary": "Real MainActivity callable, Handler\/EventSink, SessionManager\/SQLite\/export\/purge; no messenger, camera, detector or inference",
+  "attempt_setup": "Direct production AttemptBoundary.start because bare Activity has no permission context; terminal handler is real",
+  "history_correlation": "Unique synthetic target\/predicted labels + class\/confidence\/match + exact row counts; no durable attempt UUID column",
+  "primary": {
+    "attempt_id": "0a3f6b32-940e-4398-884f-476184fbe0d9",
+    "input_event": "{\"state\":\"attempt_result\",\"attemptId\":\"0a3f6b32-940e-4398-884f-476184fbe0d9\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timing\":{\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"attempt_started_ns\":100000000,\"inference_ms\":1}}",
+    "delivered_event": "{\"state\":\"attempt_result\",\"attemptId\":\"0a3f6b32-940e-4398-884f-476184fbe0d9\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timing\":{\"attempt_id\":\"0a3f6b32-940e-4398-884f-476184fbe0d9\",\"origin\":\"analyzer_entry_not_sensor_exposure\",\"ui_endpoint\":\"post_frame_native_ack_upper_bound_not_physical_display\",\"attempt_started_ns\":100000000,\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"collection_ms\":40,\"inference_ms\":1,\"event_delivery_ns\":200000000,\"final_analyzer_to_event_ms\":50,\"analyzer_to_feedback_ms\":50}}",
+    "history": "[{\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timestamp\":1792117798421}]",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "created_at": 1792117798371,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "started_at": 1792117798409,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "timestamp": 1792117798421,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "type": "pre",
+          "timestamp": 1792117798409,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "type": "post",
+          "timestamp": 1792117798417,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        }
+      ]
+    },
+    "duplicate_event_count": 1,
+    "stale_terminal_rows": 0
+  },
+  "export_stage_independent_rows": {
+    "participants": [
+      {
+        "id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+        "created_at": 1792117798371,
+        "device_model": "robolectric robolectric",
+        "app_version": "1.0.0"
+      },
+      {
+        "id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+        "created_at": 1792117798432,
+        "device_model": "SYNTHETIC",
+        "app_version": "host"
+      }
+    ],
+    "sessions": [
+      {
+        "id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+        "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+        "started_at": 1792117798409,
+        "ended_at": null,
+        "attempt_count": 0,
+        "signs_attempted": 0,
+        "avg_match": 0,
+        "duration_s": 0,
+        "source": "app"
+      },
+      {
+        "id": "7b358270-efd2-4d1b-9341-424a34bcc2a7",
+        "participant_id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+        "started_at": 1792117798432,
+        "ended_at": null,
+        "attempt_count": 0,
+        "signs_attempted": 0,
+        "avg_match": 0,
+        "duration_s": 0,
+        "source": "app"
+      }
+    ],
+    "attempts": [
+      {
+        "id": 1,
+        "session_id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+        "timestamp": 1792117798421,
+        "target_class": 0,
+        "target_label": "SYNTHETIC_PRIMARY",
+        "predicted_label": "SYNTHETIC_PRIMARY",
+        "predicted_confidence": 0.9,
+        "recognized_as_target": 1,
+        "overall_match": 0.8,
+        "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+      },
+      {
+        "id": 2,
+        "session_id": "7b358270-efd2-4d1b-9341-424a34bcc2a7",
+        "timestamp": 1,
+        "target_class": 1,
+        "target_label": "SYNTHETIC_FOREIGN",
+        "predicted_label": "SYNTHETIC_FOREIGN",
+        "predicted_confidence": 0.7,
+        "recognized_as_target": 1,
+        "overall_match": 0.6,
+        "feedback_items": "[]"
+      }
+    ],
+    "assessments": [
+      {
+        "id": 1,
+        "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+        "type": "pre",
+        "timestamp": 1792117798409,
+        "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+      },
+      {
+        "id": 2,
+        "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+        "type": "post",
+        "timestamp": 1792117798417,
+        "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+      },
+      {
+        "id": 3,
+        "participant_id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+        "type": "pre",
+        "timestamp": 1792117798433,
+        "responses": "{\"synthetic\":true}"
+      }
+    ]
+  },
+  "queued_persistence": {
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "created_at": 1792117798371,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        },
+        {
+          "id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+          "created_at": 1792117798432,
+          "device_model": "SYNTHETIC",
+          "app_version": "host"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "started_at": 1792117798409,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        },
+        {
+          "id": "7b358270-efd2-4d1b-9341-424a34bcc2a7",
+          "participant_id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+          "started_at": 1792117798432,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "timestamp": 1792117798421,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        },
+        {
+          "id": 2,
+          "session_id": "7b358270-efd2-4d1b-9341-424a34bcc2a7",
+          "timestamp": 1,
+          "target_class": 1,
+          "target_label": "SYNTHETIC_FOREIGN",
+          "predicted_label": "SYNTHETIC_FOREIGN",
+          "predicted_confidence": 0.7,
+          "recognized_as_target": 1,
+          "overall_match": 0.6,
+          "feedback_items": "[]"
+        },
+        {
+          "id": 3,
+          "session_id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "timestamp": 1792117798464,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_QUEUED",
+          "predicted_label": "SYNTHETIC_QUEUED",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "type": "pre",
+          "timestamp": 1792117798409,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "type": "post",
+          "timestamp": 1792117798417,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        },
+        {
+          "id": 3,
+          "participant_id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+          "type": "pre",
+          "timestamp": 1792117798433,
+          "responses": "{\"synthetic\":true}"
+        }
+      ]
+    },
+    "delivered_event_count": 1,
+    "replacement_attempt_id": "86b889ec-0703-4e0f-926e-60023dd3cca5",
+    "ordering": "commit terminal; direct AttemptBoundary replacement; stale cancel via production control; drain Handler: committed row survives, stale UI suppressed",
+    "linked_coverage": "MainActivityBoundaryTest.queuedViewEventsCannotReachReplacementOrNewSubscriber; ActivityInitializationTest.failedInitializationQueuedEventCannotCrossRetryEvenWithSameSubscriber"
+  },
+  "partial_clear": {
+    "external_export_exists": false,
+    "internal_export_exists": true,
+    "legacy_exists": [
+      false,
+      false
+    ],
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "created_at": 1792117798371,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        },
+        {
+          "id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+          "created_at": 1792117798432,
+          "device_model": "SYNTHETIC",
+          "app_version": "host"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "started_at": 1792117798409,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        },
+        {
+          "id": "7b358270-efd2-4d1b-9341-424a34bcc2a7",
+          "participant_id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+          "started_at": 1792117798432,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "timestamp": 1792117798421,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        },
+        {
+          "id": 2,
+          "session_id": "7b358270-efd2-4d1b-9341-424a34bcc2a7",
+          "timestamp": 1,
+          "target_class": 1,
+          "target_label": "SYNTHETIC_FOREIGN",
+          "predicted_label": "SYNTHETIC_FOREIGN",
+          "predicted_confidence": 0.7,
+          "recognized_as_target": 1,
+          "overall_match": 0.6,
+          "feedback_items": "[]"
+        },
+        {
+          "id": 3,
+          "session_id": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+          "timestamp": 1792117798464,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_QUEUED",
+          "predicted_label": "SYNTHETIC_QUEUED",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "type": "pre",
+          "timestamp": 1792117798409,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+          "type": "post",
+          "timestamp": 1792117798417,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        },
+        {
+          "id": 3,
+          "participant_id": "b3135772-27c6-4a8a-a866-9d6f390e7a01",
+          "type": "pre",
+          "timestamp": 1792117798433,
+          "responses": "{\"synthetic\":true}"
+        }
+      ]
+    },
+    "error_code": "CLEAR_FAILED"
+  },
+  "clear": {
+    "old_participant_id": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+    "participant_id": "ae11742b-f08c-417e-85cf-3f9159ce8599",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "ae11742b-f08c-417e-85cf-3f9159ce8599",
+          "created_at": 1792117798480,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [],
+      "attempts": [],
+      "assessments": []
+    },
+    "both_export_roots_purged": true,
+    "legacy_purged": true,
+    "unrelated_sentinels_survived": true
+  },
+  "reopen": {
+    "participant_id": "ae11742b-f08c-417e-85cf-3f9159ce8599",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "ae11742b-f08c-417e-85cf-3f9159ce8599",
+          "created_at": 1792117798480,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [],
+      "attempts": [],
+      "assessments": []
+    }
+  },
+  "control_calls": [
+    {
+      "stage": "initialized",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "startSession",
+      "arguments": null,
+      "response": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "getActiveSession",
+      "arguments": null,
+      "response": "7823c75f-05e2-4765-8311-104e1d36dd8f",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "pre",
+        "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "post",
+        "responses": "{\"synthetic\":true}"
+      },
+      "response": null,
+      "error_code": "CONTROL_FAILED"
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "post",
+        "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[{\"id\":1,\"participant_id\":\"254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9\",\"type\":\"pre\",\"timestamp\":1792117798409,\"responses\":\"{\\\"synthetic\\\":true,\\\"stage\\\":\\\"pre\\\"}\"},{\"id\":2,\"participant_id\":\"254ef7a0-2d83-47ec-b2e6-dc2e97ed6bc9\",\"type\":\"post\",\"timestamp\":1792117798417,\"responses\":\"{\\\"synthetic\\\":true,\\\"stage\\\":\\\"post\\\"}\"}]",
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "feedbackPresented",
+      "arguments": {
+        "attemptId": "0a3f6b32-940e-4398-884f-476184fbe0d9"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "feedbackPresented",
+      "arguments": {
+        "attemptId": "0a3f6b32-940e-4398-884f-476184fbe0d9"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "cancelAttempt",
+      "arguments": {
+        "attemptId": "d7ac79bb-2360-4287-9d23-2f6b318249f7"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[{\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timestamp\":1792117798421}]",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-1296759397139358667\/external\/kumpas_export_254ef7a0-731f5725-c497-45b2-be07-29a2619959dc_20261016_102958.json",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-1296759397139358667\/internal\/exports\/kumpas_export_254ef7a0-6f132525-7a16-406b-91f4-595b7db65eef_20261016_102958.json",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": null,
+      "error_code": "EXPORT_FAILED"
+    },
+    {
+      "stage": "persist-then-replace-before-handler-drain",
+      "method": "cancelAttempt",
+      "arguments": {
+        "attemptId": "9ada2f10-ff7b-4fb8-89fa-62f82c679823"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "partial-purge-failure",
+      "method": "clearAllData",
+      "arguments": null,
+      "response": null,
+      "error_code": "CLEAR_FAILED"
+    },
+    {
+      "stage": "clear-retry",
+      "method": "clearAllData",
+      "arguments": null,
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "ae11742b-f08c-417e-85cf-3f9159ce8599",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getActiveSession",
+      "arguments": null,
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "ae11742b-f08c-417e-85cf-3f9159ce8599",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-1296759397139358667\/external\/kumpas_export_ae11742b-c748dc95-527f-41bb-bca8-67eba25d26a8_20261016_102958.json",
+      "error_code": null
+    }
+  ],
+  "delivered_events": [
+    "{\"state\":\"attempt_result\",\"attemptId\":\"0a3f6b32-940e-4398-884f-476184fbe0d9\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timing\":{\"attempt_id\":\"0a3f6b32-940e-4398-884f-476184fbe0d9\",\"origin\":\"analyzer_entry_not_sensor_exposure\",\"ui_endpoint\":\"post_frame_native_ack_upper_bound_not_physical_display\",\"attempt_started_ns\":100000000,\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"collection_ms\":40,\"inference_ms\":1,\"event_delivery_ns\":200000000,\"final_analyzer_to_event_ms\":50,\"analyzer_to_feedback_ms\":50}}"
+  ]
+}

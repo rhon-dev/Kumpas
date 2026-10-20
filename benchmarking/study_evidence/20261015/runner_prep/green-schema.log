@@ -1,0 +1,6 @@
+test_config_schema_authorization_numeric_and_selection (training.tests.test_experiment_runner.RunnerTests.test_config_schema_authorization_numeric_and_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK

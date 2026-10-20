@@ -1,0 +1,45 @@
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "collection read rejected",
+    "benchmark start ownership unconfirmed",
+    "report latest publication unverified",
+    "benchmark start ownership unconfirmed",
+    "report latest publication unverified",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed",
+      "report latest publication unverified"
+    ],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 1,
+      "p50": 50.0,
+      "p95": 50.0
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 1,
+      "p50": 1,
+      "p95": 1
+    }
+  }
+}

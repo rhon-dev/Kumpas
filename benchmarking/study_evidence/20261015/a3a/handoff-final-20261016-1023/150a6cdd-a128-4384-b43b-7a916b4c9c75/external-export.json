@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "export_timestamp": "2026-10-16T10:22:24",
+    "app_version": "1.0.0",
+    "device_model": "robolectric robolectric",
+    "android_version": "14",
+    "participant_id": "8dec371c-c76c-4978-8147-7867784a872c"
+  },
+  "assessments": [
+    {
+      "id": 1,
+      "participant_id": "8dec371c-c76c-4978-8147-7867784a872c",
+      "type": "pre",
+      "timestamp": 1792117344628,
+      "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+    },
+    {
+      "id": 2,
+      "participant_id": "8dec371c-c76c-4978-8147-7867784a872c",
+      "type": "post",
+      "timestamp": 1792117344635,
+      "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "b26d131c-b2e4-4a2f-9047-c2a4bbd0aa92",
+      "participant_id": "8dec371c-c76c-4978-8147-7867784a872c",
+      "started_at": 1792117344627,
+      "ended_at": null,
+      "attempt_count": 0,
+      "signs_attempted": 0,
+      "avg_match": 0,
+      "duration_s": 0,
+      "source": "app",
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "b26d131c-b2e4-4a2f-9047-c2a4bbd0aa92",
+          "timestamp": 1792117344639,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":\"minor\",\"message\":\"SYNTHETIC feedback\"}]"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_sessions": 1,
+    "total_attempts": 1,
+    "total_assessments": 2
+  }
+}

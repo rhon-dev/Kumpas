@@ -1,0 +1,185 @@
+{
+  "completeness": {
+    "ageGroup": {
+      "absent": 7,
+      "present": 0
+    },
+    "gender": {
+      "absent": 7,
+      "present": 0
+    },
+    "openFeedback": {
+      "absent": 0,
+      "empty": 0,
+      "present": 3
+    }
+  },
+  "counts": {
+    "assessments": 7,
+    "attempts": 4,
+    "exports": 5,
+    "participants": 5,
+    "sessions": 4
+  },
+  "diagnostics": [
+    {
+      "code": "UNMATCHED_PRE",
+      "input_index": 1
+    },
+    {
+      "code": "UNMATCHED_POST",
+      "input_index": 2
+    },
+    {
+      "code": "AMBIGUOUS_PHASE",
+      "input_index": 3
+    },
+    {
+      "code": "NO_ASSESSMENTS",
+      "input_index": 4
+    }
+  ],
+  "frequencies": {
+    "post": {
+      "ageGroup": {
+        "13-17": 0,
+        "18-25": 0,
+        "26-35": 0,
+        "36-50": 0,
+        "<13": 0,
+        ">50": 0
+      },
+      "fslConfidence": {
+        "1": 0,
+        "2": 0,
+        "3": 3,
+        "4": 0,
+        "5": 0
+      },
+      "gender": {
+        "Female": 0,
+        "Male": 0,
+        "Non-binary": 0,
+        "Prefer not to say": 0
+      },
+      "signsKnown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 3,
+        "5": 0
+      },
+      "susScores": [
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        },
+        {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 3
+        }
+      ]
+    },
+    "pre": {
+      "ageGroup": {
+        "13-17": 0,
+        "18-25": 0,
+        "26-35": 0,
+        "36-50": 0,
+        "<13": 0,
+        ">50": 0
+      },
+      "fslConfidence": {
+        "1": 4,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "gender": {
+        "Female": 0,
+        "Male": 0,
+        "Non-binary": 0,
+        "Prefer not to say": 0
+      },
+      "signsKnown": {
+        "1": 0,
+        "2": 4,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      }
+    }
+  },
+  "matching": {
+    "ambiguous": 1,
+    "no_assessments": 1,
+    "paired": 1,
+    "unmatched_post": 1,
+    "unmatched_pre": 1
+  },
+  "synthetic": true,
+  "valid": true
+}

@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-11T23:26:32.817244+08:00",
+  "decision": "Accept narrow schema-type repair; quality-review-3 R1 closed",
+  "review": "schema-minor-review-1.md",
+  "reviewed_current_hashes": {
+    "benchmarking/collect_fps.py": "7e0db7bc3aa468703ecab977ec07ab69009e842f96a042fb1017f315422e54f0",
+    "benchmarking/collect_latency.py": "29554278483dca6c9ebdd6d62c873aec947a47b15e3281bc0b9a2693e552057e",
+    "benchmarking/test_collectors.py": "f593b71a2fb8da038c60d73b15853758bd1d4865ddb9fdfaf8e94d59352f000a"
+  },
+  "parent_fresh_python_tests": 43,
+  "reviewer_collector_tests": 27,
+  "reviewer_full_discovery": "Not reproduced under default Python3.9:4 missing numpy/matplotlib import errors",
+  "limits": "No installed runtime/physical/study acceptance; emulator permission still unresolved; no default stores touched"
+}

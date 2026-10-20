@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "host": "01",
+      "title": "Layered study flow",
+      "implemented_execution_review": "A3a native producer plus A3b exact-artifact Flutter/Python consumers accepted. D reran170 JVM/79 Flutter and the producer preflight.",
+      "disposition_and_dependency": "**Bounded host accepted.** Separate native, Flutter mocked transport and Python replay are not one installed CameraX/channel/store session."
+    },
+    {
+      "host": "02",
+      "title": "Lifecycle/races",
+      "implemented_execution_review": "A2a deterministic timer/cache/shared-observer ordering accepted; current full suites re-executed.",
+      "disposition_and_dependency": "**Bounded host accepted.** Permanent reply loss may stall the shared queue; fresh-screen seeding and arbitrary direct-caller native atomicity remain unproved."
+    },
+    {
+      "host": "03",
+      "title": "Persistence/export/purge/reopen",
+      "implemented_execution_review": "A1 scoped export publication, A2a cache/fault contracts and A3 native isolated SQLite/export/clear/reopen accepted.",
+      "disposition_and_dependency": "**Bounded host accepted.** No default participant store or installed deletion flow exercised; partial filesystem/DB/preferences operations are not an all-or-nothing global transaction or forensic erasure."
+    },
+    {
+      "host": "04",
+      "title": "Initialization/resources",
+      "implemented_execution_review": "A2b host initialization/rollback/subscriber coverage accepted, with retained registry/messenger concerns.",
+      "disposition_and_dependency": "**Bounded host accepted.** Inert registrations across differing messengers, same registry-ID retry, actual FlutterEngine startup/removal and hardware resource release are not proved."
+    },
+    {
+      "host": "05",
+      "title": "Producer/collector contracts",
+      "implemented_execution_review": "A3b exact accepted producer artifacts through actual reader/history paths with mocked transport accepted.",
+      "disposition_and_dependency": "**Bounded host accepted.** Synthetic trust inputs are not independent hardware attestation; interpreter newline adaptation is diagnostic."
+    },
+    {
+      "host": "06",
+      "title": "FIVE/THREE parity preparation",
+      "implemented_execution_review": "B1 six validation fixtures/180 PNGs/real Python Holistic references accepted. D re-read generated artifact hashes only;21 compatible synthetic parity/campaign tests passed.",
+      "disposition_and_dependency": "**Bounded host accepted.** No new Android-produced parity, anatomical labels or classifier acceptance. Sampled-frame and full-video tracking are distinct."
+    },
+    {
+      "host": "07",
+      "title": "APK inspector",
+      "implemented_execution_review": "C1 reusable inspector accepted; its low coverage follow-up closed. D built and independently inspected fresh debug/test/release APKs.",
+      "disposition_and_dependency": "**Tool accepted; fresh evidence pending whole-package review.** ARM64 Flutter release contains dependency libraries in three ABI namespaces; strict ARM64-only probe correctly rejects. No ABI-policy approval, signature, ELF or runtime claim."
+    },
+    {
+      "host": "08",
+      "title": "Validation error diagnostics",
+      "implemented_execution_review": "B2 retained actual150 validation records/model,144 correct each; D hash-checked historical outputs/counts without inference.",
+      "disposition_and_dependency": "**Real diagnostics retained, bounded acceptance only.** Not final-test/generalization evidence or a causal/anatomical explanation;134 source metadata records unavailable."
+    },
+    {
+      "host": "09",
+      "title": "Bounded experiments",
+      "implemented_execution_review": "Existing split/selector retained. No actual retraining; no isolated bounded experiment runner implemented.",
+      "disposition_and_dependency": "**BLOCKED / NOT COMPLETE.** Separate local-versus-Colab approval, frozen experiment parameters/budget and isolated runner implementation/review required. Do not run the existing protected-log-writing trainer."
+    },
+    {
+      "host": "10",
+      "title": "Full evaluation/export provenance",
+      "implemented_execution_review": "B2 additive validation tooling accepted after review fixes. Historical v3 incomplete manifest, config and all13 source-code roles retained and hash-checked.",
+      "disposition_and_dependency": "**Tool accepted; full-source deliverable BLOCKED.**134 NPZ/video pairs were DATALESS in the recorded run; no successful full-source manifest. Historical checkpoint-to-shipped-byte chain and numerical promotion policy remain open."
+    },
+    {
+      "host": "11",
+      "title": "Assessment/rubric tooling",
+      "implemented_execution_review": "A1 form/export contracts and C2 explicit-file legacy export validation accepted;18 evaluation tests passed in D.",
+      "disposition_and_dependency": "**Export validation accepted; human rubric scoring BLOCKED.** Instrument/sign list, rater/blinding/adjudication, missingness, group join, consent and retention approvals absent."
+    },
+    {
+      "host": "12",
+      "title": "Analysis utilities",
+      "implemented_execution_review": "C2 synthetic descriptive pipeline accepted; D reran its current suite. C2 low coverage follow-up closed.",
+      "disposition_and_dependency": "**Synthetic descriptives accepted; human/inferential analysis BLOCKED.** Likert/SUS-labelled responses, classifier confidence, mastery and XP are not human-rated learning scores."
+    },
+    {
+      "host": "13",
+      "title": "Current status index",
+      "implemented_execution_review": "This document reconciles all16 against controller decisions, current hashes and executed D evidence.",
+      "disposition_and_dependency": "**Prepared, parent review pending.** Parent alone may amend governed status files or grant host-completion acceptance."
+    },
+    {
+      "host": "14",
+      "title": "Reproducible handoff",
+      "implemented_execution_review": "`docs/host-reproducible-handoff.md` links exact commands, immutable bindings, historical-safe readback and unchanged blank forms.",
+      "disposition_and_dependency": "**Prepared, parent review pending.** No phone acquired, hardware/trial values filled, or physical execution authorized."
+    },
+    {
+      "host": "15",
+      "title": "Architecture decisions",
+      "implemented_execution_review": "`docs/decisions/2026-10-18-host-scope-deviations.md` records proposed scoped deviations and alternatives.",
+      "disposition_and_dependency": "**Proposed / approval pending.** No invented PM/adviser/expert decision; no stack/model/cloud change authorized."
+    },
+    {
+      "host": "16",
+      "title": "Final host verification",
+      "implemented_execution_review": "D executed current full suites, forced JVM/instrumentation compile, offline fresh APK builds, ZIP/assets/ABI inspection and preservation review package.",
+      "disposition_and_dependency": "**Executed host evidence; parent verification and whole-package review pending.** Not installed startup, physical benchmarks, unseen/signer-independent evaluation or study authorization."
+    }
+  ],
+  "count": 16,
+  "parent_whole_package_review": "PENDING",
+  "all16_complete": false,
+  "physical_or_study_acceptance": false
+}

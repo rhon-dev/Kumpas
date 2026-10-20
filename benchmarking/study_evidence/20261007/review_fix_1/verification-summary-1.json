@@ -1,0 +1,17 @@
+{
+  "protected_count": 82,
+  "protected_pass": 82,
+  "protected_mismatch": [],
+  "native": {
+    "tests": 132,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "flutter": "00:01 +27: All tests passed!",
+  "python": [
+    "Ran 41 tests in 5.054s",
+    "OK"
+  ],
+  "analyze": "Analyzing app...                                                \nNo issues found! (ran in 2.0s)\n"
+}

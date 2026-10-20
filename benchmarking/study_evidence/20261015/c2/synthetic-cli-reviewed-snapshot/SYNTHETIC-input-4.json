@@ -1,0 +1,64 @@
+{
+  "assessments": [
+    {
+      "id": 1,
+      "participant_id": "00000000-0000-4000-8000-000000000104",
+      "responses": "{\"fslConfidence\": 1, \"signsKnown\": 2}",
+      "timestamp": 1,
+      "type": "pre"
+    },
+    {
+      "id": 2,
+      "participant_id": "00000000-0000-4000-8000-000000000104",
+      "responses": "{\"fslConfidence\": 1, \"signsKnown\": 2}",
+      "timestamp": 1,
+      "type": "pre"
+    },
+    {
+      "id": 3,
+      "participant_id": "00000000-0000-4000-8000-000000000104",
+      "responses": "{\"fslConfidence\": 3, \"signsKnown\": 4, \"susScores\": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], \"openFeedback\": \"SYNTHETIC PRIVATE CANARY\"}",
+      "timestamp": 3,
+      "type": "post"
+    }
+  ],
+  "metadata": {
+    "android_version": "SYNTHETIC",
+    "app_version": "SYNTHETIC",
+    "device_model": "SYNTHETIC",
+    "export_timestamp": "2026-10-18T10:00:00",
+    "participant_id": "00000000-0000-4000-8000-000000000104"
+  },
+  "sessions": [
+    {
+      "attempt_count": 0,
+      "attempts": [
+        {
+          "feedback_items": "[]",
+          "id": 1,
+          "overall_match": 0.5,
+          "predicted_confidence": 0.5,
+          "predicted_label": "SYNTHETIC PRIVATE CANARY",
+          "recognized_as_target": 0,
+          "session_id": "00000000-0000-4000-8000-000000000204",
+          "target_class": 0,
+          "target_label": "SYNTHETIC",
+          "timestamp": 2
+        }
+      ],
+      "avg_match": 0.0,
+      "duration_s": 0.0,
+      "ended_at": null,
+      "id": "00000000-0000-4000-8000-000000000204",
+      "participant_id": "00000000-0000-4000-8000-000000000104",
+      "signs_attempted": 0,
+      "source": "app",
+      "started_at": 1
+    }
+  ],
+  "summary": {
+    "total_assessments": 3,
+    "total_attempts": 1,
+    "total_sessions": 1
+  }
+}

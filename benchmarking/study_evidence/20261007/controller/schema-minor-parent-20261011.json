@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-11T23:25:27.360381+08:00",
+  "scope": "Schema-type repair plus host-only isolated ownership re-verification",
+  "jvm": {
+    "tests": 137,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "python_tests": 43,
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "changed_reviewed_files": {
+    ".superpowers/sdd/progress.md": {
+      "before": "17ed66c026f0556206fb3c813fb51ca79d1f46adfbf8dd4aa6a7b0e015d44894",
+      "after": "09f459607222e361606548e7a5ac363e7f645fe7e289de074226ffb5baf92d6a"
+    },
+    "benchmarking/collect_fps.py": {
+      "before": "8d36a6f22776a5457f1a924c73c0ccb9295e7c67fe71913924e57d4fa72d3f39",
+      "after": "7e0db7bc3aa468703ecab977ec07ab69009e842f96a042fb1017f315422e54f0"
+    },
+    "benchmarking/study_readiness.md": {
+      "before": "3f95855e8f85678d4380d5cd66c3cef82bea79e6ff2878ec6fdfcc15cc1c7c90",
+      "after": "12ce0a2d25c1b3f0e8c38cd10f716612e0f00270fa50cf80cb7c464121c8d66b"
+    },
+    "benchmarking/test_collectors.py": {
+      "before": "b62b8c7d2c3ca31a832f741b51aa344fc106bf9eaa908aa458de7455a65b20a7",
+      "after": "f593b71a2fb8da038c60d73b15853758bd1d4865ddb9fdfaf8e94d59352f000a"
+    },
+    "docs/phase-gates.md": {
+      "before": "97457b9b2c378b6036b676ddad08a0c2a9763050f7a1d0f633d4719343b39047",
+      "after": "cefc5b91e0fb718099088551f2c534338733ad56f0a6c4934acfb16e903be007"
+    }
+  },
+  "no_device_connected": true,
+  "emulator_authorization": "clarification timed out; no boot/install/runtime operation performed",
+  "review": "deleg_36a911af pending",
+  "logs": [
+    "schema-minor-red-1.log",
+    "schema-minor-red-sink-1.log",
+    "schema-minor-green-full-1.log",
+    "isolated-ownership-jvm-20261011.log"
+  ]
+}

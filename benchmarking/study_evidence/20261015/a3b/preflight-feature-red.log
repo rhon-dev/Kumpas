@@ -1,0 +1,15 @@
+test_pinned_preflight_emits_verified_payload_hashes (test_host_producer_replay.HostProducerReplayTest.test_pinned_preflight_emits_verified_payload_hashes) ... FAIL
+
+======================================================================
+FAIL: test_pinned_preflight_emits_verified_payload_hashes (test_host_producer_replay.HostProducerReplayTest.test_pinned_preflight_emits_verified_payload_hashes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_host_producer_replay.py", line 17, in test_pinned_preflight_emits_verified_payload_hashes
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 2 != 0 : /opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/host_fixture_replay.py': [Errno 2] No such file or directory
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.026s
+
+FAILED (failures=1)

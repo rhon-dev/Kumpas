@@ -1,0 +1,214 @@
+test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) ... 
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('n_fit_original',), value=2.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('n_fit_original',), value=2.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('n_validation',), value=4.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('n_validation',), value=4.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '0', 'validation'), value=2.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '0', 'validation'), value=2.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '0', 'fit'), value=1.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '0', 'fit'), value=1.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '0', 'fit'), value=True) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '0', 'fit'), value=True) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '1', 'validation'), value=2.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '1', 'validation'), value=2.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '1', 'fit'), value=1.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '1', 'fit'), value=1.0) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '1', 'fit'), value=True) ... FAIL
+  test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '1', 'fit'), value=True) ... FAIL
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('n_fit_original',), value=2.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('n_fit_original',), value=2.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('n_validation',), value=4.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('n_validation',), value=4.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '0', 'validation'), value=2.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '0', 'validation'), value=2.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '0', 'fit'), value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '0', 'fit'), value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '0', 'fit'), value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '0', 'fit'), value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '1', 'validation'), value=2.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '1', 'validation'), value=2.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '1', 'fit'), value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '1', 'fit'), value=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='validate_inputs', keys=('class_counts', '1', 'fit'), value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 156, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) (boundary='CLI', keys=('class_counts', '1', 'fit'), value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 159, in test_protocol_counts_require_exact_integers_with_rebound_hashes
+    fixture._assert_cli_schema_rejection()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 111, in _assert_cli_schema_rejection
+    self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
+AssertionError: {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'} != {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+- {'error': 'INVALID_CLIP_METADATA', 'status': 'INCOMPLETE'}
+?                     ^ ^^^^^^^^^^
+
++ {'error': 'INVALID_CONFIG', 'status': 'INCOMPLETE'}
+?                     ^^^ ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.875s
+
+FAILED (failures=16)

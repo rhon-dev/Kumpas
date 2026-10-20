@@ -1,0 +1,6 @@
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

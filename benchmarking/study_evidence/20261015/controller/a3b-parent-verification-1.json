@@ -1,0 +1,23 @@
+{
+  "source_hashes": {
+    "benchmarking/host_fixture_replay.py": "884a8c7bfe2e70b75441b3500de61734bcf9554b0ea63b758ace6b848d0070ef",
+    "benchmarking/test_host_producer_replay.py": "fc10972b4c5451f36f9cea42ed380a54cb7719cf8e7c7f2ce6239112bd9c4235",
+    "app/test/host_study_flow_test.dart": "332bd04f11120334ceaf95f30222de43d92b157a4426400b7066b6b09a9ea831",
+    "app/test/support/host_fixture.dart": "2d7de2a0c04c8ef5688af85ae1172892c89f858ac3517d61521920efd21605e6"
+  },
+  "python_tests": 74,
+  "flutter_tests": 79,
+  "failures": 0,
+  "skips": 0,
+  "analyze": "No issues found",
+  "parent_execution_ledger": "a3b/parent-command-ledger-2.json",
+  "replay_output": "benchmarking/study_evidence/20261015/a3b/parent-replay-2",
+  "history_rows": 6,
+  "gate_passes": 0,
+  "native_source_hashes_match": 42,
+  "original_artifacts_unchanged": 11,
+  "protected_hashes_match": 82,
+  "A2a_hashes_match": 8,
+  "first_parent_attempt": "Evidence parser hit non-dict JSON console line after tests. Original logs preserved; second runner filters dict machine events and fresh suites rerun successfully. Not a product test failure.",
+  "review": "pending"
+}

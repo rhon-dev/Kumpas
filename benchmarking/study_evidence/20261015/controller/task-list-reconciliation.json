@@ -1,0 +1,30 @@
+{
+  "reason": "Task UI remained at stale31/45 although later accepted packages and documentation were delivered. Reconcile without rerunning or restarting deferred runner.",
+  "verified_records": [
+    "c1-bounded-acceptance-20261018.json",
+    "b2-bounded-acceptance-20261018.json",
+    "c2-bounded-acceptance-20261018.json",
+    "followups-acceptance-20261018.json"
+  ],
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "completion_updates": [
+    "host-07",
+    "host-08",
+    "host-12",
+    "host-13",
+    "host-14",
+    "host-15",
+    "host-parity-minor"
+  ],
+  "remaining": [
+    "study-delete",
+    "study-flow",
+    "study-phone",
+    "host-09",
+    "host-10",
+    "host-11",
+    "host-16"
+  ],
+  "limits": "host12 completion is syntheticdescriptiveplumbing only;human/inferentialapprovalnotgranted. host11 remains pending for humanrubric. host16 finaladjudicationpending,notmissingtestexecution."
+}

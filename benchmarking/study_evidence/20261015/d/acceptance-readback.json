@@ -1,0 +1,93 @@
+{
+  "a1-acceptance-20261016.json": {
+    "sha256": "dc8c50923e2cddef49b784c67f27606ef38a49be0aaa86c5880d3f7a67443538",
+    "source_matches": {
+      "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt": true,
+      "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ExportPublication.kt": true,
+      "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt": false,
+      "app/lib/ui/assessment_screen.dart": true,
+      "app/test/assessment_save_failure_test.dart": true
+    }
+  },
+  "a2a-acceptance-20261016.json": {
+    "sha256": "1da2a84a5c8b4054ec713c2087cbc7e095c6f8839dad61b7328528007b789aae",
+    "source_matches": {
+      "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt": true,
+      "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt": true,
+      "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt": true,
+      "app/lib/session/session_repository.dart": true,
+      "app/lib/session/session_lifecycle.dart": true,
+      "app/test/session_clear_test.dart": true,
+      "app/test/session_lifecycle_race_test.dart": true,
+      "app/test/session_repository_race_test.dart": true
+    }
+  },
+  "a2b-acceptance-20261016.json": {
+    "sha256": "42888512ddc4db8ccd5e7df9bbfde9822de077fcc6a7583f53e3634c07f0116a",
+    "source_matches": {
+      "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt": false,
+      "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt": false,
+      "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ActivityInitializationTest.kt": true,
+      "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt": true,
+      "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt": true
+    }
+  },
+  "a3a-acceptance-and-consumer-binding.json": {
+    "sha256": "403a990584469018b27281269b4c9bb8aba89c83fd5fbb32c01f840eaede158b",
+    "source_matches": {}
+  },
+  "a3b-acceptance-20261017.json": {
+    "sha256": "819be1570f79ba193846c46e18aa903ef04f80cda58451da17c26fa86a047297",
+    "source_matches": {
+      "benchmarking/host_fixture_replay.py": true,
+      "benchmarking/test_host_producer_replay.py": true,
+      "app/test/host_study_flow_test.dart": true,
+      "app/test/support/host_fixture.dart": true
+    }
+  },
+  "b1-acceptance-20261017.json": {
+    "sha256": "619d9b853e64396c46651478deab89f88f927db5be3792d97037b86d37d8b998",
+    "source_matches": {
+      "benchmarking/pipeline_parity.py": false,
+      "benchmarking/test_pipeline_parity.py": false,
+      "benchmarking/parity_fixtures.py": true,
+      "benchmarking/test_parity_fixtures.py": true
+    }
+  },
+  "b2-bounded-acceptance-20261018.json": {
+    "sha256": "81612f739cbc0c1a347ada2329a37595e27a9f735126d362ceb100ef92e00d13",
+    "source_matches": {
+      "training/models/validation_campaign.py": true,
+      "training/tests/test_validation_campaign.py": true
+    }
+  },
+  "c1-bounded-acceptance-20261018.json": {
+    "sha256": "e4792e47828be8cbcdceab07a67bf1bad77302d355a6b4e801085d7fb6ede41c",
+    "source_matches": {
+      "benchmarking/inspect_release.py": true,
+      "benchmarking/test_inspect_release.py": false
+    }
+  },
+  "c2-bounded-acceptance-20261018.json": {
+    "sha256": "7b2975da2ca15ddd82637e9ac4592383d76241dcaa161599c1c4581c9e46ea32",
+    "source_matches": {
+      "evaluation/README.md": true,
+      "evaluation/__init__.py": true,
+      "evaluation/export_cli.py": true,
+      "evaluation/legacy_export.py": true,
+      "evaluation/synthetic_descriptive.py": true,
+      "evaluation/test_export_cli.py": false,
+      "evaluation/test_legacy_export.py": true,
+      "evaluation/test_synthetic_descriptive.py": true
+    }
+  },
+  "followups-acceptance-20261018.json": {
+    "sha256": "6b2fcecd635b29c4477c0c87d4658dd75a2a618d1f7b0864b25ada28295f0816",
+    "source_matches": {
+      "benchmarking/pipeline_parity.py": true,
+      "benchmarking/test_pipeline_parity.py": true,
+      "benchmarking/test_inspect_release.py": true,
+      "evaluation/test_export_cli.py": true
+    }
+  }
+}

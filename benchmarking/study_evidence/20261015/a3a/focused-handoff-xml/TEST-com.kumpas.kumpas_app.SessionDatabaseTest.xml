@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.SessionDatabaseTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:18:42.562Z" hostname="Ahrons-MacBook-Pro.local" time="0.119">
+  <properties/>
+  <testcase name="insertAssessment_storesResponsesPerType" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.011"/>
+  <testcase name="getRecentAttempts_isNewestFirstAndRespectsLimit" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.008"/>
+  <testcase name="clearAll_rollsBackWhenTriggerSilentlyRetainsRows" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.011"/>
+  <testcase name="getAllSessions_isScopedToParticipant" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.012"/>
+  <testcase name="insertAttempt_linksToSessionAndRoundTrips" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.012"/>
+  <testcase name="insertSession_persistsRowAndIsActive" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.009"/>
+  <testcase name="clearAll_rollsBackEveryTableWhenDeletionFails" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.011"/>
+  <testcase name="insertParticipant_isIdempotent" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.008"/>
+  <testcase name="getAssessments_isScopedToParticipant" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.009"/>
+  <testcase name="clearAll_emptiesEveryTable" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.008"/>
+  <testcase name="closeSession_computesSummaries" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.011"/>
+  <testcase name="onCreate_createsAllTablesAndIndexes" classname="com.kumpas.kumpas_app.SessionDatabaseTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

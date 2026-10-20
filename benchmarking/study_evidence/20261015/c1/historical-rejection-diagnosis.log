@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/inspect_release.py", line 171, in inspect
+    assets, native = inspect_archive(snapshot, root, expectation)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/inspect_release.py", line 192, in inspect_archive
+    require(key not in files and key not in directories)
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/inspect_release.py", line 19, in require
+    raise ValueError('invalid')
+ValueError: invalid
+schema valid
+protected True
+path restrictions []
+native match True

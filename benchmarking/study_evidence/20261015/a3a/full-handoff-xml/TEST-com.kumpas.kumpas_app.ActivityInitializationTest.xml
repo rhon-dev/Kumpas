@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.ActivityInitializationTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:19:19.893Z" hostname="Ahrons-MacBook-Pro.local" time="4.317">
+  <properties/>
+  <testcase name="ownedDestroyAttemptsEveryReleaseAndFrameworkEvenWhenEachCloseFails" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="4.168"/>
+  <testcase name="benchmarkCompletionUsesOnlyCurrentOwnersPostPublicationSubscription" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.018"/>
+  <testcase name="failedInitializationQueuedEventCannotCrossRetryEvenWithSameSubscriber" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.018"/>
+  <testcase name="laterAcquisitionFailureReleasesEveryOwnedHandleAndPreservesPrimary" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.011"/>
+  <testcase name="failedOlderRegistrationCannotClearOrDetachNewerReplacement" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.012"/>
+  <testcase name="registrationFailureDetachesSubscriptionsReleasesAllAndAllowsCleanRetry" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.009"/>
+  <testcase name="failedReplacementReleasesDisplacedOwnerWithoutRestoringStaleFields" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.012"/>
+  <testcase name="everyAcquisitionStagePreservesViableOwnerAndSuccessfulHandlesCloseOnceAtDestroy" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.014"/>
+  <testcase name="successfulReplacementCannotInheritDisplacedSubscriberBeforeNewListen" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.009"/>
+  <testcase name="reentrantFailedOlderRegistrationCannotLeakItsSubscriberIntoNewerOwner" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.012"/>
+  <testcase name="rejectedPlatformRegistrationRollsBackAndRetainedFactoryCannotCreate" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.014"/>
+  <testcase name="rollbackClearsPublishedConcreteEngineAndRetryPublishesDifferentHandle" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.019"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,76 @@
+[
+  {
+    "at": "2026-10-16T11:07:58.389306+08:00",
+    "label": "parent-fix1-python",
+    "command": [
+      "/opt/homebrew/bin/python3.11",
+      "-E",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "benchmarking",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+    "exit": 0,
+    "log": "benchmarking/study_evidence/20261015/a3b/parent-fix1-python.log",
+    "summary": [
+      "Ran 77 tests in 7.347s",
+      "OK"
+    ]
+  },
+  {
+    "at": "2026-10-16T11:08:01.513337+08:00",
+    "label": "parent-fix1-analyze",
+    "command": [
+      "/opt/homebrew/bin/flutter",
+      "analyze",
+      "--no-pub"
+    ],
+    "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app",
+    "exit": 0,
+    "log": "benchmarking/study_evidence/20261015/a3b/parent-fix1-analyze.log",
+    "summary": "Analyzing app...                                                \nNo issues found! (ran in 2.0s)"
+  },
+  {
+    "at": "2026-10-16T11:08:08.023744+08:00",
+    "label": "parent-fix1-flutter",
+    "command": [
+      "/opt/homebrew/bin/flutter",
+      "test",
+      "--no-pub",
+      "--machine"
+    ],
+    "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app",
+    "exit": 0,
+    "log": "benchmarking/study_evidence/20261015/a3b/parent-fix1-flutter.log",
+    "tests": 79,
+    "failures": 0,
+    "skipped": 0,
+    "done_events": [
+      {
+        "success": true,
+        "type": "done",
+        "time": 5768
+      }
+    ]
+  },
+  {
+    "at": "2026-10-16T11:08:08.223878+08:00",
+    "label": "parent-fix1-replay",
+    "command": [
+      "/opt/homebrew/bin/python3.11",
+      "-E",
+      "benchmarking/host_fixture_replay.py",
+      "replay",
+      "--output",
+      "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/a3b/parent-fix1-replay"
+    ],
+    "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+    "exit": 0,
+    "log": "benchmarking/study_evidence/20261015/a3b/parent-fix1-replay.log"
+  }
+]

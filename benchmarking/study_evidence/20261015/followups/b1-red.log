@@ -1,0 +1,116 @@
+test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) ... 
+  test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=-1e+308, count=1, strict=False) ... FAIL
+  test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=-1e+308, count=1, strict=True) ... FAIL
+  test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=0.0, count=1, strict=False) ... FAIL
+  test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=0.0, count=1, strict=True) ... FAIL
+  test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+306, other=0.0, count=4, strict=False) ... FAIL
+  test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+306, other=0.0, count=4, strict=True) ... FAIL
+test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) ... 
+  test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=-1e+308, count=1, legacy=False) ... FAIL
+  test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=-1e+308, count=1, legacy=True) ... FAIL
+  test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=0.0, count=1, legacy=False) ... FAIL
+  test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=0.0, count=1, legacy=True) ... FAIL
+  test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+306, other=0.0, count=4, legacy=False) ... FAIL
+  test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+306, other=0.0, count=4, legacy=True) ... FAIL
+test_extreme_finite_controls_and_public_cli_strict_json (benchmarking.test_pipeline_parity.ParityTests.test_extreme_finite_controls_and_public_cli_strict_json) ... ok
+
+======================================================================
+FAIL: test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=-1e+308, count=1, strict=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 32, in test_finite_extremes_reject_nonfinite_arithmetic_without_warnings
+    with self.assertRaisesRegex(ValueError, '^nonfinite comparison arithmetic$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=-1e+308, count=1, strict=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 32, in test_finite_extremes_reject_nonfinite_arithmetic_without_warnings
+    with self.assertRaisesRegex(ValueError, '^nonfinite comparison arithmetic$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=0.0, count=1, strict=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 32, in test_finite_extremes_reject_nonfinite_arithmetic_without_warnings
+    with self.assertRaisesRegex(ValueError, '^nonfinite comparison arithmetic$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+308, other=0.0, count=1, strict=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 32, in test_finite_extremes_reject_nonfinite_arithmetic_without_warnings
+    with self.assertRaisesRegex(ValueError, '^nonfinite comparison arithmetic$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+306, other=0.0, count=4, strict=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 32, in test_finite_extremes_reject_nonfinite_arithmetic_without_warnings
+    with self.assertRaisesRegex(ValueError, '^nonfinite comparison arithmetic$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) (value=1e+306, other=0.0, count=4, strict=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 32, in test_finite_extremes_reject_nonfinite_arithmetic_without_warnings
+    with self.assertRaisesRegex(ValueError, '^nonfinite comparison arithmetic$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=-1e+308, count=1, legacy=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 68, in test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=-1e+308, count=1, legacy=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 68, in test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=0.0, count=1, legacy=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 68, in test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+308, other=0.0, count=1, legacy=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 68, in test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+306, other=0.0, count=4, legacy=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 68, in test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) (value=1e+306, other=0.0, count=4, legacy=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 68, in test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.608s
+
+FAILED (failures=12)

@@ -1,0 +1,22 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart
+00:00 +0: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: high geometric match with wrong recognition is not mastery
+00:00 +1: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: both conditions must occur on the same attempt
+00:00 +2: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: exact threshold qualifies once; later failure does not revoke
+00:00 +3: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: next sign and category use the same predicate including empty history
+00:00 +4: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: cancelled and unsolicited results cannot open feedback
+00:00 +5: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: cancelled and unsolicited results cannot open feedback
+00:00 +6: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: cancelled and unsolicited results cannot open feedback
+00:00 +7: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: assessment save failure stays on form and safe retry navigates
+00:00 +8: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: assessment save failure stays on form and safe retry navigates
+00:00 +9: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: assessment save failure stays on form and safe retry navigates
+00:01 +10: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: no signer failure allows retry and rejects a late result
+00:01 +11: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: benchmark starts after bounded warmup without any camera events
+00:01 +12: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: benchmark run identity is visible copyable and completion correlated
+00:01 +13: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: benchmark channel requires valid UUID and binds report and stop
+00:01 +14: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: failed benchmark can retry on existing snackbar
+00:01 +15: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung benchmark control response recovers and late run cannot stop replacement
+00:01 +16: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: late benchmark identity after disposal is stopped by its own run ID
+00:01 +17: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: pending start times out and late identity cannot cancel replacement
+00:01 +18: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: pending identity preserves timeout without replacement and cancel on disposal
+00:01 +19: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: timeout cancels identity and restores capture
+00:01 +20: All tests passed!

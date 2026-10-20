@@ -1,0 +1,9 @@
+test_config_schema_authorization_numeric_and_selection (training.tests.test_experiment_runner.RunnerTests.test_config_schema_authorization_numeric_and_selection) ... ok
+test_prepare_exclusive_binding_and_immutable_snapshot (training.tests.test_experiment_runner.RunnerTests.test_prepare_exclusive_binding_and_immutable_snapshot) ... ok
+test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) ... ok
+test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.014s
+
+OK

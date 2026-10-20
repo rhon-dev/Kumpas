@@ -1,0 +1,90 @@
+> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+> Task :app:ReleaseMinSdkCheck
+
+> Task :app:compileFlutterBuildRelease
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 7772 bytes (99.5% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+
+> Task :app:packJniLibsflutterBuildRelease
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:configureCMakeRelease[arm64-v8a]
+> Task :app:buildCMakeRelease[arm64-v8a]
+> Task :app:configureCMakeRelease[armeabi-v7a]
+> Task :app:buildCMakeRelease[armeabi-v7a]
+> Task :app:configureCMakeRelease[x86_64]
+> Task :app:buildCMakeRelease[x86_64]
+> Task :app:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkReleaseDuplicateClasses UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :app:cleanMergeReleaseAssets
+> Task :app:mergeReleaseShaders UP-TO-DATE
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets
+> Task :app:copyFlutterAssetsRelease
+> Task :app:generateReleaseResValues UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:generateReleaseResources UP-TO-DATE
+> Task :app:mergeReleaseResources UP-TO-DATE
+> Task :app:packageReleaseResources UP-TO-DATE
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+> Task :app:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :app:processReleaseMainManifest UP-TO-DATE
+> Task :app:outputReleaseAppLinkSettings UP-TO-DATE
+> Task :app:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseManifestForPackage UP-TO-DATE
+> Task :app:processReleaseResources UP-TO-DATE
+> Task :app:mergeReleaseNativeLibs
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :app:mergeReleaseArtProfile UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:mergeReleaseStartupProfile UP-TO-DATE
+> Task :app:extractReleaseVersionControlInfo UP-TO-DATE
+> Task :app:compressReleaseAssets
+> Task :app:stripReleaseDebugSymbols
+> Task :app:collectReleaseDependencies
+> Task :app:compileReleaseKotlin
+> Task :app:extractReleaseNativeSymbolTables
+> Task :app:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :app:mergeReleaseNativeDebugMetadata UP-TO-DATE
+> Task :app:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :app:processReleaseJavaRes UP-TO-DATE
+> Task :app:expandReleaseArtProfileWildcards
+> Task :app:mergeReleaseJavaResource
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:minifyReleaseWithR8
+> Task :app:minifyReleaseWithR8 FAILED
+
+[Incubating] Problems report is available at: file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:minifyReleaseWithR8'.
+> Cannot access output property 'outputDex' of task ':app:minifyReleaseWithR8'. Accessing unreadable inputs or outputs is not supported. Declare the task as untracked by using Task.doNotTrackState(). For more information, please refer to https://docs.gradle.org/8.14/userguide/incremental_build.html#sec:disable-state-tracking in the Gradle documentation.
+   > Failed to create MD5 hash for file '/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/dex/release/minifyReleaseWithR8/classes 2.dex'
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 4m 41s
+53 actionable tasks: 22 executed, 31 up-to-date

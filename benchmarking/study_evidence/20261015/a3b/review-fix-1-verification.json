@@ -1,0 +1,64 @@
+{
+  "status": "DONE; independent parent review pending",
+  "changed_preexisting_files": [
+    "benchmarking/host_fixture_replay.py",
+    "benchmarking/test_host_producer_replay.py"
+  ],
+  "initial_snapshot_count": 963,
+  "unchanged_other_snapshot_files": 961,
+  "run_id": "323291af-c067-46dc-bae1-067d62fab10b",
+  "manifest_sha256": "3279cb7d01075a9192f2566ae5573dd6137a23c6710ef1d0a590b78564fe0fed",
+  "native": {
+    "count": 42,
+    "mismatches": []
+  },
+  "artifacts": {
+    "count": 11,
+    "mismatches": []
+  },
+  "protected": {
+    "count": 82,
+    "mismatches": []
+  },
+  "A2a": {
+    "count": 8,
+    "mismatches": []
+  },
+  "Dart": {
+    "count": 2,
+    "mismatches": []
+  },
+  "python": {
+    "python-focused": 34,
+    "python-full": 77,
+    "green-types": 3
+  },
+  "flutter": {
+    "flutter-focused": {
+      "tests": 4,
+      "failures": 0,
+      "skips": 0
+    },
+    "flutter-full": {
+      "tests": 79,
+      "failures": 0,
+      "skips": 0
+    }
+  },
+  "analyze": "No issues found",
+  "history_rows": 6,
+  "collector_exits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "gate_passes": 0,
+  "git_diff_check_exit": 0,
+  "postimages": {
+    "benchmarking/host_fixture_replay.py": "08e259ba337a10eabc05be184386a1e1c52fabb33ffd0b848779a3c2e795819f",
+    "benchmarking/test_host_producer_replay.py": "07a0754b66ad97a10dd12731b65c6e906e8870ada2270a7ce02553fd1c66450f"
+  }
+}

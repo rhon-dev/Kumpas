@@ -1,0 +1,589 @@
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/inspect_release.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/inspect_release.py
+new file mode 100644
+index 0000000..7f2d4d9
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/inspect_release.py
+@@ -0,0 +1,267 @@
++"""Explicit-file APK inspection; no runtime, signature or build attestation.
++
++Required: --repo-root DIR --expectation JSON --apk FILE. Optional output requires
++both --output-root DIR and --output NEW_FILE (existing directories, POSIX only).
++Without output flags, emit strict JSON to stdout only. Failures emit one fixed
++JSON error with nonzero exit; no ZIP extraction, builds or device calls occur.
++
++Expectation v1 has exact keys: schema_version (integer 1), artifact_kind
++(historical/fresh_build; caller description only), apk_sha256 (independent
++lowercase digest), abis (unique supported ABI names), native_files (exact lib/
++ABI/lib*.so paths), assets (all five fixed Android assets, each with source and
++sha256), protected (nonempty relative source-path/digest map including assets).
++No expected hash is inferred from the APK. Historical capture or a fresh_build
++label cannot establish source-to-build identity. Current source hashes are
++inspection-time captures only. Trust the expectation issuer, host, checkout and
++filesystem; this is not adversarial concurrent-filesystem or power-loss proof.
++"""
++import argparse
++import hashlib
++import json
++from pathlib import Path
++import sys
++import re
++import stat
++import os
++import secrets
++import zipfile
++
++ASSET_NAMES = ('gold_standards.bin', 'hand_landmarker.task', 'kumpas_50sign.tflite', 'label_map.json', 'pose_landmarker_lite.task')
++SUPPORTED_ABIS = {'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'}
++
++
++def require(condition):
++    if not condition:
++        raise ValueError('invalid')
++
++
++def safe_path(name):
++    require(type(name) is str and re.fullmatch(r'[A-Za-z0-9_./+-]+', name) is not None)
++    require(all(part not in ('', '.', '..') for part in name.split('/')))
++    return name
++
++
++def valid_hash(value):
++    require(type(value) is str and re.fullmatch(r'[0-9a-f]{64}', value) is not None)
++
++
++def unique_object(pairs):
++    result = {}
++    for key, value in pairs:
++        require(key not in result)
++        result[key] = value
++    return result
++
++
++def reject_constant(value):
++    raise ValueError('nonfinite')
++
++
++def validate(expectation):
++    require(type(expectation) is dict and set(expectation) == {'schema_version', 'artifact_kind', 'apk_sha256', 'abis', 'native_files', 'assets', 'protected'})
++    require(type(expectation['schema_version']) is int and expectation['schema_version'] == 1)
++    require(type(expectation['artifact_kind']) is str and expectation['artifact_kind'] in ('historical', 'fresh_build'))
++    valid_hash(expectation['apk_sha256'])
++    abis = expectation['abis']
++    require(type(abis) is list and abis and all(type(a) is str for a in abis))
++    require(len(set(abis)) == len(abis) and set(abis) <= SUPPORTED_ABIS)
++    native = expectation['native_files']
++    require(type(native) is list and native and all(type(n) is str for n in native))
++    require(len(set(native)) == len(native))
++    for name in native:
++        safe_path(name)
++        parts = name.split('/')
++        require(len(parts) == 3 and parts[0] == 'lib' and parts[1] in abis and re.fullmatch(r'lib[A-Za-z0-9_.+-]+\.so', parts[2]) is not None)
++    require({n.split('/')[1] for n in native} == set(abis))
++    protected = expectation['protected']
++    require(type(protected) is dict and bool(protected))
++    for name, value in protected.items():
++        safe_path(name)
++        valid_hash(value)
++    assets = expectation['assets']
++    require(type(assets) is dict and set(assets) == {'assets/' + n for n in ASSET_NAMES})
++    for name, binding in assets.items():
++        require(type(binding) is dict and set(binding) == {'source', 'sha256'})
++        source = 'app/android/app/src/main/assets/' + name[7:]
++        require(binding['source'] == source)
++        valid_hash(binding['sha256'])
++        require(protected.get(source) == binding['sha256'])
++    return expectation
++
++
++def sha(stream):
++    h = hashlib.sha256()
++    for chunk in iter(lambda: stream.read(1024 * 1024), b''):
++        h.update(chunk)
++    return h.hexdigest()
++
++
++def file_hash(path):
++    with path.open('rb') as stream:
++        return sha(stream)
++
++
++def directory_fd(path):
++    """Open each directory component without following symlinks (POSIX)."""
++    path = Path(path).absolute()
++    require('..' not in path.parts)
++    fd = os.open(path.anchor, os.O_RDONLY | os.O_DIRECTORY)
++    try:
++        for part in path.parts[1:]:
++            next_fd = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
++            os.close(fd)
++            fd = next_fd
++        return fd
++    except BaseException:
++        os.close(fd)
++        raise
++
++
++def checkout_hash(root, name):
++    safe_path(name)
++    path = root / name
++    parent = directory_fd(path.parent)
++    try:
++        fd = os.open(path.name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
++        with os.fdopen(fd, 'rb') as stream:
++            require(stat.S_ISREG(os.fstat(stream.fileno()).st_mode))
++            return sha(stream)
++    finally:
++        os.close(parent)
++
++
++def publish(output_root, output, payload):
++    """Stage/read back, link exclusively, read back final, clean owned failures."""
++    root, target = Path(output_root).absolute(), Path(output).absolute()
++    require('..' not in root.parts and '..' not in target.parts)
++    require(bool(target.relative_to(root).parts))
++    root_fd = directory_fd(root)
++    os.close(root_fd)
++    safe_path(target.name)
++    parent = directory_fd(target.parent)
++    stage = '.inspect-' + secrets.token_hex(16)
++    linked = False
++    staged = False
++    identity = None
++    try:
++        fd = os.open(stage, os.O_RDWR | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=parent)
++        staged = True
++        with os.fdopen(fd, 'w+b') as stream:
++            identity = os.fstat(stream.fileno()).st_ino
++            stream.write(payload)
++            stream.flush()
++            os.fsync(stream.fileno())
++            stream.seek(0)
++            require(stream.read() == payload)
++        os.link(stage, target.name, src_dir_fd=parent, dst_dir_fd=parent, follow_symlinks=False)
++        linked = True
++        fd = os.open(target.name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=parent)
++        with os.fdopen(fd, 'rb') as stream:
++            require(os.fstat(stream.fileno()).st_ino == identity and stream.read() == payload)
++        os.unlink(stage, dir_fd=parent)
++        os.fsync(parent)
++    except BaseException:
++        if linked:
++            try:
++                if os.stat(target.name, dir_fd=parent, follow_symlinks=False).st_ino == identity:
++                    os.unlink(target.name, dir_fd=parent)
++            except FileNotFoundError:
++                pass
++        raise
++    finally:
++        if staged:
++            try:
++                os.unlink(stage, dir_fd=parent)
++            except FileNotFoundError:
++                pass
++        os.close(parent)
++
++
++def inspect(root, apk, expectation):
++    validate(expectation)
++    protected = {name: checkout_hash(root, name) for name in expectation['protected']}
++    require(protected == expectation['protected'])
++    with apk.open('rb') as snapshot:
++        require(stat.S_ISREG(os.fstat(snapshot.fileno()).st_mode))
++        actual = sha(snapshot)
++        require(actual == expectation['apk_sha256'])
++        snapshot.seek(0)
++        assets, native = inspect_archive(snapshot, root, expectation)
++        snapshot.seek(0)
++        require(sha(snapshot) == actual)
++        size = os.fstat(snapshot.fileno()).st_size
++    require({name: checkout_hash(root, name) for name in protected} == protected)
++    flutter_abis = sorted(abi for abi in expectation['abis'] if all('lib/' + abi + '/' + name in native for name in ('libapp.so', 'libflutter.so')))
++    return dict(schema_version=1, ok=True, apk_sha256=actual, apk_size_bytes=size, assets=assets,
++                native_files=native, abis=sorted(expectation['abis']), flutter_abis=flutter_abis,
++                artifact_kind=expectation['artifact_kind'], protected_current_sha256=protected,
++                current_source_build_provenance=False, signature_verified=False, runtime_verified=False)
++
++
++def inspect_archive(snapshot, root, expectation):
++    assets, native = {}, {}
++    with zipfile.ZipFile(snapshot) as archive:
++        files, directories = set(), set()
++        for info in archive.infolist():
++            require(info.orig_filename == info.filename)
++            name = info.filename[:-1] if info.is_dir() else info.filename
++            safe_path(name)
++            # Android resource ZIP lookup is case-sensitive (aapt may emit
++            # both res/9N.9.png and res/9n.9.png). No files are extracted.
++            # Asset/native namespaces additionally reject case aliases.
++            key = name.lower() if name.split('/')[0].lower() in ('assets', 'lib') else name
++            require(key not in files and key not in directories)
++            mode = stat.S_IFMT(info.external_attr >> 16)
++            require(mode in (0, stat.S_IFDIR if info.is_dir() else stat.S_IFREG))
++            (directories if info.is_dir() else files).add(key)
++        for key in files | directories:
++            parts = key.split('/')
++            require(not any('/'.join(parts[:i]) in files for i in range(1, len(parts))))
++        actual_native = {info.filename for info in archive.infolist() if not info.is_dir() and info.filename.startswith('lib/')}
++        require(actual_native == set(expectation['native_files']))
++        require({name.split('/')[1] for name in actual_native} == set(expectation['abis']))
++        require(archive.testzip() is None)
++        for name, binding in expectation['assets'].items():
++            with archive.open(name) as stream:
++                actual = sha(stream)
++            if actual != binding['sha256'] or checkout_hash(root, binding['source']) != actual:
++                raise ValueError('asset_mismatch')
++            assets[name] = actual
++        for name in expectation['native_files']:
++            with archive.open(name) as stream:
++                native[name] = sha(stream)
++    return assets, native
++
++
++class SafeParser(argparse.ArgumentParser):
++    def error(self, message):
++        raise ValueError('arguments')
++
++
++def main():
++    parser = SafeParser(description=__doc__)
++    for name in ('repo-root', 'expectation', 'apk'):
++        parser.add_argument('--' + name, required=True)
++    parser.add_argument('--output-root')
++    parser.add_argument('--output')
++    try:
++        args = parser.parse_args()
++        expectation_bytes = Path(args.expectation).read_bytes()
++        expectation = validate(json.loads(expectation_bytes, object_pairs_hook=unique_object, parse_constant=reject_constant))
++        report = inspect(Path(args.repo_root), Path(args.apk), expectation)
++        report['expectation_sha256'] = hashlib.sha256(expectation_bytes).hexdigest()
++        report['inspector_current_sha256'] = file_hash(Path(__file__))
++        payload = json.dumps(report, sort_keys=True, allow_nan=False) + '\n'
++        require(bool(args.output) == bool(args.output_root))
++        if args.output:
++            publish(args.output_root, args.output, payload.encode('utf-8'))
++        print(payload, end='')
++        return 0
++    except Exception:
++        # CLI trust boundary: malformed ZIP/JSON/IO failures never echo payloads.
++        print(json.dumps({'ok': False, 'error': 'verification_failed'}, allow_nan=False))
++        return 1
++
++
++if __name__ == '__main__':
++    sys.exit(main())
+diff --git a/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py
+new file mode 100644
+index 0000000..4328f21
+--- /dev/null
++++ b/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py
+@@ -0,0 +1,310 @@
++"""Public CLI regression fixtures; these ZIPs are not runnable Android apps."""
++import hashlib
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import unittest
++import zipfile
++
++TOOL = Path(__file__).with_name('inspect_release.py')
++NAMES = ('gold_standards.bin', 'hand_landmarker.task', 'kumpas_50sign.tflite', 'label_map.json', 'pose_landmarker_lite.task')
++
++def digest(data):
++    return hashlib.sha256(data).hexdigest()
++
++class ReleaseTests(unittest.TestCase):
++    def setUp(self):
++        self.tmp = tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR'))
++        self.addCleanup(self.tmp.cleanup)
++        self.root = Path(self.tmp.name)
++        self.apk = self.root / 'input.apk'
++        self.config = self.root / 'expect.json'
++        self.out = self.root / 'result.json'
++        self.entries = {'assets/' + n: n.encode() for n in NAMES}
++        self.entries.update({'lib/arm64-v8a/libapp.so': b'app', 'lib/arm64-v8a/libflutter.so': b'flutter'})
++        self.manifest = {'schema_version': 1, 'artifact_kind': 'historical', 'abis': ['arm64-v8a'], 'native_files': sorted(n for n in self.entries if n.startswith('lib/')), 'assets': {}, 'protected': {}}
++        for n in NAMES:
++            rel = 'app/android/app/src/main/assets/' + n
++            p = self.root / rel
++            p.parent.mkdir(parents=True, exist_ok=True)
++            p.write_bytes(n.encode())
++            self.manifest['assets']['assets/' + n] = {'source': rel, 'sha256': digest(n.encode())}
++            self.manifest['protected'][rel] = digest(n.encode())
++        self.zip()
++
++    def zip(self, entries=None):
++        with zipfile.ZipFile(self.apk, 'w') as z:
++            for n, data in (self.entries if entries is None else entries).items():
++                z.writestr(n, data)
++        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
++
++    def run_cli(self, raw=None, output=True, output_root=None):
++        self.config.write_text(json.dumps(self.manifest) if raw is None else raw)
++        cmd = [sys.executable, '-B', '-E', str(TOOL), '--repo-root', str(self.root), '--expectation', str(self.config), '--apk', str(self.apk)]
++        if output:
++            cmd += ['--output-root', str(self.root if output_root is None else output_root), '--output', str(self.out)]
++        result = subprocess.run(cmd, capture_output=True, text=True)
++        self.assertEqual(result.stderr, '')
++        payload = json.loads(result.stdout)
++        return result.returncode, payload
++
++    def assert_rejected(self, raw=None):
++        code, report = self.run_cli(raw=raw)
++        self.assertNotEqual(code, 0, report)
++        self.assertEqual(report, {'ok': False, 'error': 'verification_failed'})
++        self.assertFalse(self.out.exists())
++
++    def test_strict_expectation_schema_types_and_independent_asset_binding(self):
++        import copy
++        original = copy.deepcopy(self.manifest)
++        mutations = [
++            lambda m: m.update(schema_version=True),
++            lambda m: m.update(schema_version=1.0),
++            lambda m: m.update(schema_version=2),
++            lambda m: m.update(untrusted='PRIVATE_MARKER'),
++            lambda m: m.pop('apk_sha256'),
++            lambda m: m.update(apk_sha256='x' * 64),
++            lambda m: m.update(artifact_kind='pretend_attested'),
++            lambda m: m.update(abis='arm64-v8a'),
++            lambda m: m.update(abis=[]),
++            lambda m: m.update(abis=['arm64-v8a', 'arm64-v8a']),
++            lambda m: m.update(abis=['PRIVATE_MARKER']),
++            lambda m: m.update(native_files=[]),
++            lambda m: m.update(native_files=['lib/arm64-v8a/../bad.so']),
++            lambda m: m.update(protected={}),
++            lambda m: m['protected'].update({'../private': '0' * 64}),
++            lambda m: m['protected'].update({'bad': False}),
++            lambda m: m.update(assets={}),
++            lambda m: m['assets']['assets/label_map.json'].update(sha256=True),
++            lambda m: m['assets']['assets/label_map.json'].update(source='../private'),
++            lambda m: m['assets']['assets/label_map.json'].update(extra=1),
++            lambda m: m['protected'].pop('app/android/app/src/main/assets/label_map.json'),
++        ]
++        for mutation in mutations:
++            with self.subTest(mutation=mutations.index(mutation)):
++                self.out = self.root / ('mutation-' + str(mutations.index(mutation)) + '.json')
++                self.manifest = copy.deepcopy(original)
++                mutation(self.manifest)
++                self.assert_rejected()
++        self.manifest = original
++        for raw in ['null', '[]', '{', '{"schema_version":NaN}', json.dumps(original)[:-1] + ',"schema_version":1}']:
++            with self.subTest(raw=raw[:20]):
++                self.assert_rejected(raw)
++
++    def test_duplicate_zip_member_rejected_even_when_not_required(self):
++        import warnings
++        with warnings.catch_warnings():
++            warnings.simplefilter('ignore', UserWarning)
++            with zipfile.ZipFile(self.apk, 'a') as z:
++                z.writestr('unrelated', b'one')
++                z.writestr('unrelated', b'two')
++        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
++        self.assert_rejected()
++
++    def test_zip_ambiguous_names_rejected(self):
++        for i, name in enumerate(['../private', '/absolute', 'assets//foo', 'assets/./foo', 'assets/../foo', 'assets\\foo', 'C:/private', 'assets/%2e/foo', 'assets/Label_map.json', 'lib/arm64-v8a/nested/odd.so']):
++            with self.subTest(name=name):
++                self.out = self.root / ('zip-' + str(i) + '.json')
++                self.zip(dict(self.entries, **{name: b'x'}))
++                self.assert_rejected()
++
++    def test_zip_file_directory_alias_rejected(self):
++        self.zip(dict(self.entries, **{'unrelated': b'x', 'unrelated/child': b'y'}))
++        self.assert_rejected()
++
++    def test_zip_symlink_rejected(self):
++        import stat
++        with zipfile.ZipFile(self.apk, 'a') as z:
++            info = zipfile.ZipInfo('link')
++            info.create_system = 3
++            info.external_attr = (stat.S_IFLNK | 0o777) << 16
++            z.writestr(info, '../private')
++        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
++        self.assert_rejected()
++
++    def test_missing_asset_rejected(self):
++        entries = dict(self.entries)
++        del entries['assets/label_map.json']
++        self.zip(entries)
++        self.assert_rejected()
++
++    def test_wrong_embedded_asset_rejected(self):
++        for i, name in enumerate(NAMES):
++            with self.subTest(name=name):
++                self.out = self.root / ('asset-' + str(i) + '.json')
++                self.zip(dict(self.entries, **{'assets/' + name: b'wrong'}))
++                self.assert_rejected()
++
++    def test_wrong_abi_and_unexpected_native_file_rejected(self):
++        for i, name in enumerate(['lib/x86_64/libflutter.so', 'lib/arm64-v8a/libextra.so']):
++            with self.subTest(name=name):
++                self.out = self.root / ('abi-' + str(i) + '.json')
++                self.zip(dict(self.entries, **{name: b'extra'}))
++                self.assert_rejected()
++
++    def test_missing_native_file_rejected(self):
++        entries = dict(self.entries)
++        del entries['lib/arm64-v8a/libapp.so']
++        self.zip(entries)
++        self.assert_rejected()
++
++    def test_apk_digest_mismatch_rejected(self):
++        self.manifest['apk_sha256'] = '0' * 64
++        self.assert_rejected()
++
++    def test_protected_checkout_mismatch_rejected(self):
++        (self.root / 'app/android/app/src/main/assets/label_map.json').write_bytes(b'changed')
++        self.assert_rejected()
++
++    def test_corrupt_archive_rejected(self):
++        self.apk.write_bytes(b'not a zip')
++        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
++        self.assert_rejected()
++
++    def test_output_escape_rejected(self):
++        outside = tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR'))
++        self.addCleanup(outside.cleanup)
++        self.out = Path(outside.name) / 'escape.json'
++        self.assert_rejected()
++
++    def test_output_existing_preserved(self):
++        self.out.write_bytes(b'sentinel')
++        code, report = self.run_cli()
++        self.assertNotEqual(code, 0, report)
++        self.assertEqual(self.out.read_bytes(), b'sentinel')
++
++    def test_output_symlink_and_parent_symlink_rejected(self):
++        target = self.root / 'target'
++        target.write_bytes(b'sentinel')
++        self.out.symlink_to(target)
++        code, report = self.run_cli()
++        self.assertNotEqual(code, 0, report)
++        self.assertTrue(self.out.is_symlink())
++        self.assertEqual(target.read_bytes(), b'sentinel')
++        alias = self.root / 'alias'
++        alias.symlink_to(self.root, target_is_directory=True)
++        self.out = alias / 'parent-escape.json'
++        self.assert_rejected()
++
++    def test_checkout_source_symlink_rejected(self):
++        source = self.root / 'app/android/app/src/main/assets/label_map.json'
++        target = self.root / 'copied-label'
++        target.write_bytes(source.read_bytes())
++        source.unlink()
++        source.symlink_to(target)
++        self.assert_rejected()
++
++    def test_stdout_only_does_not_write(self):
++        code, report = self.run_cli(output=False)
++        self.assertEqual(code, 0, report)
++        self.assertFalse(self.out.exists())
++
++    def test_expectation_digest_and_checkout_capture_are_bound(self):
++        code, report = self.run_cli()
++        self.assertEqual(code, 0, report)
++        self.assertEqual(report['expectation_sha256'], digest(self.config.read_bytes()))
++        self.assertEqual(report['protected_current_sha256'], self.manifest['protected'])
++        self.assertEqual(report['apk_size_bytes'], self.apk.stat().st_size)
++        self.assertEqual(report['flutter_abis'], ['arm64-v8a'])
++
++    def test_invalid_cli_has_fixed_json_no_argument_echo(self):
++        result = subprocess.run([sys.executable, '-B', '-E', str(TOOL), '--PRIVATE_MARKER'], capture_output=True, text=True)
++        self.assertNotEqual(result.returncode, 0)
++        self.assertEqual(result.stderr, '')
++        self.assertEqual(json.loads(result.stdout), {'ok': False, 'error': 'verification_failed'})
++
++    def test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot(self):
++        from unittest.mock import patch
++        from benchmarking import inspect_release as tool
++        replacement = self.root / 'replacement.apk'
++        with zipfile.ZipFile(replacement, 'w') as z:
++            for name, data in dict(self.entries, **{'lib/arm64-v8a/libapp.so': b'replaced'}).items():
++                z.writestr(name, data)
++        original = zipfile.ZipFile
++        def replace_then_open(*args, **kwargs):
++            os.replace(replacement, self.apk)
++            return original(*args, **kwargs)
++        with patch.object(tool.zipfile, 'ZipFile', side_effect=replace_then_open):
++            report = tool.inspect(self.root, self.apk, self.manifest)
++        self.assertEqual(report['native_files']['lib/arm64-v8a/libapp.so'], digest(b'app'))
++        self.assertEqual(report['apk_sha256'], self.manifest['apk_sha256'])
++
++    def test_stage_collision_preserves_preexisting_file(self):
++        from unittest.mock import patch
++        from benchmarking import inspect_release as tool
++        stage = self.root / ('.inspect-' + 'a' * 32)
++        stage.write_bytes(b'sentinel')
++        with patch.object(tool.secrets, 'token_hex', return_value='a' * 32):
++            with self.assertRaises(OSError):
++                tool.publish(self.root, self.out, b'{}\n')
++        self.assertEqual(stage.read_bytes(), b'sentinel')
++        self.assertFalse(self.out.exists())
++
++    def test_unsupported_zip_compression_has_safe_error(self):
++        import struct
++        data = bytearray(self.apk.read_bytes())
++        offset = data.index(b'PK\x01\x02')
++        struct.pack_into('<H', data, offset + 10, 99)
++        self.apk.write_bytes(data)
++        self.manifest['apk_sha256'] = digest(data)
++        self.assert_rejected()
++
++    def test_zip_null_filename_rejected(self):
++        self.zip(dict(self.entries, **{'nullX': b'bad'}))
++        self.apk.write_bytes(self.apk.read_bytes().replace(b'nullX', b'null\x00'))
++        self.manifest['apk_sha256'] = digest(self.apk.read_bytes())
++        self.assert_rejected()
++
++    def test_publication_fsync_link_and_readback_faults_leave_no_success(self):
++        from unittest.mock import patch
++        from benchmarking import inspect_release as tool
++        for operation in ('fsync', 'link'):
++            with self.subTest(operation=operation):
++                with patch.object(tool.os, operation, side_effect=OSError('PRIVATE_MARKER')):
++                    with self.assertRaises(OSError):
++                        tool.publish(self.root, self.out, b'{}\n')
++                self.assertFalse(self.out.exists())
++                self.assertEqual(list(self.root.glob('.inspect-*')), [])
++        original = os.link
++        def corrupt_before_link(source, destination, **kwargs):
++            fd = os.open(source, os.O_WRONLY, dir_fd=kwargs['src_dir_fd'])
++            try:
++                os.write(fd, b'bad')
++            finally:
++                os.close(fd)
++            return original(source, destination, **kwargs)
++        with patch.object(tool.os, 'link', side_effect=corrupt_before_link):
++            with self.assertRaises(ValueError):
++                tool.publish(self.root, self.out, b'{}\n')
++        self.assertFalse(self.out.exists())
++        self.assertEqual(list(self.root.glob('.inspect-*')), [])
++
++    def test_fresh_build_label_is_not_source_provenance(self):
++        self.manifest['artifact_kind'] = 'fresh_build'
++        code, report = self.run_cli()
++        self.assertEqual(code, 0, report)
++        for field in ('current_source_build_provenance', 'signature_verified', 'runtime_verified'):
++            self.assertIs(report[field], False)
++
++    def test_case_sensitive_android_resource_names_remain_distinct(self):
++        self.zip(dict(self.entries, **{'res/9N.9.png': b'one', 'res/9n.9.png': b'two'}))
++        code, report = self.run_cli()
++        self.assertEqual(code, 0, report)
++
++    def test_output_root_must_be_an_existing_directory_not_target(self):
++        code, report = self.run_cli(output_root=self.out)
++        self.assertNotEqual(code, 0, report)
++        self.assertFalse(self.out.exists())
++
++    def test_valid_explicit_expectations_publish_bound_report(self):
++        code, report = self.run_cli()
++        self.assertEqual(code, 0, report)
++        self.assertEqual(report['apk_sha256'], self.manifest['apk_sha256'])
++        self.assertFalse(report['current_source_build_provenance'])
++        self.assertEqual(json.loads(self.out.read_text()), report)
++
++if __name__ == '__main__':
++    unittest.main()

@@ -1,0 +1,550 @@
+{
+  "status": "DONE_WITH_CONCERNS_pending_parent_review",
+  "campaign": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1",
+  "manifest_sha256": "1cca1526355e9d4ce6c41102a0a6fa474a15dd77bbac2b09daee1ec85e70c452",
+  "selection_sha256": "bc7bb2bd85359cc7242ecfb4bba84e267303c911061a0c1a8fa8ce9c980bf8ad",
+  "source_sha256": {
+    "benchmarking/pipeline_parity.py": "cc905b5494e1fe78d7c4d3de3bcf05772499946538d42f404f17acad3c43d93d",
+    "benchmarking/parity_fixtures.py": "993703b492a283692ed678a9cb44b62383c52bd7068974c50bf290dd559c036b",
+    "training/preprocessing/extract_landmarks.py": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+    "training/preprocessing/build_sequences.py": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0"
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "numpy": "2.4.6",
+    "mediapipe": "0.10.14",
+    "opencv-python": "5.0.0.93"
+  },
+  "fixture_count": 6,
+  "png_count": 180,
+  "fixtures": [
+    {
+      "clip_id": "clips_22_14.npz",
+      "directory": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1/clips_22_14",
+      "fixture_manifest_sha256": "f8c1fe475e51d8818e6cfe5b7a531bed93029bf7a2172bca6ef10c23c7ca85a0",
+      "python_sha256": "297ced9ed848556f95b9310b8ee8699f6bb0b5c65545939b073aaa517872344c",
+      "replay_manifest_sha256": "b5234ffd1e47aca8d2bf44f33b81529a5da4078144f21697b39bfc0b46c06062",
+      "source_video_sha256": "273799465b977803c34de150323a1825627e69fc2e93ac6e964a31fa266db24c",
+      "landmarks_sha256": "d45bb4e29ca1f526e75c22b00108a3e37f4dd3bb02d8027131c5b34a5851648e",
+      "summary": {
+        "frames": 30,
+        "decoded_frames": 244,
+        "source_fps": 60.0,
+        "stored_full_video_frames": 244,
+        "stored_resample_indices": [
+          0,
+          8,
+          17,
+          25,
+          34,
+          42,
+          50,
+          59,
+          67,
+          75,
+          84,
+          92,
+          101,
+          109,
+          117,
+          126,
+          134,
+          142,
+          151,
+          159,
+          168,
+          176,
+          184,
+          193,
+          201,
+          209,
+          218,
+          226,
+          235,
+          243
+        ],
+        "sampled_presence": {
+          "pose_seen": 30,
+          "left_seen": 0,
+          "right_seen": 7
+        },
+        "sampled_detector_presence_counts": {
+          "pose": 30,
+          "face": 30,
+          "left_hand": 0,
+          "right_hand": 7
+        },
+        "stored_full_video_presence_counts": {
+          "pose": 244,
+          "face": 244,
+          "left_hand": 0,
+          "right_hand": 61
+        },
+        "stored_detection_rates": [
+          1.0,
+          1.0,
+          0.0,
+          0.25
+        ],
+        "sampled_feature_min": -2.103599786758423,
+        "sampled_feature_max": 1.5705511569976807,
+        "finite_feature_count": 7740,
+        "host_path_block_mae": {
+          "pose": 0.05301597295818908,
+          "left_hand": 0.0,
+          "right_hand": 0.0028579460149298287
+        },
+        "host_path_block_max_abs": {
+          "pose": 0.6708940863609314,
+          "left_hand": 0.0,
+          "right_hand": 0.055662333965301514
+        },
+        "interpretation": "Different detector tracking paths: stored full-video normalize/resample vs sampled-PNG Holistic re-detection. Not Android parity, normalization defect, anatomy or accuracy evidence."
+      }
+    },
+    {
+      "clip_id": "clips_22_8.npz",
+      "directory": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1/clips_22_8",
+      "fixture_manifest_sha256": "972ce96ffb56a197f130014cf03647c2367547f9e10a1e6d8bc8e3064a1ba535",
+      "python_sha256": "799e02373d2e58e3da0ab5b7ba4d5ad4c319a18be3c71d7362afe9c60a443731",
+      "replay_manifest_sha256": "b12d8aa3a7c53d877fc999bd846b91fc459ab7ad628ff9f93ae4be55da523c4e",
+      "source_video_sha256": "f187e4109879cc87d8a70d6a1b30363fc802db658919cc2f6d433b3a6f31c1c0",
+      "landmarks_sha256": "339d42fd1f51baa3b0ef43ff88ccc2877d3d5361e65442c09cc2841538f8f0c2",
+      "summary": {
+        "frames": 30,
+        "decoded_frames": 244,
+        "source_fps": 60.0,
+        "stored_full_video_frames": 244,
+        "stored_resample_indices": [
+          0,
+          8,
+          17,
+          25,
+          34,
+          42,
+          50,
+          59,
+          67,
+          75,
+          84,
+          92,
+          101,
+          109,
+          117,
+          126,
+          134,
+          142,
+          151,
+          159,
+          168,
+          176,
+          184,
+          193,
+          201,
+          209,
+          218,
+          226,
+          235,
+          243
+        ],
+        "sampled_presence": {
+          "pose_seen": 30,
+          "left_seen": 0,
+          "right_seen": 8
+        },
+        "sampled_detector_presence_counts": {
+          "pose": 30,
+          "face": 30,
+          "left_hand": 0,
+          "right_hand": 8
+        },
+        "stored_full_video_presence_counts": {
+          "pose": 244,
+          "face": 244,
+          "left_hand": 0,
+          "right_hand": 68
+        },
+        "stored_detection_rates": [
+          1.0,
+          1.0,
+          0.0,
+          0.279
+        ],
+        "sampled_feature_min": -2.134927749633789,
+        "sampled_feature_max": 1.5668984651565552,
+        "finite_feature_count": 7740,
+        "host_path_block_mae": {
+          "pose": 0.03318414770416154,
+          "left_hand": 0.0,
+          "right_hand": 0.0014464876011491966
+        },
+        "host_path_block_max_abs": {
+          "pose": 0.5703669190406799,
+          "left_hand": 0.0,
+          "right_hand": 0.025893092155456543
+        },
+        "interpretation": "Different detector tracking paths: stored full-video normalize/resample vs sampled-PNG Holistic re-detection. Not Android parity, normalization defect, anatomy or accuracy evidence."
+      }
+    },
+    {
+      "clip_id": "clips_22_9.npz",
+      "directory": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1/clips_22_9",
+      "fixture_manifest_sha256": "746cf075eb9686ca262d028415b09cb04e6bf38e7789bdb4f816966dfd01defb",
+      "python_sha256": "b2fd11afc428b7940a8211caa48ad819f93bdd5803c4477d2581486e040c9a75",
+      "replay_manifest_sha256": "3ad278fbc6ce818ffeff0bec79cb631cbd54e04446a0d541adfa42e610452480",
+      "source_video_sha256": "fcc6cac10e4f826bebf3e031f225a56701ab172fc82264e236e4ede69f1bdf3e",
+      "landmarks_sha256": "b2d5e9b3dd1595e66d95ec7659748044c53813bd6c83dc16a8ab1ebf1499e230",
+      "summary": {
+        "frames": 30,
+        "decoded_frames": 244,
+        "source_fps": 60.0,
+        "stored_full_video_frames": 244,
+        "stored_resample_indices": [
+          0,
+          8,
+          17,
+          25,
+          34,
+          42,
+          50,
+          59,
+          67,
+          75,
+          84,
+          92,
+          101,
+          109,
+          117,
+          126,
+          134,
+          142,
+          151,
+          159,
+          168,
+          176,
+          184,
+          193,
+          201,
+          209,
+          218,
+          226,
+          235,
+          243
+        ],
+        "sampled_presence": {
+          "pose_seen": 30,
+          "left_seen": 0,
+          "right_seen": 8
+        },
+        "sampled_detector_presence_counts": {
+          "pose": 30,
+          "face": 30,
+          "left_hand": 0,
+          "right_hand": 8
+        },
+        "stored_full_video_presence_counts": {
+          "pose": 244,
+          "face": 244,
+          "left_hand": 0,
+          "right_hand": 67
+        },
+        "stored_detection_rates": [
+          1.0,
+          1.0,
+          0.0,
+          0.275
+        ],
+        "sampled_feature_min": -2.169593572616577,
+        "sampled_feature_max": 1.5503236055374146,
+        "finite_feature_count": 7740,
+        "host_path_block_mae": {
+          "pose": 0.0302866407091665,
+          "left_hand": 0.0,
+          "right_hand": 0.002375529974733822
+        },
+        "host_path_block_max_abs": {
+          "pose": 0.6234510987997055,
+          "left_hand": 0.0,
+          "right_hand": 0.10094445943832397
+        },
+        "interpretation": "Different detector tracking paths: stored full-video normalize/resample vs sampled-PNG Holistic re-detection. Not Android parity, normalization defect, anatomy or accuracy evidence."
+      }
+    },
+    {
+      "clip_id": "clips_24_10.npz",
+      "directory": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1/clips_24_10",
+      "fixture_manifest_sha256": "ec4799fc6e813f6ec6514d6e15fe2942598a51794ae68a6426f6dc96cc03b9d6",
+      "python_sha256": "3521b9f4afda693138bfad9f6b231bc48d0ddadee091c11892156a2668416e4a",
+      "replay_manifest_sha256": "aa6123fd1010bfb189900b8787b053fb7cbdf7f0d0ce6c17e16e8d765719cc20",
+      "source_video_sha256": "075871e34308e9b733d64c3bb1bf17269d07ef800870c73fc0deb54265d97cdc",
+      "landmarks_sha256": "38c2823593b5b460eb776a8e9883041070bc2ded0f78cbdc3cef190a146d3e95",
+      "summary": {
+        "frames": 30,
+        "decoded_frames": 244,
+        "source_fps": 60.0,
+        "stored_full_video_frames": 244,
+        "stored_resample_indices": [
+          0,
+          8,
+          17,
+          25,
+          34,
+          42,
+          50,
+          59,
+          67,
+          75,
+          84,
+          92,
+          101,
+          109,
+          117,
+          126,
+          134,
+          142,
+          151,
+          159,
+          168,
+          176,
+          184,
+          193,
+          201,
+          209,
+          218,
+          226,
+          235,
+          243
+        ],
+        "sampled_presence": {
+          "pose_seen": 30,
+          "left_seen": 0,
+          "right_seen": 8
+        },
+        "sampled_detector_presence_counts": {
+          "pose": 30,
+          "face": 30,
+          "left_hand": 0,
+          "right_hand": 8
+        },
+        "stored_full_video_presence_counts": {
+          "pose": 244,
+          "face": 244,
+          "left_hand": 0,
+          "right_hand": 67
+        },
+        "stored_detection_rates": [
+          1.0,
+          1.0,
+          0.0,
+          0.275
+        ],
+        "sampled_feature_min": -2.0677380561828613,
+        "sampled_feature_max": 1.572906255722046,
+        "finite_feature_count": 7740,
+        "host_path_block_mae": {
+          "pose": 0.03681628929299048,
+          "left_hand": 0.0,
+          "right_hand": 0.002187531942036003
+        },
+        "host_path_block_max_abs": {
+          "pose": 0.5426760613918304,
+          "left_hand": 0.0,
+          "right_hand": 0.06664907932281494
+        },
+        "interpretation": "Different detector tracking paths: stored full-video normalize/resample vs sampled-PNG Holistic re-detection. Not Android parity, normalization defect, anatomy or accuracy evidence."
+      }
+    },
+    {
+      "clip_id": "clips_24_11.npz",
+      "directory": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1/clips_24_11",
+      "fixture_manifest_sha256": "a115b857ec53355d0709ad825980e427f70d649ce49b9d4d7ddbff70c0e4e3af",
+      "python_sha256": "3aa27dd2937eb35256480a7e4aecb71c8e106e2ffbf01a61d29fb82ee793b33b",
+      "replay_manifest_sha256": "fa3cf807dd96d1c08b9a58443d83f266913ecb2fcb137eeb15d16102665dd983",
+      "source_video_sha256": "8769a5625798de66f2bf6bc8ed1ac3b6a9a5355b2857c3211c66423abfcf0135",
+      "landmarks_sha256": "fe0f44b3ea4c3c11b9e04f9691de49fff8fbc66894b1c9f584c12c9abeee467b",
+      "summary": {
+        "frames": 30,
+        "decoded_frames": 244,
+        "source_fps": 60.0,
+        "stored_full_video_frames": 244,
+        "stored_resample_indices": [
+          0,
+          8,
+          17,
+          25,
+          34,
+          42,
+          50,
+          59,
+          67,
+          75,
+          84,
+          92,
+          101,
+          109,
+          117,
+          126,
+          134,
+          142,
+          151,
+          159,
+          168,
+          176,
+          184,
+          193,
+          201,
+          209,
+          218,
+          226,
+          235,
+          243
+        ],
+        "sampled_presence": {
+          "pose_seen": 30,
+          "left_seen": 0,
+          "right_seen": 8
+        },
+        "sampled_detector_presence_counts": {
+          "pose": 30,
+          "face": 30,
+          "left_hand": 0,
+          "right_hand": 8
+        },
+        "stored_full_video_presence_counts": {
+          "pose": 244,
+          "face": 244,
+          "left_hand": 0,
+          "right_hand": 62
+        },
+        "stored_detection_rates": [
+          1.0,
+          1.0,
+          0.0,
+          0.254
+        ],
+        "sampled_feature_min": -2.0873048305511475,
+        "sampled_feature_max": 1.569757103919983,
+        "finite_feature_count": 7740,
+        "host_path_block_mae": {
+          "pose": 0.031188533363720954,
+          "left_hand": 0.0,
+          "right_hand": 0.008963095417668767
+        },
+        "host_path_block_max_abs": {
+          "pose": 0.5384811162948608,
+          "left_hand": 0.0,
+          "right_hand": 0.4800763726234436
+        },
+        "interpretation": "Different detector tracking paths: stored full-video normalize/resample vs sampled-PNG Holistic re-detection. Not Android parity, normalization defect, anatomy or accuracy evidence."
+      }
+    },
+    {
+      "clip_id": "clips_24_18.npz",
+      "directory": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1/clips_24_18",
+      "fixture_manifest_sha256": "babb24951ebdf3c05c7cb67313a9ce1eaa9233a6fe048419254758aae0268d24",
+      "python_sha256": "1383c1f1d51d88e1e96751ad51484009818ceab4f721208e609381223bba09d2",
+      "replay_manifest_sha256": "32a984cd2a61b5d55463ab77cb8f0dbaf17906b4a755c1ab831778764c84db94",
+      "source_video_sha256": "699a479eeef91d9432eb6050b66c8a3e0ec0aeb8a71d8c3d9526ae09eb2a30bb",
+      "landmarks_sha256": "743f01b905141e185a138e173d214ae01b137aa7d61a32f90d02d6e8b5e4200e",
+      "summary": {
+        "frames": 30,
+        "decoded_frames": 244,
+        "source_fps": 60.0,
+        "stored_full_video_frames": 244,
+        "stored_resample_indices": [
+          0,
+          8,
+          17,
+          25,
+          34,
+          42,
+          50,
+          59,
+          67,
+          75,
+          84,
+          92,
+          101,
+          109,
+          117,
+          126,
+          134,
+          142,
+          151,
+          159,
+          168,
+          176,
+          184,
+          193,
+          201,
+          209,
+          218,
+          226,
+          235,
+          243
+        ],
+        "sampled_presence": {
+          "pose_seen": 30,
+          "left_seen": 0,
+          "right_seen": 10
+        },
+        "sampled_detector_presence_counts": {
+          "pose": 30,
+          "face": 30,
+          "left_hand": 0,
+          "right_hand": 10
+        },
+        "stored_full_video_presence_counts": {
+          "pose": 244,
+          "face": 244,
+          "left_hand": 0,
+          "right_hand": 83
+        },
+        "stored_detection_rates": [
+          1.0,
+          1.0,
+          0.0,
+          0.34
+        ],
+        "sampled_feature_min": -2.105909824371338,
+        "sampled_feature_max": 1.57709801197052,
+        "finite_feature_count": 7740,
+        "host_path_block_mae": {
+          "pose": 0.04774973762572552,
+          "left_hand": 0.0,
+          "right_hand": 0.0033151842808663823
+        },
+        "host_path_block_max_abs": {
+          "pose": 0.5890617668628693,
+          "left_hand": 0.0,
+          "right_hand": 0.0654645711183548
+        },
+        "interpretation": "Different detector tracking paths: stored full-video normalize/resample vs sampled-PNG Holistic re-detection. Not Android parity, normalization defect, anatomy or accuracy evidence."
+      }
+    }
+  ],
+  "tests": {
+    "green-strict-cli.log": {
+      "run": 14,
+      "skipped": 0
+    },
+    "focused-campaign-final.log": {
+      "run": 4,
+      "skipped": 0
+    },
+    "full-benchmarking-compatible.log": {
+      "run": 90,
+      "skipped": 2
+    }
+  },
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "native_source_hashes_verified": 42,
+  "a3b_source_hashes_verified": 4,
+  "limits": [
+    "No Android execution",
+    "Anatomical handedness unverified",
+    "No classifier prediction or accuracy measurement",
+    "Parent independent review required"
+  ]
+}

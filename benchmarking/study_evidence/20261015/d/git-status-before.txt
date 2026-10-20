@@ -1,0 +1,69 @@
+ M .superpowers/sdd/progress.md
+ M app/android/app/build.gradle.kts
+ M app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt
+ M app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt
+ M app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt
+ M app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
+ M app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt
+ M app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt
+ M app/android/app/src/test/kotlin/com/kumpas/kumpas_app/BenchmarkModeTest.kt
+ M app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt
+ M app/android/app/src/test/kotlin/com/kumpas/kumpas_app/MainActivityBoundaryTest.kt
+ M app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt
+ M app/lib/feedback_engine/kumpas_channel.dart
+ M app/lib/session/session_lifecycle.dart
+ M app/lib/session/session_repository.dart
+ M app/lib/ui/assessment_screen.dart
+ M app/lib/ui/practice_screen.dart
+ M app/test/practice_flow_test.dart
+ M app/test/session_clear_test.dart
+ M benchmarking/README.md
+ M benchmarking/collect_fps.py
+ M benchmarking/collect_latency.py
+ M benchmarking/environment_protocol.md
+ M benchmarking/pipeline_parity.py
+ M benchmarking/study_readiness.md
+ M benchmarking/test_collectors.py
+ M benchmarking/test_history.py
+ M benchmarking/test_pipeline_parity.py
+ M docs/phase-gates.md
+?? app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt
+?? app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewOwnership.kt
+?? app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewResourceFactory.kt
+?? app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ExportPublication.kt
+?? app/android/app/src/main/kotlin/com/kumpas/kumpas_app/OwnedCleanup.kt
+?? app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionResourceFactory.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ActivityInitializationTest.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostArtifactRun.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFixture.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFlowTest.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyProducer.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt
+?? app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt
+?? app/test/assessment_save_failure_test.dart
+?? app/test/host_study_flow_test.dart
+?? app/test/session_lifecycle_race_test.dart
+?? app/test/session_repository_race_test.dart
+?? app/test/support/
+?? benchmarking/host_fixture_replay.py
+?? benchmarking/inspect_release.py
+?? benchmarking/parity_fixtures.py
+?? benchmarking/study_evidence/20261007/
+?? benchmarking/study_evidence/20261015/
+?? benchmarking/test_host_producer_replay.py
+?? benchmarking/test_inspect_release.py
+?? benchmarking/test_parity_fixtures.py
+?? docs/superpowers/plans/2026-10-07-review-closure.md
+?? docs/superpowers/plans/2026-10-15-host-completion.md
+?? docs/superpowers/specs/2026-10-15-host-completion-design.md
+?? evaluation/README.md
+?? evaluation/__init__.py
+?? evaluation/export_cli.py
+?? evaluation/legacy_export.py
+?? evaluation/synthetic_descriptive.py
+?? evaluation/test_export_cli.py
+?? evaluation/test_legacy_export.py
+?? evaluation/test_synthetic_descriptive.py
+?? training/models/validation_campaign.py
+?? training/tests/test_validation_campaign.py

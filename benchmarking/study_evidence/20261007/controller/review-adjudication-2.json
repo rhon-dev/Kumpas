@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-08T01:10:57+0800",
+  "scope": "Parent in-memory retention/binding probes only, no history/default-store/device access; reviewer full reader/gate probes remain distinct evidence",
+  "probes": [
+    {
+      "case": "setup.setup_id",
+      "retained": true,
+      "unsafe": false
+    },
+    {
+      "case": "camera.camera_id",
+      "retained": true,
+      "unsafe": false
+    },
+    {
+      "case": "setup.chip",
+      "retained": true,
+      "unsafe": false
+    },
+    {
+      "case": "unsupported device member discarded without rejection",
+      "marker_retained": false,
+      "identity_errors": [],
+      "unsafe": false
+    }
+  ],
+  "frozen_postimages_verified": 27,
+  "reviews": [
+    "spec-review-2.md",
+    "quality-review-2.md"
+  ],
+  "decision": "Changes required; automatic fix loop paused after two repair/review rounds. Owner decisions needed for control commit semantics and trusted metadata boundary before further source changes."
+}

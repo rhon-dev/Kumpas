@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-10-18T14:24:25.839785+08:00",
+  "origin": "Actual tool results observed during D, not fresh replays or synthesized command output",
+  "incidents": [
+    {
+      "label": "debug-test-build-fresh",
+      "exit": null,
+      "tool_timeout_seconds": 420,
+      "status": "No observed completion result; retained partial log and start record. Not counted successful."
+    },
+    {
+      "label": "quarantine-generated.py",
+      "exit": 1,
+      "error": "AssertionError after same-volume TTF rename: flags changed; recovery records observed postimage and does not assert unchanged flags/preimage digest."
+    },
+    {
+      "label": "quarantine-recovery.py",
+      "exit": 1,
+      "error": "TimeoutError Errno60 moving DATALESS app 2.so outside provider; source remained, destination absent. Same-provider exact-file recovery succeeded."
+    },
+    {
+      "label": "inspect-artifacts.py",
+      "exit": 1,
+      "error": "Actual debug inspector exit1 on two suffixed generated snapshot ZIP entries. Unsuccessful APK preserved; narrow source/canonical/hash quarantine, then rebuild."
+    },
+    {
+      "label": "inspect-final-artifacts.py",
+      "exit": 1,
+      "error": "Actual release inspector exit1 on generated NativeAssetsManifest suffix. Unsuccessful APK preserved; narrow same-inode/hash quarantine, then rebuild."
+    },
+    {
+      "label": "kill -INT 7744",
+      "exit": 1,
+      "error": "No such process; owned managed build had already completed. No signal delivered, no daemon killed."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: practice entry and duplicate resume share one pending start
+00:00 +1: fire-and-forget startSession failure is handled and next event retries
+00:00 +1 -1: fire-and-forget startSession failure is handled and next event retries [E]
+  PlatformException(synthetic-lifecycle-failure, null, null, null)
+  package:flutter/src/services/message_codecs.dart 653:7     StandardMethodCodec.decodeEnvelope
+  package:flutter/src/services/platform_channel.dart 366:18  MethodChannel._invokeMethod
+  ===== asynchronous gap ===========================
+  dart:async                                                 _CustomZone.registerBinaryCallback
+  package:kumpas_app/session/session_lifecycle.dart 56:18    SessionLifecycleObserver._reconcile
+  package:kumpas_app/session/session_lifecycle.dart 41:20    SessionLifecycleObserver._schedule
+  package:kumpas_app/session/session_lifecycle.dart 16:5     SessionLifecycleObserver.setPracticeActive
+  test/session_lifecycle_race_test.dart 65:16                main.<fn>
+  ===== asynchronous gap ===========================
+  dart:async                                                 _CustomZone.registerUnaryCallback
+  test/session_lifecycle_race_test.dart 64:7                 main.<fn>
+  
+00:00 +1 -1: fire-and-forget endSession failure is handled and next event retries
+00:00 +1 -2: fire-and-forget endSession failure is handled and next event retries [E]
+  PlatformException(synthetic-lifecycle-failure, null, null, null)
+  package:flutter/src/services/message_codecs.dart 653:7     StandardMethodCodec.decodeEnvelope
+  package:flutter/src/services/platform_channel.dart 366:18  MethodChannel._invokeMethod
+  ===== asynchronous gap ===========================
+  dart:async                                                 _CustomZone.registerBinaryCallback
+  package:kumpas_app/session/session_lifecycle.dart 47:9     SessionLifecycleObserver._reconcile
+  package:kumpas_app/session/session_lifecycle.dart 41:20    SessionLifecycleObserver._schedule
+  package:kumpas_app/session/session_lifecycle.dart 16:5     SessionLifecycleObserver.setPracticeActive
+  test/session_lifecycle_race_test.dart 74:18                main.<fn>
+  ===== asynchronous gap ===========================
+  dart:async                                                 _CustomZone.registerUnaryCallback
+  test/session_lifecycle_race_test.dart 64:7                 main.<fn>
+  
+00:00 +1 -2: leave while start pending eventually ends owned session
+00:00 +2 -2: paused while start pending eventually ends owned session
+00:00 +3 -2: hidden while start pending eventually ends owned session
+00:00 +4 -2: detached while start pending eventually ends owned session
+00:00 +5 -2: Some tests failed.

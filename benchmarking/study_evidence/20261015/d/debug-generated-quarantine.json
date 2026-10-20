@@ -1,0 +1,63 @@
+{
+  "event": "debug-generated-quarantine",
+  "at": "2026-10-18T14:12:40.762790+08:00",
+  "reason": "debug-inspection.log rejects suffixed generated ZIP entries containing spaces; exact two generated inputs independently located. No source change, ABI policy change or broad cleanup. Prior unsuccessful artifact preserved externally.",
+  "records": [
+    {
+      "before": {
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/debug/flutter_assets/isolate_snapshot_data 2",
+        "bytes": 11028680,
+        "inode": 17090005,
+        "device": 16777232,
+        "flags": 64,
+        "sha256": "5634ac3c04821aeca2da6569839750ad34e39c52acb140589d10e7ecb1bed422"
+      },
+      "counterpart": {
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/debug/flutter_assets/isolate_snapshot_data",
+        "bytes": 11028680,
+        "inode": 16242046,
+        "device": 16777232,
+        "flags": 64,
+        "sha256": "5634ac3c04821aeca2da6569839750ad34e39c52acb140589d10e7ecb1bed422"
+      },
+      "target": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/isolate_snapshot_data 2",
+      "ignored": "app/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/debug/flutter_assets/isolate_snapshot_data 2\napp/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/debug/flutter_assets/isolate_snapshot_data\n",
+      "after": {
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/isolate_snapshot_data 2",
+        "bytes": 11028680,
+        "inode": 17090005,
+        "device": 16777232,
+        "flags": 64,
+        "sha256": "5634ac3c04821aeca2da6569839750ad34e39c52acb140589d10e7ecb1bed422"
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data 2",
+        "bytes": 15011,
+        "inode": 17090019,
+        "device": 16777232,
+        "flags": 64,
+        "sha256": "be86b27a577670a3bfc5380a1ff3c6e900f8c732c3f66dfb578894bcd3cc830c"
+      },
+      "counterpart": {
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data",
+        "bytes": 15011,
+        "inode": 16242045,
+        "device": 16777232,
+        "flags": 64,
+        "sha256": "be86b27a577670a3bfc5380a1ff3c6e900f8c732c3f66dfb578894bcd3cc830c"
+      },
+      "target": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/vm_snapshot_data 2",
+      "ignored": "app/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data 2\napp/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/debug/flutter_assets/vm_snapshot_data\n",
+      "after": {
+        "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/vm_snapshot_data 2",
+        "bytes": 15011,
+        "inode": 17090019,
+        "device": 16777232,
+        "flags": 64,
+        "sha256": "be86b27a577670a3bfc5380a1ff3c6e900f8c732c3f66dfb578894bcd3cc830c"
+      }
+    }
+  ]
+}

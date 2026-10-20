@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.ResourceCleanupTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-15T20:13:59.555Z" hostname="Ahrons-MacBook-Pro.local" time="0.155">
+  <properties/>
+  <testcase name="cameraClearAndUnbindFaultsStillCancelAndShutdown" classname="com.kumpas.kumpas_app.ResourceCleanupTest" time="0.137"/>
+  <testcase name="activityEngineAndBenchmarkCallbackFailuresStillAttemptFrameworkDestroy" classname="com.kumpas.kumpas_app.ResourceCleanupTest" time="0.012"/>
+  <testcase name="detectorFailureStillClosesEveryOwnedResourceAndRepeatIsSafe" classname="com.kumpas.kumpas_app.ResourceCleanupTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

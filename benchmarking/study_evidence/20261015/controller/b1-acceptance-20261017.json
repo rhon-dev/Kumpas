@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-17T18:50:29.239266+08:00",
+  "decision": "Accept B1 prepared host task06 references WITH low B1-R1 arithmetic robustness follow-up",
+  "review": "b1-review-1.md",
+  "source_hashes": {
+    "benchmarking/pipeline_parity.py": "cc905b5494e1fe78d7c4d3de3bcf05772499946538d42f404f17acad3c43d93d",
+    "benchmarking/test_pipeline_parity.py": "1a4e3bb35f05f076166f36489de916d592092266649463fdfc3cbbb64b94b2cc",
+    "benchmarking/parity_fixtures.py": "993703b492a283692ed678a9cb44b62383c52bd7068974c50bf290dd559c036b",
+    "benchmarking/test_parity_fixtures.py": "2c165cce0db1f0fad3efbec7abe5c7ade83b9dc01c1b6bae2a09bfb0ccf00656"
+  },
+  "campaign": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1",
+  "campaign_manifest_sha256": "1cca1526355e9d4ce6c41102a0a6fa474a15dd77bbac2b09daee1ec85e70c452",
+  "parent_execution": "14parity+4campaign tests passed,0skips;6fixtures/180PNGs/source readback verified",
+  "worker_broad_execution": "90tests,2explicit dependency skips;compatible detector tests separately passed",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "minor_followup": "B1-R1:finite extreme float64 operands may overflow subtraction/reduction and produce nonfinite reports. Reject arithmetic nonfinite with fixed safe error and strict JSON later;do not clamp/change normalization. Not fixed. Source-bound generated fixtures must retain historical identity if tooling changes.",
+  "limits": "No Android execution/native-bound parity/anatomical/classifier/accuracy/study acceptance",
+  "next": "B2 additive provenance validator and validation-only frozen inference;no protected training source changes,retraining or deployment"
+}

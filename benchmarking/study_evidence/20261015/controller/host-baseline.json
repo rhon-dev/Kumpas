@@ -1,0 +1,801 @@
+{
+  "observed_at": "2026-10-15T09:44:23.948018+08:00",
+  "head": "6b8b1b6770e46bea7728a8e9ca4ae6d78e857640",
+  "scope": "Host-only completion baseline; no emulator/ADB/participant-store operations authorized",
+  "file_hashes": {
+    ".gitignore": "ecd9099564b43fd82fa10b05cefb764fcba075afe71a3b835709b5cebac196f9",
+    ".kiro/specs/00-project-init/gap-reconciliation-report.md": "ca466ee31b73bdde0715cd137085abe2d604db9633339c90bbad88c238581212",
+    ".kiro/specs/00-project-init/requirements.md": "3d628f226b7ed3e8af7fd40fe32bf3191c1eb744122a1c035188260b4b15439a",
+    ".kiro/specs/01-project-brief/design.md": "2cd8163bd1fd5badff86e147ecff4ac964ad6180773599fd87f1fca6c275110b",
+    ".kiro/specs/01-project-brief/requirements.md": "35aa0bb3730476c7bd8b658636ef2ca2ec0f32c5f0cec302d8776a970d9c2786",
+    ".kiro/specs/02-related-work/design.md": "68ccee4683dd2dd37097f4fd23fe6472bad2d4e54fc4daa13adcf0122df2be92",
+    ".kiro/specs/02-related-work/requirements.md": "2b3fcd462e54526312daf028c73eb550f4f1e5b2cbb1b53c32f3df0bb2ade579",
+    ".kiro/specs/03-dataset-audit/design.md": "d58356bb974361035f0c03f8a16e7edb03bd658921fd11adabe39871254a4df4",
+    ".kiro/specs/03-dataset-audit/requirements.md": "55e6cace8f68c7df92bffa4dd91198678569cfc5ba42f9d13797e0ed22312865",
+    ".kiro/specs/04-data-pipeline/design.md": "b1bfd3a13a1b920e21bdc710d789c1425fc256f6840a1c898fbf0c5f57333085",
+    ".kiro/specs/04-data-pipeline/requirements.md": "381513071a0c638e5d913af2870d9d47acdf0da5f2747acf75107b250ffa4ff0",
+    ".kiro/specs/05-model-architecture/design.md": "5ddcea55fb04036edea6db8a612ae08b2d347cb50595b0679453cf72647f3516",
+    ".kiro/specs/05-model-architecture/requirements.md": "9294a50b82381bcd855d6bfa4135ac167c65dc786a59dde1c1f810ed7c778b19",
+    ".kiro/specs/06-training-plan/design.md": "7f662077c2941316e0e020ff8c37359495d57406bc879a36decc93fbf598eb55",
+    ".kiro/specs/06-training-plan/requirements.md": "6140f658c510711fe18bbceb486dc9c3e6e4a918cb76c437b9846af8027ede8c",
+    ".kiro/specs/07-model-evaluation/design.md": "c7eacdb920c53fa53a900cf096b8019ce43433de28f4fd4d4065eac7676cfbee",
+    ".kiro/specs/07-model-evaluation/requirements.md": "6b9b6d81b9e00f6772ad9a46af495f2d67a14b92ede02a579b2898021680652e",
+    ".kiro/specs/08-quantization-export/design.md": "34897851eb2f4fbfa75f60bafb93d6b29ae08f3c99f50da7954cfef854e049cf",
+    ".kiro/specs/08-quantization-export/requirements.md": "140c37d9391b9a95cb40e19806f9f699dbb55f5e8ba8254fe84bc76560d9d05e",
+    ".kiro/specs/09-mobile-architecture/design.md": "ace4da9958bd1f3b0e56ad4ef10fd6eae923aa4f0da4e66e595c0c79897f4e26",
+    ".kiro/specs/09-mobile-architecture/requirements.md": "c947c3d17e8486db769a0bd2b9cce7b9425f166bba164b2df766458eb8e70a83",
+    ".kiro/specs/10-feedback-logic/design.md": "42e493929476c13e5e1d46c0b5654739e0784473f46b1e54c4963b2c809a0d4c",
+    ".kiro/specs/10-feedback-logic/requirements.md": "4d3ec09deba0cd2f0b5f982555d4e4b4c9f9c6d56bbf20b973537dbbef87bdc4",
+    ".kiro/specs/11-ux-flow/design.md": "533e539d769d5032494a69f475760a2a05ac3065b586aff4e495f0c54286d6a6",
+    ".kiro/specs/11-ux-flow/requirements.md": "874d39826166e74145120c91b8cbb0116cf21d58050fcee2c1221f82ec9c00fb",
+    ".kiro/specs/12-on-device-integration/design.md": "19eea9fd3856b78c69fbc5aa292b3a78790053534baed07fd43ff1f38bf1f21b",
+    ".kiro/specs/12-on-device-integration/requirements.md": "97b4de28173e6450e394f8f0c7335e42c0f35a7446da3bc49ed042d23336a903",
+    ".kiro/specs/13-benchmarking-harness/design.md": "a7108f749f8d88e9be2f1c555b348d70e919ed82c7dffa15fef0c72da8b13cc8",
+    ".kiro/specs/13-benchmarking-harness/requirements.md": "dc9384ae9fdc6ddda75372e9271c225f4c4deba3fc04d35399f68949522fc85e",
+    ".kiro/specs/13-benchmarking-harness/tasks.md": "8f48105c4d2fe83e6338ec806ca2eeca65d4275f24ce231f58ae0ae3faa0ea64",
+    ".kiro/specs/14-privacy-offline-enforcement/design.md": "4435f462a8186f86b93a129b8bd468152a5e735f2751c83a34d0455ea1775220",
+    ".kiro/specs/14-privacy-offline-enforcement/requirements.md": "e84c7119b6c09d1c7682b3c386a448031ed70df77d23be7976589be2ac640153",
+    ".kiro/specs/15-qa-test-plan/design.md": "7873406ee9da24aa6693d28a14f764b2945090264d29657c69ccf5dd492cb055",
+    ".kiro/specs/15-qa-test-plan/requirements.md": "2f6541afbcc5514afc0352da2a0aa460ec266121dc416e8971a2df6109c39687",
+    ".kiro/specs/16-evaluation-study-design/design.md": "3fd2f2d1587e302cd24ac044a5b987ed17c8866bcf0c0a2b7f89fb38371dbb3f",
+    ".kiro/specs/16-evaluation-study-design/requirements.md": "bbf54b80cefa4d51849e7ec99fb2b65e3035421cad8ceb5557fe775aba9a9e70",
+    ".kiro/specs/17-implementation-tracking/requirements.md": "b0f784e8bb042e50df42a0298503dc19f935d16b70ed632c7fc4bb46b2255cbf",
+    ".kiro/specs/18-benchmark-validation/requirements.md": "76b5aab2f0e90474ea8a418a2203bed4c9645732fb831c474e92ee08ba3ba1c5",
+    ".kiro/specs/19-release-readiness/requirements.md": "336c0e09edf1d74b27eb3733add54b70d0af5538410e22b417d2fc7632457d6d",
+    ".kiro/specs/20-defense-and-maintenance/requirements.md": "535705f81ba34a8a67459cf3b91dcda6c7d5fa2cb30e89c979b00deaf7a036cc",
+    ".kiro/specs/21-session-logging/design.md": "2948ca0c0bb77a6d31f39cc349ebd7dc7525b598feb7a7e32d9bbb60e004f210",
+    ".kiro/specs/21-session-logging/requirements.md": "bbf5c97fdeb345e003d7db8535265057b202b6b6cc489f35a5cbff38be8697e5",
+    ".kiro/specs/21-session-logging/tasks.md": "f95f5ccdf6dd88838554fb3335d221307a451cfbdef8709b52e01a54165f9b57",
+    ".kiro/specs/22-holistic-v2/design.md": "cebf9a049750bab628e8c091a620eac4fcdbb1ff7298d23aae8f2d4f02cc0686",
+    ".kiro/specs/22-holistic-v2/requirements.md": "e31c4bdb73c49983b834db34c7c3e6d4418f799114d39e0872286aa4230e13dd",
+    ".kiro/specs/22-holistic-v2/tasks.md": "68a7999dc356694657c98858a554c1379d95d0898528978724a15aab60baca4c",
+    ".kiro/steering/product.md": "1addda5581236ca023bbdfb33d841b183bd8ee9a214b5e212852a8640ce9e78a",
+    ".kiro/steering/structure.md": "3508f494f117b95264c81a5250c2018cee7262ac971f8676a847053159e5cec6",
+    ".kiro/steering/tech.md": "57668623735d0fd7ae5078ddb867b385ede1af1f2cf6e630687ad3c4d3342108",
+    ".superpowers/sdd/progress.md": "ea56a9af25aed09a7f0a737d712985f5b1b683fee38acbddff080b627e3294c9",
+    "AGENTS.md": "0c5a195b8e6526f2585c27651cc2ac9346cb88a9a5abef6e654d10e953bcbfec",
+    "README.md": "877eafc05c282f90713dc1041e7a2c605956f0c2ed59b44013fa0a2005d2bdbd",
+    "app/.gitignore": "4a8d984279954e0461e0ffef9b9e7455340a0a762f227c01065a53482a83a4f1",
+    "app/.metadata": "07ba951beacf64b79a3c365cc4a0a0db0b23a12a14e2431ea688d453ae7ea0ab",
+    "app/README.md": "92099d752a17b1902a128a300c6300c309257a50929fee422c9ae4badd222154",
+    "app/analysis_options.yaml": "e0ea485cfdbc3e12b93efb8679a5ea73ebfe20ea4ca0c473dc594fc2fb274ed5",
+    "app/android/.gitignore": "b027c9de1011765c015e5819bf857c0d75bfcd0886fb01721c091159012e50f1",
+    "app/android/app/build.gradle.kts": "d4a3ba39a8bd756a146875ccb4574f1ab59ee3dbb01b7e454c370e0942d832a5",
+    "app/android/app/src/androidTest/kotlin/com/kumpas/kumpas_app/SessionDeletionTest.kt": "bcaec639d567a5b50db9bb4e2af9ccdcfed2705e21e6a10116666213cb25a7c2",
+    "app/android/app/src/androidTest/kotlin/com/kumpas/kumpas_app/VisionAttemptContractTest.kt": "808a6812d18eb3e5e7e09354516e5121a482d46dea81d6241f7265c1ff021826",
+    "app/android/app/src/androidTest/kotlin/com/kumpas/kumpas_app/benchmark/LatencyBenchmarkTest.kt": "bac9f4e307c37402241ff230889d4efe60d29d537704dceafb887a61bbe2e505",
+    "app/android/app/src/androidTest/kotlin/com/kumpas/kumpas_app/benchmark/PipelineParityTest.kt": "c6fc72f3c86bde034e795834904ea2cc19a6cb8264090a7d4c214132ba4fb28d",
+    "app/android/app/src/debug/AndroidManifest.xml": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b",
+    "app/android/app/src/main/AndroidManifest.xml": "1dd4ab8ea1e3d77a2a244def150bef367196e915657b0ea4c91ae2fa9ccd4ce2",
+    "app/android/app/src/main/assets/gold_standards.bin": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+    "app/android/app/src/main/assets/label_map.json": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/AttemptBoundary.kt": "9b39c543eac7732e541c227e5e13b1de809b665c4c382d348e6f8c01314a937c",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/BenchmarkMode.kt": "450196e45cae22fc97145440ca544dfa833df07c06730221729e5211f7090c48",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraPreviewView.kt": "0e24035b805155473de162bc5376661f5cf1c1b7136f091e2a260552912c6bfa",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewOwnership.kt": "cd9cf5e224fd990602f9e831eec1ed3b23c52549501513c5d8e7b249f7e63dd5",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/CameraViewResourceFactory.kt": "1cb92dd90df8407c46996b42fe7cb2c9f365c19ade991ef40eda799197832a86",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/DataExporter.kt": "235d1c2937566b9e252590109ee9bdde9bbb02b12e24c600cd83b52d1352d8b7",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/FeatureNormalizer.kt": "222168905289be7292a1c25542e7b22d9d0836403008afab97faec903c3dde38",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/FeedbackEngine.kt": "73f895b0fe6990f0cf92b01a0d423c8ac069647835b3cc650a15fc63bde9dbfe",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt": "09e08f400c7f75b3f01e69195da96cff3219913fa585e34de588e2936a8af470",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/OwnedCleanup.kt": "5b91ad3d2be80610cb7b7f63f160d2c7edda4c3061d31bfafe5593d7f62da8c1",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/PipelineMetrics.kt": "53831c757802033c95cc5840e6a37e6572923ad81a6b200c5c5a4fc6647cbe0c",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/PipelineTrace.kt": "e631ae23434816916fb1a11f73a29e38d3eb7786014d3f003d4b584f9c955e35",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/RgbaFramePacking.kt": "497f4380e527c01fa669c0ec28a5e73db84fb90b3788ed16990706db57ca37a0",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionDatabase.kt": "6278b07f867db481363e9056315e84c5a6b942d8f8ebf3b3212dd47685061f64",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionLog.kt": "585138ed66ed469196327992245cfb24b31ab74bd40f2500a8ab4247d2c682ee",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt": "9123ea7650545d0c37a0b0ec60cf5f7c3b4e7eef077d8ef1d3ba09d8a5dd6193",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/StudyDataFiles.kt": "b084c61ecf31ce4fa85086895aa5d2d2a82e614e26df0ffa92935ccaff67899d",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt": "a86071c63501ae63fcd96a3527b5c978f7b0e81ac990e2b95ef348b17941ddd8",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionResourceFactory.kt": "be9c8d80c1f8b9a274ace80b8713d21408d799f3fa858291ba3fe147c275cd23",
+    "app/android/app/src/main/res/drawable-v21/launch_background.xml": "7ca6d5cec2169c5a98661a119db23a6f3399c8fef2256ff04f3a642831282478",
+    "app/android/app/src/main/res/drawable/launch_background.xml": "94433756fe10005ddd6fc55cc5c0b1e9f3c10b66a08ceac795ece6713d34e28a",
+    "app/android/app/src/main/res/mipmap-hdpi/ic_launcher.png": "6a7c8f0d703e3682108f9662f813302236240d3f8f638bb391e32bfb96055fef",
+    "app/android/app/src/main/res/mipmap-mdpi/ic_launcher.png": "c7c0c0189145e4e32a401c61c9bdc615754b0264e7afae24e834bb81049eaf81",
+    "app/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png": "e14aa40904929bf313fded22cf7e7ffcbf1d1aac4263b5ef1be8bfce650397aa",
+    "app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png": "4d470bf22d5c17d84edc5f82516d1ba8a1c09559cd761cefb792f86d9f52b540",
+    "app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": "3c34e1f298d0c9ea3455d46db6b7759c8211a49e9ec6e44b635fc5c87dfb4180",
+    "app/android/app/src/main/res/values-night/styles.xml": "8c5bad5152f217e837519f9c15211d19f39bd45f5f67faf6dd81cb4b299e518f",
+    "app/android/app/src/main/res/values/styles.xml": "937d7c82f539c72eb94fd3a3773f29b3d3fef1997213c92cb632298cedf4bda9",
+    "app/android/app/src/main/res/xml/study_backup_rules.xml": "5d14d877daeba0e95e5ff974fcb4e92388dbfc49c5963c6d0ac58d96cc80074e",
+    "app/android/app/src/main/res/xml/study_data_extraction_rules.xml": "574df937973a9e76210357b263bdd8c6f56dee87bd8c1643ecac6170fc842b2c",
+    "app/android/app/src/profile/AndroidManifest.xml": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/AttemptBoundaryTest.kt": "dde0282450c23364e3e7461e295b318c7bc647600b62ed07107656681540a695",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/BenchmarkModeTest.kt": "5c9a6b6e158e079faee98bb85f7c3565e585fad72d932e8bbfaab35f31f07798",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt": "40a6c1d09e8fa4f522324e66c9ae462149c267a719d55fd0ee48e9d54c1acdb2",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt": "673369fa95394eb7090919def59107b5ffeac6d6820db2a3cb9cb81a71d42afe",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/FeatureNormalizerTest.kt": "75ac9f445c0932068b2fe4013970993c5afa2a1803202ba01fa9cfbc7ac71373",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/FeedbackEngineParityTest.kt": "5ac0bc2f3334bf9f7b7ccf5d977d2ff61533365c95349c38d94e5a65627d7e5d",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/MainActivityBoundaryTest.kt": "c0126b30434b7b095f820ab64c4e04cc27e3de031799a58761139367819f865a",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/PipelineMetricsTest.kt": "dbe1db2f6a2dac8cf443fd945ca06230f1d83dfc52e2dae9e26e19b54df8dff0",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/PipelineTraceTest.kt": "7cab9d4275f22d56bffdbc062c2d2e11c9a83dcf841eee1ca51c823eb25d2af5",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt": "76ed417a343ee46e10ca2cd76c7b34dabb5fe3903e17c30ef2bba3f96064e0b0",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/RgbaFramePackingTest.kt": "caec130f7d3dafd9f1565206cd8f0642924bf263e1cc9ce25a3cf1715a1e911d",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionDatabaseTest.kt": "77521b3d4c8f4237cf488c2fe6d4acfc1b39d8b6d79137097cbf9b68ab4cbe6e",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt": "2d6096106c901e101a9f2090e075d9614748481f6e7745398e30a9c219425a25",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/StudyBackupPolicyTest.kt": "4bb5b0b6735f228a828ce4fa7e3ddf2ab90b88c92893088e8298b0d9ab99c6fc",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt": "d4aea3fbe8ea5c218bada5d6ca1c6c8661ed7b15f62353fda3e7f8446fb286c8",
+    "app/android/app/src/test/resources/feedback_case_confused_pair.json": "a507a6be109456caa7b52e9476cc8751a560452c39ea659c1f1bc0361a7c0e55",
+    "app/android/app/src/test/resources/feedback_case_correct.json": "01d15b8ea77731c1e0ed091e684748dd9a5c489dda7315d18a56e6955a259fa3",
+    "app/android/app/src/test/resources/feedback_case_handshape.json": "ca6c3866828f1961ad4b5410c407321ff6f25214827dce1514de1adc4df4cb2b",
+    "app/android/app/src/test/resources/gold_standards.bin": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+    "app/android/build.gradle.kts": "6a26dba2cb8dfba1e74f540b0d17a89d96c1301d3c3bfda14348bed257fddcba",
+    "app/android/gradle.properties": "5539cf5f17c53900a72cf0065e450f0a8ba5b929dd2b364724c1296d0285d9dc",
+    "app/android/gradle/wrapper/gradle-wrapper.properties": "297c9e63b6fa6e7e8b221900fa1787c1a0e38869d8957da66389fd0f6b00f78e",
+    "app/android/settings.gradle.kts": "a9b5756048f668d4ebf355116678fd334cd5f2169b7d4518ad19b8df14d3af36",
+    "app/fetch_assets.sh": "9f2fe8f1d8c5ba9bbf48083f001bcf636ddee880db3b5be037344998dae83595",
+    "app/lib/camera/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/lib/feedback_engine/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/lib/feedback_engine/kumpas_channel.dart": "5da2f29eca0a0953367a068d5e8a7975b70c966f1c17ecc65ada350b6050dc0e",
+    "app/lib/feedback_engine/models.dart": "8e97591ba4e07c3065e141da3a95294eab24e36ea2bbae4d36ec010a044d20da",
+    "app/lib/inference/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/lib/main.dart": "16e0cd38a4179a40494869c2a28d95cd16ecc1d21a12513448a6a61ba90da623",
+    "app/lib/session/session_lifecycle.dart": "ffd46add11ee8a9e6a13ea46eca6013a0f023f3efb964804628972b73c33319d",
+    "app/lib/session/session_repository.dart": "4e873a5f49f4b51010c424c2cb491c74330a3ced888fca8e3be5b2a8c88f2fd6",
+    "app/lib/ui/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/lib/ui/app_shell.dart": "2fafb490414316d5cf9e128ff5ba4f2027371c8334a45617fa2e394360f7a2bd",
+    "app/lib/ui/assessment_screen.dart": "f43706315a32c60ddb112c2a448ec5333a470e798cbf04a7261a789f0ff15c98",
+    "app/lib/ui/dictionary_screen.dart": "4520f26970f26f8e777004dd8d53325c5188157e501b300d733ad7efcd5c4ed1",
+    "app/lib/ui/feedback_sheet.dart": "e1fc256821d22f5d025e3244984b38c8425853330074fa32b0ef8fa431df02bd",
+    "app/lib/ui/home_screen.dart": "898b3f1796577a350739a718322e9607665aa24f0b646543bd29238b58ae444b",
+    "app/lib/ui/learn_screen.dart": "61dad39dcb010a05c13962edf5f7bff6cfdd3c66a73eb866fb853393045fdf51",
+    "app/lib/ui/practice_screen.dart": "6debd55e65986e66b72ebbf12b1a50d0c3494a65df923abc0bdc8f5b0cba2bb9",
+    "app/lib/ui/profile_screen.dart": "a0b0936cdc57367fa21a928b1dc53609b19bb8a905b327497b839d11b59b278b",
+    "app/lib/ui/stats.dart": "b068f49f4715441747afad645bca26d71b090e83183774ef24be87033338a204",
+    "app/lib/ui/theme.dart": "6889286b1722ab3da0dbf2d4ff230a246889358e238a62b51232778e7bb828c7",
+    "app/lib/ui/translate_screen.dart": "5e9c887a4e1857a66896e5def1497e635b71c3722ba342eab9fc4f49435ccbf6",
+    "app/lib/ui/widgets.dart": "13f426b88daf8ec86bc687f47ab20054c00482243aced01d3ea545540fac8000",
+    "app/pubspec.lock": "bac2583b66a0084673c8441ebfefa06b56e35146653819585f51a6c4648e20a8",
+    "app/pubspec.yaml": "508bab131e2a31c6a08338a0b9cf6b98096adc91393c7fc0b0671e9ccd87f73d",
+    "app/test/assessment_save_failure_test.dart": "f71d87b296db1b5481c3baaf48e9457e59cb80ff4224ab8b6897cf2cfd15e3cb",
+    "app/test/mastery_test.dart": "9c1dc5d4f5a90c4659a72e252f03e1700325a2b22d90d90d8f9dbef72c5f8ced",
+    "app/test/practice_flow_test.dart": "704435bdadd0c858692c49b39ceb613128f61b29d3648ee09367f716acdf3a88",
+    "app/test/session_clear_test.dart": "03a1af38eeae0ada18ae88f8484ba06af8ad5b016364aae212c5e8a6fc5751de",
+    "app/test/widget_test.dart": "1ce020286670b9cc25cee64739c2b202cc0391fe561af0e11133cec0279ae134",
+    "benchmarking/README.md": "33569874b8140fc19b74430da7e35be9f0c2b6c1a814ceb72816804071b12607",
+    "benchmarking/accuracy_benchmark.py": "4a788d8b62afc89acf0011c6283ea18e790904a01c4ec5c935d3f993bcdecf18",
+    "benchmarking/benchmark_history.json": "e051d8b4789ea33719b7eaa8e873f7c1feb2de3af7ebdaa01aee88b399c1cd51",
+    "benchmarking/collect_fps.py": "7e0db7bc3aa468703ecab977ec07ab69009e842f96a042fb1017f315422e54f0",
+    "benchmarking/collect_latency.py": "29554278483dca6c9ebdd6d62c873aec947a47b15e3281bc0b9a2693e552057e",
+    "benchmarking/compile_feature_smoke.py": "fe42fcf6c736498a6bd0fc68dbf06f16ecf80c4b5826f9589a90cb6a0d9ebd2d",
+    "benchmarking/environment_protocol.md": "1826bb54be5c109aa1fb974add6a1c52108a51585d0b4a83f0f2e910bbb3f682",
+    "benchmarking/generate_handoff.py": "2b4a96a784696df2b9caba643588a61d14717b7babdf3cf5793adb3dc32feed1",
+    "benchmarking/handoff_blank/candidate_devices.csv": "ef32f1793b40d387f4db03dda78be9b1b9aaf91433371f305f1fabd82414c464",
+    "benchmarking/handoff_blank/condition_runs.csv": "70b5c7c8ad3e715eb7615c019e31e042eb9685e6aca852f7f0a6319033da43db",
+    "benchmarking/handoff_blank/confusion_matrix.csv": "717d44daf740e0e5877229c86c1e42ea5117fff44604a018314c25f34dd8aee1",
+    "benchmarking/handoff_blank/generation_checks.json": "194bb1033d7fd769206b3f947374e56fcabf71724181e01da41a8121b8be4bf6",
+    "benchmarking/handoff_blank/sign_trials.csv": "3b35eb4093df94cf8ec5935b0e686872eb48cb1ed6c88c39d6b4b22984417111",
+    "benchmarking/kotlin/FeatureNormalizerSmoke.kt": "e24fbf3d624aec5408ee44449679f3e44f22246ab97fd51eddc4968f5b95b701",
+    "benchmarking/log_utils.py": "038e564205fbec4edd5157b5d3ce164c4b9728c32e63ee92747250538bf605b3",
+    "benchmarking/phase4_emulator_report.md": "1f04a6f5c669f40ae65c9a2158ddcb0041c9539e14dc6e1f5c77a71e3fe575ec",
+    "benchmarking/pipeline_parity.py": "b6297a120d332d5b6817dc98aca2adf6e5eea3f7657a20abc54b6e84aeea7b0f",
+    "benchmarking/pipeline_verification.md": "d8736550e81b3951c98c29687d743276dd42594d69a8e74f45df20f1c4c4c490",
+    "benchmarking/plot_history.py": "6cb121441316795583f218ae1187dede6605a717c0f50c7da11b4e351d100b84",
+    "benchmarking/plots/accuracy_all_runs.png": "27103eac4b68774d7566912b6a1b80344ce3e6f9a890062137abe7970c0e2752",
+    "benchmarking/plots/accuracy_over_iterations.png": "6effcf304860eb8bef0a545e28d6b1992d80debaeea8e03ef7a0230043b33cc1",
+    "benchmarking/plots/fps_over_iterations.png": "9826cfe2b71213b3b43973d48bc22161c2ff332ce7fe3f11b404c9857d8a2ab4",
+    "benchmarking/plots/historical_excluded_20261002/fps_over_iterations.png": "07c28c2031748492671ca913b0f22240e13b6da9cbfb230f555d29a52a0ce11b",
+    "benchmarking/plots/historical_excluded_20261002/latency_over_iterations.png": "0819b5af3d6a9b9c3b3244e3ae5074b72a9b8ac2f5ee5b4ec57b51d0c000e576",
+    "benchmarking/plots/historical_excluded_20261002/provenance.json": "3963c92f9dbab67179d0faca832c40e330c8dfee9de2de52e8aefd17d450e35b",
+    "benchmarking/plots/latency_over_iterations.png": "4cbb81d7a81dfb0b4decc33b3900d4b3fe0d7fc6254fd17174a2409118d466b7",
+    "benchmarking/quick_accuracy_plot.py": "0d51719d285df373603179323590d717a17b4a042b174eca39ac2466c72487ec",
+    "benchmarking/study_evidence/20261002/emulator_collector_assessment.json": "a73635a7741d4ba9890e6ab5f33f583a7bcaf216382287a3afa7b46038ce39ab",
+    "benchmarking/study_evidence/20261002/kumpas-final-flow-review.md": "cc2fd8e769035977957b35713d08defe7aab3ebafe34e2eafa20637c235d4d59",
+    "benchmarking/study_evidence/20261002/kumpas-final-metrics-review.md": "9a7222e2849d5fa577ecea87773656b26eae733746dd1b33ba09338e9971f143",
+    "benchmarking/study_evidence/20261002/kumpas-final-remediation-brief.md": "785a94664419fad20665f2ba73585878c68aca7ff49e438d07cf086911ec629d",
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/checkpoint.json": "fa2131dc3ac8e79aa8b587f805a0c7d3af743508be57cc737027d36bd8dc7227",
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/kumpas-final-remediation-recovery-brief.md": "03fc47c0d0b9b13d4205dbfd826a03a3c8f4986d5d22f696ad1a1bf916af86d0",
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/kumpas-remediation-command-ledger.jsonl": "ce7bf02811929f721b78b6ac55b85d996e99b2e1218b489615cd04e5c3e6b3f4",
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/kumpas-remediation-recovery-start.json": "ecb08359c803056f73b227653156b0c93b971260ff7f575efc1d77419d309839",
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/recovery-20261002-native.log": "3caa4ee4c98777989a3fe10b246b527c6e8922523029220b7b19e710d52585cc",
+    "benchmarking/study_evidence/20261002/study-final-collectors-20261002.log": "3b93555e258fe4364d84a339aa04fd08d5d57cb98c25774e4e1649a320eef34d",
+    "benchmarking/study_evidence/20261002/study-final-flutter-20261002.log": "fa718da48ee5ef94f6615e1873ab334830a6f2f37600842329e1eebfa5421fdf",
+    "benchmarking/study_evidence/20261002/study-final-isolated-instrumentation-20261002.log": "ec1b65846a50129d7e39f765763264d8676c150cbb9b95dbdc5f56a81b639f02",
+    "benchmarking/study_evidence/20261002/study-final-native-executed-20261002.log": "cc786c74bbabd024a98df6cbc47f458554219f5cb4ff52e1c5e4469f20fb769a",
+    "benchmarking/study_evidence/20261002/study-final-release-20261002.log": "1346c899051b049a0017bdc56ddcb9f86378fde8eb8cea35203cb8d96e9f71bb",
+    "benchmarking/study_evidence/20261002/study-final-replay-instrumentation-20261002.log": "aa05c4e1d58cc016e63ba74992f8f782ef4a3fdf48a135eb618a25b03f69c2d0",
+    "benchmarking/study_evidence/20261002/verification.json": "c0e425c7f6ac726694959302dd1bd74700692b3fdd0a7933cb9bafb6c6fa61f3",
+    "benchmarking/study_evidence/20261007/controller/artifact-verification-1.json": "c1ac912e6e6c0b07d5d554ad4c702541b16f94b1fba0f94e84018fc1912708b0",
+    "benchmarking/study_evidence/20261007/controller/bounded-software-acceptance-1.json": "46f1859c552416b26011f077abc68b445939ad799aa31e624b245c72bb70d6cf",
+    "benchmarking/study_evidence/20261007/controller/bounded-software-acceptance-1.md": "f7da96cceefe11f7f4bc5d5163cb0ceaf73228d6bc92823f651a3b8f414f30c1",
+    "benchmarking/study_evidence/20261007/controller/final-review-fix-brief-1.md": "58fe1dc31eb2ccce59b3eb2d3d9587ba870577ea7746ada38ad05f80d6f9be0d",
+    "benchmarking/study_evidence/20261007/controller/flutter-owner-parent-1.log": "97b1e4a24c780c2ac846aac8764f5e0d8564083556e6c78d49a25b703fd7953c",
+    "benchmarking/study_evidence/20261007/controller/flutter-postrepair-full-1.log": "fa5a1369546871b5b7c67d410e5f09c4a5e90e9ffee0c7d2126f36f3163aa279",
+    "benchmarking/study_evidence/20261007/controller/flutter-postrepair-full-2.log": "497a65f506c5fda6ae7c09296d673e9d3b67690ba175e65acf9579e07eb088d5",
+    "benchmarking/study_evidence/20261007/controller/flutter-reviewfix-parent-1.log": "79167c82307acc43598bfea1b0e61765f0a470cd6a74b5c1001433e3b5ace56c",
+    "benchmarking/study_evidence/20261007/controller/generated-dex-quarantine-1.json": "080ba973571ee5545e25d5ba07b64e3f079d54d00e36dbd900729ea950d79609",
+    "benchmarking/study_evidence/20261007/controller/gradle-wrapper-smoke.log": "44657dfeacf5f89925877fe14cb0d775739c993dddcd8445b57ca2bad61c11a0",
+    "benchmarking/study_evidence/20261007/controller/isolated-ownership-jvm-20261011.log": "e841dab3cf23bbcd31bec8066c90254a1a42c85eb187f96b8e32eb80ed163bed",
+    "benchmarking/study_evidence/20261007/controller/native-before-repair.log": "19c1cc27146c4f49a03ba25b1fde79f49aeb1a1c98e996a8e742b6c6f1e72e03",
+    "benchmarking/study_evidence/20261007/controller/native-owner-parent-1.log": "aaa01ae9d0b7a50f7c14919a752d7b2559c80cf8cecb96d42a50d3822d1cf27f",
+    "benchmarking/study_evidence/20261007/controller/native-postrepair-full-1.log": "e4c9283e2e59ad50f60fba778005c8f9fcd5486bb54f6cbcb79c1e286f49550a",
+    "benchmarking/study_evidence/20261007/controller/native-postrepair-full-2.log": "36346da28b82335283ebc69be4ac67acd4b4648c981c0ee7a1bc72dbc87ddd87",
+    "benchmarking/study_evidence/20261007/controller/native-reviewfix-parent-1.log": "9b38a5f74b6bd88449eac8cb4f0411dcea848b55f23e69d3bfd9ed797d22b8f0",
+    "benchmarking/study_evidence/20261007/controller/native-reviewfix-parent-2.log": "6a86bbfb0a4ff2065850839f7de318172aa944741514e9b8f5a180f5a2b25e9f",
+    "benchmarking/study_evidence/20261007/controller/owner-approved-review-closure-brief-2.md": "d2e6f4c56ca0592ff390cfd731ba0e3f8b490a1aa267a4287555d28bc6ba81c4",
+    "benchmarking/study_evidence/20261007/controller/owner-parent-handoff-1.md": "adbba9cc20fa57a9a30f08e95ae4016ee2cdfec6203ae361474c7ee4ac4f9c49",
+    "benchmarking/study_evidence/20261007/controller/owner-parent-verification-1.json": "35fbf36de63a55741cb888e48781834003fea4aeb76021ce716b552889a93373",
+    "benchmarking/study_evidence/20261007/controller/postrepair-verification-1.json": "64b0260e48e880ea72275fd275930a9d02c8c93e431ee64d92d8c5e584ef1cad",
+    "benchmarking/study_evidence/20261007/controller/postrepair-verification-2.json": "3d29b228c143ebd5d8d44b840104b4f552d2c2bf21ebfcae8b86340c98570715",
+    "benchmarking/study_evidence/20261007/controller/python-owner-parent-1.log": "0113c53e6195c6f9f9c56985e5785438e104983f545d96d6bf7ed473b5b41324",
+    "benchmarking/study_evidence/20261007/controller/python-postrepair-full-1.log": "4950c5b5f5b10c354acd7ebf6b357a8669e25a52663f5debaa7a2ccef758928f",
+    "benchmarking/study_evidence/20261007/controller/python-reviewfix-parent-1.log": "4add18354153dd404d3dca9393a63bfc525d155868295f7e420ad7af4751f8a7",
+    "benchmarking/study_evidence/20261007/controller/quality-review-1.md": "1a2bed5b1341d3656ca5801cd453cdee0c87fa4953ea0c4fff7e61399716a853",
+    "benchmarking/study_evidence/20261007/controller/quality-review-2.md": "9cb126769e15478007471ff08e910b4c6c0041c4121dcc1af0e5bdab6d64777f",
+    "benchmarking/study_evidence/20261007/controller/quality-review-3.md": "de4e0fa90d0c53c523493e3fe1ea7493a6fd660fadc159680c53ace12921d158",
+    "benchmarking/study_evidence/20261007/controller/recovery-finalize-brief.md": "d84fc4191f7cabb5a18383de163684f51c20d5bfe3994f45fe190c2eeda74b78",
+    "benchmarking/study_evidence/20261007/controller/release-owner-parent-1.log": "5c6be71a10a954370016b712798846c9c0e148dcea6b5b4bc8ef72ffbf7d0c5d",
+    "benchmarking/study_evidence/20261007/controller/release-postrepair-arm64-1.log": "1b4615da9c02eb6b25ec0bb0e37537bdb852585739bef617b95750a372687f9b",
+    "benchmarking/study_evidence/20261007/controller/release-reviewfix-parent-1.log": "ad1e9b189362398d2c9d1ca6ebb224064602c6bee79e417adddc24dd414d9d60",
+    "benchmarking/study_evidence/20261007/controller/review-adjudication-1.json": "ccad08b98663d1e017d2235f419c00c2bbf93ebf73f54670da7622881e550192",
+    "benchmarking/study_evidence/20261007/controller/review-adjudication-2.json": "cf380624d0ce0dd7f1f7efe6a1abadb6fc9ee30cbc40330568325f6b8d1db5fc",
+    "benchmarking/study_evidence/20261007/controller/review-package-1.diff": "e0fa24b4071d9be2820b647edf77fdde392fe9394033c56e22d93fb9fb418b38",
+    "benchmarking/study_evidence/20261007/controller/review-package-2.diff": "2e949235367c45bc150573855e3d21c6b6a0e8904a8a892ed4f02e3d245c8f5f",
+    "benchmarking/study_evidence/20261007/controller/review-package-3.diff": "3f0fe259e576ec85e2546ef0e3df555df74e75426f5097498094317ae295c5c0",
+    "benchmarking/study_evidence/20261007/controller/review-package-4.diff": "3f931766125990d413fd88d1f24e96c91e3c747dcd9ed73f7a5252904d211a05",
+    "benchmarking/study_evidence/20261007/controller/reviewed-snapshot-2.json": "bf74e94cf3d846b7de2f66b078bf2f74246fdd65d9102b034208d4ecc42a8e5d",
+    "benchmarking/study_evidence/20261007/controller/reviewfix-handoff-status-1.md": "d59b445134fe06fcb02f31c1b3b18787352bd3c6af7b843383eeab5ed89aa59e",
+    "benchmarking/study_evidence/20261007/controller/reviewfix-parent-verification-1.json": "d9bf3bb4edc9d3815aedba1ef4176fd81748a943fbc0ca32b89ab630a2fcf93b",
+    "benchmarking/study_evidence/20261007/controller/schema-minor-acceptance-20261011.json": "038adf78c9378067da83087e24f96edbae270cec8d4088b1aa3ad37d184f1e45",
+    "benchmarking/study_evidence/20261007/controller/schema-minor-green-full-1.log": "88228003b2babed4c4f8c5a7475c81058a6468126b4d1dcd0719248d49748f1d",
+    "benchmarking/study_evidence/20261007/controller/schema-minor-parent-20261011.json": "f3cfa308d75aa5a44d6cd5c91e2ba3b109ba0eff39822bbe50d16021dcc636b1",
+    "benchmarking/study_evidence/20261007/controller/schema-minor-parent-20261011.md": "0851c1b87b711d95f35f6fecbbaf8eb06ec9d3829c1fa4e6946fdd7bff7fe6d0",
+    "benchmarking/study_evidence/20261007/controller/schema-minor-red-1.log": "ff3a969a3963c2aaa98582e9bcc6549d498ad89fc8959a164ef75030c928d0bb",
+    "benchmarking/study_evidence/20261007/controller/schema-minor-red-sink-1.log": "b34ba1d6f94ada2e99383b5109020c87283732740ea07634bb65c7429695e16b",
+    "benchmarking/study_evidence/20261007/controller/schema-minor-review-1.md": "90cddc855e942a85350b292c68e17d89a75e4946a0fe71f728b9bb1f3198197d",
+    "benchmarking/study_evidence/20261007/controller/spec-review-1.md": "0606e5a1a62e2fd369cea4a3513302178d0fa0609129ea0437cccbcfaca11b6b",
+    "benchmarking/study_evidence/20261007/controller/spec-review-2.md": "fe8d331713013d3415dc82beafe0ebc1c5364acce4ab5b5d4dfdaead0778e905",
+    "benchmarking/study_evidence/20261007/controller/spec-review-3.md": "9c0b1b696a861f61f5af33e7e2c118dfa470eb955d94e864ff295b6645413bda",
+    "benchmarking/study_evidence/20261007/owner_closure_2/aliases-host-green-1.log": "71e2968189ef3af84e1ee955d9d48bd286e95782721842c7960e5711ae2265ff",
+    "benchmarking/study_evidence/20261007/owner_closure_2/aliases-host-red-1.log": "b45e35c5e18c056ae07983296a0e51000c9d9dd9c1611f836845e058c20b74f2",
+    "benchmarking/study_evidence/20261007/owner_closure_2/aliases-native-green-1.log": "0cf1a8d0c82e92ccd0cb4dfcda47b80d4be1bc2d9c3c375606e3d475356d0c26",
+    "benchmarking/study_evidence/20261007/owner_closure_2/aliases-native-red-1.log": "c8e589433627249b79ac0d27879e5f9e75a8fe3f8a3cfad397bfb5eb304bfd67",
+    "benchmarking/study_evidence/20261007/owner_closure_2/control-reader-green-1.log": "1f2c939d72febaea9a903b720310a46395a4e9905b82f144f2fbcf215ff7d6f5",
+    "benchmarking/study_evidence/20261007/owner_closure_2/control-reader-red-1.log": "28a72d46923262412a92ca4298517400f2c8be3b9ded9136e0ffd2923b463e87",
+    "benchmarking/study_evidence/20261007/owner_closure_2/executed-producer-fixtures.json": "c17aa14a45912f5a6f7547caf50fca906004265b6128512e06c8bab5d91404b2",
+    "benchmarking/study_evidence/20261007/owner_closure_2/fix-report.md": "e77df45bd210bc2bbef372b92390cd93a82ea29d79c8fefba7cc9a2d8fa83bcd",
+    "benchmarking/study_evidence/20261007/owner_closure_2/full-analyze-1.log": "52cfaf86eb275437faf6f51ed29bd779aa6228f2550ac012f3313f0053216d84",
+    "benchmarking/study_evidence/20261007/owner_closure_2/full-analyze-2.log": "63d78cfb081cf5e30973229a41b91f3a761952ddd45250f90cf40e6157c2731f",
+    "benchmarking/study_evidence/20261007/owner_closure_2/full-flutter-1.log": "31d75cf5c13841e99a8da228f3d0f1c6291b49fe1e0f4e9466c66ddfbe5cc3dd",
+    "benchmarking/study_evidence/20261007/owner_closure_2/full-flutter-2.log": "d3bc4f46f9cef101d907926270016d7fa9de89db0b448c178498157e26177a1a",
+    "benchmarking/study_evidence/20261007/owner_closure_2/full-native-1.log": "cdbbfcf64551319c947d1477dd80eb1a185a85809cf0e5fd093cef65627defd8",
+    "benchmarking/study_evidence/20261007/owner_closure_2/full-python-1.log": "ce182cddcf3efc1b924006246f0d82866cad2dac71fd398321787d9a0e709321",
+    "benchmarking/study_evidence/20261007/owner_closure_2/host-trust-green-1.log": "4340eabe7e238507976c599de8d7caabd7c46595fc954ceaad3949398fdf1262",
+    "benchmarking/study_evidence/20261007/owner_closure_2/host-trust-red-1.log": "ff6133e71a5ae61c5d0c9b0f7010dff0ec23a816f8568f4ae13b9f7d29492cba",
+    "benchmarking/study_evidence/20261007/owner_closure_2/instrumentation-compile-1.log": "e3cf0a06e72174889092f9061c4332d53eec938612ebe09e6135279a48503b1c",
+    "benchmarking/study_evidence/20261007/owner_closure_2/posted-view-green-1.log": "2861ca6bb6d31fd2ec14a7fbf4c2c3038ba39ebb96e400517338daac8c9bc46d",
+    "benchmarking/study_evidence/20261007/owner_closure_2/posted-view-red-1.log": "56ec3bbd7881138abac36b88f143c4eb24c5c72c2ad68fffccdf4a1d623dbca6",
+    "benchmarking/study_evidence/20261007/owner_closure_2/producer-replay-1.log": "dfade5825008f148e61f432f7c16be78d6af6d3e65432eaf7c1cd7d33abb2b3e",
+    "benchmarking/study_evidence/20261007/owner_closure_2/receipt-covering-4.log": "8a51b652bd02d56c47cce4eea4c0382695d4e45fbce50d3ff4deacee8bcc9332",
+    "benchmarking/study_evidence/20261007/owner_closure_2/receipt-green-1.log": "3136549923c828e1ae7d64b2f74659de84cb77c89f6f66a4b1903fab0bd4dae8",
+    "benchmarking/study_evidence/20261007/owner_closure_2/receipt-green-2.log": "33567635de93e6801413b887a2207acb7a838aa4fe7b13c2a558078a67d50c13",
+    "benchmarking/study_evidence/20261007/owner_closure_2/receipt-green-3.log": "f746addda4645a1d636a119785dc11daf547817ef4a43152dd6a79ad438e0038",
+    "benchmarking/study_evidence/20261007/owner_closure_2/receipt-producer-covering-1.log": "d17d19d206b874eeae251e106cc37f68ffa2433aa36eac7add73fc0022f10c4e",
+    "benchmarking/study_evidence/20261007/owner_closure_2/receipt-red-1.log": "aef6c80ec20fb4d00899e4f6f8e3feb1db7138f076f65a5668fad5359e21f596",
+    "benchmarking/study_evidence/20261007/owner_closure_2/replay-executed-producer.py": "4a15e27482e89e5412ff89629a131cc69323b78b7fe3e9facfd306996755f114",
+    "benchmarking/study_evidence/20261007/owner_closure_2/runtime-assets-green-1.log": "599aaa4327464702ce3ed24c4d5158d1e3f4bd6385106d1380c52c682fab0c65",
+    "benchmarking/study_evidence/20261007/owner_closure_2/runtime-assets-red-1.log": "2c1a9fc069ac680d2e86d9d62a93e3961ae1094613493a59dfbbd638a61dc7d6",
+    "benchmarking/study_evidence/20261007/owner_closure_2/verification-results.json": "dce948c0f5abd9334af9c17e2fb81e5121d902ce64d48632c3a6ee8e313200e1",
+    "benchmarking/study_evidence/20261007/owner_closure_2/view-construction-green-1.log": "9b4bb5c197058432488bd4046f4dbc82c2bd06ab8a250f7063ee7461a2e4ff16",
+    "benchmarking/study_evidence/20261007/owner_closure_2/view-construction-green-2.log": "7149263451c44f433f0b1a7e709c770d5208fddd8d4ca0e6309ee1741744c355",
+    "benchmarking/study_evidence/20261007/owner_closure_2/view-construction-red-1.log": "e8761ab4e924367959cd9eaa2e106c19ba4ad85da4781a231e46e03f0333fa6e",
+    "benchmarking/study_evidence/20261007/repair/A-green.log": "dab4ea5b33d650a9130b118a372cf80bc843bb6a14ccafad09264089ed57345c",
+    "benchmarking/study_evidence/20261007/repair/A-red.log": "d908c4eda269e12b07b8529227f3cf7cdad30b6ce99b219eaba44c48e0883199",
+    "benchmarking/study_evidence/20261007/repair/B-green-gradle.log": "3df332cd4d6f1e42a8a6199fb80696575693ab1ba069f0aa1d3d7a657ede6e3f",
+    "benchmarking/study_evidence/20261007/repair/B-green.log": "f85d82afe67a0042013d5983223850e81b2d4001cf3770517be7684b310ccb94",
+    "benchmarking/study_evidence/20261007/repair/B-red-gradle.log": "74e57ffde36f1e10c4bffafbdb05f9dccb77404c63a8821d4707c7f49d556e98",
+    "benchmarking/study_evidence/20261007/repair/B-red.log": "6149fa20e295fa551a17f992770846966ab5df9ead8e75ed56a4d9e66bbbf8bd",
+    "benchmarking/study_evidence/20261007/repair/C-native-green-gradle.log": "e0e28ada34f3065b34b55246d4c2db41dd175b11e1dd40716b924480737cecdc",
+    "benchmarking/study_evidence/20261007/repair/C-native-green.log": "b2f54bfca12f303d08b904c6740efdafa37ec838c0e8999eb08388d6f0e32f05",
+    "benchmarking/study_evidence/20261007/repair/C-native-red-gradle.log": "ee3b30bdd62d14a47837065a27062397a9462ab5df922756860bc2344f28938e",
+    "benchmarking/study_evidence/20261007/repair/C-native-red.log": "3b43f22e0ea312bef2aad2a75c711eddd619ebacb906e19ac468d48b37f4dac1",
+    "benchmarking/study_evidence/20261007/repair/C-widget-green.log": "0cfd64c4f3c99a551f8492529bedaccd6171e2ee986024329bcb8b73f826d194",
+    "benchmarking/study_evidence/20261007/repair/C-widget-red.log": "9c65d2a63c78bf0c2960f13a8cd7ff0c359c0c237896c72d7fa99d8b887861a2",
+    "benchmarking/study_evidence/20261007/repair/D-cleanup-red.log": "90e88552d84f631724d516f7a501696af1a0832e2b248317b3239885a4f0d37a",
+    "benchmarking/study_evidence/20261007/repair/D-green-2.log": "ff84dd43431a6cccf70d066dea409e6793a6a1d0e74d146f75a48275fe0afb96",
+    "benchmarking/study_evidence/20261007/repair/D-green.log": "127bcc35ea7dc8c9e433da58519bbc1a7901e9a69437f396535b8a91b15a4633",
+    "benchmarking/study_evidence/20261007/repair/D-red.log": "f1bc523a5daa5ec29421822527db80c0d2b493759ed6e80fe26895722e828176",
+    "benchmarking/study_evidence/20261007/repair/E-constructor-red-2-gradle.log": "74a3a3da672b217a4c50aebe5c1fa433619cff18b9e9707d3582d4b3ec206d9f",
+    "benchmarking/study_evidence/20261007/repair/E-constructor-red-2.log": "ffe0f89c4c4408099240d954cb467c43acb1be38b838c59afab4bee3995fd760",
+    "benchmarking/study_evidence/20261007/repair/E-constructor-red-gradle.log": "7190cfface0c6209a6e15353875022d7702f0393bc31740539e084218e89c1f2",
+    "benchmarking/study_evidence/20261007/repair/E-constructor-red.log": "d8291e823e1593c607830c9b7e1897916ed9eea78e400ed92a23565b65af1242",
+    "benchmarking/study_evidence/20261007/repair/E-green-gradle.log": "3c413544156422db21f04a6aa4dcd7e2c2aacbaaecf246437185e7871233c3aa",
+    "benchmarking/study_evidence/20261007/repair/E-green.log": "2840a62b7b785d40de33d4767cffd0e79733c9c793d4d5d85e8bb1039374a2fa",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-2-gradle.log": "59bb3625a4178aacfcd37ac52e9e3ef554458d2218606ed8e4add453f913f32c",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-2.log": "2f46c8d4d0f5e5e6e71606f720859635eff484688e9cd5e9e8df0f86bf591ac7",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-3-gradle.log": "3f03f1a6142d847d15f9d11fbbba25455b4c117419c957d31dafe20ab1a642e8",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-3.log": "dc872080a2ac5d98e03a50f582daac002cc7f690296c85dea97f85344da62b2e",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-4-gradle.log": "19e27065905789c51dc1435d668b7ef54e6e3c3f8d22ba96ab04089aadcd76c3",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-4.log": "62c939e20c549cda7ba9cfc56a9fcd53c02db45740f2ffb9b8accc0ed19e7fd1",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-5-gradle.log": "d60fb154f1237f63468bebbfe01c05ecccf47e14355ac20bb11ac414eb60d117",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-5.log": "1edc3e0eaab59457fc64ad35420342cf1760d180be87bb88da460fd4898bc801",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-6-gradle.log": "d60fb154f1237f63468bebbfe01c05ecccf47e14355ac20bb11ac414eb60d117",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-6.log": "1edc3e0eaab59457fc64ad35420342cf1760d180be87bb88da460fd4898bc801",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red-gradle.log": "34cc83185eb98add65e27f1448e6d7b61d99054735d7cd2fb6a903df86651692",
+    "benchmarking/study_evidence/20261007/repair/E-resources-red.log": "4123b15206e9f2e5d123c73e4ba32ad8e83b3e7f0c30c4b8d35654ee2e6d78c5",
+    "benchmarking/study_evidence/20261007/repair/E-wired-red-gradle.log": "51a3c57743c146487dd48879cfe9c4ea6dbea86d9edaad0f1bec07747a0cea44",
+    "benchmarking/study_evidence/20261007/repair/E-wired-red.log": "cbe085bf9d2fd4e201365086c519038438c4d17108853b5fb01d8e9a938d2ec8",
+    "benchmarking/study_evidence/20261007/repair/F-green-gradle.log": "b35987146d36733d65053339aba9de459c79de916ee3db32d4ff43c23818d600",
+    "benchmarking/study_evidence/20261007/repair/F-green.log": "2c0500dad5b460728ed97ec6e865dcc012563333a39439c6a400478e3f3f1a01",
+    "benchmarking/study_evidence/20261007/repair/F-red-gradle.log": "77fdf4d14ba6b69d38b86f9da82d0131d87d00dfa0eaf75f7a9b0d27b32fbc08",
+    "benchmarking/study_evidence/20261007/repair/F-red.log": "3b97fdca2edc2c1732e752ec34a86d583f281dc95bdfe5f9ade4d682470f593a",
+    "benchmarking/study_evidence/20261007/repair/G-assessment-coverage.log": "4881828f1f83553ec28fa79c55c23df8bb3866f2a5b9580bff8f385cb5b2db05",
+    "benchmarking/study_evidence/20261007/repair/G-history-coverage.log": "bbab8ae3ce92fe2b039198a16358929e2ac6c09fd216981e69b842a9033da389",
+    "benchmarking/study_evidence/20261007/repair/G-native-coverage-gradle.log": "583d1d8a1a7dc3b9998e9d10c246b91cfcfc97270e695c2d35cf21e35c37c6c2",
+    "benchmarking/study_evidence/20261007/repair/G-native-coverage.log": "68ca512733040ef732f17a62d157abb55a21cbd69c9245d3eb256e6eda299519",
+    "benchmarking/study_evidence/20261007/repair/H-diff-review.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "benchmarking/study_evidence/20261007/repair/H-flutter-analyze.log": "454709ed5f2b2037a18faeeeca6deb771cf58d909628019a9d8eb012064f6038",
+    "benchmarking/study_evidence/20261007/repair/H-flutter-full.log": "da8daeee2977c496d92d33e476b5708a1ffc1326dc60f0db547a38f54f3aa6bb",
+    "benchmarking/study_evidence/20261007/repair/H-native-full-gradle.log": "4d9ca616736746ba4055baca5b6d289391e34bcb2d1055a85e11bdc222d82330",
+    "benchmarking/study_evidence/20261007/repair/H-native-full.log": "d0bcb8979e357003c91bf42090a460142a547600845175cc604c7490f628b153",
+    "benchmarking/study_evidence/20261007/repair/H-python-full.log": "ea6bf27fbf3e6e0cbc5f538841ec065a5f56e61c5504632ed1ae45d92d7815f5",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-analyze-1.log": "da230f6cbbb5bd00a2d3260a0b14a82560f6c79ab951ef579a4d6ab863c7d527",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-diff-check-1.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-final-check-1.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-fixture-green-1.log": "7b1167df4a2aedd539d74cde7d14b37a07e50ce19578259e9a1fbd746855fc5c",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-fixture-red-1.log": "99a8377fa91d84a83bdfbe7e0a7f1c13a784823cc5d20045a5cb1babb746d97f",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-flutter-full-1.log": "670f80f1944423ab56f42f46690b8191e63e6c1b4ac65ac1d88ae0fdbe2ad24b",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-native-full-1.log": "217bc449ebd845afdbe3b13177b0585107557efb11753819efe97248fcb4a157",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-native-full-gradle-1.log": "cdda76c57394e6f84e33e005817f9ea7c194ba9de4a1e96cfb665a6af69870ff",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-practice-1.log": "11a3b45f142677fd63084a98a599da4a2fcb49815c0ef230600891b6a289ec48",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-python-full-1.log": "f2341599cf820a0861acd618f87163535eed737b2023b0ab713b0570abf48c55",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-source-diff-1.log": "09dd6a4837857f29392930e746d89cf3d2066347339295d9dcefad0c94dde710",
+    "benchmarking/study_evidence/20261007/repair/H-recovery-verified-results-1.json": "56d2d068866603296292764f1ef308de169f490d30f17fcf011c96f61dd91f92",
+    "benchmarking/study_evidence/20261007/repair/command-ledger.jsonl": "8d2cf434a6ec40f059171c08a9f55fbc888dde7e65e67e17f07b6eb1f0ef17df",
+    "benchmarking/study_evidence/20261007/repair/repair-report.md": "75903c1efb00361fd80ffe4dab2ee6f047d752f5235b0affbac57d2875e6cded",
+    "benchmarking/study_evidence/20261007/repair/run_command.py": "5cae4d13632355f332bd14de721150cb1993cb20ab5eefc2ea7df3a48ae156ca",
+    "benchmarking/study_evidence/20261007/review_fix_1/attempt-privacy-red-1.log": "faeb9f4a4a2c7b33cf368e11e21a20bdf4d1aeb7896ca8719c78fc22f528f82f",
+    "benchmarking/study_evidence/20261007/review_fix_1/camera-owner-green-1.log": "01e1885240723459e9f8902876ed13afec41f987065e42793925a5a90edde3f1",
+    "benchmarking/study_evidence/20261007/review_fix_1/camera-owner-red-1.log": "592d0d7e3a1822d79951b3151e1f023affb67b2c13d18623b0fa20ca83612996",
+    "benchmarking/study_evidence/20261007/review_fix_1/control-coupled-replay-1.log": "f60e0e43cd21dd035e2f25ab26dadd0290c79243294f1ef0e7e47abc88f33b57",
+    "benchmarking/study_evidence/20261007/review_fix_1/control-flutter-green-1.log": "18e277ca2471d397acadf7ef23452d2ce83ca4ba9c69b467810db580c852c49b",
+    "benchmarking/study_evidence/20261007/review_fix_1/control-flutter-red-1.log": "64d105b111b1c227c6612bc640e7a90c45a3f8c0a67031f89e206d9c8c30c846",
+    "benchmarking/study_evidence/20261007/review_fix_1/control-host-green-1.log": "bd8e40be4596ef492ec6f90fd7369cbd26b3d49e12e67f098126721259268490",
+    "benchmarking/study_evidence/20261007/review_fix_1/control-host-red-1.log": "1378f02f87e7eb3eea502a4568225093d19b4163c8c6e1c21a47f8bf6d2eb9dd",
+    "benchmarking/study_evidence/20261007/review_fix_1/control-native-green-1.log": "e98ce93cce7543acc0b7b02be73705d09dff1c44508c3cc50ed3c87c6ad809ca",
+    "benchmarking/study_evidence/20261007/review_fix_1/control-native-red-1.log": "8ada15f36f4c3628208b71a289bbcb66076a72917b2b42b7d85c9a2845505a96",
+    "benchmarking/study_evidence/20261007/review_fix_1/engine-init-green-1.log": "80b5e9b96a74c0fdae8093354d88c2d169ebabf9213d1116cc39220a27d1ae0d",
+    "benchmarking/study_evidence/20261007/review_fix_1/engine-init-red-1.log": "213058384d68fe509783502631c934f54b4160529dcd4fd2f9da9eb3f33bb055",
+    "benchmarking/study_evidence/20261007/review_fix_1/failure-host-green-1.log": "50dc1e8a52009bda8445836283dce4b8a431aacd3fee3f43e3e2c557d8b23af7",
+    "benchmarking/study_evidence/20261007/review_fix_1/failure-host-red-1.log": "ab74eb263652b13d6a8211fa8bacfe7be413f1891624889bf53cf2af3c11d1b8",
+    "benchmarking/study_evidence/20261007/review_fix_1/failure-native-green-1.log": "76ee181dee23c02c4ba840b9b926a597862d26f877602aed5abda7034528a6ec",
+    "benchmarking/study_evidence/20261007/review_fix_1/failure-native-red-1.log": "27d2afbdbcc74fec4cd7d10ba3c5b5817fffe46c856cc6fef187a0f9ce3afee3",
+    "benchmarking/study_evidence/20261007/review_fix_1/fix-report.md": "96d8e5a55880e36d1be78054a8999a9e182ea9ed0bdf3373d5c82732a7c7d494",
+    "benchmarking/study_evidence/20261007/review_fix_1/flutter-analyze-1.log": "e0ad201a40faa147ff0cc20d1887c4489f4fb3963d95eaa482ec2a3fc8dfe35b",
+    "benchmarking/study_evidence/20261007/review_fix_1/flutter-full-1.log": "ed647f0cdc46b70ea757c3a7157c35434c57d7c062d21921292f54f3f53b2acc",
+    "benchmarking/study_evidence/20261007/review_fix_1/native-covering-green-2.log": "aa12b6a48bde5e784df2b2730ddb1a80c6ac35569342a69e7183d19824bd2a80",
+    "benchmarking/study_evidence/20261007/review_fix_1/native-full-1.log": "62be31fd3d9370307987aae3b390ddc71040ac5c26cf1ef0250cf2e66ab9b36e",
+    "benchmarking/study_evidence/20261007/review_fix_1/native-unconfirmed-fixture.json": "332c31e9a7d2f4e81396b9c7a6a3c9138124433cb45e40032c9aa8c93e013c28",
+    "benchmarking/study_evidence/20261007/review_fix_1/privacy-host-green-1.log": "1be72d0213c26d896114f4f2aa1345e0dd6656bd04fb885e31837bb5e11f5f0d",
+    "benchmarking/study_evidence/20261007/review_fix_1/privacy-host-red-1.log": "f3158e85711dd7044086ed91b9b8fa22c88fd6bc61d02b3af82868efcce541f5",
+    "benchmarking/study_evidence/20261007/review_fix_1/privacy-native-green-1.log": "57f30e4a4e678513bf1e73edb4ce4e31b31435c869be075fee376225c68e31c3",
+    "benchmarking/study_evidence/20261007/review_fix_1/privacy-native-red-1.log": "df395c6a766307ce6b31f2471bc7bc9602142927768f1e106ac12d1ac386fe24",
+    "benchmarking/study_evidence/20261007/review_fix_1/python-full-1.log": "a8da76a4cefe4c21bb6ef5ef3e1a9c39f65b0b4a007385ac493510711485e5c8",
+    "benchmarking/study_evidence/20261007/review_fix_1/python-full-2.log": "e4b1b7cca6147cca57ca36e67ebca6a3974e489d71be3b816aab31ff78f925a4",
+    "benchmarking/study_evidence/20261007/review_fix_1/python-full-3.log": "844158dbf7292b3d4d52edc3f552bbd5275333cab56889936843840b97affcde",
+    "benchmarking/study_evidence/20261007/review_fix_1/python-full-4.log": "5487d6dd4cd54644bbd31b9d45e533bcd18d08039e77dea559c3a7bc6cbad2fb",
+    "benchmarking/study_evidence/20261007/review_fix_1/replay-native-control.py": "60d9ac7d95d3f02ddd8877fbb4c701370a39ea16389c5833faf66c9138f1d3ae",
+    "benchmarking/study_evidence/20261007/review_fix_1/stop-coverage-green-1.log": "798109cefad0ef153442991470e154500ebf8384a3cc08815ae8698a3274a5c1",
+    "benchmarking/study_evidence/20261007/review_fix_1/verification-summary-1.json": "ed176c813aaf95d54e8fd7f15c22bc84ebe0aec5cff5dcc947bb9fb7292be4fc",
+    "benchmarking/study_evidence/20261007/verification-before-repair.json": "4b8a2f4e6f607fadb07c02a9de984bac15cd0387310ae1587cb3b2c09ae2cf47",
+    "benchmarking/study_evidence/20261007/verification-review.md": "1f267f38616b57e9bafe0385f8dce8817ada0ef95980e99a74c945714400d73e",
+    "benchmarking/study_readiness.md": "d3830a878a7507cd5bb4b59290e8817168d9ebfe1d935ab075fc5cabc135c5f1",
+    "benchmarking/test_collectors.py": "f593b71a2fb8da038c60d73b15853758bd1d4865ddb9fdfaf8e94d59352f000a",
+    "benchmarking/test_handoff.py": "21bcd760e5a345223a02ff58ed5feddd181c2b1583ec161af5165fe5bec20fdc",
+    "benchmarking/test_history.py": "57db9631c5168ddc61076b1ecf5c20704f40c509887e25a5edd8be2d615d2e14",
+    "benchmarking/test_kotlin_normalization_parity.py": "119e00e83787858c68f6ac94e9c158fc35ed21cce4af92ee61cc13dc6be749ee",
+    "benchmarking/test_pipeline_parity.py": "bf62cca81a4f8226206c7a18170083e0c920f8e17c9912b96d1a6a19522892b1",
+    "benchmarking/test_plot_history.py": "3ab9e146cea9e49ca62ce3bfe116fc4d100f1f881670b903ef8d47308f10ff61",
+    "benchmarking/test_python_reference.py": "e7eb075e79ce28527d7a92c89bc962d78d7ccd905b7dc538bf2d2d968b7df6ed",
+    "benchmarking/verify_session_logging.sh": "a6f3255532339239313db6bb53ab2da07fb03f8139afd1ae7b30a772b4c3ee75",
+    "docs/30-day-plan.md": "15b4e90f42d91ff3b019c600c89d943ebe396dde5fc93a41dbfdd13f1f0f29c0",
+    "docs/PRD.md": "957822944c64c9e3c394995bc7be9d32e589dcf93bedd012651ef4dcf7ee3863",
+    "docs/dataset-notes.md": "acc2adb1b48b03b7c4836144126cef69a708fdbdfd753da2d947ad4aa807f2d2",
+    "docs/design/D2.png": "13928176d5f75c7c3f9226018ea4e73bc9016ff65b7ddd72045214cd39fd3188",
+    "docs/design/D3.png": "2472f763e58cce9c7220c0affe0c63e4b9c8319b91c0db6548aa16119b90abc6",
+    "docs/design/Dictionary.png": "e3acae43a46463ad9b8c59f35b7ac8fcede4d2ade33ec8243929793c44392549",
+    "docs/design/Home.png": "836d45ebc95fb7a8b55a9af27f6f7e9e0c5287720239c054d1bf7e051c47112e",
+    "docs/design/L2.png": "d90934c8a99a3ffff81046660c2ac944451328997bf94611e6dfef7ca19983ab",
+    "docs/design/Learn.png": "8a1fb7b6a44379d52e97cbeaeb82eb4b2a2052454a78b30699d0e6107c9bfd69",
+    "docs/design/P2.png": "4e4d7764086dfd616157a61782d96f61428832fa1ac85675ab9f403b7112ca54",
+    "docs/design/P3.png": "1cdf77ad96b733f051a63ad16c73d518a0c098a1739a707509b5cbf478ea1006",
+    "docs/design/Profile.png": "6eb3ddba90f6937b5391452a50ddfd18585bbe63197ca245ea08da4411e3a9d1",
+    "docs/design/T2.png": "81c8c0dc2266113e4e977a5b6c59825ecdc19cfac453dd76cf1031ce146dadb9",
+    "docs/design/Translate.png": "81a002f821cee25e4f09eb672933dd2a1d4b7210040e4176e3599f1c54e0e466",
+    "docs/holistic-v2-diagnosis.md": "057409eed56602ed16c6df23dc58419708512bb4a27b18df4468fdeab2fdcc73",
+    "docs/holistic-v2-kiro-prompt.md": "43d7363ec95345fabb2f5f8c0e80b94b3cba22ee0142768254f4cb24b72caa72",
+    "docs/holistic-v2-risks.md": "30413ccbe4c3dacb77b2797cda1f25df364a0854dabee2ccf7dd8fbb254ea16e",
+    "docs/phase-gates.md": "e66d659382c4751e586148e6fcf18e0bf70c4e89ac11ef3289571999eb7e31cc",
+    "docs/phase10-expert-validation-protocol.md": "88319b84a44e5acef0093ccc3ae61a1540e4188389f56340357addea7272c1cc",
+    "docs/selected-50-signs.md": "4dcbfb3714ebb687634cfc0f743bb05c2baec2f43789489fecc291c437657bc8",
+    "docs/signer-leakage-check.md": "fad46a977117286c5422ab32d955706432d8225b8aed853ca263ff7a9124352f",
+    "docs/superpowers/plans/2026-09-29-evaluation-protocol.md": "d3ae069e8430acaa9444d20c3c14c80c84b39f5086094f4fe105305edbe4b022",
+    "docs/superpowers/plans/2026-09-29-shipped-pipeline-verification.md": "0e621f8c4b932bd4dcb8c6ea7e320776f5e53f12ac64788af7b243942708f906",
+    "docs/superpowers/plans/2026-10-01-study-readiness.md": "08ef7f532e13cb1299058d96f8b74d0c5ae18824e42d8a2e3427db405a6cd13d",
+    "docs/superpowers/plans/2026-10-07-review-closure.md": "4d3e1e4baa32fdc62dec379c8a78b4f20a252532788da0fdbb732b532dadebf6",
+    "docs/superpowers/specs/2026-09-29-evaluation-protocol-design.md": "6954d9643e43f2eda00326fba04400bd3dba1f096cd4c9a8ddad3f375a6f2cef",
+    "docs/superpowers/specs/2026-09-29-mastery-rule-design.md": "ec6e29c3141c1282c15c7b8252f4eee55aecf250315d271579c2868329432027",
+    "docs/superpowers/specs/2026-09-29-shipped-pipeline-verification-design.md": "750bbfd44d133a349975041290db654187892cfc0e8bd81e464f395db8358b6a",
+    "docs/superpowers/specs/2026-10-01-study-readiness-design.md": "5e09dbff5e71e9d0c4bb896f6dab52af6bd3537ed1db43dce96e2fd89f426b4a",
+    "evaluation/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "training/augmentation/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "training/augmentation/augment_landmarks.py": "b06656d8d433b5f1f1402151ede2f159719f7aaabd54e8e67ae6590f304931dd",
+    "training/augmentation/augment_log.json": "111d261aa080d4544083ccc3e878c3106c16e5a2ef010ddb85788da21852331d",
+    "training/feedback/build_gold_standards.py": "864c7f809b8e8b48671b6182931764cdc152fa3dc9d041ab2152b220a8ca2a66",
+    "training/feedback/demo_feedback.py": "e3967ad9c08e39c91d7d603d68a694f90d35538dd60de0a37ec6be5fa9b2260f",
+    "training/feedback/demo_report.md": "d918726c08c21e7b8fa5c92ab09117e22d2fb4fc80fa421b870a4f7dde062d41",
+    "training/feedback/export_for_app.py": "31d8049a3844cb581bfb33d452daf4fc3b5918a3ff6c6389fdc857abf96fa1fb",
+    "training/feedback/extract_gold_clips_for_review.py": "328a4b0608b6df77634fe34d40d3f336590abe7a6164373d1150f74fe75819e2",
+    "training/feedback/feedback_engine.py": "4ba1e85ae71b0f50108b2ed8abccb5c4ee48e521248e947ee13b44ad386e5aba",
+    "training/feedback/gold_standards_manifest.json": "3d043175c7af9d0cc1ca5fc430c812a7eb8d531dd66d8997ea16037a4b754545",
+    "training/models/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "training/models/eval_report.py": "302a583ae9185a7639feb787e0bb0ddcdcdc158d151a42fbf637461710158cf7",
+    "training/models/evaluate_frozen.py": "3e72c2aaf77562d452bc1f65b875f742fb61d92a10be9bf42d8c2f234cafe8e1",
+    "training/models/evaluation_protocol.py": "9fba8862e7f9aca098f98c485777d9dd9f8ba0a3d502838274461f02c366e116",
+    "training/models/experiments_log.json": "835db1e79c15495cb442b793b7a088f806c96ec5c51b1bb7bf9a9d6d9021cfcb",
+    "training/models/freeze_selection.py": "60fe56961e49a81000379145a407814cd40d4f93825a3cc73693bba2cb2266d7",
+    "training/models/protocol_experiments_log.json": "8c3f3179ae0695f519cbef622a478400238e4ba71cd85e1f4493d9e798fc21c0",
+    "training/models/protocol_selection_evaluation_v1.json": "512f9eb32321d1b24b9d40cb5b5cafff8fda99281c9868832a0029a51922be1c",
+    "training/models/reports/20260705_192720_baseline_y_pred.npy": "75660188611b0e8c55139ef825f765d8895cd580896751bf819f05da7fd69fae",
+    "training/models/reports/20260705_194813_no_face_confusion.png": "be44fed7c4f0f4166d0c7cca8d670e216ef9c3c4c4c07e48e34f085b13281566",
+    "training/models/reports/20260705_194813_no_face_eval.md": "036d17ec1347599658fe5b92259f0f52fd8d8f01767d55b3b7dbd7b1c75d15f2",
+    "training/models/reports/20260705_194813_no_face_per_class.csv": "1fc1915181eac65d6e2cabe280bf51f851b8447c7f7bf6d67932931509eecce1",
+    "training/models/reports/20260705_194813_no_face_y_pred.npy": "927a5ae63a50259cbadc4966f57f43fa942c140fc7d7f06b0d78902f640a6f90",
+    "training/models/reports/20260705_195312_no_face_wider_y_pred.npy": "bec46e17b662be57587532721d151fd958c389b7a6bbf415ecdcb84ba44d32b1",
+    "training/models/reports/20260705_200027_full_dropout05_y_pred.npy": "b7c557da56390c1e75a6df75a3985a0138b410ee7ab7e76a18268735dee320b0",
+    "training/models/reports/20260930_protocol_v1_no_face/evaluation.json": "452a5adf169b592b8afa9045b9f3b6346eb715db252e34b8cf195f38d504b6ed",
+    "training/models/reports/20260930_protocol_v1_no_face/evaluation.md": "28bd9401c7ffe699ad6d0b7da913c0e431fa919cfdc66f8857eff4dbc0f87c0d",
+    "training/models/reports/20260930_protocol_v1_no_face/provenance.md": "c56049dabc8b64f33d2e833a75628c7c5f5b29a7ad317a48091feb0162d492d0",
+    "training/models/train_cnn_lstm.py": "a5560e5dec1e8ef68d46a7e1ed739c864b98f68b8575f0c491a7a9f3d02536c1",
+    "training/notebooks/kumpas_cnn_lstm_training.ipynb": "a8a904aa7fb2fedd2115e675553786025f98d366b4f4529c685c6982020995fb",
+    "training/preprocessing/audit_report.json": "5cacc2dcdf90f4687c0aebfb7a99ffbab7886c5c5053b69c6a6334ddafcf578a",
+    "training/preprocessing/audit_report.md": "bcb0849f6bad2c2541e5a2d6a3343e591b9151c78702ab6010acaf0d718b4eee",
+    "training/preprocessing/build_sequences.py": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+    "training/preprocessing/dataset_audit.py": "fb57966d489ffff1487feff7766dd2a3627e4fb4c3aec46ba224642beb5c37c2",
+    "training/preprocessing/extract_landmarks.py": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+    "training/preprocessing/extraction_log.csv": "14e621f9233fa0e0c0bb44cbefcfc1aa70bcc84fd44501966864778bcf161eec",
+    "training/preprocessing/preprocessing_report.md": "15b112bc8d875d166947fd68fabbdb66aa0500a9ba092ec4f57196281819ecff",
+    "training/preprocessing/selected_classes.json": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5",
+    "training/requirements.txt": "faf3ad91fdf7eea4ba5b7ecd4c01434cedf6ad5a3dd292ab746e3931683e0fe0",
+    "training/tests/test_evaluate_frozen.py": "908c93b1058f1a85d2724da20446b1976d97468c2aa56bb53779e2d7911d52f7",
+    "training/tests/test_evaluation_protocol.py": "585f1f23fd318e3252bb8e9a478d83db7c0eadd209545e65b88b8a5cca7ba10a",
+    "training/tests/test_export_frozen.py": "5bfa21c7b0b0e09a2c4a53f5e1ddbdb9a313f082d7ac7cbac21254208373ff82",
+    "training/tests/test_training_protocol.py": "ba731e091e3bb41e44d2d9db619bee9b2f66c177591cab77ca181bf22b37424b",
+    "training/tflite_export/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "training/tflite_export/export_frozen.py": "cd4490a27e349ed1fe32176183f547dd5674ab20f1da7997a76692e6a80d1064",
+    "training/tflite_export/export_tflite.py": "e9fc9be3ca7bfa5e0ed52b03a90e273167d94e46e2110288e5097c18e9e4e3a7",
+    "training/tflite_export/tflite_export_log.json": "c303dfada7a5965a5dfb35d333121014da401192f82a2435f07cb116ce556c83"
+  },
+  "protected": {
+    "app/android/app/src/main/assets/pose_landmarker_lite.task": {
+      "expected": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+      "actual": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a"
+    },
+    "app/android/app/src/main/assets/label_map.json": {
+      "expected": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+      "actual": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0"
+    },
+    "app/android/app/src/main/assets/hand_landmarker.task": {
+      "expected": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "actual": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1"
+    },
+    "app/android/app/src/main/assets/kumpas_50sign.tflite": {
+      "expected": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+      "actual": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb"
+    },
+    "app/android/app/src/main/assets/gold_standards.bin": {
+      "expected": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+      "actual": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2"
+    },
+    "benchmarking/benchmark_history.json": {
+      "expected": "e051d8b4789ea33719b7eaa8e873f7c1feb2de3af7ebdaa01aee88b399c1cd51",
+      "actual": "e051d8b4789ea33719b7eaa8e873f7c1feb2de3af7ebdaa01aee88b399c1cd51"
+    },
+    "benchmarking/handoff_blank/candidate_devices.csv": {
+      "expected": "ef32f1793b40d387f4db03dda78be9b1b9aaf91433371f305f1fabd82414c464",
+      "actual": "ef32f1793b40d387f4db03dda78be9b1b9aaf91433371f305f1fabd82414c464"
+    },
+    "benchmarking/handoff_blank/condition_runs.csv": {
+      "expected": "70b5c7c8ad3e715eb7615c019e31e042eb9685e6aca852f7f0a6319033da43db",
+      "actual": "70b5c7c8ad3e715eb7615c019e31e042eb9685e6aca852f7f0a6319033da43db"
+    },
+    "benchmarking/handoff_blank/confusion_matrix.csv": {
+      "expected": "717d44daf740e0e5877229c86c1e42ea5117fff44604a018314c25f34dd8aee1",
+      "actual": "717d44daf740e0e5877229c86c1e42ea5117fff44604a018314c25f34dd8aee1"
+    },
+    "benchmarking/handoff_blank/generation_checks.json": {
+      "expected": "194bb1033d7fd769206b3f947374e56fcabf71724181e01da41a8121b8be4bf6",
+      "actual": "194bb1033d7fd769206b3f947374e56fcabf71724181e01da41a8121b8be4bf6"
+    },
+    "benchmarking/handoff_blank/sign_trials.csv": {
+      "expected": "3b35eb4093df94cf8ec5935b0e686872eb48cb1ed6c88c39d6b4b22984417111",
+      "actual": "3b35eb4093df94cf8ec5935b0e686872eb48cb1ed6c88c39d6b4b22984417111"
+    },
+    "benchmarking/plots/accuracy_all_runs.png": {
+      "expected": "27103eac4b68774d7566912b6a1b80344ce3e6f9a890062137abe7970c0e2752",
+      "actual": "27103eac4b68774d7566912b6a1b80344ce3e6f9a890062137abe7970c0e2752"
+    },
+    "benchmarking/plots/accuracy_over_iterations.png": {
+      "expected": "6effcf304860eb8bef0a545e28d6b1992d80debaeea8e03ef7a0230043b33cc1",
+      "actual": "6effcf304860eb8bef0a545e28d6b1992d80debaeea8e03ef7a0230043b33cc1"
+    },
+    "benchmarking/plots/fps_over_iterations.png": {
+      "expected": "9826cfe2b71213b3b43973d48bc22161c2ff332ce7fe3f11b404c9857d8a2ab4",
+      "actual": "9826cfe2b71213b3b43973d48bc22161c2ff332ce7fe3f11b404c9857d8a2ab4"
+    },
+    "benchmarking/plots/historical_excluded_20261002/fps_over_iterations.png": {
+      "expected": "07c28c2031748492671ca913b0f22240e13b6da9cbfb230f555d29a52a0ce11b",
+      "actual": "07c28c2031748492671ca913b0f22240e13b6da9cbfb230f555d29a52a0ce11b"
+    },
+    "benchmarking/plots/historical_excluded_20261002/latency_over_iterations.png": {
+      "expected": "0819b5af3d6a9b9c3b3244e3ae5074b72a9b8ac2f5ee5b4ec57b51d0c000e576",
+      "actual": "0819b5af3d6a9b9c3b3244e3ae5074b72a9b8ac2f5ee5b4ec57b51d0c000e576"
+    },
+    "benchmarking/plots/historical_excluded_20261002/provenance.json": {
+      "expected": "3963c92f9dbab67179d0faca832c40e330c8dfee9de2de52e8aefd17d450e35b",
+      "actual": "3963c92f9dbab67179d0faca832c40e330c8dfee9de2de52e8aefd17d450e35b"
+    },
+    "benchmarking/plots/latency_over_iterations.png": {
+      "expected": "4cbb81d7a81dfb0b4decc33b3900d4b3fe0d7fc6254fd17174a2409118d466b7",
+      "actual": "4cbb81d7a81dfb0b4decc33b3900d4b3fe0d7fc6254fd17174a2409118d466b7"
+    },
+    "benchmarking/study_evidence/20261002/emulator_collector_assessment.json": {
+      "expected": "a73635a7741d4ba9890e6ab5f33f583a7bcaf216382287a3afa7b46038ce39ab",
+      "actual": "a73635a7741d4ba9890e6ab5f33f583a7bcaf216382287a3afa7b46038ce39ab"
+    },
+    "benchmarking/study_evidence/20261002/kumpas-final-flow-review.md": {
+      "expected": "cc2fd8e769035977957b35713d08defe7aab3ebafe34e2eafa20637c235d4d59",
+      "actual": "cc2fd8e769035977957b35713d08defe7aab3ebafe34e2eafa20637c235d4d59"
+    },
+    "benchmarking/study_evidence/20261002/kumpas-final-metrics-review.md": {
+      "expected": "9a7222e2849d5fa577ecea87773656b26eae733746dd1b33ba09338e9971f143",
+      "actual": "9a7222e2849d5fa577ecea87773656b26eae733746dd1b33ba09338e9971f143"
+    },
+    "benchmarking/study_evidence/20261002/kumpas-final-remediation-brief.md": {
+      "expected": "785a94664419fad20665f2ba73585878c68aca7ff49e438d07cf086911ec629d",
+      "actual": "785a94664419fad20665f2ba73585878c68aca7ff49e438d07cf086911ec629d"
+    },
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/checkpoint.json": {
+      "expected": "fa2131dc3ac8e79aa8b587f805a0c7d3af743508be57cc737027d36bd8dc7227",
+      "actual": "fa2131dc3ac8e79aa8b587f805a0c7d3af743508be57cc737027d36bd8dc7227"
+    },
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/kumpas-final-remediation-recovery-brief.md": {
+      "expected": "03fc47c0d0b9b13d4205dbfd826a03a3c8f4986d5d22f696ad1a1bf916af86d0",
+      "actual": "03fc47c0d0b9b13d4205dbfd826a03a3c8f4986d5d22f696ad1a1bf916af86d0"
+    },
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/kumpas-remediation-command-ledger.jsonl": {
+      "expected": "ce7bf02811929f721b78b6ac55b85d996e99b2e1218b489615cd04e5c3e6b3f4",
+      "actual": "ce7bf02811929f721b78b6ac55b85d996e99b2e1218b489615cd04e5c3e6b3f4"
+    },
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/kumpas-remediation-recovery-start.json": {
+      "expected": "ecb08359c803056f73b227653156b0c93b971260ff7f575efc1d77419d309839",
+      "actual": "ecb08359c803056f73b227653156b0c93b971260ff7f575efc1d77419d309839"
+    },
+    "benchmarking/study_evidence/20261002/recovery_checkpoint/recovery-20261002-native.log": {
+      "expected": "3caa4ee4c98777989a3fe10b246b527c6e8922523029220b7b19e710d52585cc",
+      "actual": "3caa4ee4c98777989a3fe10b246b527c6e8922523029220b7b19e710d52585cc"
+    },
+    "benchmarking/study_evidence/20261002/study-final-collectors-20261002.log": {
+      "expected": "3b93555e258fe4364d84a339aa04fd08d5d57cb98c25774e4e1649a320eef34d",
+      "actual": "3b93555e258fe4364d84a339aa04fd08d5d57cb98c25774e4e1649a320eef34d"
+    },
+    "benchmarking/study_evidence/20261002/study-final-flutter-20261002.log": {
+      "expected": "fa718da48ee5ef94f6615e1873ab334830a6f2f37600842329e1eebfa5421fdf",
+      "actual": "fa718da48ee5ef94f6615e1873ab334830a6f2f37600842329e1eebfa5421fdf"
+    },
+    "benchmarking/study_evidence/20261002/study-final-isolated-instrumentation-20261002.log": {
+      "expected": "ec1b65846a50129d7e39f765763264d8676c150cbb9b95dbdc5f56a81b639f02",
+      "actual": "ec1b65846a50129d7e39f765763264d8676c150cbb9b95dbdc5f56a81b639f02"
+    },
+    "benchmarking/study_evidence/20261002/study-final-native-executed-20261002.log": {
+      "expected": "cc786c74bbabd024a98df6cbc47f458554219f5cb4ff52e1c5e4469f20fb769a",
+      "actual": "cc786c74bbabd024a98df6cbc47f458554219f5cb4ff52e1c5e4469f20fb769a"
+    },
+    "benchmarking/study_evidence/20261002/study-final-release-20261002.log": {
+      "expected": "1346c899051b049a0017bdc56ddcb9f86378fde8eb8cea35203cb8d96e9f71bb",
+      "actual": "1346c899051b049a0017bdc56ddcb9f86378fde8eb8cea35203cb8d96e9f71bb"
+    },
+    "benchmarking/study_evidence/20261002/study-final-replay-instrumentation-20261002.log": {
+      "expected": "aa05c4e1d58cc016e63ba74992f8f782ef4a3fdf48a135eb618a25b03f69c2d0",
+      "actual": "aa05c4e1d58cc016e63ba74992f8f782ef4a3fdf48a135eb618a25b03f69c2d0"
+    },
+    "benchmarking/study_evidence/20261002/verification.json": {
+      "expected": "c0e425c7f6ac726694959302dd1bd74700692b3fdd0a7933cb9bafb6c6fa61f3",
+      "actual": "c0e425c7f6ac726694959302dd1bd74700692b3fdd0a7933cb9bafb6c6fa61f3"
+    },
+    "evaluation/.gitkeep": {
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "training/augmentation/.gitkeep": {
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "training/augmentation/augment_landmarks.py": {
+      "expected": "b06656d8d433b5f1f1402151ede2f159719f7aaabd54e8e67ae6590f304931dd",
+      "actual": "b06656d8d433b5f1f1402151ede2f159719f7aaabd54e8e67ae6590f304931dd"
+    },
+    "training/augmentation/augment_log.json": {
+      "expected": "111d261aa080d4544083ccc3e878c3106c16e5a2ef010ddb85788da21852331d",
+      "actual": "111d261aa080d4544083ccc3e878c3106c16e5a2ef010ddb85788da21852331d"
+    },
+    "training/feedback/build_gold_standards.py": {
+      "expected": "864c7f809b8e8b48671b6182931764cdc152fa3dc9d041ab2152b220a8ca2a66",
+      "actual": "864c7f809b8e8b48671b6182931764cdc152fa3dc9d041ab2152b220a8ca2a66"
+    },
+    "training/feedback/demo_feedback.py": {
+      "expected": "e3967ad9c08e39c91d7d603d68a694f90d35538dd60de0a37ec6be5fa9b2260f",
+      "actual": "e3967ad9c08e39c91d7d603d68a694f90d35538dd60de0a37ec6be5fa9b2260f"
+    },
+    "training/feedback/demo_report.md": {
+      "expected": "d918726c08c21e7b8fa5c92ab09117e22d2fb4fc80fa421b870a4f7dde062d41",
+      "actual": "d918726c08c21e7b8fa5c92ab09117e22d2fb4fc80fa421b870a4f7dde062d41"
+    },
+    "training/feedback/export_for_app.py": {
+      "expected": "31d8049a3844cb581bfb33d452daf4fc3b5918a3ff6c6389fdc857abf96fa1fb",
+      "actual": "31d8049a3844cb581bfb33d452daf4fc3b5918a3ff6c6389fdc857abf96fa1fb"
+    },
+    "training/feedback/extract_gold_clips_for_review.py": {
+      "expected": "328a4b0608b6df77634fe34d40d3f336590abe7a6164373d1150f74fe75819e2",
+      "actual": "328a4b0608b6df77634fe34d40d3f336590abe7a6164373d1150f74fe75819e2"
+    },
+    "training/feedback/feedback_engine.py": {
+      "expected": "4ba1e85ae71b0f50108b2ed8abccb5c4ee48e521248e947ee13b44ad386e5aba",
+      "actual": "4ba1e85ae71b0f50108b2ed8abccb5c4ee48e521248e947ee13b44ad386e5aba"
+    },
+    "training/feedback/gold_standards_manifest.json": {
+      "expected": "3d043175c7af9d0cc1ca5fc430c812a7eb8d531dd66d8997ea16037a4b754545",
+      "actual": "3d043175c7af9d0cc1ca5fc430c812a7eb8d531dd66d8997ea16037a4b754545"
+    },
+    "training/models/.gitkeep": {
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "training/models/eval_report.py": {
+      "expected": "302a583ae9185a7639feb787e0bb0ddcdcdc158d151a42fbf637461710158cf7",
+      "actual": "302a583ae9185a7639feb787e0bb0ddcdcdc158d151a42fbf637461710158cf7"
+    },
+    "training/models/evaluate_frozen.py": {
+      "expected": "3e72c2aaf77562d452bc1f65b875f742fb61d92a10be9bf42d8c2f234cafe8e1",
+      "actual": "3e72c2aaf77562d452bc1f65b875f742fb61d92a10be9bf42d8c2f234cafe8e1"
+    },
+    "training/models/evaluation_protocol.py": {
+      "expected": "9fba8862e7f9aca098f98c485777d9dd9f8ba0a3d502838274461f02c366e116",
+      "actual": "9fba8862e7f9aca098f98c485777d9dd9f8ba0a3d502838274461f02c366e116"
+    },
+    "training/models/experiments_log.json": {
+      "expected": "835db1e79c15495cb442b793b7a088f806c96ec5c51b1bb7bf9a9d6d9021cfcb",
+      "actual": "835db1e79c15495cb442b793b7a088f806c96ec5c51b1bb7bf9a9d6d9021cfcb"
+    },
+    "training/models/freeze_selection.py": {
+      "expected": "60fe56961e49a81000379145a407814cd40d4f93825a3cc73693bba2cb2266d7",
+      "actual": "60fe56961e49a81000379145a407814cd40d4f93825a3cc73693bba2cb2266d7"
+    },
+    "training/models/protocol_experiments_log.json": {
+      "expected": "8c3f3179ae0695f519cbef622a478400238e4ba71cd85e1f4493d9e798fc21c0",
+      "actual": "8c3f3179ae0695f519cbef622a478400238e4ba71cd85e1f4493d9e798fc21c0"
+    },
+    "training/models/protocol_selection_evaluation_v1.json": {
+      "expected": "512f9eb32321d1b24b9d40cb5b5cafff8fda99281c9868832a0029a51922be1c",
+      "actual": "512f9eb32321d1b24b9d40cb5b5cafff8fda99281c9868832a0029a51922be1c"
+    },
+    "training/models/reports/20260705_192720_baseline_y_pred.npy": {
+      "expected": "75660188611b0e8c55139ef825f765d8895cd580896751bf819f05da7fd69fae",
+      "actual": "75660188611b0e8c55139ef825f765d8895cd580896751bf819f05da7fd69fae"
+    },
+    "training/models/reports/20260705_194813_no_face_confusion.png": {
+      "expected": "be44fed7c4f0f4166d0c7cca8d670e216ef9c3c4c4c07e48e34f085b13281566",
+      "actual": "be44fed7c4f0f4166d0c7cca8d670e216ef9c3c4c4c07e48e34f085b13281566"
+    },
+    "training/models/reports/20260705_194813_no_face_eval.md": {
+      "expected": "036d17ec1347599658fe5b92259f0f52fd8d8f01767d55b3b7dbd7b1c75d15f2",
+      "actual": "036d17ec1347599658fe5b92259f0f52fd8d8f01767d55b3b7dbd7b1c75d15f2"
+    },
+    "training/models/reports/20260705_194813_no_face_per_class.csv": {
+      "expected": "1fc1915181eac65d6e2cabe280bf51f851b8447c7f7bf6d67932931509eecce1",
+      "actual": "1fc1915181eac65d6e2cabe280bf51f851b8447c7f7bf6d67932931509eecce1"
+    },
+    "training/models/reports/20260705_194813_no_face_y_pred.npy": {
+      "expected": "927a5ae63a50259cbadc4966f57f43fa942c140fc7d7f06b0d78902f640a6f90",
+      "actual": "927a5ae63a50259cbadc4966f57f43fa942c140fc7d7f06b0d78902f640a6f90"
+    },
+    "training/models/reports/20260705_195312_no_face_wider_y_pred.npy": {
+      "expected": "bec46e17b662be57587532721d151fd958c389b7a6bbf415ecdcb84ba44d32b1",
+      "actual": "bec46e17b662be57587532721d151fd958c389b7a6bbf415ecdcb84ba44d32b1"
+    },
+    "training/models/reports/20260705_200027_full_dropout05_y_pred.npy": {
+      "expected": "b7c557da56390c1e75a6df75a3985a0138b410ee7ab7e76a18268735dee320b0",
+      "actual": "b7c557da56390c1e75a6df75a3985a0138b410ee7ab7e76a18268735dee320b0"
+    },
+    "training/models/reports/20260930_protocol_v1_no_face/evaluation.json": {
+      "expected": "452a5adf169b592b8afa9045b9f3b6346eb715db252e34b8cf195f38d504b6ed",
+      "actual": "452a5adf169b592b8afa9045b9f3b6346eb715db252e34b8cf195f38d504b6ed"
+    },
+    "training/models/reports/20260930_protocol_v1_no_face/evaluation.md": {
+      "expected": "28bd9401c7ffe699ad6d0b7da913c0e431fa919cfdc66f8857eff4dbc0f87c0d",
+      "actual": "28bd9401c7ffe699ad6d0b7da913c0e431fa919cfdc66f8857eff4dbc0f87c0d"
+    },
+    "training/models/reports/20260930_protocol_v1_no_face/provenance.md": {
+      "expected": "c56049dabc8b64f33d2e833a75628c7c5f5b29a7ad317a48091feb0162d492d0",
+      "actual": "c56049dabc8b64f33d2e833a75628c7c5f5b29a7ad317a48091feb0162d492d0"
+    },
+    "training/models/train_cnn_lstm.py": {
+      "expected": "a5560e5dec1e8ef68d46a7e1ed739c864b98f68b8575f0c491a7a9f3d02536c1",
+      "actual": "a5560e5dec1e8ef68d46a7e1ed739c864b98f68b8575f0c491a7a9f3d02536c1"
+    },
+    "training/notebooks/kumpas_cnn_lstm_training.ipynb": {
+      "expected": "a8a904aa7fb2fedd2115e675553786025f98d366b4f4529c685c6982020995fb",
+      "actual": "a8a904aa7fb2fedd2115e675553786025f98d366b4f4529c685c6982020995fb"
+    },
+    "training/preprocessing/audit_report.json": {
+      "expected": "5cacc2dcdf90f4687c0aebfb7a99ffbab7886c5c5053b69c6a6334ddafcf578a",
+      "actual": "5cacc2dcdf90f4687c0aebfb7a99ffbab7886c5c5053b69c6a6334ddafcf578a"
+    },
+    "training/preprocessing/audit_report.md": {
+      "expected": "bcb0849f6bad2c2541e5a2d6a3343e591b9151c78702ab6010acaf0d718b4eee",
+      "actual": "bcb0849f6bad2c2541e5a2d6a3343e591b9151c78702ab6010acaf0d718b4eee"
+    },
+    "training/preprocessing/build_sequences.py": {
+      "expected": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+      "actual": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0"
+    },
+    "training/preprocessing/dataset_audit.py": {
+      "expected": "fb57966d489ffff1487feff7766dd2a3627e4fb4c3aec46ba224642beb5c37c2",
+      "actual": "fb57966d489ffff1487feff7766dd2a3627e4fb4c3aec46ba224642beb5c37c2"
+    },
+    "training/preprocessing/extract_landmarks.py": {
+      "expected": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+      "actual": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f"
+    },
+    "training/preprocessing/extraction_log.csv": {
+      "expected": "14e621f9233fa0e0c0bb44cbefcfc1aa70bcc84fd44501966864778bcf161eec",
+      "actual": "14e621f9233fa0e0c0bb44cbefcfc1aa70bcc84fd44501966864778bcf161eec"
+    },
+    "training/preprocessing/preprocessing_report.md": {
+      "expected": "15b112bc8d875d166947fd68fabbdb66aa0500a9ba092ec4f57196281819ecff",
+      "actual": "15b112bc8d875d166947fd68fabbdb66aa0500a9ba092ec4f57196281819ecff"
+    },
+    "training/preprocessing/selected_classes.json": {
+      "expected": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5",
+      "actual": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5"
+    },
+    "training/requirements.txt": {
+      "expected": "faf3ad91fdf7eea4ba5b7ecd4c01434cedf6ad5a3dd292ab746e3931683e0fe0",
+      "actual": "faf3ad91fdf7eea4ba5b7ecd4c01434cedf6ad5a3dd292ab746e3931683e0fe0"
+    },
+    "training/tests/test_evaluate_frozen.py": {
+      "expected": "908c93b1058f1a85d2724da20446b1976d97468c2aa56bb53779e2d7911d52f7",
+      "actual": "908c93b1058f1a85d2724da20446b1976d97468c2aa56bb53779e2d7911d52f7"
+    },
+    "training/tests/test_evaluation_protocol.py": {
+      "expected": "585f1f23fd318e3252bb8e9a478d83db7c0eadd209545e65b88b8a5cca7ba10a",
+      "actual": "585f1f23fd318e3252bb8e9a478d83db7c0eadd209545e65b88b8a5cca7ba10a"
+    },
+    "training/tests/test_export_frozen.py": {
+      "expected": "5bfa21c7b0b0e09a2c4a53f5e1ddbdb9a313f082d7ac7cbac21254208373ff82",
+      "actual": "5bfa21c7b0b0e09a2c4a53f5e1ddbdb9a313f082d7ac7cbac21254208373ff82"
+    },
+    "training/tests/test_training_protocol.py": {
+      "expected": "ba731e091e3bb41e44d2d9db619bee9b2f66c177591cab77ca181bf22b37424b",
+      "actual": "ba731e091e3bb41e44d2d9db619bee9b2f66c177591cab77ca181bf22b37424b"
+    },
+    "training/tflite_export/.gitkeep": {
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "training/tflite_export/export_frozen.py": {
+      "expected": "cd4490a27e349ed1fe32176183f547dd5674ab20f1da7997a76692e6a80d1064",
+      "actual": "cd4490a27e349ed1fe32176183f547dd5674ab20f1da7997a76692e6a80d1064"
+    },
+    "training/tflite_export/export_tflite.py": {
+      "expected": "e9fc9be3ca7bfa5e0ed52b03a90e273167d94e46e2110288e5097c18e9e4e3a7",
+      "actual": "e9fc9be3ca7bfa5e0ed52b03a90e273167d94e46e2110288e5097c18e9e4e3a7"
+    },
+    "training/tflite_export/tflite_export_log.json": {
+      "expected": "c303dfada7a5965a5dfb35d333121014da401192f82a2435f07cb116ce556c83",
+      "actual": "c303dfada7a5965a5dfb35d333121014da401192f82a2435f07cb116ce556c83"
+    }
+  },
+  "protected_mismatches": [],
+  "graph_available": false
+}

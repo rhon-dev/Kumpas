@@ -1,0 +1,73 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart
+00:00 +0: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: high geometric match with wrong recognition is not mastery
+00:00 +1: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: both conditions must occur on the same attempt
+00:00 +2: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: exact threshold qualifies once; later failure does not revoke
+00:00 +3: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/mastery_test.dart: next sign and category use the same predicate including empty history
+00:00 +4: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +5: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +6: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +7: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +8: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +9: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +10: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +11: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +12: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +13: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +14: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +15: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +16: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +17: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +18: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +19: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +20: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:00 +21: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:01 +22: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:01 +23: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: owned completion while confirmation pending preserves replacement lateError=false
+00:01 +24: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +25: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +26: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +27: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +28: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +29: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +30: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +30: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: fire-and-forget startSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:01 +31: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +31: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: fire-and-forget endSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:01 +32: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +33: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +34: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +35: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +36: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +37: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +38: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +39: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +40: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +41: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +42: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +43: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:01 +44: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:02 +45: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: post required responses submit with empty optional feedback
+00:02 +46: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: cancelled and unsolicited results cannot open feedback
+00:02 +47: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: assessment save failure stays on form and safe retry navigates
+00:02 +48: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/assessment_save_failure_test.dart: assessment save failure stays on form and safe retry navigates
+00:02 +49: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: matching result opens feedback once and preserves wrong recognition
+00:02 +50: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: no signer failure allows retry and rejects a late result
+00:02 +51: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: benchmark starts after bounded warmup without any camera events
+00:02 +52: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: benchmark run identity is visible copyable and completion correlated
+00:02 +53: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: benchmark channel requires valid UUID and binds report and stop
+00:02 +54: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: failed benchmark can retry on existing snackbar
+00:02 +55: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung benchmark control response recovers and late run cannot stop replacement
+00:02 +56: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung late stop deadline disposed=false completion=pending
+00:02 +57: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung late stop deadline disposed=false completion=success
+00:02 +58: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung late stop deadline disposed=false completion=error
+00:02 +59: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung late stop deadline disposed=true completion=pending
+00:02 +60: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung late stop deadline disposed=true completion=success
+00:02 +61: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: hung late stop deadline disposed=true completion=error
+00:02 +62: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: late benchmark cleanup failure after disposal retains coded diagnostics
+00:02 +63: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: late benchmark identity after disposal is stopped by its own run ID
+00:02 +64: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: pending start times out and late identity cannot cancel replacement
+00:02 +65: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: pending identity preserves timeout without replacement and cancel on disposal
+00:02 +66: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart: timeout cancels identity and restores capture
+00:02 +67: All tests passed!

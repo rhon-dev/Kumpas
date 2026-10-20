@@ -1,0 +1,10 @@
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... ok
+test_diagnostics_all_classes_counts_and_conversion_drift (test_validation_campaign.DiagnosticTests.test_diagnostics_all_classes_counts_and_conversion_drift) ... ok
+test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) ... ok
+test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound (test_validation_campaign.InputTests.test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound) ... ok
+test_probability_boundary_rejects_shape_type_and_nonfinite (test_validation_campaign.ProbabilityTests.test_probability_boundary_rejects_shape_type_and_nonfinite) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.403s
+
+OK

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.MainActivityBoundaryTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:25:13.572Z" hostname="Ahrons-MacBook-Pro.local" time="0.113">
+  <properties/>
+  <testcase name="latePendingTimeoutAccountsOldIdentityWithoutCancellingReplacement" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.011"/>
+  <testcase name="queuedViewEventsCannotReachReplacementOrNewSubscriber" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.022"/>
+  <testcase name="currentCameraErrorStillReachesUi" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.006"/>
+  <testcase name="persistenceFailureReachesEventSinkAccountsFailureAndAllowsSafeRetry" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.024"/>
+  <testcase name="cancellationAndTimeoutUseProductionControlHookWithoutDetectorFailure" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.011"/>
+  <testcase name="noSignerOutcomeIsRecordedAtProductionEventBoundaryWithoutLatency" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.011"/>
+  <testcase name="queuedOldCameraErrorCannotCancelReplacementCapture" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.006"/>
+  <testcase name="cancellationWithoutExplicitIdRetainsCurrentIdentityAndNotDetectorFailure" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.011"/>
+  <testcase name="currentCameraErrorRetainsCodedTerminalInsteadOfCensoringKnownFailure" classname="com.kumpas.kumpas_app.MainActivityBoundaryTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

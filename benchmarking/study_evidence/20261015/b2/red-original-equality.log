@@ -1,0 +1,16 @@
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... ok
+test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound (test_validation_campaign.InputTests.test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound) ... FAIL
+test_probability_boundary_rejects_shape_type_and_nonfinite (test_validation_campaign.ProbabilityTests.test_probability_boundary_rejects_shape_type_and_nonfinite) ... ok
+
+======================================================================
+FAIL: test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound (test_validation_campaign.InputTests.test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 62, in test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound
+    self.assertIsInstance(valid, dict)
+AssertionError: None is not an instance of <class 'dict'>
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.212s
+
+FAILED (failures=1)

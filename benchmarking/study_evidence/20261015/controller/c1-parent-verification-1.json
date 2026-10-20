@@ -1,0 +1,13 @@
+{
+  "source_hashes": {
+    "benchmarking/inspect_release.py": "ecf9f2f33f2fc1f28bf9d6efc47a2f6f661e1e9fef929180cafe920c42eb5bb3",
+    "benchmarking/test_inspect_release.py": "03450c2a0035116910d78d514a9d90e446f0679c8eb1626ea0870090ee98eae9"
+  },
+  "parent_tests": "28focused tests passed zero skips; c1/parent-focused-1.log",
+  "parent_real_inspection": "historical explicit three-ABI policy passed; byte-identical result ea6af87cb75419d631e099955aa74dcb18c3e12e1606f3f7b7858e5ebe149a83",
+  "strict_arm64_acceptance": false,
+  "fresh_build_provenance": false,
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "review_status": "PENDING"
+}

@@ -1,0 +1,22 @@
+{
+  "source_hashes": {
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt": "28beacda5106ec1292e1c65c23f3ec89408afc8c20685f44473dfcc2769ef5c8",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt": "d07b59ebd8bd5f5c36aed36cf7594fbf5f4e51dc946794562b9cb52e02631804",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ActivityInitializationTest.kt": "281f3da7e8ce38b948f94965d67c6d0da410b17a8dca6fef5e312ba9c0c50040",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt": "5b5ef76c016a29f3d1552ff19bc35d8fe83c0af949e31a209a18a9c82586a721",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt": "6b35e4f0adc05277f5c363c18e0c55233454daee492e38bbd4cd6faf811156f7"
+  },
+  "jvm": {
+    "tests": 162,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "instrumentation_compile": "forced source compilation passed;not runtime",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "A2a_all8_hashes_match": true,
+  "evidence": "a2b/parent-full-forced-2.log",
+  "first_parent_run": "a2b/parent-full-1.log had JVM UP-TO-DATE; rerun flag applied only last compile task, not fresh JVM evidence. Preserved; corrected second command explicitly --rerun after each target.",
+  "review": "pending"
+}

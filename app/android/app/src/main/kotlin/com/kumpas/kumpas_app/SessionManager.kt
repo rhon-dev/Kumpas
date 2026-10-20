@@ -24,7 +24,8 @@ import java.util.UUID
  * starts. If the app resumes before timeout, the session stays active.
  * If the timer fires, the session is closed.
  */
-class SessionManager(private val context: Context) {
+class SessionManager(private val context: Context,
+    databaseFactory: (Context) -> SessionDatabase = ::SessionDatabase) {
 
     companion object {
         private const val TAG = "KumpasSession"
@@ -34,10 +35,11 @@ class SessionManager(private val context: Context) {
         private const val AUTO_CLOSE_DELAY_MS = 60_000L
     }
 
-    private val db = SessionDatabase(context)
     private val prefs: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     private val handler = Handler(Looper.getMainLooper())
+    // Factory transfers ownership of a fresh helper; never pass a borrowed one.
+    private val db = databaseFactory(context)
 
     private var activeSessionId: String? = null
     private var autoCloseRunnable: Runnable? = null
@@ -48,10 +50,15 @@ class SessionManager(private val context: Context) {
         get() = getOrCreateParticipantId()
 
     init {
-        ensureParticipant()
-        migrateIfNeeded()
-        // Recover any unclosed session from a crash
-        activeSessionId = db.getActiveSession(participantId)
+        try {
+            ensureParticipant()
+            migrateIfNeeded()
+            // Recover any unclosed session from a crash
+            activeSessionId = db.getActiveSession(participantId)
+        } catch (error: Throwable) {
+            try { db.close() } catch (cleanup: Throwable) { error.addSuppressed(cleanup) }
+            throw error
+        }
     }
 
     // ─── Participant ────────────────────────────────────────────────
@@ -117,6 +124,9 @@ class SessionManager(private val context: Context) {
     @Synchronized
     fun onPause() {
         if (activeSessionId == null) return
+        // Keep the first background deadline; repeated pause notifications must
+        // neither orphan an older callback nor extend the 60-second timeout.
+        if (autoCloseRunnable != null) return
         autoCloseRunnable = Runnable {
             Log.i(TAG, "Auto-closing session after ${AUTO_CLOSE_DELAY_MS / 1000}s background")
             endSession()

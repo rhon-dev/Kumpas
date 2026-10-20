@@ -1,0 +1,8 @@
+{
+  "benchmarking/study_evidence/20261015/b2/current-inputs-v3.json": "0df969259b620e64ea0b3ea40484492178dfcb4f719437684af94471c50bb78e",
+  "../kumpas-data/diagnostics/20261017-validation-v1-3/campaign.json": "5dead49dd2257df34af9242f623f82345b6108ed9b66e2fda5837c3b9b0c77d0",
+  "../kumpas-data/diagnostics/20261017-validation-v1-3/INCOMPLETE-manifest.json": "013f3933fe898dadf2fc25fcf7a12cc50689964f7fba39400cba38e0199b497d",
+  "benchmarking/study_evidence/20261015/b2/review-fix-1-preservation-after.json": "9a93367d34115acbf374e690eb84a538f58dec5c6f9836410661bed3968695bb"
+}
+successful_manifest_exists False
+historical counts 150 134

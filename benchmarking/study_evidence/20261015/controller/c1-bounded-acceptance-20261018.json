@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-18T00:39:37.126581+08:00",
+  "decision": "ACCEPT_C1_BOUNDED_INSPECTOR_WITH_LOW_COVERAGE_FOLLOWUP",
+  "source_hashes": {
+    "benchmarking/inspect_release.py": "ecf9f2f33f2fc1f28bf9d6efc47a2f6f661e1e9fef929180cafe920c42eb5bb3",
+    "benchmarking/test_inspect_release.py": "03450c2a0035116910d78d514a9d90e446f0679c8eb1626ea0870090ee98eae9"
+  },
+  "review": "c1-review-1.md",
+  "review_sha256": "15c3b1d2aa7328a54c8a74764dc483d9aff17fcc08cb7a82f896c0a80382eb8c",
+  "parent_evidence": {
+    "source_hashes": {
+      "benchmarking/inspect_release.py": "ecf9f2f33f2fc1f28bf9d6efc47a2f6f661e1e9fef929180cafe920c42eb5bb3",
+      "benchmarking/test_inspect_release.py": "03450c2a0035116910d78d514a9d90e446f0679c8eb1626ea0870090ee98eae9"
+    },
+    "parent_tests": "28focused tests passed zero skips; c1/parent-focused-1.log",
+    "parent_real_inspection": "historical explicit three-ABI policy passed; byte-identical result ea6af87cb75419d631e099955aa74dcb18c3e12e1606f3f7b7858e5ebe149a83",
+    "strict_arm64_acceptance": false,
+    "fresh_build_provenance": false,
+    "protected_count": 82,
+    "protected_mismatches": [],
+    "review_status": "PENDING"
+  },
+  "reviewer_tests": "38passed zero skips:28maintained+10additional; broad118/2skips worker evidence only",
+  "preservation_count": 1193,
+  "protected_count": 82,
+  "mismatches": [],
+  "low_Q1": "Persist second-fsync,partial-write,final-open publication fault cases; reviewer probes passed,not implementation defects",
+  "ABI_adjudication": "HistoricalthreeABI consistency only. FlutterARM64 with dependency libraries in3namespaces; strictARM64policy fails. No configchanges justified by namesalone. Freshartifact inspection deferredfinalphase.",
+  "limits": "No freshbuild/signature/ELF/runtime/physical/study acceptance",
+  "next": "C2 legacyassessment export/schema/descriptive validation using synthetic data only; humanrubric scoring/inference blocked"
+}

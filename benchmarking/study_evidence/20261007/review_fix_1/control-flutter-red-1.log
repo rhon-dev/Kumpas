@@ -1,0 +1,28 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart
+00:00 +0: hung benchmark control response recovers and late run cannot stop replacement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: ['11111111-1111-4111-8111-111111111111']
+  Actual: []
+   Which: at location [0] is [] which shorter than expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:268:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 268
+The test description was:
+  hung benchmark control response recovers and late run cannot stop replacement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: hung benchmark control response recovers and late run cannot stop replacement [E]
+  Test failed. See exception logs above.
+  The test description was: hung benchmark control response recovers and late run cannot stop replacement
+  
+00:00 +0 -1: Some tests failed.

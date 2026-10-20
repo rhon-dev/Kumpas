@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.RgbaFramePackingTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:30:08.965Z" hostname="Ahrons-MacBook-Pro.local" time="0.0">
+  <properties/>
+  <testcase name="truncatedPlaneFailsInsteadOfReadingPadding" classname="com.kumpas.kumpas_app.RgbaFramePackingTest" time="0.0"/>
+  <testcase name="paddingDoesNotBecomePixels" classname="com.kumpas.kumpas_app.RgbaFramePackingTest" time="0.0"/>
+  <testcase name="originalBufferPositionIsPreserved" classname="com.kumpas.kumpas_app.RgbaFramePackingTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

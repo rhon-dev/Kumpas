@@ -1,0 +1,14 @@
+test_output_root_must_be_an_existing_directory_not_target (benchmarking.test_inspect_release.ReleaseTests.test_output_root_must_be_an_existing_directory_not_target) ... FAIL
+
+======================================================================
+FAIL: test_output_root_must_be_an_existing_directory_not_target (benchmarking.test_inspect_release.ReleaseTests.test_output_root_must_be_an_existing_directory_not_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 299, in test_output_root_must_be_an_existing_directory_not_target
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '9007cb6894c9160432825a97923caec5c9d495d47f63f8d79ef46bebea4d9523', 'apk_size_bytes': 1025, 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'expectation_sha256': 'de62baad540a4c6bd6c6a066be9f0b0cec54c574a637e97c4eee5f05c12adb2e', 'flutter_abis': ['arm64-v8a'], 'inspector_current_sha256': '81603482cbc97b49d175feafc30207d83e0d6e86f8f5ecd997e8eb2b49d55d54', 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'protected_current_sha256': {'app/android/app/src/main/assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'app/android/app/src/main/assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'app/android/app/src/main/assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'app/android/app/src/main/assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'app/android/app/src/main/assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'runtime_verified': False, 'schema_version': 1, 'signature_verified': False}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.056s
+
+FAILED (failures=1)

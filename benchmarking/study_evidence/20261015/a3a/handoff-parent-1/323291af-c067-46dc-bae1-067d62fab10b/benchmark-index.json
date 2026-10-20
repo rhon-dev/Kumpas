@@ -1,0 +1,77 @@
+[
+  {
+    "mode": "confirmed",
+    "run_id": "b8ea26b4-ab5f-4171-9893-9cecd8bfc0d2",
+    "report": "confirmed-report.json",
+    "control": "confirmed-control.json",
+    "control_observation": "native exact bytes",
+    "setup_input": {
+      "setup_id": "26cbb1b1-6818-453c-9c0d-201cd34ab5ce",
+      "condition": "optimal",
+      "lux": 400,
+      "background": "plain",
+      "distance_cm": 75,
+      "device_fingerprint": "robolectric",
+      "chip": "Snapdragon 680",
+      "ram_gb": 4,
+      "setup_verified": true,
+      "device_verified": true,
+      "front_camera_verified": true,
+      "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+      "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "thermal_state": "nominal"
+    },
+    "synthetic_origin": true,
+    "not_physical_measurement": true
+  },
+  {
+    "mode": "unconfirmed",
+    "run_id": "458e4cb3-e49c-43ac-bc0c-e6db00140737",
+    "report": "unconfirmed-report.json",
+    "control": "unconfirmed-control.json",
+    "control_observation": "native exact bytes",
+    "setup_input": {
+      "setup_id": "d97a6122-0395-4ae4-85a1-a2972e0ffd83",
+      "condition": "optimal",
+      "lux": 400,
+      "background": "plain",
+      "distance_cm": 75,
+      "device_fingerprint": "robolectric",
+      "chip": "Snapdragon 680",
+      "ram_gb": 4,
+      "setup_verified": true,
+      "device_verified": true,
+      "front_camera_verified": true,
+      "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+      "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "thermal_state": "nominal"
+    },
+    "synthetic_origin": true,
+    "not_physical_measurement": true
+  },
+  {
+    "mode": "faulted",
+    "run_id": "2e8e5da6-6c3d-4c16-9b54-5b938c1b3f62",
+    "report": "faulted-report.json",
+    "control": null,
+    "control_observation": "publication fault: companion path is nonempty directory, no companion bytes",
+    "setup_input": {
+      "setup_id": "c27ed375-cd3c-4f7b-84db-99ba4293eb6f",
+      "condition": "optimal",
+      "lux": 400,
+      "background": "plain",
+      "distance_cm": 75,
+      "device_fingerprint": "robolectric",
+      "chip": "Snapdragon 680",
+      "ram_gb": 4,
+      "setup_verified": true,
+      "device_verified": true,
+      "front_camera_verified": true,
+      "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+      "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "thermal_state": "nominal"
+    },
+    "synthetic_origin": true,
+    "not_physical_measurement": true
+  }
+]

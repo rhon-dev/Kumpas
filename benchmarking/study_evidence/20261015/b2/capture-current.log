@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/b2/capture_current.py", line 32, in <module>
+    hashes={k:sha256(Path(v)) for k,v in paths.items()}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/b2/capture_current.py", line 32, in <dictcomp>
+    hashes={k:sha256(Path(v)) for k,v in paths.items()}
+              ^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/evaluation_protocol.py", line 27, in sha256
+    with path.open("rb") as stream:
+         ^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas-data/parity/20261017-validation-v1/campaign.json'

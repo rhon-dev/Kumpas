@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "export_timestamp": "2026-10-16T10:29:58",
+    "app_version": "1.0.0",
+    "device_model": "robolectric robolectric",
+    "android_version": "14",
+    "participant_id": "ae11742b-f08c-417e-85cf-3f9159ce8599"
+  },
+  "assessments": [],
+  "sessions": [],
+  "summary": {
+    "total_sessions": 0,
+    "total_attempts": 0,
+    "total_assessments": 0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source_hashes": {
+    "training/models/validation_campaign.py": "8e28d5ad110b76881e65d75e1e851ecb71fa2a6e21e232bc2d0a7fe8cea22998",
+    "training/tests/test_validation_campaign.py": "5d9f2e13f0896b36940fdd81384ee6db9c2708417edcfce5e8064eefe019fe46"
+  },
+  "parent_training": "29tests,zero failures/errors/skips; b2/parent-fix1-training-1.log",
+  "protected_count": 82,
+  "initial_count": 288,
+  "mismatches": [],
+  "historical_incomplete_manifest_sha256": "013f3933fe898dadf2fc25fcf7a12cc50689964f7fba39400cba38e0199b497d",
+  "historical_source_identity": "Original v3 helper/tests unchanged in snapshots/config; current hardening not retroactively bound to old inference",
+  "status": "REVIEW_PENDING",
+  "source_provenance": "BLOCKED134MISSING_SOURCE_METADATA"
+}

@@ -1,0 +1,29 @@
+{
+  "event": "end",
+  "label": "accepted-producer-preflight",
+  "command": [
+    "/opt/homebrew/bin/python3.11",
+    "-B",
+    "-E",
+    "benchmarking/host_fixture_replay.py",
+    "preflight"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+  "at": "2026-10-18T14:18:50.949883+08:00",
+  "source_manifest": "accepted-producer-preflight-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "ended_at": "2026-10-18T14:18:51.002364+08:00",
+  "log": "accepted-producer-preflight.log",
+  "log_sha256": "6e35add9c1f344e3c1c3ab60b7ce29ca9d8ad78c4bf21421c480f6e61bdce21d",
+  "source_changes": []
+}

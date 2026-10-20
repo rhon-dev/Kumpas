@@ -1,0 +1,23 @@
+test_ambiguity_unmatched_empty_and_invalid_are_not_imputed (evaluation.test_synthetic_descriptive.DescriptiveTests.test_ambiguity_unmatched_empty_and_invalid_are_not_imputed) ... FAIL
+test_explicit_labels_pair_and_optional_absence (evaluation.test_synthetic_descriptive.DescriptiveTests.test_explicit_labels_pair_and_optional_absence) ... FAIL
+
+======================================================================
+FAIL: test_ambiguity_unmatched_empty_and_invalid_are_not_imputed (evaluation.test_synthetic_descriptive.DescriptiveTests.test_ambiguity_unmatched_empty_and_invalid_are_not_imputed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_synthetic_descriptive.py", line 30, in test_ambiguity_unmatched_empty_and_invalid_are_not_imputed
+    self.assertTrue(result['valid'], result)
+AssertionError: False is not true : {'valid': False, 'diagnostics': [{'code': 'DESCRIPTIVE_UNSUPPORTED'}]}
+
+======================================================================
+FAIL: test_explicit_labels_pair_and_optional_absence (evaluation.test_synthetic_descriptive.DescriptiveTests.test_explicit_labels_pair_and_optional_absence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_synthetic_descriptive.py", line 16, in test_explicit_labels_pair_and_optional_absence
+    self.assertTrue(result['valid'], result)
+AssertionError: False is not true : {'valid': False, 'diagnostics': [{'code': 'DESCRIPTIVE_UNSUPPORTED'}]}
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (failures=2)

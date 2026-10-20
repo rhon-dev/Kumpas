@@ -1,0 +1,283 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart
+00:00 +0: receipt ownership survives uncertain confirmation pending
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark complete: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:175:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 175
+The test description was:
+  receipt ownership survives uncertain confirmation pending
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: receipt ownership survives uncertain confirmation pending [E]
+  Test failed. See exception logs above.
+  The test description was: receipt ownership survives uncertain confirmation pending
+  
+00:00 +0 -1: receipt ownership survives uncertain confirmation error
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark complete: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:175:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 175
+The test description was:
+  receipt ownership survives uncertain confirmation error
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -2: receipt ownership survives uncertain confirmation error [E]
+  Test failed. See exception logs above.
+  The test description was: receipt ownership survives uncertain confirmation error
+  
+00:00 +0 -2: receipt ownership survives uncertain confirmation false
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark complete: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:175:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 175
+The test description was:
+  receipt ownership survives uncertain confirmation false
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -3: receipt ownership survives uncertain confirmation false [E]
+  Test failed. See exception logs above.
+  The test description was: receipt ownership survives uncertain confirmation false
+  
+00:00 +0 -3: receipt ownership survives uncertain confirmation lateSuccess
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark complete: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:175:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 175
+The test description was:
+  receipt ownership survives uncertain confirmation lateSuccess
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -4: receipt ownership survives uncertain confirmation lateSuccess [E]
+  Test failed. See exception logs above.
+  The test description was: receipt ownership survives uncertain confirmation lateSuccess
+  
+00:00 +0 -4: receipt ownership survives uncertain confirmation lateError
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark complete: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:175:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 175
+The test description was:
+  receipt ownership survives uncertain confirmation lateError
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +0 -5: receipt ownership survives uncertain confirmation lateError [E]
+  Test failed. See exception logs above.
+  The test description was: receipt ownership survives uncertain confirmation lateError
+  
+00:01 +0 -5: receipt ownership survives uncertain confirmation dispose
+00:01 +1 -5: cancelled and unsolicited results cannot open feedback
+00:01 +2 -5: start errors restore retry without unhandled future
+00:01 +3 -5: matching result opens feedback once and preserves wrong recognition
+00:01 +4 -5: no signer failure allows retry and rejects a late result
+00:01 +5 -5: benchmark starts after bounded warmup without any camera events
+00:01 +6 -5: benchmark run identity is visible copyable and completion correlated
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark complete:
+11111111-1111-4111-8111-111111111111: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:273:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 273
+The test description was:
+  benchmark run identity is visible copyable and completion correlated
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +6 -6: benchmark run identity is visible copyable and completion correlated [E]
+  Test failed. See exception logs above.
+  The test description was: benchmark run identity is visible copyable and completion correlated
+  
+00:01 +6 -6: benchmark channel requires valid UUID and binds report and stop
+00:01 +7 -6: failed benchmark can retry on existing snackbar
+00:01 +8 -6: hung benchmark control response recovers and late run cannot stop replacement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark running:
+11111111: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:322:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 322
+The test description was:
+  hung benchmark control response recovers and late run cannot stop replacement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +8 -7: hung benchmark control response recovers and late run cannot stop replacement [E]
+  Test failed. See exception logs above.
+  The test description was: hung benchmark control response recovers and late run cannot stop replacement
+  
+00:01 +8 -7: hung late stop deadline disposed=false completion=pending
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark running:
+11111111: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:363:13)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 363
+The test description was:
+  hung late stop deadline disposed=false completion=pending
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +8 -8: hung late stop deadline disposed=false completion=pending [E]
+  Test failed. See exception logs above.
+  The test description was: hung late stop deadline disposed=false completion=pending
+  
+00:01 +8 -8: hung late stop deadline disposed=false completion=success
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark running:
+11111111: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:363:13)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 363
+The test description was:
+  hung late stop deadline disposed=false completion=success
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +8 -9: hung late stop deadline disposed=false completion=success [E]
+  Test failed. See exception logs above.
+  The test description was: hung late stop deadline disposed=false completion=success
+  
+00:01 +8 -9: hung late stop deadline disposed=false completion=error
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Benchmark running:
+11111111: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:363:13)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 363
+The test description was:
+  hung late stop deadline disposed=false completion=error
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:01 +8 -10: hung late stop deadline disposed=false completion=error [E]
+  Test failed. See exception logs above.
+  The test description was: hung late stop deadline disposed=false completion=error
+  
+00:01 +8 -10: hung late stop deadline disposed=true completion=pending
+00:01 +9 -10: hung late stop deadline disposed=true completion=success
+00:01 +10 -10: hung late stop deadline disposed=true completion=error
+00:02 +11 -10: late benchmark cleanup failure after disposal retains coded diagnostics
+00:02 +12 -10: late benchmark identity after disposal is stopped by its own run ID
+00:02 +13 -10: pending start times out and late identity cannot cancel replacement
+00:02 +14 -10: pending identity preserves timeout without replacement and cancel on disposal
+00:02 +15 -10: timeout cancels identity and restores capture
+00:02 +16 -10: Some tests failed.

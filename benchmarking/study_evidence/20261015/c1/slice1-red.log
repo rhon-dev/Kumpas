@@ -1,0 +1,14 @@
+test_valid_explicit_expectations_publish_bound_report (benchmarking.test_inspect_release.ReleaseTests.test_valid_explicit_expectations_publish_bound_report) ... FAIL
+
+======================================================================
+FAIL: test_valid_explicit_expectations_publish_bound_report (benchmarking.test_inspect_release.ReleaseTests.test_valid_explicit_expectations_publish_bound_report)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in test_valid_explicit_expectations_publish_bound_report
+    self.assertEqual(code, 0, report)
+AssertionError: 1 != 0 : {'ok': False, 'error': 'verification_unavailable'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+FAILED (failures=1)

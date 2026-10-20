@@ -1,0 +1,37 @@
+test_clip_binding_required_mode_and_identity_mismatch (benchmarking.test_pipeline_parity.ParityTests.test_clip_binding_required_mode_and_identity_mismatch) ... ok
+test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_overflow_is_fixed_json_and_preserves_prior_output) ... ok
+test_compare_cli_requires_clip_binding_unless_legacy_mode_is_explicit (benchmarking.test_pipeline_parity.ParityTests.test_compare_cli_requires_clip_binding_unless_legacy_mode_is_explicit) ... ok
+test_document_and_frame_types_fail_with_fixed_safe_errors (benchmarking.test_pipeline_parity.ParityTests.test_document_and_frame_types_fail_with_fixed_safe_errors) ... ok
+test_extreme_finite_controls_and_public_cli_strict_json (benchmarking.test_pipeline_parity.ParityTests.test_extreme_finite_controls_and_public_cli_strict_json) ... ok
+test_finite_extremes_reject_nonfinite_arithmetic_without_warnings (benchmarking.test_pipeline_parity.ParityTests.test_finite_extremes_reject_nonfinite_arithmetic_without_warnings) ... ok
+test_frame_index_selection_preserves_endpoints_and_count (benchmarking.test_pipeline_parity.ParityTests.test_frame_index_selection_preserves_endpoints_and_count) ... ok
+test_image_digest_mismatch_fails_closed (benchmarking.test_pipeline_parity.ParityTests.test_image_digest_mismatch_fails_closed) ... ok
+test_missing_frame_or_wrong_dimension_fails (benchmarking.test_pipeline_parity.ParityTests.test_missing_frame_or_wrong_dimension_fails) ... ok
+test_missing_or_malformed_equal_digests_rejected (benchmarking.test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) ... ok
+test_png_manifest_uses_actual_file_bytes_and_stable_indices (benchmarking.test_pipeline_parity.ParityTests.test_png_manifest_uses_actual_file_bytes_and_stable_indices) ... ok
+test_prediction_payloads_not_mistaken_for_equivalent_class_results (benchmarking.test_pipeline_parity.ParityTests.test_prediction_payloads_not_mistaken_for_equivalent_class_results) ... ok
+test_prepare_retains_only_sampled_frames_not_all_decoded_frames (benchmarking.test_pipeline_parity.ParityTests.test_prepare_retains_only_sampled_frames_not_all_decoded_frames) ... ok
+test_prepare_video_counts_and_samples_actual_decode (benchmarking.test_pipeline_parity.ParityTests.test_prepare_video_counts_and_samples_actual_decode) ... ok
+test_reference_records_actual_detector_presence_counts (benchmarking.test_pipeline_parity.ParityTests.test_reference_records_actual_detector_presence_counts) ... WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792257405.496728 5788282 gl_context.cc:357] GL version: 2.1 (2.1 Metal - 90.5), renderer: Apple M1
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+W0000 00:00:1792257405.582110 5788468 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792257405.591150 5788469 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792257405.593498 5788466 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792257405.593534 5788469 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792257405.593860 5788468 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792257405.596011 5788468 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792257405.599797 5788466 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792257405.601446 5788469 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+ok
+test_reference_rejects_unsafe_manifest_before_detector_or_output (benchmarking.test_pipeline_parity.ParityTests.test_reference_rejects_unsafe_manifest_before_detector_or_output) ... ok
+test_same_frame_comparison_and_explicit_anatomical_unknown (benchmarking.test_pipeline_parity.ParityTests.test_same_frame_comparison_and_explicit_anatomical_unknown) ... ok
+test_failed_generation_never_publishes_complete_manifest (benchmarking.test_parity_fixtures.CampaignTests.test_failed_generation_never_publishes_complete_manifest) ... ok
+test_freeze_all_six_before_any_extraction_and_refuse_overwrite (benchmarking.test_parity_fixtures.CampaignTests.test_freeze_all_six_before_any_extraction_and_refuse_overwrite) ... ok
+test_generate_six_real_synthetic_video_references_and_validate_publication (benchmarking.test_parity_fixtures.CampaignTests.test_generate_six_real_synthetic_video_references_and_validate_publication) ... ok
+test_wrong_partition_label_hash_and_unsafe_output_fail_before_write (benchmarking.test_parity_fixtures.CampaignTests.test_wrong_partition_label_hash_and_unsafe_output_fail_before_write) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 7.482s
+
+OK

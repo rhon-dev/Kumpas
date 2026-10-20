@@ -1,0 +1,1176 @@
+FULL NEW FILE benchmarking/host_fixture_replay.py
+#!/usr/bin/env python3
+"""Pinned A3b synthetic replay. Separate native producer, mocked transport only.
+
+Local trusted checkout boundary, not adversarial concurrent-filesystem security.
+All validation diagnostics are fixed codes; never echo untrusted input.
+"""
+import argparse
+import hashlib
+import json
+from pathlib import Path, PurePosixPath
+import re
+import sys
+import xml.etree.ElementTree as ET
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = Path('benchmarking/study_evidence/20261015')
+RUN = '323291af-c067-46dc-bae1-067d62fab10b'
+DIGEST = '3279cb7d01075a9192f2566ae5573dd6137a23c6710ef1d0a590b78564fe0fed'
+MANIFEST = BASE / 'a3a/handoff-parent-1' / RUN / 'manifest.json'
+BINDING = BASE / 'controller/a3a-acceptance-and-consumer-binding.json'
+ARTIFACTS = {
+    'attempt-event.json': ('event', 'study'),
+    'study.json': ('study', 'study'),
+    'benchmark-index.json': ('benchmark_index', 'study'),
+    **{n + '-export.json': ('export', 'study') for n in ('external', 'internal', 'reopened')},
+    **{n + '-report.json': ('benchmark_report', n) for n in ('confirmed', 'unconfirmed', 'faulted')},
+    **{n + '-control.json': ('benchmark_control', n) for n in ('confirmed', 'unconfirmed')},
+}
+
+
+class Rejected(ValueError):
+    """Message is a fixed code only."""
+
+
+def require(condition, code):
+    if not condition:
+        raise Rejected(code)
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def loads(raw):
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            require(key not in result, 'duplicate_json_key')
+            result[key] = value
+        return result
+    try:
+        return json.loads(raw, object_pairs_hook=pairs,
+                          parse_constant=lambda _: (_ for _ in ()).throw(Rejected('nonfinite_json')))
+    except (ValueError, UnicodeError, TypeError) as error:
+        if isinstance(error, Rejected):
+            raise
+        raise Rejected('invalid_json') from None
+
+
+def read_regular(base, relative):
+    require(isinstance(relative, str) and bool(relative), 'invalid_path')
+    p = PurePosixPath(relative)
+    require(not p.is_absolute() and str(p) == relative and all(x not in ('.', '..') for x in p.parts), 'invalid_path')
+    base = Path(base)
+    # Reject symlinks in every component, not only final target.
+    candidate = base / relative
+    require(not any(x.is_symlink() for x in (candidate, *candidate.parents)), 'symlink_path')
+    require(candidate.resolve().is_relative_to(base.resolve()), 'escaping_path')
+    try:
+        require(candidate.is_file(), 'missing_regular_file')
+        return candidate.read_bytes()
+    except OSError:
+        raise Rejected('unreadable_file') from None
+
+
+def validate(manifest=ROOT / MANIFEST, expected_digest=DIGEST, repo=ROOT,
+             producer_xml=None, producer_ledger=None):
+    """Explicit digest override exists only for isolated negative-fixture tests."""
+    repo, manifest = Path(repo), Path(manifest)
+    binding = loads(read_regular(ROOT, str(BINDING)))
+    require(binding['expected_run_id'] == RUN and binding['manifest_sha256'] == DIGEST
+            and binding['manifest'] == str(MANIFEST), 'binding_mismatch')
+    raw = read_regular(manifest.parent, manifest.name)
+    require(sha(raw) == expected_digest, 'manifest_digest_mismatch')
+    m = loads(raw)
+    require(isinstance(m, dict), 'manifest_type')
+    require(type(m.get('test_schema_version')) is int and m['test_schema_version'] == 1, 'manifest_schema')
+    require(m.get('run_id') == RUN and manifest.parent.name == RUN, 'manifest_run')
+    require(m.get('synthetic_origin') is True and m.get('producer_outcome') == 'success', 'producer_outcome')
+    sources = m.get('source_hashes')
+    require(isinstance(sources, dict) and len(sources) == 42, 'source_snapshot')
+    # Exact frozen source key set additionally bound to accepted producer ledger.
+    for path, digest in sources.items():
+        require(isinstance(digest, str) and re.fullmatch('[0-9a-f]{64}', digest), 'source_digest')
+        require(sha(read_regular(repo, path)) == digest, 'source_digest_mismatch')
+    artifacts = m.get('artifacts')
+    require(isinstance(artifacts, list) and len(artifacts) == 11, 'artifact_set')
+    verified, payload = {}, {}
+    for a in artifacts:
+        require(isinstance(a, dict) and set(a) == {'path', 'sha256', 'bytes', 'kind', 'identity'}, 'artifact_fields')
+        name = a['path']
+        require(isinstance(name, str) and name in ARTIFACTS and name not in verified, 'artifact_identity')
+        require((a['kind'], a['identity']) == ARTIFACTS[name], 'artifact_identity')
+        require(type(a['bytes']) is int and a['bytes'] >= 0, 'artifact_length')
+        data = read_regular(manifest.parent, name)
+        require(len(data) == a['bytes'] and sha(data) == a['sha256'], 'artifact_digest_mismatch')
+        loads(data)  # Reject ambiguous JSON even in byte-preserved event text.
+        verified[name], payload[name] = a, data
+    require(set(verified) == set(ARTIFACTS), 'artifact_set')
+    study, index = loads(payload['study.json']), loads(payload['benchmark-index.json'])
+    require(isinstance(study, dict), 'payload_type')
+    require(type(study.get('test_schema_version')) is int and study['test_schema_version'] == 1
+            and study.get('run_id') == RUN and study.get('synthetic_origin') is True, 'payload_identity')
+    require(study['primary']['delivered_event'].encode() == payload['attempt-event.json']
+            and study['delivered_events'] == [study['primary']['delivered_event']], 'event_binding')
+    require(study['scenario_id'] == m['scenarios']['study']['scenario_id'], 'scenario_binding')
+    require(index == m['scenarios']['benchmark_modes'], 'benchmark_index_binding')
+    ids = set()
+    for mode in index:
+        name, rid = mode['mode'], mode['run_id']
+        require(name in ('confirmed', 'unconfirmed', 'faulted') and rid not in ids
+                and isinstance(rid, str) and re.fullmatch(r'[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}', rid), 'benchmark_identity')
+        ids.add(rid)
+        require(mode['report'] == name + '-report.json', 'benchmark_identity')
+        report = loads(payload[mode['report']])
+        require(isinstance(report, dict), 'report_type')
+        require(report['run_id'] == rid and type(report['schema_version']) is int and report['schema_version'] == 2, 'report_identity')
+        if name == 'faulted':
+            require(mode['control'] is None and not (manifest.parent / 'faulted-control.json').exists(), 'faulted_companion_present')
+        else:
+            require(mode['control'] == name + '-control.json', 'benchmark_identity')
+            control = loads(payload[mode['control']])
+            require(isinstance(control, dict), 'control_type')
+            require(set(control) == {'schema_version', 'run_id', 'status'} and type(control['schema_version']) is int
+                    and control['schema_version'] == 1 and control['run_id'] == rid and control['status'] == name, 'control_identity')
+    require(len(ids) == 3, 'benchmark_identity')
+    xml_path = Path(producer_xml) if producer_xml else ROOT / binding['producer_xml']
+    try:
+        xml = ET.fromstring(read_regular(xml_path.parent, xml_path.name))
+        require(xml.tag == 'testsuite' and xml.get('name') == 'com.kumpas.kumpas_app.HostStudyFlowTest'
+                and int(xml.get('tests', '-1')) == 5
+                and all(int(xml.get(k, '-1')) == 0 for k in ('failures', 'errors', 'skipped')), 'producer_suite_failed')
+        cases = xml.findall('testcase')
+        require(len(cases) == 5 and all(not any(c.find(k) is not None for k in ('failure', 'error', 'skipped')) for c in cases), 'producer_suite_failed')
+        require(sum(c.get('name') == 'executedStudyAndBenchmarkProducer'
+                    and c.get('classname') == xml.get('name') for c in cases) == 1, 'producer_target_missing')
+    except Rejected:
+        raise
+    except (ET.ParseError, ValueError):
+        raise Rejected('producer_xml_invalid') from None
+    stdout = xml.findtext('system-out', '')
+    expected_output = 'HOST_STUDY_FIXTURE_MANIFEST ' + str(ROOT / MANIFEST)
+    require(expected_output in stdout.splitlines(), 'producer_stdout_mismatch')
+    ledger_path = Path(producer_ledger) if producer_ledger else ROOT / binding['producer_ledger']
+    rows = [loads(x) for x in read_regular(ledger_path.parent, ledger_path.name).splitlines()]
+    rows = [r for r in rows if r.get('label') == binding['producer_label']]
+    require(len(rows) == 1, 'producer_ledger_ambiguous')
+    row = rows[0]
+    require(isinstance(row.get('command'), list)
+            and all(isinstance(value, str) for value in row['command']), 'producer_ledger_mismatch')
+    require(isinstance(row.get('fixture_outputs'), list)
+            and all(isinstance(value, str) for value in row['fixture_outputs']), 'producer_ledger_mismatch')
+    require(type(row.get('exit')) is int and row['exit'] == 0 and row.get('source_hashes') == sources
+            and expected_output in row.get('fixture_outputs', [])
+            and '--tests' in row.get('command', [])
+            and 'com.kumpas.kumpas_app.HostStudyFlowTest' in row['command'], 'producer_ledger_mismatch')
+    log = read_regular(ROOT, row['log']).decode('utf-8')
+    require('BUILD SUCCESSFUL' in log and '> Task :app:testDebugUnitTest' in log.splitlines(), 'producer_log_mismatch')
+    return {'receipt_schema_version': 1, 'run_id': RUN, 'manifest_sha256': expected_digest,
+            'fixture_root': str(manifest.parent), 'artifacts': verified, 'source_count': len(sources),
+            'producer_tests': len(cases), 'producer_xml_sha256': sha(xml_path.read_bytes()),
+            'synthetic_origin': True, 'not_physical_measurement': True}, payload
+
+
+class SyntheticTransport:
+    """Only the ADB *function* is mocked; no subprocess/device is allowed.
+
+    Metadata is declared synthetic, copied from the bound producer, never an
+    independent physical-device attestation. Report/control responses are exact
+    captured bytes decoded as UTF-8, not reserialized reports.
+    """
+    def __init__(self, report_bytes, control_bytes=None, faults=None):
+        self.raw = report_bytes
+        self.control = control_bytes
+        self.report = loads(report_bytes)
+        self.faults = faults or {}
+        self.calls = []
+        self.read_hashes = []
+
+    def __call__(self, serial, *args):
+        require(serial == 'synthetic-a3b', 'unexpected_serial')
+        self.calls.append(list(args))
+        if args == ('get-state',):
+            return 'device'
+        if args[:3] == ('shell', 'pm', 'path'):
+            if self.faults.get('package'):
+                return ''
+            return 'package:/data/app/synthetic/base.apk'
+        if args[:2] == ('shell', 'sha256sum'):
+            return self.report['setup']['apk_sha256'] + '  /data/app/synthetic/base.apk'
+        if args[:2] == ('shell', 'getprop'):
+            props = {'ro.product.model': 'model', 'ro.hardware': 'hardware',
+                     'ro.product.manufacturer': 'manufacturer', 'ro.build.fingerprint': 'fingerprint'}
+            if args[2] == 'ro.kernel.qemu':
+                return '0'
+            if self.faults.get('acquisition'):
+                raise RuntimeError('metadata_failed')
+            return self.report['device'][props[args[2]]]
+        if args[:3] == ('shell', 'dumpsys', 'package'):
+            return '' if self.faults.get('build') else 'versionName=' + self.report['build']['version_name']
+        if args[:4] == ('shell', 'run-as', 'com.kumpas.kumpas_app', 'cat'):
+            if args[4] == 'files/benchmarks/latest.json':
+                self.read_hashes.append(sha(self.raw))
+                return self.raw.decode('utf-8')
+            require(args[4] == 'files/benchmarks/' + self.report['run_id'] + '.control.json', 'unexpected_companion_path')
+            if self.control is None:
+                raise RuntimeError('control_unavailable')
+            return self.control.decode('utf-8')
+        if args == ('logcat', '-c'):
+            return ''
+        if args[:3] == ('shell', 'am', 'instrument'):
+            # Transport-only replay; no instrumentation is actually executed.
+            return 'OK (1 test)'
+        if args[:2] == ('logcat', '-d'):
+            # Legacy reader accepts one logcat line. Explicit whitespace-only
+            # adapter, not byte-identical transport and not native interpreter
+            # instrumentation evidence. No timing/census fields are invented.
+            diagnostic = self.raw.decode('utf-8').replace('\n', '')
+            self.read_hashes.append(sha(diagnostic.encode('utf-8')))
+            return 'BENCHMARK_RESULT ' + diagnostic
+        raise Rejected('unexpected_transport_call')
+
+
+def replay(output):
+    import contextlib
+    import io
+    from types import SimpleNamespace
+    from unittest.mock import patch
+    import collect_fps as fps
+    import collect_latency as latency
+    import log_utils
+    receipt, payload = validate()
+    output = Path(output).absolute()
+    require('..' not in output.parts and not any(p.is_symlink() for p in (output, *output.parents)), 'unsafe_output_root')
+    output = output.resolve()
+    # Only fresh a3b scratch/evidence destinations, never default history.
+    permitted = (ROOT / BASE / 'a3b', Path.home() / '.hermes/cache/scratch')
+    require(any(output.is_relative_to(p.resolve()) and output != p.resolve() for p in permitted), 'unsafe_output_root')
+    output.mkdir(parents=True, exist_ok=False)
+    history = output / 'synthetic-history.json'
+    observations = []
+    for mode in loads(payload['benchmark-index.json']):
+        raw = payload[mode['report']]
+        companion = payload.get(mode['control'])
+        for kind in ('fps', 'latency'):
+            transport = SyntheticTransport(raw, companion)
+            args = SimpleNamespace(serial='synthetic-a3b', run_id=mode['run_id'], condition='optimal',
+                                   model_version='synthetic-native-a3b', notes='')
+            stdout = io.StringIO()
+            with patch.object(fps, 'adb', transport), patch('subprocess.run', side_effect=AssertionError('real_subprocess_forbidden')), patch.object(log_utils, 'HISTORY_PATH', history), contextlib.redirect_stdout(stdout):
+                collected = fps.read_report(args.serial)
+                if kind == 'fps':
+                    errors = fps.validate_report(collected['report'], args.run_id)
+                    assessment = {'gate_pass': not errors, 'rejection_reasons': errors,
+                                  'boundary': 'camerax_analyzer_entry_throughput', 'minimum_sustained_fps': 24}
+                else:
+                    assessment = latency.assess_report(collected['report'], args.run_id)
+                exit_code = fps.log_collection(args, collected, kind, assessment)
+            require(transport.read_hashes == [sha(raw)], 'transport_bytes_mismatch')
+            rows = loads(history.read_bytes())
+            retained = rows[-1]
+            require(retained['results']['analyzer_count'] == 1800 and not retained['gate_pass'], 'replay_observation')
+            traces = retained['results']['traces']
+            require(len(traces) == 1 and traces[0]['run_id'] == args.run_id and traces[0]['inference_ms'] == 1
+                    and traces[0]['final_analyzer_to_event_ms'] == 50, 'replay_observation')
+            (output / (mode['mode'] + '-' + kind + '-stdout.json')).write_text(stdout.getvalue())
+            observations.append({'mode': mode['mode'], 'run_id': args.run_id, 'measurement_type': kind,
+                                 'collector_exit': exit_code, 'collection_errors': collected['collection_errors'],
+                                 'report_transport_sha256': transport.read_hashes[0], 'artifact_sha256': sha(raw),
+                                 'transport_calls': transport.calls, 'synthetic_origin': True, 'not_physical_measurement': True})
+    validate()  # Frozen producer/source bytes still match after sink execution.
+    (output / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+    ledger = {'synthetic_origin': True, 'not_physical_measurement': True,
+              'origin': 'executed-native-artifacts; mocked-adb; real-isolated-history',
+              'history': str(history), 'observations': observations}
+    (output / 'replay-ledger.json').write_text(json.dumps(ledger, indent=2) + '\n')
+    return ledger
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('action', choices=['preflight', 'replay', 'bundle'])
+    parser.add_argument('--output', type=Path)
+    args = parser.parse_args(argv)
+    try:
+        if args.action == 'replay':
+            require(args.output is not None, 'output_required')
+            result = replay(args.output)
+        else:
+            receipt, payload = validate()
+            if args.action == 'bundle':
+                import base64
+                result = {'receipt': receipt, 'payload_base64': {k: base64.b64encode(v).decode('ascii') for k, v in payload.items()}}
+            else:
+                result = receipt
+        print(json.dumps(result, sort_keys=True))
+        return 0
+    except (Rejected, KeyError, TypeError, AttributeError, IndexError, UnicodeError, OSError) as error:
+        print(json.dumps({'error_code': str(error) if isinstance(error, Rejected) else 'fixture_invalid'}), file=sys.stderr)
+        return 2
+
+
+if __name__ == '__main__':
+    sys.exit(main())
+
+
+FULL NEW FILE benchmarking/test_host_producer_replay.py
+"""Bound executed-native host fixtures; never invoke real ADB/devices."""
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import sys
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+TOOL = ROOT / 'benchmarking/host_fixture_replay.py'
+
+
+class HostProducerReplayTest(unittest.TestCase):
+    def test_bundle_transfers_verified_bytes_not_stale_boolean(self):
+        import base64
+        result = subprocess.run([sys.executable, str(TOOL), 'bundle'], cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        bundle = json.loads(result.stdout)
+        self.assertEqual(set(bundle['payload_base64']), set(bundle['receipt']['artifacts']))
+        for name, encoded in bundle['payload_base64'].items():
+            raw = base64.b64decode(encoded, validate=True)
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), bundle['receipt']['artifacts'][name]['sha256'])
+
+    def test_replay_refuses_lexical_escape_before_creating_any_directory(self):
+        from unittest.mock import patch
+        import host_fixture_replay as replay
+        escaped = ROOT / replay.BASE / 'a3b/../not-a3b'
+        with patch.object(Path, 'mkdir', side_effect=AssertionError('unexpected_write')):
+            with self.assertRaisesRegex(replay.Rejected, 'unsafe_output_root'):
+                replay.replay(escaped)
+
+    def test_replay_exact_readers_to_real_isolated_history(self):
+        import tempfile
+        with tempfile.TemporaryDirectory(prefix='a3b-reader-') as folder:
+            output = Path(folder) / 'replay'
+            result = subprocess.run([sys.executable, str(TOOL), 'replay', '--output', str(output)],
+                                    cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            ledger = json.loads((output / 'replay-ledger.json').read_bytes())
+            rows = json.loads((output / 'synthetic-history.json').read_bytes())
+            self.assertEqual(len(rows), 6)
+            self.assertEqual(len(ledger['observations']), 6)
+            for row in rows:
+                self.assertEqual(row['results']['analyzer_count'], 1800)
+                self.assertEqual(len(row['results']['traces']), 1)
+                self.assertEqual(row['results']['traces'][0]['inference_ms'], 1)
+                self.assertIn(row['expected_run_id'], {x['run_id'] for x in ledger['observations']})
+                self.assertFalse(row['gate_pass'], 'synthetic fixture is not physical evidence')
+            self.assertTrue(ledger['synthetic_origin'])
+            self.assertTrue(all(x['report_transport_sha256'] == x['artifact_sha256'] for x in ledger['observations']))
+
+    def test_pinned_preflight_emits_verified_payload_hashes(self):
+        result = subprocess.run([sys.executable, str(TOOL), 'preflight'],
+                                cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        receipt = json.loads(result.stdout)
+        self.assertEqual(receipt['run_id'], '323291af-c067-46dc-bae1-067d62fab10b')
+        self.assertEqual(len(receipt['artifacts']), 11)
+        self.assertEqual(receipt['source_count'], 42)
+        self.assertEqual(receipt['producer_tests'], 5)
+        for name, artifact in receipt['artifacts'].items():
+            raw = (Path(receipt['fixture_root']) / name).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), artifact['sha256'])
+
+
+class CollectorFaultCoverage(unittest.TestCase):
+    """Coverage-only existing collector behavior; mutations never touch originals."""
+    @classmethod
+    def setUpClass(cls):
+        import host_fixture_replay as replay
+        cls.replay = replay
+        cls.receipt, cls.payload = replay.validate()
+
+    def exercise(self, raw=None, control: str | bytes | None = 'original', fault=None, direct=False, interpreter=False):
+        import contextlib
+        import io
+        import tempfile
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        import collect_fps as fps
+        import collect_latency as latency
+        import log_utils
+        raw = raw if raw is not None else self.payload['confirmed-report.json']
+        companion = self.payload['confirmed-control.json'] if control == 'original' else control
+        transport = self.replay.SyntheticTransport(raw, companion, fault)
+        args = SimpleNamespace(serial='synthetic-a3b', run_id=json.loads(raw)['run_id'],
+                               condition='optimal', model_version='synthetic-native-a3b', notes='')
+        with tempfile.TemporaryDirectory(prefix='a3b-fault-') as folder:
+            history = Path(folder) / 'history.json'
+            with patch.object(fps, 'adb', transport), patch('subprocess.run', side_effect=AssertionError('real_subprocess_forbidden')), patch.object(log_utils, 'HISTORY_PATH', history), contextlib.redirect_stdout(io.StringIO()):
+                if interpreter:
+                    collected = latency.collect_interpreter(args.serial)
+                elif direct:
+                    report = json.loads(raw)
+                    collected = {'report': report, 'control': json.loads(companion) if companion else None,
+                                 'device': dict(report['device'], serial=args.serial, apk_sha256=report['setup']['apk_sha256']),
+                                 'build': report['build'], 'collection_errors': []}
+                else:
+                    collected = fps.collect(args)
+                assessment = latency.assess_interpreter_diagnostic(collected['report']) if interpreter else latency.assess_report(collected['report'], args.run_id)
+                result = fps.log_collection(args, collected, 'interpreter_latency_diagnostic' if interpreter else 'latency', assessment)
+            rows = json.loads(history.read_bytes())
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(result, 1)
+            self.assertFalse(rows[0]['gate_pass'])
+            self.assertNotIn('PRIVATE', json.dumps(rows))
+            return collected, rows[0], assessment, transport
+
+    def test_exact_native_report_and_control_values_retained(self):
+        collected, row, assessment, transport = self.exercise()
+        self.assertEqual(collected['control']['status'], 'confirmed')
+        self.assertEqual(row['results']['analyzer_count'], 1800)
+        self.assertEqual(row['results']['device']['model'], 'robolectric')
+        self.assertEqual(assessment['event_latency_ms'], {'n': 1, 'p50': 50, 'p95': 50})
+        self.assertEqual(assessment['interpreter_inference_diagnostic_ms']['p95'], 1)
+        self.assertIn('report latest publication unverified', row['rejection_reasons'])
+        self.assertEqual(transport.read_hashes, [self.replay.sha(self.payload['confirmed-report.json'])])
+
+    def test_control_schema_identity_and_missing_reader_and_direct_sink(self):
+        original = json.loads(self.payload['confirmed-control.json'])
+        controls: list[bytes | None] = [None]
+        for changes in ({'schema_version': 1.0}, {'schema_version': True}, {'run_id': '00000000-0000-0000-0000-000000000000'}, {'status': 'PRIVATE'}, {'extra': 'PRIVATE'}):
+            controls.append(json.dumps(dict(original, **changes)).encode())
+        for direct in (False, True):
+            for control in controls:
+                with self.subTest(direct=direct, control=control):
+                    collected, row, _, _ = self.exercise(control=control, direct=direct)
+                    if not direct:
+                        self.assertIsNone(collected['control'])
+                        self.assertTrue(collected['collection_errors'])
+                    self.assertEqual(row['results']['analyzer_count'], 1800)
+                    self.assertIn('authoritative benchmark control disposition missing or unconfirmed', row['rejection_reasons'])
+
+    def test_report_schema_and_private_text_rejected_at_reader_and_sink(self):
+        for direct in (False, True):
+            for value in (2.0, True, '2', None, [], 1):
+                raw = json.loads(self.payload['confirmed-report.json'])
+                raw['schema_version'] = value
+                raw['storage_error'] = 'PRIVATE'
+                raw['model']['metadata_error'] = 'PRIVATE'
+                raw['setup_errors'] = ['PRIVATE']
+                with self.subTest(direct=direct, schema=value):
+                    collected, row, assessment, _ = self.exercise(raw=json.dumps(raw).encode(), direct=direct)
+                    self.assertTrue(assessment['rejection_reasons'])
+                    self.assertEqual(row['results']['analyzer_count'], 1800)
+                    self.assertIn('unsafe or unsupported report fields rejected' if direct else 'collection read rejected', row['rejection_reasons'])
+                    if not direct:
+                        self.assertIn('unsafe or unsupported report fields rejected', collected['collection_errors'])
+                    self.assertNotIn('storage_error', row['results'])
+                    if not direct:
+                        self.assertNotIn('PRIVATE', json.dumps(collected))
+
+    def test_package_and_metadata_acquisition_failures_no_report_fabricated(self):
+        for fault in ('package', 'acquisition'):
+            collected, row, _, _ = self.exercise(fault={fault: True})
+            self.assertIsNone(collected['report'])
+            self.assertNotIn('analyzer_count', row['results'])
+            self.assertTrue(row['rejection_reasons'])
+
+    def test_fixed_diagnostics_preserve_native_counts_and_traces(self):
+        for direct in (False, True):
+            report = json.loads(self.payload['confirmed-report.json'])
+            report['storage_error'] = 'IOException'
+            report['model']['metadata_error'] = 'metadata_failed'
+            collected, row, _, _ = self.exercise(raw=json.dumps(report).encode(), direct=direct)
+            self.assertEqual(row['results']['storage_error'], 'IOException')
+            self.assertEqual(row['results']['model']['metadata_error'], 'metadata_failed')
+            self.assertEqual(row['results']['analyzer_count'], 1800)
+            self.assertEqual(row['results']['traces'][0]['final_analyzer_to_event_ms'], 50)
+            self.assertIn('benchmark report could not be persisted', row['rejection_reasons'])
+
+    def test_build_failure_preserves_safe_counts_and_rejects_trust(self):
+        collected, row, _, _ = self.exercise(fault={'build': True})
+        self.assertEqual(row['results']['analyzer_count'], 1800)
+        self.assertIn('installed package metadata unavailable', collected['collection_errors'])
+        self.assertNotIn('version_name', row['results']['build'])
+
+    def test_interpreter_reader_native_report_is_diagnostic_not_fabricated_timing(self):
+        collected, row, assessment, transport = self.exercise(interpreter=True)
+        self.assertEqual(row['results']['analyzer_count'], 1800)
+        self.assertEqual(row['results']['traces'][0]['inference_ms'], 1)
+        self.assertFalse(assessment['diagnostic_valid'], 'camera report has no interpreter-only census')
+        self.assertEqual(row['measurement_type'], 'interpreter_latency_diagnostic')
+        self.assertIn('interpreter-only timings cannot close camera/analyzer latency gate', row['rejection_reasons'])
+        normalized = self.payload['confirmed-report.json'].replace(b'\n', b'')
+        self.assertEqual(transport.read_hashes, [self.replay.sha(normalized)])
+        self.assertEqual(json.loads(normalized), json.loads(self.payload['confirmed-report.json']))
+
+
+class PreflightNegatives(unittest.TestCase):
+    def setUp(self):
+        import tempfile
+        import shutil
+        import host_fixture_replay as replay
+        self.replay = replay
+        self.temp = tempfile.TemporaryDirectory(prefix='a3b-negative-')
+        self.addCleanup(self.temp.cleanup)
+        self.folder = Path(self.temp.name) / replay.RUN
+        shutil.copytree(ROOT / replay.MANIFEST.parent, self.folder)
+        self.manifest = self.folder / 'manifest.json'
+
+    def check(self, mutate=None, code=None, **kwargs):
+        if mutate:
+            data = json.loads(self.manifest.read_bytes())
+            mutate(data)
+            self.manifest.write_text(json.dumps(data))
+        digest = hashlib.sha256(self.manifest.read_bytes()).hexdigest()
+        with self.assertRaises(self.replay.Rejected) as error:
+            self.replay.validate(self.manifest, expected_digest=digest, **kwargs)
+        self.assertRegex(str(error.exception), '^[a-z_]+$')
+        if code:
+            self.assertEqual(str(error.exception), code)
+
+    def test_manifest_schema_rejects_float_and_boolean(self):
+        for value in (1.0, True, '1', None, 2):
+            with self.subTest(value=value):
+                self.check(lambda d: d.update(test_schema_version=value), 'manifest_schema')
+
+    def test_pinned_digest_cannot_bless_changed_real_manifest(self):
+        self.manifest.write_bytes(self.manifest.read_bytes() + b' ')
+        with self.assertRaisesRegex(self.replay.Rejected, 'manifest_digest_mismatch'):
+            self.replay.validate(self.manifest)
+
+    def test_duplicate_json_key(self):
+        self.manifest.write_bytes(self.manifest.read_bytes().replace(b'"test_schema_version": 1', b'"test_schema_version":1,"test_schema_version":1'))
+        self.check(code='duplicate_json_key')
+
+    def test_wrong_run(self):
+        self.check(lambda d: d.update(run_id='00000000-0000-0000-0000-000000000000'), 'manifest_run')
+
+    def test_failed_and_nonsynthetic_producer(self):
+        for field, value in [('producer_outcome', 'failure'), ('synthetic_origin', 1)]:
+            original = self.manifest.read_bytes()
+            self.check(lambda d: d.update({field: value}), 'producer_outcome')
+            self.manifest.write_bytes(original)
+
+    def test_duplicate_and_wrong_artifact_identities(self):
+        self.check(lambda d: d['artifacts'].__setitem__(1, d['artifacts'][0]), 'artifact_identity')
+
+    def test_wrong_artifact_kind(self):
+        self.check(lambda d: d['artifacts'][0].update(kind='export'), 'artifact_identity')
+
+    def test_escaping_artifact(self):
+        self.check(lambda d: d['artifacts'][0].update(path='../private.json'), 'artifact_identity')
+
+    def test_missing_artifact(self):
+        (self.folder / 'attempt-event.json').unlink()
+        self.check(code='missing_regular_file')
+
+    def test_tampered_artifact(self):
+        with (self.folder / 'attempt-event.json').open('ab') as f:
+            f.write(b' ')
+        self.check(code='artifact_digest_mismatch')
+
+    def test_symlink_artifact(self):
+        target = self.folder / 'attempt-event.json'
+        target.unlink()
+        target.symlink_to(ROOT / self.replay.MANIFEST.parent / 'attempt-event.json')
+        self.check(code='symlink_path')
+
+    def test_float_artifact_size(self):
+        self.check(lambda d: d['artifacts'][0].update(bytes=759.0), 'artifact_length')
+
+    def test_source_escape_and_digest_mismatch(self):
+        self.check(lambda d: d['source_hashes'].__setitem__('../escape', d['source_hashes'].pop(next(iter(d['source_hashes'])))), 'invalid_path')
+
+    def test_source_snapshot_tampered(self):
+        self.check(lambda d: d['source_hashes'].__setitem__(next(iter(d['source_hashes'])), '0' * 64), 'source_digest_mismatch')
+
+    def test_failed_skipped_and_wrong_stdout_producer(self):
+        binding = json.loads((ROOT / self.replay.BINDING).read_bytes())
+        original = (ROOT / binding['producer_xml']).read_bytes()
+        for before, after in [(b'failures="0"', b'failures="1"'), (b'skipped="0"', b'skipped="1"'), (self.replay.RUN.encode(), b'00000000-0000-0000-0000-000000000000')]:
+            xml = Path(self.temp.name) / 'producer.xml'
+            xml.write_bytes(original.replace(before, after))
+            self.check(producer_xml=xml)
+
+    def test_producer_target_must_have_executed(self):
+        binding = json.loads((ROOT / self.replay.BINDING).read_bytes())
+        original = (ROOT / binding['producer_xml']).read_bytes()
+        xml = Path(self.temp.name) / 'producer.xml'
+        xml.write_bytes(original.replace(b'executedStudyAndBenchmarkProducer', b'unrelatedSuccessfulTest'))
+        self.check(producer_xml=xml, code='producer_target_missing')
+
+    def test_source_symlink_component_refused(self):
+        repo = Path(self.temp.name) / 'repo'
+        repo.mkdir()
+        (repo / 'app').symlink_to(ROOT / 'app', target_is_directory=True)
+        self.check(repo=repo, code='symlink_path')
+
+    def test_deeper_payload_identity_and_schema(self):
+        for name, field, value in [('study.json', 'run_id', 'stale'),
+                                   ('study.json', 'test_schema_version', 1.0),
+                                   ('confirmed-control.json', 'schema_version', True),
+                                   ('confirmed-control.json', 'run_id', 'stale'),
+                                   ('confirmed-report.json', 'schema_version', 2.0),
+                                   ('confirmed-report.json', 'run_id', 'stale')]:
+            original_manifest = self.manifest.read_bytes()
+            target = self.folder / name
+            original_payload = target.read_bytes()
+            obj = json.loads(original_payload)
+            obj[field] = value
+            data = json.dumps(obj).encode()
+            target.write_bytes(data)
+            def update(m):
+                next(a for a in m['artifacts'] if a['path'] == name).update(bytes=len(data), sha256=hashlib.sha256(data).hexdigest())
+            self.check(update)
+            target.write_bytes(original_payload)
+            self.manifest.write_bytes(original_manifest)
+
+    def test_nonobject_payload_has_fixed_rejection(self):
+        for name, code in [('study.json', 'payload_type'), ('confirmed-report.json', 'report_type'), ('confirmed-control.json', 'control_type')]:
+            original_manifest = self.manifest.read_bytes()
+            target = self.folder / name
+            original_payload = target.read_bytes()
+            target.write_bytes(b'[]')
+            def update(m):
+                next(a for a in m['artifacts'] if a['path'] == name).update(bytes=2, sha256=hashlib.sha256(b'[]').hexdigest())
+            self.check(update, code=code)
+            target.write_bytes(original_payload)
+            self.manifest.write_bytes(original_manifest)
+
+    def test_ledger_nonzero_bool_and_wrong_sources(self):
+        binding = json.loads((ROOT / self.replay.BINDING).read_bytes())
+        original = [json.loads(x) for x in (ROOT / binding['producer_ledger']).read_bytes().splitlines()]
+        for field, value in [('exit', 1), ('exit', False), ('source_hashes', {}) , ('fixture_outputs', [])]:
+            import copy
+            rows = copy.deepcopy(original)
+            row = next(x for x in rows if x.get('label') == binding['producer_label'])
+            row[field] = value
+            ledger = Path(self.temp.name) / 'ledger.jsonl'
+            ledger.write_text('\n'.join(json.dumps(x) for x in rows))
+            self.check(producer_ledger=ledger, code='producer_ledger_mismatch')
+
+
+class ProducerLedgerCliTypes(unittest.TestCase):
+    """F1: malformed JSON substitutions in memory; original evidence untouched."""
+    def invoke(self, action, field=None, value=None):
+        import contextlib
+        import io
+        from unittest.mock import patch
+        import host_fixture_replay as replay
+        binding = json.loads((ROOT / replay.BINDING).read_bytes())
+        ledger_path = ROOT / binding['producer_ledger']
+        rows = [json.loads(line) for line in ledger_path.read_bytes().splitlines()]
+        if field is not None:
+            row = next(row for row in rows if row.get('label') == binding['producer_label'])
+            row[field] = value
+        replacement = '\n'.join(json.dumps(row) for row in rows).encode()
+        original_read = replay.read_regular
+
+        def read(base, relative):
+            if Path(base) / relative == ledger_path:
+                return replacement
+            return original_read(base, relative)
+
+        stdout, stderr = io.StringIO(), io.StringIO()
+        with patch.object(replay, 'read_regular', side_effect=read), contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            code = replay.main([action])
+        return code, stdout.getvalue(), stderr.getvalue()
+
+    def assert_bad_field(self, field, required):
+        marker = 'PRIVATE_LEDGER_TYPE_MARKER'
+        # Strings/objects retain membership targets to reproduce the bug, as do
+        # mixed lists: rejection must validate the entire container first.
+        values = [' '.join(required + [marker]),
+                  dict.fromkeys(required + [marker], marker),
+                  7, 1.5, True, False, None, [],
+                  *[required + [value] for value in (7, True, False, None, {marker: marker}, [marker])]]
+        for action in ('preflight', 'bundle'):
+            for index, value in enumerate(values):
+                with self.subTest(action=action, field=field, case=index):
+                    code, stdout, stderr = self.invoke(action, field, value)
+                    self.assertEqual(code, 2, 'malformed ledger must not succeed')
+                    self.assertEqual(stdout, '', 'no receipt or bundle may escape')
+                    self.assertEqual(json.loads(stderr), {'error_code': 'producer_ledger_mismatch'})
+                    self.assertNotIn(marker, stdout + stderr)
+
+    def test_command_requires_string_array_at_public_cli(self):
+        self.assert_bad_field('command', ['--tests', 'com.kumpas.kumpas_app.HostStudyFlowTest'])
+
+    def test_fixture_outputs_requires_string_array_at_public_cli(self):
+        import host_fixture_replay as replay
+        self.assert_bad_field('fixture_outputs', ['HOST_STUDY_FIXTURE_MANIFEST ' + str(ROOT / replay.MANIFEST)])
+
+    def test_unchanged_valid_ledger_and_string_arrays_still_succeed(self):
+        import host_fixture_replay as replay
+        for action in ('preflight', 'bundle'):
+            for field, value in [(None, None),
+                                 ('command', ['--tests', 'com.kumpas.kumpas_app.HostStudyFlowTest', 'extra-safe-argument']),
+                                 ('fixture_outputs', ['extra-safe-line', 'HOST_STUDY_FIXTURE_MANIFEST ' + str(ROOT / replay.MANIFEST)])]:
+                with self.subTest(action=action, field=field):
+                    code, stdout, stderr = self.invoke(action, field, value)
+                    self.assertEqual(code, 0, stderr)
+                    self.assertEqual(stderr, '')
+                    result = json.loads(stdout)
+                    receipt = result['receipt'] if action == 'bundle' else result
+                    self.assertEqual(receipt['run_id'], replay.RUN)
+                    self.assertEqual(receipt['manifest_sha256'], replay.DIGEST)
+                    if action == 'bundle':
+                        self.assertEqual(set(result['payload_base64']), set(replay.ARTIFACTS))
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+FULL NEW FILE app/test/host_study_flow_test.dart
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kumpas_app/feedback_engine/kumpas_channel.dart';
+import 'package:kumpas_app/feedback_engine/models.dart';
+import 'package:kumpas_app/session/session_repository.dart';
+import 'package:kumpas_app/ui/practice_screen.dart';
+import 'package:kumpas_app/ui/feedback_sheet.dart';
+import 'package:kumpas_app/ui/stats.dart';
+import 'package:kumpas_app/ui/theme.dart';
+import 'support/host_fixture.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  late HostFixture fixture;
+  setUp(() {
+    fixture = HostFixture.load();
+  });
+
+  testWidgets(
+    'exact Handler bytes through mocked EventChannel open one sheet and ACK native identity',
+    (tester) async {
+      final event = fixture.event;
+      final acks = <String>[];
+      final calls = <MethodCall>[];
+      final messenger = tester.binding.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(KumpasChannel.control, (call) async {
+        calls.add(call);
+        switch (call.method) {
+          case 'startAttempt':
+            expect(call.arguments['classId'], event['targetClass']);
+            // Native attempt was direct AttemptBoundary setup, not startAttempt RPC.
+            // Only this transport identity response is constructed from its envelope.
+            return fixture.study['primary']['attempt_id'];
+          case 'startSession':
+            return fixture.control('initialized', 'startSession')['response'];
+          case 'feedbackPresented':
+            final native = fixture.control('one-terminal', 'feedbackPresented');
+            expect(call.arguments, native['arguments']);
+            acks.add(call.arguments['attemptId'] as String);
+            return native['response'];
+          case 'getActiveSession':
+            return fixture.control(
+              'initialized',
+              'getActiveSession',
+            )['response'];
+          case 'endSession':
+          case 'cancelAttempt':
+            return null; // Synthetic UI lifecycle transport, not a captured native stage.
+          default:
+            fail('unexpected mocked control method: ${call.method}');
+        }
+      });
+      messenger.setMockMethodCallHandler(
+        const MethodChannel('kumpas/predictions'),
+        (_) async => null,
+      );
+      messenger.setMockMethodCallHandler(SystemChannels.platform_views, (
+        call,
+      ) async {
+        if (call.method == 'create') return 0;
+        if (call.method == 'resize') return {'width': 400.0, 'height': 380.0};
+        return null;
+      });
+      addTearDown(() {
+        messenger.setMockMethodCallHandler(KumpasChannel.control, null);
+        messenger.setMockMethodCallHandler(
+          const MethodChannel('kumpas/predictions'),
+          null,
+        );
+        messenger.setMockMethodCallHandler(SystemChannels.platform_views, null);
+      });
+      await tester.binding.setSurfaceSize(const Size(800, 1000));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: KumpasTheme.light(),
+          home: PracticeScreen(
+            sign: Sign(
+              id: event['targetClass'] as int,
+              label: event['targetLabel'] as String,
+              category: 'Synthetic',
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.tap(find.text('Subukan ang Senyas'));
+      await tester.pump();
+      Future<void> send(String raw) async {
+        tester.binding.defaultBinaryMessenger.handlePlatformMessage(
+          'kumpas/predictions',
+          const StandardMethodCodec().encodeSuccessEnvelope(raw),
+          (_) {},
+        );
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 600));
+      }
+
+      // Unowned native replacement identity is a stale consumer-negative event.
+      final stale = Map<String, dynamic>.from(event)
+        ..['attemptId'] =
+            fixture.study['queued_persistence']['replacement_attempt_id'];
+      await send(jsonEncode(stale));
+      expect(find.byType(FeedbackSheet), findsNothing);
+      expect(acks, isEmpty);
+      final raw = fixture.text('attempt-event.json');
+      expect(raw, fixture.study['primary']['delivered_event']);
+      await send(raw);
+      expect(find.byType(FeedbackSheet), findsOneWidget);
+      final sheet = tester.widget<FeedbackSheet>(find.byType(FeedbackSheet));
+      expect(sheet.result.recognizedAsTarget, event['recognizedAsTarget']);
+      expect(sheet.result.overallMatch, event['overallMatch']);
+      expect(sheet.result.targetClass, event['targetClass']);
+      expect(sheet.result.items, hasLength(1));
+      final item = sheet.result.items.single;
+      expect(item.dimension, 'handshape');
+      expect(item.severity, .25);
+      expect(item.hand, 'right');
+      expect(item.prompt, 'SYNTHETIC feedback');
+      expect(find.text('SYNTHETIC feedback'), findsOneWidget);
+      await tester.pumpAndSettle();
+      expect(find.text('80%'), findsOneWidget);
+      expect(acks, [fixture.study['primary']['attempt_id']]);
+      await send(raw);
+      await send(jsonEncode(stale));
+      expect(find.byType(FeedbackSheet), findsOneWidget);
+      expect(acks, hasLength(1));
+      await tester.tap(find.text('Try again'));
+      await tester.pumpAndSettle();
+      await send(raw);
+      expect(find.byType(FeedbackSheet), findsNothing);
+      expect(acks, hasLength(1));
+      expect(calls.where((c) => c.method == 'startAttempt'), hasLength(1));
+      await tester.pumpWidget(const MaterialApp(home: SizedBox()));
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  test(
+    'captured controls exercise repository, failed clear invalidation and reopened identity',
+    () async {
+      final repo = SessionRepository.instance;
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      var stage = 'initialized';
+      Map<String, dynamic>? selected;
+      final invoked = <MethodCall>[];
+      messenger.setMockMethodCallHandler(KumpasChannel.control, (call) async {
+        invoked.add(call);
+        final record = selected ?? fixture.control(stage, call.method);
+        expect(call.method, record['method']);
+        if (record['arguments'] != null) {
+          expect(call.arguments, record['arguments']);
+        }
+        if (record['error_code'] != null) {
+          throw PlatformException(code: record['error_code'] as String);
+        }
+        return record['response'];
+      });
+      addTearDown(
+        () => messenger.setMockMethodCallHandler(KumpasChannel.control, null),
+      );
+      final original = fixture.control(
+        'initialized',
+        'getParticipantId',
+      )['response'];
+      expect(await repo.participantId, original);
+      expect(
+        await repo.startSession(),
+        fixture.control('initialized', 'startSession')['response'],
+      );
+      await repo.sync();
+      expect(
+        repo.activeSessionId,
+        fixture.control('initialized', 'getActiveSession')['response'],
+      );
+      selected = fixture.control('initialized', 'saveAssessment', index: 0);
+      await repo.saveAssessment(
+        type: 'pre',
+        responses:
+            jsonDecode(selected['arguments']['responses'] as String)
+                as Map<String, dynamic>,
+      );
+      selected = fixture.control('initialized', 'saveAssessment', index: 1);
+      await expectLater(
+        repo.saveAssessment(
+          type: 'post',
+          responses:
+              jsonDecode(selected['arguments']['responses'] as String)
+                  as Map<String, dynamic>,
+        ),
+        throwsA(
+          isA<PlatformException>().having(
+            (e) => e.code,
+            'code',
+            'CONTROL_FAILED',
+          ),
+        ),
+      );
+      selected = fixture.control('initialized', 'saveAssessment', index: 2);
+      await repo.saveAssessment(
+        type: 'post',
+        responses:
+            jsonDecode(selected['arguments']['responses'] as String)
+                as Map<String, dynamic>,
+      );
+      selected = null;
+      final assessments = await repo.getAssessments();
+      expect(assessments, hasLength(2));
+      expect(
+        assessments,
+        fixture.study['primary']['independent_rows']['assessments'],
+      );
+      expect(assessments.map((r) => r['type']), ['pre', 'post']);
+      stage = 'one-terminal';
+      final history = await repo.getHistory();
+      expect(history, hasLength(1));
+      expect(history.single.targetLabel, fixture.event['targetLabel']);
+      expect(
+        history.single.items.single.prompt,
+        fixture.event['items'][0]['prompt'],
+      );
+      expect(
+        history.single.timestamp!.millisecondsSinceEpoch,
+        fixture
+            .study['primary']['independent_rows']['attempts'][0]['timestamp'],
+      );
+      final stats = LearnerStats.fromHistory(history);
+      expect(stats.totalAttempts, 1);
+      expect(stats.signsTried, 1);
+      expect(stats.signsMastered, 1);
+      expect(stats.avgMatch, .8);
+      expect(isMasteryAttempt(history.single), isTrue);
+      selected = fixture.control(
+        'export-before-queued-terminal',
+        'exportData',
+        index: 2,
+      );
+      await expectLater(
+        repo.exportData(),
+        throwsA(
+          isA<PlatformException>().having(
+            (e) => e.code,
+            'code',
+            'EXPORT_FAILED',
+          ),
+        ),
+      );
+      selected = fixture.control(
+        'export-before-queued-terminal',
+        'exportData',
+        index: 0,
+      );
+      expect(
+        await repo.exportData(),
+        selected['response'],
+      ); // Never dereference historical native path.
+      selected = null;
+      final revision = repo.dataRevision.value;
+      stage = 'partial-purge-failure';
+      await expectLater(
+        repo.clearAllData(),
+        throwsA(
+          isA<PlatformException>().having(
+            (e) => e.code,
+            'code',
+            'CLEAR_FAILED',
+          ),
+        ),
+      );
+      expect(repo.activeSessionId, isNull);
+      expect(repo.dataRevision.value, revision + 1);
+      expect(
+        fixture.study['partial_clear']['independent_rows']['attempts'],
+        hasLength(3),
+      );
+      // Failed purge kept native SQL; explicit ordered snapshot, not live persistence.
+      stage = 'initialized';
+      expect(await repo.participantId, original);
+      final readsAfterFailure = invoked
+          .where((c) => c.method == 'getParticipantId')
+          .length;
+      expect(readsAfterFailure, 2);
+      stage = 'clear-retry';
+      await repo.clearAllData();
+      expect(repo.dataRevision.value, revision + 2);
+      final replacement = await repo.participantId;
+      expect(replacement, fixture.study['clear']['participant_id']);
+      expect(replacement, isNot(original));
+      expect(await repo.getHistory(), isEmpty);
+      expect(await repo.getAssessments(), isEmpty);
+      await repo.sync();
+      expect(repo.activeSessionId, isNull);
+      final clearedStats = LearnerStats.fromHistory(await repo.getHistory());
+      expect(clearedStats.totalAttempts, 0);
+      expect(clearedStats.signsMastered, 0);
+      expect(clearedStats.avgMatch, 0);
+      stage = 'reopened';
+      expect(
+        await KumpasChannel.getParticipantId(),
+        replacement,
+      ); // bypass cache: real reopen response
+      expect(await repo.getHistory(), isEmpty);
+      expect(await repo.getAssessments(), isEmpty);
+      expect(
+        await repo.exportData(),
+        fixture.control('reopened', 'exportData')['response'],
+      );
+      expect(fixture.study['reopen']['independent_rows']['attempts'], isEmpty);
+    },
+  );
+
+  test(
+    'retained exports match independent scoped SQLite rows and reopened empty export',
+    () {
+      final rows =
+          fixture.study['export_stage_independent_rows']
+              as Map<String, dynamic>;
+      expect(rows['participants'], hasLength(2));
+      expect(
+        rows['attempts'],
+        hasLength(2),
+      ); // foreign participant has actual data.
+      expect(
+        fixture.text('external-export.json'),
+        fixture.text('internal-export.json'),
+      );
+      for (final name in ['external-export.json', 'internal-export.json']) {
+        final export = fixture.json(name) as Map<String, dynamic>;
+        final participant = export['metadata']['participant_id'];
+        final sessions = (rows['sessions'] as List)
+            .where((r) => r['participant_id'] == participant)
+            .toList();
+        final sessionIds = sessions.map((r) => r['id']).toSet();
+        final attempts = (rows['attempts'] as List)
+            .where((r) => sessionIds.contains(r['session_id']))
+            .toList();
+        final assessments = (rows['assessments'] as List)
+            .where((r) => r['participant_id'] == participant)
+            .toList();
+        expect(export['summary'], {
+          'total_sessions': sessions.length,
+          'total_attempts': attempts.length,
+          'total_assessments': assessments.length,
+        });
+        expect(export['assessments'], assessments);
+        expect(export['sessions'], hasLength(1));
+        expect(export['sessions'][0]['attempts'], attempts);
+        for (final session in export['sessions'] as List) {
+          final withoutAttempts = Map<String, dynamic>.from(session as Map)
+            ..remove('attempts');
+          expect(sessions, contains(equals(withoutAttempts)));
+        }
+        expect(attempts.single['target_label'], fixture.event['targetLabel']);
+        expect(attempts.single['overall_match'], fixture.event['overallMatch']);
+      }
+      final reopened =
+          fixture.json('reopened-export.json') as Map<String, dynamic>;
+      expect(
+        reopened['metadata']['participant_id'],
+        fixture.study['reopen']['participant_id'],
+      );
+      expect(reopened['summary'], {
+        'total_sessions': 0,
+        'total_attempts': 0,
+        'total_assessments': 0,
+      });
+      expect(reopened['sessions'], isEmpty);
+      expect(reopened['assessments'], isEmpty);
+      expect(fixture.study['clear']['both_export_roots_purged'], isTrue);
+      expect(fixture.study['clear']['unrelated_sentinels_survived'], isTrue);
+    },
+  );
+  test('current execution loads pinned verified native fixture without skip', () {
+    expect(() => HostFixture.load(), returnsNormally);
+    expect(fixture.receipt['artifacts'], hasLength(11));
+    expect(fixture.calls, hasLength(25));
+    // Retained in the actual Flutter test stdout; no native rerun is implied.
+    // ignore: avoid_print
+    print(
+      'HOST_CONSUMER_BINDING ${fixture.receipt['run_id']} '
+      '${fixture.receipt['manifest_sha256']} sources=42 artifacts=11 producer_tests=5',
+    );
+  });
+}
+
+
+FULL NEW FILE app/test/support/host_fixture.dart
+import 'dart:convert';
+import 'dart:io';
+
+/// Trusted local test bridge. Python validates the pinned manifest, 42 sources,
+/// producer suite/ledger and all artifact digests on EVERY load. It transfers
+/// those same in-memory bytes as base64, not a stale preflight boolean. Dart
+/// never rereads fixture paths after verification; no crypto dependency added.
+/// Trusts local interpreter/code/pipe, not a hostile concurrent filesystem.
+class HostFixture {
+  HostFixture._(this.receipt, this._bytes);
+  final Map<String, dynamic> receipt;
+  final Map<String, List<int>> _bytes;
+  static const runId = '323291af-c067-46dc-bae1-067d62fab10b';
+  static const digest =
+      '3279cb7d01075a9192f2566ae5573dd6137a23c6710ef1d0a590b78564fe0fed';
+
+  static HostFixture load() {
+    final repo = Directory.current.path.endsWith('/app')
+        ? Directory.current.parent
+        : Directory.current;
+    final result = Process.runSync('/opt/homebrew/bin/python3.11', [
+      '-E',
+      '${repo.path}/benchmarking/host_fixture_replay.py',
+      'bundle',
+    ], workingDirectory: repo.path);
+    if (result.exitCode != 0) {
+      throw StateError('native_fixture_preflight_failed');
+    }
+    final bundle = jsonDecode(result.stdout as String) as Map<String, dynamic>;
+    final receipt = bundle['receipt'] as Map<String, dynamic>;
+    if (receipt['run_id'] != runId ||
+        receipt['manifest_sha256'] != digest ||
+        receipt['source_count'] != 42 ||
+        receipt['producer_tests'] != 5 ||
+        receipt['synthetic_origin'] != true) {
+      throw StateError('native_fixture_binding_mismatch');
+    }
+    final encoded = bundle['payload_base64'] as Map<String, dynamic>;
+    if (encoded.length != 11) {
+      throw StateError('native_fixture_payload_missing');
+    }
+    final bytes = encoded.map(
+      (key, value) => MapEntry(key, base64Decode(value as String)),
+    );
+    return HostFixture._(receipt, bytes);
+  }
+
+  String text(String name) => utf8.decode(_bytes[name]!);
+  dynamic json(String name) => jsonDecode(text(name));
+  Map<String, dynamic> get study => json('study.json') as Map<String, dynamic>;
+  Map<String, dynamic> get event =>
+      json('attempt-event.json') as Map<String, dynamic>;
+  List<Map<String, dynamic>> get calls =>
+      (study['control_calls'] as List).cast<Map<String, dynamic>>();
+  Map<String, dynamic> control(String stage, String method, {int index = 0}) =>
+      calls
+          .where((r) => r['stage'] == stage && r['method'] == method)
+          .elementAt(index);
+}

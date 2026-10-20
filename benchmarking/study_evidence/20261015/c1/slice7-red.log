@@ -1,0 +1,14 @@
+test_case_sensitive_android_resource_names_remain_distinct (benchmarking.test_inspect_release.ReleaseTests.test_case_sensitive_android_resource_names_remain_distinct) ... FAIL
+
+======================================================================
+FAIL: test_case_sensitive_android_resource_names_remain_distinct (benchmarking.test_inspect_release.ReleaseTests.test_case_sensitive_android_resource_names_remain_distinct)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 295, in test_case_sensitive_android_resource_names_remain_distinct
+    self.assertEqual(code, 0, report)
+AssertionError: 1 != 0 : {'ok': False, 'error': 'verification_failed'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.045s
+
+FAILED (failures=1)

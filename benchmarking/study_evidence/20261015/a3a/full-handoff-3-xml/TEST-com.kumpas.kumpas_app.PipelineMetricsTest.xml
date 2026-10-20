@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.PipelineMetricsTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:25:13.686Z" hostname="Ahrons-MacBook-Pro.local" time="0.004">
+  <properties/>
+  <testcase name="emptyHasTrailingZeros" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.001"/>
+  <testcase name="sustainedGateIsAnalyzerNotStrideSelectedRate" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.001"/>
+  <testcase name="parallelCountersAreThreadSafe" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.002"/>
+  <testcase name="countersUseFullWindowIncludingLeadingAndTrailingSilence" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.0"/>
+  <testcase name="timestampsOutsideHalfOpenRunAreNotCounted" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.0"/>
+  <testcase name="earlyStopIncomplete" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.0"/>
+  <testcase name="invalidDurationsRejected" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.0"/>
+  <testcase name="backwardsClockRejected" classname="com.kumpas.kumpas_app.PipelineMetricsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,14 @@
+test_closed_session_counts_are_reconciled_but_active_counts_may_lag (evaluation.test_legacy_export.LegacyTests.test_closed_session_counts_are_reconciled_but_active_counts_may_lag) ... FAIL
+
+======================================================================
+FAIL: test_closed_session_counts_are_reconciled_but_active_counts_may_lag (evaluation.test_legacy_export.LegacyTests.test_closed_session_counts_are_reconciled_but_active_counts_may_lag)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 72, in test_closed_session_counts_are_reconciled_but_active_counts_may_lag
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

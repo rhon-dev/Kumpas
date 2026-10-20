@@ -1,0 +1,17 @@
+{
+  "source_hashes": {
+    "training/models/validation_campaign.py": "bc7c342a768334c3f0c640451af11b05f2839f23c0ea9ce5736512a2a9998019",
+    "training/tests/test_validation_campaign.py": "4fdae28615d80488ca6d313e1d15f15585e0de45ecc9cb50b9df5247af0381f8"
+  },
+  "incomplete_manifest_sha256": "013f3933fe898dadf2fc25fcf7a12cc50689964f7fba39400cba38e0199b497d",
+  "actual_records": 150,
+  "recomputed_correct": {
+    "keras": 144,
+    "candidate": 144
+  },
+  "missing_source_metadata": 134,
+  "preserved_initial_files": 288,
+  "protected_files": 82,
+  "parent_tests": "27 training tests passed,0 skips; parent-training-1.log",
+  "status": "REVIEW_PENDING_FULL_SOURCE_PROVENANCE_BLOCKED"
+}

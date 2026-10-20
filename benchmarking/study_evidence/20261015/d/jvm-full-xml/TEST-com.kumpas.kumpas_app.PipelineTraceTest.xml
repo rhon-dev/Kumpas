@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.PipelineTraceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-18T05:44:09.277Z" hostname="192.168.1.151" time="0.001">
+  <properties/>
+  <testcase name="impossibleOrderingIsRejected" classname="com.kumpas.kumpas_app.PipelineTraceTest" time="0.001"/>
+  <testcase name="retainsAttemptStartBeforeFirstSelectedAnalyzer" classname="com.kumpas.kumpas_app.PipelineTraceTest" time="0.0"/>
+  <testcase name="absentUiAckRemainsAbsentNotZero" classname="com.kumpas.kumpas_app.PipelineTraceTest" time="0.0"/>
+  <testcase name="boundariesUseOnlyMonotonicNativeClock" classname="com.kumpas.kumpas_app.PipelineTraceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

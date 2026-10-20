@@ -1,0 +1,23 @@
+{
+  "event": "generated-quarantine",
+  "at": "2026-10-18T13:51:37.970733+08:00",
+  "failure_log": "release-build-retry1.log",
+  "source": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/release/arm64-v8a/app 2.so",
+    "bytes": 5309360,
+    "inode": 27582004,
+    "device": 16777232,
+    "flags": 1073741920,
+    "sha256": null
+  },
+  "canonical": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/release/arm64-v8a/app.so",
+    "bytes": 5309360,
+    "inode": 26515399,
+    "device": 16777232,
+    "flags": 32832,
+    "sha256": "93f587d6bd463396314555f1f588566fcd8b9c1e6c6136b270fd0a764e3ee137"
+  },
+  "git_check_ignore": "app/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/release/arm64-v8a/app 2.so\napp/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/release/arm64-v8a/app.so\n",
+  "method": "same-volume rename of exact generated obstruction; no broad cleanup, deletion or source edit"
+}

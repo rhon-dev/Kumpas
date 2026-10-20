@@ -1,0 +1,1 @@
+Explicit historical packaging policy: three native ABIs, ARM64 Flutter; captured after observation, not preregistration or strict ARM64 acceptance. APK digest from historical owner evidence; all five asset expectations from independently protected checkout baseline.

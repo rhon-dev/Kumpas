@@ -1,0 +1,609 @@
+{
+  "test_schema_version": 1,
+  "run_id": "22ebc4d3-32ee-4bf1-bb54-3708ede613d2",
+  "scenario_id": "a7604649-082d-43ea-8835-d1883a202f2d",
+  "synthetic_origin": true,
+  "execution_boundary": "Real MainActivity callable, Handler\/EventSink, SessionManager\/SQLite\/export\/purge; no messenger, camera, detector or inference",
+  "attempt_setup": "Direct production AttemptBoundary.start because bare Activity has no permission context; terminal handler is real",
+  "history_correlation": "Unique synthetic target\/predicted labels + class\/confidence\/match + exact row counts; no durable attempt UUID column",
+  "primary": {
+    "attempt_id": "fb1c37db-59c5-440d-a139-ef5e66f5a1eb",
+    "input_event": "{\"state\":\"attempt_result\",\"attemptId\":\"fb1c37db-59c5-440d-a139-ef5e66f5a1eb\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timing\":{\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"attempt_started_ns\":100000000,\"inference_ms\":1}}",
+    "delivered_event": "{\"state\":\"attempt_result\",\"attemptId\":\"fb1c37db-59c5-440d-a139-ef5e66f5a1eb\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timing\":{\"attempt_id\":\"fb1c37db-59c5-440d-a139-ef5e66f5a1eb\",\"origin\":\"analyzer_entry_not_sensor_exposure\",\"ui_endpoint\":\"post_frame_native_ack_upper_bound_not_physical_display\",\"attempt_started_ns\":100000000,\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"collection_ms\":40,\"inference_ms\":1,\"event_delivery_ns\":200000000,\"final_analyzer_to_event_ms\":50,\"analyzer_to_feedback_ms\":50}}",
+    "history": "[{\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timestamp\":1792117503387}]",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "created_at": 1792117503249,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "started_at": 1792117503321,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "timestamp": 1792117503387,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "type": "pre",
+          "timestamp": 1792117503323,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "type": "post",
+          "timestamp": 1792117503380,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        }
+      ]
+    },
+    "duplicate_event_count": 1,
+    "stale_terminal_rows": 0
+  },
+  "export_stage_independent_rows": {
+    "participants": [
+      {
+        "id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+        "created_at": 1792117503249,
+        "device_model": "robolectric robolectric",
+        "app_version": "1.0.0"
+      },
+      {
+        "id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+        "created_at": 1792117503401,
+        "device_model": "SYNTHETIC",
+        "app_version": "host"
+      }
+    ],
+    "sessions": [
+      {
+        "id": "36d35aa2-e77b-443d-ab29-f4f891dcc215",
+        "participant_id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+        "started_at": 1792117503402,
+        "ended_at": null,
+        "attempt_count": 0,
+        "signs_attempted": 0,
+        "avg_match": 0,
+        "duration_s": 0,
+        "source": "app"
+      },
+      {
+        "id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+        "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+        "started_at": 1792117503321,
+        "ended_at": null,
+        "attempt_count": 0,
+        "signs_attempted": 0,
+        "avg_match": 0,
+        "duration_s": 0,
+        "source": "app"
+      }
+    ],
+    "attempts": [
+      {
+        "id": 1,
+        "session_id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+        "timestamp": 1792117503387,
+        "target_class": 0,
+        "target_label": "SYNTHETIC_PRIMARY",
+        "predicted_label": "SYNTHETIC_PRIMARY",
+        "predicted_confidence": 0.9,
+        "recognized_as_target": 1,
+        "overall_match": 0.8,
+        "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+      },
+      {
+        "id": 2,
+        "session_id": "36d35aa2-e77b-443d-ab29-f4f891dcc215",
+        "timestamp": 1,
+        "target_class": 1,
+        "target_label": "SYNTHETIC_FOREIGN",
+        "predicted_label": "SYNTHETIC_FOREIGN",
+        "predicted_confidence": 0.7,
+        "recognized_as_target": 1,
+        "overall_match": 0.6,
+        "feedback_items": "[]"
+      }
+    ],
+    "assessments": [
+      {
+        "id": 1,
+        "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+        "type": "pre",
+        "timestamp": 1792117503323,
+        "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+      },
+      {
+        "id": 2,
+        "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+        "type": "post",
+        "timestamp": 1792117503380,
+        "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+      },
+      {
+        "id": 3,
+        "participant_id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+        "type": "pre",
+        "timestamp": 1792117503402,
+        "responses": "{\"synthetic\":true}"
+      }
+    ]
+  },
+  "queued_persistence": {
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "created_at": 1792117503249,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        },
+        {
+          "id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+          "created_at": 1792117503401,
+          "device_model": "SYNTHETIC",
+          "app_version": "host"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "36d35aa2-e77b-443d-ab29-f4f891dcc215",
+          "participant_id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+          "started_at": 1792117503402,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        },
+        {
+          "id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "started_at": 1792117503321,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "timestamp": 1792117503387,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        },
+        {
+          "id": 2,
+          "session_id": "36d35aa2-e77b-443d-ab29-f4f891dcc215",
+          "timestamp": 1,
+          "target_class": 1,
+          "target_label": "SYNTHETIC_FOREIGN",
+          "predicted_label": "SYNTHETIC_FOREIGN",
+          "predicted_confidence": 0.7,
+          "recognized_as_target": 1,
+          "overall_match": 0.6,
+          "feedback_items": "[]"
+        },
+        {
+          "id": 3,
+          "session_id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "timestamp": 1792117503430,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_QUEUED",
+          "predicted_label": "SYNTHETIC_QUEUED",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "type": "pre",
+          "timestamp": 1792117503323,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "type": "post",
+          "timestamp": 1792117503380,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        },
+        {
+          "id": 3,
+          "participant_id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+          "type": "pre",
+          "timestamp": 1792117503402,
+          "responses": "{\"synthetic\":true}"
+        }
+      ]
+    },
+    "delivered_event_count": 1,
+    "replacement_attempt_id": "aeb3904e-fc36-4002-8dd7-89c55c5b5944",
+    "ordering": "commit terminal; direct AttemptBoundary replacement; stale cancel via production control; drain Handler: committed row survives, stale UI suppressed",
+    "linked_coverage": "MainActivityBoundaryTest.queuedViewEventsCannotReachReplacementOrNewSubscriber; ActivityInitializationTest.failedInitializationQueuedEventCannotCrossRetryEvenWithSameSubscriber"
+  },
+  "partial_clear": {
+    "external_export_exists": false,
+    "internal_export_exists": true,
+    "legacy_exists": [
+      false,
+      false
+    ],
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "created_at": 1792117503249,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        },
+        {
+          "id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+          "created_at": 1792117503401,
+          "device_model": "SYNTHETIC",
+          "app_version": "host"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "36d35aa2-e77b-443d-ab29-f4f891dcc215",
+          "participant_id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+          "started_at": 1792117503402,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        },
+        {
+          "id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "started_at": 1792117503321,
+          "ended_at": null,
+          "attempt_count": 0,
+          "signs_attempted": 0,
+          "avg_match": 0,
+          "duration_s": 0,
+          "source": "app"
+        }
+      ],
+      "attempts": [
+        {
+          "id": 1,
+          "session_id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "timestamp": 1792117503387,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_PRIMARY",
+          "predicted_label": "SYNTHETIC_PRIMARY",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        },
+        {
+          "id": 2,
+          "session_id": "36d35aa2-e77b-443d-ab29-f4f891dcc215",
+          "timestamp": 1,
+          "target_class": 1,
+          "target_label": "SYNTHETIC_FOREIGN",
+          "predicted_label": "SYNTHETIC_FOREIGN",
+          "predicted_confidence": 0.7,
+          "recognized_as_target": 1,
+          "overall_match": 0.6,
+          "feedback_items": "[]"
+        },
+        {
+          "id": 3,
+          "session_id": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+          "timestamp": 1792117503430,
+          "target_class": 0,
+          "target_label": "SYNTHETIC_QUEUED",
+          "predicted_label": "SYNTHETIC_QUEUED",
+          "predicted_confidence": 0.9,
+          "recognized_as_target": 1,
+          "overall_match": 0.8,
+          "feedback_items": "[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}]"
+        }
+      ],
+      "assessments": [
+        {
+          "id": 1,
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "type": "pre",
+          "timestamp": 1792117503323,
+          "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+        },
+        {
+          "id": 2,
+          "participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+          "type": "post",
+          "timestamp": 1792117503380,
+          "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+        },
+        {
+          "id": 3,
+          "participant_id": "eedd2ef6-fdf3-4de8-969c-56c9b2e0a8f5",
+          "type": "pre",
+          "timestamp": 1792117503402,
+          "responses": "{\"synthetic\":true}"
+        }
+      ]
+    },
+    "error_code": "CLEAR_FAILED"
+  },
+  "clear": {
+    "old_participant_id": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+    "participant_id": "b8b88c4e-8eae-4971-9245-2e865fe8796a",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "b8b88c4e-8eae-4971-9245-2e865fe8796a",
+          "created_at": 1792117503443,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [],
+      "attempts": [],
+      "assessments": []
+    },
+    "both_export_roots_purged": true,
+    "legacy_purged": true,
+    "unrelated_sentinels_survived": true
+  },
+  "reopen": {
+    "participant_id": "b8b88c4e-8eae-4971-9245-2e865fe8796a",
+    "independent_rows": {
+      "participants": [
+        {
+          "id": "b8b88c4e-8eae-4971-9245-2e865fe8796a",
+          "created_at": 1792117503443,
+          "device_model": "robolectric robolectric",
+          "app_version": "1.0.0"
+        }
+      ],
+      "sessions": [],
+      "attempts": [],
+      "assessments": []
+    }
+  },
+  "control_calls": [
+    {
+      "stage": "initialized",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "6c39ecff-e63a-4967-8526-28b5c19a34f5",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "startSession",
+      "arguments": null,
+      "response": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "getActiveSession",
+      "arguments": null,
+      "response": "af14e1d7-4066-4346-ba60-08a37f5e2dd7",
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "pre",
+        "responses": "{\"synthetic\":true,\"stage\":\"pre\"}"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "post",
+        "responses": "{\"synthetic\":true}"
+      },
+      "response": null,
+      "error_code": "CONTROL_FAILED"
+    },
+    {
+      "stage": "initialized",
+      "method": "saveAssessment",
+      "arguments": {
+        "type": "post",
+        "responses": "{\"synthetic\":true,\"stage\":\"post\"}"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "initialized",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[{\"id\":1,\"participant_id\":\"6c39ecff-e63a-4967-8526-28b5c19a34f5\",\"type\":\"pre\",\"timestamp\":1792117503323,\"responses\":\"{\\\"synthetic\\\":true,\\\"stage\\\":\\\"pre\\\"}\"},{\"id\":2,\"participant_id\":\"6c39ecff-e63a-4967-8526-28b5c19a34f5\",\"type\":\"post\",\"timestamp\":1792117503380,\"responses\":\"{\\\"synthetic\\\":true,\\\"stage\\\":\\\"post\\\"}\"}]",
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "feedbackPresented",
+      "arguments": {
+        "attemptId": "fb1c37db-59c5-440d-a139-ef5e66f5a1eb"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "feedbackPresented",
+      "arguments": {
+        "attemptId": "fb1c37db-59c5-440d-a139-ef5e66f5a1eb"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "cancelAttempt",
+      "arguments": {
+        "attemptId": "be6be5b4-9ee7-44a9-8603-cdcc0624941d"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "one-terminal",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[{\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timestamp\":1792117503387}]",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-114545359685294428\/external\/kumpas_export_6c39ecff-b7c59d0c-eb64-4bfa-93e2-ff29aed501be_20261016_102503.json",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-114545359685294428\/internal\/exports\/kumpas_export_6c39ecff-f191531d-0ef3-4206-aaa2-7507bbdf4a2d_20261016_102503.json",
+      "error_code": null
+    },
+    {
+      "stage": "export-before-queued-terminal",
+      "method": "exportData",
+      "arguments": null,
+      "response": null,
+      "error_code": "EXPORT_FAILED"
+    },
+    {
+      "stage": "persist-then-replace-before-handler-drain",
+      "method": "cancelAttempt",
+      "arguments": {
+        "attemptId": "798de61a-5089-40b9-8cfe-eb6daddc8fa2"
+      },
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "partial-purge-failure",
+      "method": "clearAllData",
+      "arguments": null,
+      "response": null,
+      "error_code": "CLEAR_FAILED"
+    },
+    {
+      "stage": "clear-retry",
+      "method": "clearAllData",
+      "arguments": null,
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "b8b88c4e-8eae-4971-9245-2e865fe8796a",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "clear-retry",
+      "method": "getActiveSession",
+      "arguments": null,
+      "response": null,
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getParticipantId",
+      "arguments": null,
+      "response": "b8b88c4e-8eae-4971-9245-2e865fe8796a",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getHistory",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "getAssessments",
+      "arguments": null,
+      "response": "[]",
+      "error_code": null
+    },
+    {
+      "stage": "reopened",
+      "method": "exportData",
+      "arguments": null,
+      "response": "\/Users\/ahronjanl.rafaelahron.0804icloudcom\/.hermes\/cache\/scratch\/kumpas-a3a\/host-study-114545359685294428\/external\/kumpas_export_b8b88c4e-995f4c51-7afc-4fe2-90bf-b67f30b3066d_20261016_102503.json",
+      "error_code": null
+    }
+  ],
+  "delivered_events": [
+    "{\"state\":\"attempt_result\",\"attemptId\":\"fb1c37db-59c5-440d-a139-ef5e66f5a1eb\",\"targetClass\":0,\"targetLabel\":\"SYNTHETIC_PRIMARY\",\"predictedLabel\":\"SYNTHETIC_PRIMARY\",\"predictedConfidence\":0.9,\"recognizedAsTarget\":true,\"overallMatch\":0.8,\"items\":[{\"dimension\":\"handshape\",\"severity\":0.25,\"hand\":\"right\",\"prompt\":\"SYNTHETIC feedback\"}],\"timing\":{\"attempt_id\":\"fb1c37db-59c5-440d-a139-ef5e66f5a1eb\",\"origin\":\"analyzer_entry_not_sensor_exposure\",\"ui_endpoint\":\"post_frame_native_ack_upper_bound_not_physical_display\",\"attempt_started_ns\":100000000,\"first_analyzer_ns\":110000000,\"final_analyzer_ns\":150000000,\"native_result_ns\":175000000,\"collection_ms\":40,\"inference_ms\":1,\"event_delivery_ns\":200000000,\"final_analyzer_to_event_ms\":50,\"analyzer_to_feedback_ms\":50}}"
+  ]
+}

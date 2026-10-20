@@ -1,0 +1,569 @@
+#!/usr/bin/env python3
+"""Additive validation-only campaign; never ranks, trains, exports or deploys."""
+import math
+import numpy as np
+import json
+from pathlib import Path
+import csv
+import re
+import sys
+import hashlib
+import os
+import datetime
+import importlib.metadata
+import platform
+import argparse
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'preprocessing'))
+from evaluation_protocol import sha256, ROT_RANGE, SCALE_RANGE, SHIFT_RANGE
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'tflite_export'))
+from export_frozen import verified_selection
+
+
+def strict_json(path):
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise ValueError('INVALID_JSON')
+            result[key] = value
+        return result
+    def constant(_):
+        raise ValueError('INVALID_JSON')
+    result = json.loads(Path(path).read_text(), object_pairs_hook=pairs, parse_constant=constant)
+    # Reject exponent overflow as well as nonstandard NaN/Infinity tokens.
+    json.dumps(result, allow_nan=False)
+    return result
+
+
+def safe_path(value):
+    if type(value) is not str:
+        raise ValueError('INVALID_PATH')
+    path = Path(value)
+    if not path.is_absolute() or '..' in path.parts or any(p.is_symlink() for p in (path, *path.parents)):
+        raise ValueError('INVALID_PATH')
+    return path
+
+
+REQUIRED = {'original_X','original_y','clips_train','clips_test','label_map','fit_X',
+            'fit_y','val_X','val_y','manifest','augmentations','freeze','checkpoint',
+            'candidate','provenance','source_labels','source_train_csv'}
+
+
+def validate_inputs(config):
+    try:
+        if (type(config) is not dict or set(config) != {'schema','class_count','validation_count','paths','sha256','ordered_clips'}
+                or type(config['schema']) is not int or config['schema'] != 1
+                or type(config['class_count']) is not int or config['class_count'] < 2
+                or type(config['validation_count']) is not int or config['validation_count'] < 1
+                or type(config['paths']) is not dict or type(config['sha256']) is not dict
+                or not REQUIRED <= set(config['paths']) or set(config['sha256']) != set(config['paths'])
+                or any(k not in REQUIRED and not re.fullmatch(r'(source_[a-z_0-9]+|test_[Xy])',k) for k in config['paths'])):
+            raise ValueError()
+        p = {key: safe_path(value) for key, value in config['paths'].items()}
+        for key, path in p.items():
+            digest = config['sha256'][key]
+            if type(digest) is not str or not re.fullmatch('[a-f0-9]{64}',digest) or sha256(path) != digest:
+                raise ValueError()
+        seq, protocol = p['original_X'].parent, p['manifest'].parent
+        for role, name in {'original_X':'X_train.npy','original_y':'y_train.npy','clips_train':'clips_train.json',
+                           'clips_test':'clips_test.json','label_map':'label_map.json'}.items():
+            if p[role] != seq/name:
+                raise ValueError()
+        for role, name in {'fit_X':'X_fit.npy','fit_y':'y_fit.npy','val_X':'X_val.npy','val_y':'y_val.npy',
+                           'manifest':'manifest.json','augmentations':'augmentations.json'}.items():
+            if p[role] != protocol/name or protocol.parent != seq:
+                raise ValueError()
+        manifest = strict_json(p['manifest'])
+        # Python dictionary equality alone accepts float/bool count aliases.
+        if (any(type(manifest[field]) is not int for field in ('n_fit_original','n_validation'))
+                or type(manifest['class_counts']) is not dict
+                or any(type(counts) is not dict or any(type(value) is not int for value in counts.values())
+                       for counts in manifest['class_counts'].values())):
+            raise ValueError()
+        for row in manifest['rows']:
+            if (type(row) is not dict or set(row) != {'index','clip','class_id','partition'}
+                    or type(row['index']) is not int or type(row['class_id']) is not int
+                    or not 0 <= row['class_id'] < config['class_count']
+                    or type(row['clip']) is not str or not re.fullmatch(r'clips_[0-9]+_[0-9]+\.npz',row['clip'])):
+                raise ValueError()
+        freeze = strict_json(p['freeze'])
+        # Identity/policy schema only: retain historical prose, not a new policy.
+        if any(type(freeze[field]) is not str or not freeze[field].strip()
+               for field in ('run_id','selection_method','test_status')):
+            raise ValueError()
+        if safe_path(freeze['checkpoint']) != p['checkpoint']:
+            raise ValueError()
+        validate_metrics({'accuracy':freeze['best_val_accuracy'],'macro_f1':freeze['best_val_macro_f1'],
+                          'class_count':config['class_count']},config['class_count'])
+        verified_selection(p['freeze'], protocol)
+        labels_map = strict_json(p['label_map'])
+        n = config['class_count']
+        if type(labels_map) is not dict or set(labels_map) != {str(i) for i in range(n)}:
+            raise ValueError()
+        with p['source_labels'].open(encoding='utf-8-sig',newline='') as stream:
+            source_rows = list(csv.DictReader(stream))
+        source = {int(r['id']):r for r in source_rows}
+        if len(source) != len(source_rows):
+            raise ValueError()
+        source_ids = []
+        for label in labels_map.values():
+            if (type(label) is not dict or set(label) != {'id','label','category'} or type(label['id']) is not int
+                    or label['id'] not in source or type(label['label']) is not str or not label['label']
+                    or type(label['category']) is not str or not label['category']
+                    or any(label[k] != source[label['id']][k] for k in ('label','category'))):
+                raise ValueError()
+            source_ids.append(label['id'])
+        if len(set(source_ids)) != n or len({v['label'] for v in labels_map.values()}) != n:
+            raise ValueError()
+        for row in manifest['rows']:
+            if int(row['clip'].split('_')[1]) != labels_map[str(row['class_id'])]['id']:
+                raise ValueError()
+        provenance = strict_json(p['provenance'])
+        for field, role in {'checkpoint_sha256':'checkpoint','selection_sha256':'freeze','protocol_sha256':'manifest',
+                            'label_map_sha256':'label_map','tflite_sha256':'candidate'}.items():
+            if provenance[field] != config['sha256'][role]:
+                raise ValueError()
+        if (provenance['run_id'] != freeze['run_id'] or provenance['filename'] != p['candidate'].name
+                or provenance['deployed'] is not False):
+            raise ValueError()
+        rows = [row for row in manifest['rows'] if row['partition'] == 'validation']
+        original = np.load(p['original_X'], mmap_mode='r', allow_pickle=False)
+        labels = np.load(p['original_y'], mmap_mode='r', allow_pickle=False)
+        val = np.load(p['val_X'], mmap_mode='r', allow_pickle=False)
+        y = np.load(p['val_y'], mmap_mode='r', allow_pickle=False)
+        if (len(rows) != config['validation_count'] or len(val) != len(rows) or len(y) != len(rows)
+                or type(config['ordered_clips']) is not list or config['ordered_clips'] != [r['clip'] for r in rows]
+                or original.ndim != 3 or original.shape[1:] != (30,1662)
+                or val.shape != (len(rows),30,1662) or y.shape != (len(rows),)):
+            raise ValueError()
+        for role in ('original_X','fit_X','val_X'):
+            array = np.load(p[role],mmap_mode='r',allow_pickle=False)
+            if array.dtype.kind != 'f' or array.ndim != 3 or array.shape[1:] != (30,1662):
+                raise ValueError()
+            for sample in array:
+                if not np.isfinite(sample).all():
+                    raise ValueError()
+        for role in ('original_y','fit_y','val_y'):
+            array = np.load(p[role],mmap_mode='r',allow_pickle=False)
+            if array.dtype.kind not in 'iu' or array.ndim != 1 or (array < 0).any() or (array >= n).any():
+                raise ValueError()
+        aug = strict_json(p['augmentations'])
+        fit_rows = [r for r in manifest['rows'] if r['partition']=='fit']
+        if type(aug) is not list or len(aug) % len(fit_rows):
+            raise ValueError()
+        for index, item in enumerate(aug):
+            row = fit_rows[index % len(fit_rows)]
+            if (type(item) is not dict or set(item) != {'source_clip','source_index','partition','copy','angle_deg','scale','dx','dy'}
+                    or item['source_clip'] != row['clip'] or type(item['source_index']) is not int
+                    or item['source_index'] != row['index'] or item['partition'] != 'fit'
+                    or type(item['copy']) is not int or item['copy'] != index // len(fit_rows)):
+                raise ValueError()
+            for key in ('angle_deg','scale','dx','dy'):
+                if type(item[key]) not in (int,float) or not math.isfinite(item[key]):
+                    raise ValueError()
+            if not (ROT_RANGE[0] <= abs(item['angle_deg']) <= ROT_RANGE[1]
+                    and SCALE_RANGE[0] <= item['scale'] <= SCALE_RANGE[1]
+                    and SHIFT_RANGE[0] <= item['dx'] <= SHIFT_RANGE[1]
+                    and SHIFT_RANGE[0] <= item['dy'] <= SHIFT_RANGE[1]):
+                raise ValueError()
+        fit = np.load(p['fit_X'],mmap_mode='r',allow_pickle=False)
+        fy = np.load(p['fit_y'],mmap_mode='r',allow_pickle=False)
+        if len(fit) != len(fy) or len(fit) != len(fit_rows)+len(aug):
+            raise ValueError()
+        expected_labels = [r['class_id'] for r in fit_rows]*(1+len(aug)//len(fit_rows))
+        if not np.array_equal(fy,expected_labels):
+            raise ValueError()
+        for i, row in enumerate(rows):
+            if not np.array_equal(val[i], original[row['index']]) or y[i] != labels[row['index']]:
+                raise ValueError()
+        return {'rows': rows, 'X': val, 'y': y, 'label_map':labels_map, 'freeze':freeze}
+    except (ValueError, TypeError, KeyError, OSError, IndexError, OverflowError, AttributeError, ZeroDivisionError):
+        raise ValueError('INVALID_INPUTS') from None
+
+
+
+def assert_resident(path):
+    # macOS SF_DATALESS (placeholder): don't trigger unbounded cloud hydration.
+    if getattr(path.stat(),'st_flags',0) & 0x40000000:
+        raise ValueError('SOURCE_NOT_RESIDENT')
+
+
+def clip_metadata(row, config, landmark_dir, raw_dir):
+    try:
+        match=re.fullmatch(r'clips_([0-9]+)_([0-9]+)\.npz',row['clip'])
+        if not match or row['partition'] != 'validation':
+            raise ValueError()
+        source_id, clip_id=map(int,match.groups())
+        path=safe_path(str(safe_path(landmark_dir)/row['clip']))
+        with safe_path(config['paths']['source_train_csv']).open(encoding='utf-8-sig',newline='') as stream:
+            matches=[r for r in csv.DictReader(stream)
+                     if r['vid_path'].replace('\\','/') == f'clips/{source_id}/{clip_id}.MOV']
+        if len(matches)!=1 or matches[0]['id_label']!=str(source_id):
+            raise ValueError()
+        label_map=strict_json(config['paths']['label_map'])
+        semantic=label_map[str(row['class_id'])]
+        if semantic['id']!=source_id or any(matches[0][k]!=semantic[k] for k in ('label','category')):
+            raise ValueError()
+        relative=Path(matches[0]['vid_path'].replace('\\','/'))
+        video=safe_path(str(safe_path(raw_dir)/Path(*relative.parts[1:])))
+        assert_resident(path)
+        assert_resident(video)
+        with np.load(path,allow_pickle=False) as data:
+            if set(data.files) != {'landmarks','class_id','split','fps','brightness','detection_rates'}:
+                raise ValueError()
+            array=data['landmarks']; cid=data['class_id']; split=data['split']; rates=data['detection_rates']
+            if (array.dtype.kind != 'f' or array.ndim != 2 or array.shape[1] != 1662 or len(array)<5
+                    or not np.isfinite(array).all() or cid.shape != () or cid.dtype.kind not in 'iu'
+                    or int(cid) != source_id or split.shape != () or split.dtype.kind != 'U' or str(split) != 'train'
+                    or rates.shape != (4,) or rates.dtype.kind != 'f' or not np.isfinite(rates).all()
+                    or (rates < 0).any() or (rates > 1).any()):
+                raise ValueError()
+            scalars={}
+            for key in ('fps','brightness'):
+                value=data[key]
+                if value.shape != () or value.dtype.kind not in 'fi' or not math.isfinite(float(value)) or float(value)<=0:
+                    raise ValueError()
+                scalars[key]=float(value)
+            from build_sequences import sample_indices
+            indices=sample_indices(len(array),30)
+            sampled=array[indices]
+            pose=sampled[:,:132].reshape(30,33,4).astype(np.float64)
+            with np.errstate(over='raise',invalid='raise',divide='raise'):
+                root=(pose[:,23,:3]+pose[:,24,:3])/2
+                neck=(pose[:,11,:3]+pose[:,12,:3])/2
+                scale=np.linalg.norm(neck-root,axis=1)
+            if not np.isfinite(scale).all():
+                raise ValueError()
+            names=('pose','face','left_hand','right_hand')
+            blocks=((0,132),(132,1536),(1536,1599),(1599,1662))
+            presence={name:int(np.count_nonzero(np.any(sampled[:,lo:hi]!=0,axis=1))) for name,(lo,hi) in zip(names,blocks)}
+            result={'clip':row['clip'],'source_class_id':source_id,'source_clip_id':clip_id,
+                    'dense_label':row['class_id'],'partition':'validation','original_index':row['index'],
+                    'npz_path':str(path),'npz_sha256':sha256(path),'video_path':str(video),'video_sha256':sha256(video),
+                    'sequence_frames':len(array),'sample_indices':indices.tolist(),
+                    'landmark_frame_sha256':[hashlib.sha256(np.ascontiguousarray(frame).tobytes()).hexdigest() for frame in sampled],
+                    'frame_hash_semantics':'raw NPZ landmark frame bytes, not decoded image bytes',
+                    'sampled_presence':presence,'sampled_frames':30,
+                    'stored_detection_rates':dict(zip(names,rates.tolist())),
+                    'torso_scale_raw_sampled':{'min':float(scale.min()),'max':float(scale.max()),'mean':float(scale.mean()),
+                                               'below_normalizer_fallback_count':int(np.count_nonzero(scale<1e-4))},**scalars}
+            json.dumps(result,allow_nan=False)
+            return result
+    except (ValueError,TypeError,KeyError,OSError,IndexError,OverflowError,FloatingPointError,AttributeError) as exc:
+        if type(exc) is ValueError and str(exc)=='SOURCE_NOT_RESIDENT':
+            raise ValueError('SOURCE_NOT_RESIDENT') from None
+        raise ValueError('INVALID_CLIP_METADATA') from None
+
+
+def predict_frozen(config,inputs,emit):
+    import tensorflow as tf
+    import gc
+    try:
+        tf.config.threading.set_intra_op_parallelism_threads(1)
+        tf.config.threading.set_inter_op_parallelism_threads(1)
+        threads='requested_one'
+    except RuntimeError:
+        threads='runtime_already_initialized'
+    emit({'event':'keras_load_start'})
+    try:
+        model=tf.keras.models.load_model(config['paths']['checkpoint'],compile=False)
+    except Exception as exc:
+        emit({'event':'keras_load_failed','exception_type':type(exc).__name__})
+        raise
+    if tuple(model.input_shape[1:])!=(30,258) or tuple(model.output_shape[1:])!=(config['class_count'],):
+        raise ValueError('MODEL_SHAPE_MISMATCH')
+    n=len(inputs['y']); keras=[]
+    keep=np.r_[0:132,1536:1662]
+    for i in range(n):
+        sample=np.ascontiguousarray(inputs['X'][i][:,keep][None],dtype=np.float32)
+        values=np.asarray(model(sample,training=False))
+        validate_probabilities(values,1,config['class_count'])
+        keras.append(values[0].copy())
+        emit({'event':'keras_clip_complete','n':i+1})
+    del model
+    tf.keras.backend.clear_session(); gc.collect()
+    emit({'event':'keras_released','n':n})
+    interpreter=tf.lite.Interpreter(model_path=config['paths']['candidate'],num_threads=1)
+    interpreter.allocate_tensors()
+    ins,outs=interpreter.get_input_details(),interpreter.get_output_details()
+    if (len(ins)!=1 or len(outs)!=1 or tuple(ins[0]['shape'])!=(1,30,258)
+            or tuple(outs[0]['shape'])!=(1,config['class_count'])
+            or ins[0]['dtype']!=np.float32 or outs[0]['dtype']!=np.float32):
+        raise ValueError('MODEL_SHAPE_MISMATCH')
+    candidate=[]
+    for i in range(n):
+        sample=np.ascontiguousarray(inputs['X'][i][:,keep][None],dtype=np.float32)
+        interpreter.set_tensor(ins[0]['index'],sample)
+        interpreter.invoke()
+        values=interpreter.get_tensor(outs[0]['index'])
+        validate_probabilities(values,1,config['class_count'])
+        candidate.append(values[0].copy())
+        emit({'event':'candidate_clip_complete','n':i+1})
+    del interpreter; gc.collect()
+    return np.asarray(keras),np.asarray(candidate),{'environment':environment(),'tensorflow_imported':tf.__version__,
+            'keras_loading':'load_model compile=False, no optimizer state needed',
+            'keras_execution':'direct model(sample, training=False), batch=1',
+            'candidate_execution':'existing artifact tf.lite.Interpreter, float32 IO, num_threads=1',
+            'threads':threads,'keras_n':n,'candidate_n':n,'execution_order':'keras then released then candidate',
+            'historical_environment_notice':'candidate records TF2.19.0; trainer comment Keras3.10, current Keras may differ'}
+
+
+def run_incomplete_campaign(config, output_root, output, landmark_dir, raw_dir, *, predictor=None):
+    """Explicit salvage only: actual predictions never imply complete source provenance."""
+    return run_campaign(config,output_root,output,landmark_dir,raw_dir,predictor=predictor,incomplete_sources=True)
+
+
+def run_campaign(config, output_root, output, landmark_dir, raw_dir, *, predictor=None, incomplete_sources=False):
+    try:
+        root, target = safe_path(output_root), safe_path(output)
+        if not root.is_dir() or target.parent != root or target.exists():
+            raise ValueError()
+    except (ValueError, OSError):
+        raise ValueError('INVALID_OUTPUT') from None
+    inputs = validate_inputs(config)
+    target.mkdir(exist_ok=False)
+    def emit(event):
+        # Fixed event codes and numeric counts only, no payloads/exceptions.
+        with (target/'events.jsonl').open('a') as stream:
+            stream.write(json.dumps(event,allow_nan=False,sort_keys=True)+'\n')
+            stream.flush(); os.fsync(stream.fileno())
+    write_json(target/'INCOMPLETE.json',{'schema':1,'status':'INCOMPLETE','meaning':'completion requires manifest.json; this start marker is retained'})
+    try:
+        metadata=[]
+        for row in inputs['rows']:
+            emit({'event':'metadata_clip_start','n':len(metadata)+1})
+            try:
+                meta=clip_metadata(row,config,landmark_dir,raw_dir)
+                meta['metadata_status']='available'
+            except ValueError as exc:
+                if not incomplete_sources or str(exc)!='SOURCE_NOT_RESIDENT':
+                    raise
+                meta={'clip':row['clip'],'partition':'validation','original_index':row['index'],
+                      'dense_label':row['class_id'],'source_class_id':inputs['label_map'][str(row['class_id'])]['id'],
+                      'metadata_status':'unavailable','metadata_error':'SOURCE_NOT_RESIDENT'}
+            metadata.append(meta)
+            emit({'event':'metadata_clip_complete','n':len(metadata)})
+        campaign={'schema':1,'status':'frozen_before_predictions','captured_at':datetime.datetime.now().astimezone().isoformat(),
+                  'provenance_notice':'CURRENT hashes captured now; not retroactive preregistration',
+                  'inputs':config,'clips':metadata,'environment':environment(),
+                  'source_metadata_policy':'explicit incomplete-source salvage' if incomplete_sources else 'require all metadata',
+                  'outputs_planned':['clips.jsonl','summary.json','runtime.json','events.jsonl','manifest.json'],
+                  'limits':['validation reused; no unseen-test or signer-independent evidence',
+                            'fit augmentation bytes/shape/labels/log checked, not reconstructed',
+                            'NPZ detector metadata not anatomy truth; raw video hashes not detector rerun',
+                            'no numerical conversion promotion policy; no confidence/mastery tuning']}
+        write_json(target/'campaign.json',campaign)
+        emit({'event':'campaign_frozen','n':len(metadata)})
+        runner=predictor if predictor is not None else predict_frozen
+        try:
+            keras,candidate,runtime=runner(config,inputs,emit)
+        except Exception:
+            raise ValueError('INFERENCE_FAILED') from None
+        summary=summarize(keras,candidate,inputs['y'],config['class_count'])
+        unavailable=sum(meta['metadata_status']=='unavailable' for meta in metadata)
+        summary['source_metadata_unavailable']=unavailable
+        summary['promotion_status']='diagnostic_not_approved_for_promotion'
+        if unavailable:
+            summary['status']='INCOMPLETE_SOURCE_METADATA'
+        for model in ('keras','candidate'):
+            for entry in summary[model]['per_class']:
+                entry['label']=inputs['label_map'][str(entry['dense_label'])]['label']
+                entry['source_class_id']=inputs['label_map'][str(entry['dense_label'])]['id']
+        records=[]
+        for i,meta in enumerate(metadata):
+            sample=np.asarray(inputs['X'][i])
+            record={**meta,'source_array_sha256':config['sha256']['original_X'],
+                    'validation_array_sha256':config['sha256']['val_X'],
+                    'validation_label_sha256':config['sha256']['val_y'],
+                    'sample_array_sha256':hashlib.sha256(np.ascontiguousarray(sample).tobytes()).hexdigest(),
+                    'sample_max_absolute_normalized_feature':float(np.max(np.abs(sample.astype(np.float64)))),
+                    'checkpoint_sha256':config['sha256']['checkpoint'],'candidate_sha256':config['sha256']['candidate']}
+            for name,probabilities in [('keras',keras),('candidate',candidate)]:
+                values=probabilities[i].astype(np.float64)
+                order=np.argsort(-values,kind='stable')
+                record[name]={'probabilities':values.tolist(),'top1':int(order[0]),'confidence':float(values[order[0]]),
+                              'margin':float(values[order[0]]-values[order[1]]),
+                              'top_k':[{'dense_label':int(k),'label':inputs['label_map'][str(k)]['label'],
+                                        'probability':float(values[k])} for k in order[:min(5,len(order))]]}
+            record['disagreement']=record['keras']['top1']!=record['candidate']['top1']
+            record['max_absolute_probability_error']=float(np.abs(keras[i].astype(np.float64)-candidate[i].astype(np.float64)).max())
+            record['confidence_delta_candidate_minus_keras']=record['candidate']['confidence']-record['keras']['confidence']
+            record['margin_delta_candidate_minus_keras']=record['candidate']['margin']-record['keras']['margin']
+            records.append(record)
+        summary['highlighted']={name:[{'clip':r['clip'],'dense_label':r['dense_label'],
+                                      'keras_top1':r['keras']['top1'],'candidate_top1':r['candidate']['top1'],
+                                      'sampled_presence':r.get('sampled_presence'),'torso_scale_raw_sampled':r.get('torso_scale_raw_sampled'),
+                                      'sequence_frames':r.get('sequence_frames'),'max_absolute_probability_error':r['max_absolute_probability_error']}
+                                     for r in records if inputs['label_map'][str(r['dense_label'])]['label']==name]
+                                for name in ('FIVE','THREE')}
+        summary['hypotheses']=['Missing detector blocks and small torso scale may affect features; no causality or anatomy inference.',
+                               'Uniform sampling of stored full-video detector output differs from rerunning a detector on sparse frames.',
+                               'Top1 agreement is not confidence/margin equivalence; promotion policy absent.']
+        write_bytes(target/'clips.jsonl',(''.join(json.dumps(r,sort_keys=True,allow_nan=False)+'\n' for r in records)).encode())
+        write_json(target/'summary.json',summary)
+        write_json(target/'runtime.json',runtime)
+        # Recheck declared inputs and raw/NPZ identities after inference, not just before.
+        validate_inputs(config)
+        for meta in metadata:
+            if meta['metadata_status']=='unavailable':
+                continue
+            for key in ('npz','video'):
+                if sha256(safe_path(meta[key+'_path'])) != meta[key+'_sha256']:
+                    raise ValueError('SOURCE_CHANGED')
+        parsed=[strict_json_line(line) for line in (target/'clips.jsonl').read_text().splitlines()]
+        if [r['clip'] for r in parsed] != config['ordered_clips'] or len(parsed)!=config['validation_count']:
+            raise ValueError('OUTPUT_MISMATCH')
+        recomputed=summarize(np.array([r['keras']['probabilities'] for r in parsed]),
+                             np.array([r['candidate']['probabilities'] for r in parsed]),
+                             np.array([r['dense_label'] for r in parsed]),config['class_count'])
+        if any(recomputed[k]['correct']!=summary[k]['correct'] for k in ('keras','candidate')):
+            raise ValueError('OUTPUT_MISMATCH')
+        emit({'event':'outputs_verified','n':len(records)})
+        outputs={path.name:sha256(path) for path in target.iterdir() if path.is_file()}
+        completion={'schema':1,'status':summary['status'],'n':len(records),'source_metadata_unavailable':unavailable,
+                    'outputs':outputs,'campaign_sha256':outputs['campaign.json'],
+                    'input_sha256':config['sha256'],'deployed':False,'training_performed':False,
+                    'test_rows_loaded':False,'candidate_converted':False}
+        completion_name='INCOMPLETE-manifest.json' if unavailable else 'manifest.json'
+        write_json(target/completion_name,completion)
+        return summary
+    except BaseException as exc:
+        codes={'INVALID_INPUTS','INVALID_CLIP_METADATA','INVALID_PROBABILITIES','INVALID_LABELS',
+               'INFERENCE_FAILED','SOURCE_CHANGED','OUTPUT_MISMATCH','INVALID_OUTPUT','SOURCE_NOT_RESIDENT'}
+        code=str(exc) if type(exc) is ValueError and str(exc) in codes else 'CAMPAIGN_INTERRUPTED_OR_FAILED'
+        if not (target/'failure.json').exists():
+            write_json(target/'failure.json',{'schema':1,'status':'INCOMPLETE','error':code})
+        raise ValueError(code) from None
+
+
+def strict_json_line(text):
+    # Generated records are parsed strictly and checked for finite representations.
+    result=json.loads(text,parse_constant=lambda _: (_ for _ in ()).throw(ValueError('OUTPUT_MISMATCH')))
+    json.dumps(result,allow_nan=False)
+    return result
+
+
+def write_bytes(path,content):
+    path=safe_path(str(path))
+    fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+    with os.fdopen(fd,'wb') as stream:
+        stream.write(content); stream.flush(); os.fsync(stream.fileno())
+    if path.read_bytes()!=content:
+        raise ValueError('OUTPUT_MISMATCH')
+
+
+def write_json(path,value):
+    write_bytes(path,(json.dumps(value,sort_keys=True,indent=2,allow_nan=False)+'\n').encode())
+
+
+def environment():
+    versions={}
+    for package in ('tensorflow','keras','numpy','scikit-learn'):
+        try: versions[package]=importlib.metadata.version(package)
+        except importlib.metadata.PackageNotFoundError: versions[package]=None
+    return {'python':sys.version,'executable':sys.executable,'platform':platform.platform(),
+            'packages':versions,'argv':sys.argv,'python_ignore_environment':bool(sys.flags.ignore_environment),
+            'python_dont_write_bytecode':bool(sys.dont_write_bytecode)}
+
+
+def summarize(keras, candidate, labels, classes):
+    if (not isinstance(labels,np.ndarray) or labels.ndim != 1 or labels.dtype.kind not in 'iu'
+            or len(labels) == 0 or (labels < 0).any() or (labels >= classes).any()):
+        raise ValueError('INVALID_LABELS')
+    validate_probabilities(keras,len(labels),classes)
+    validate_probabilities(candidate,len(labels),classes)
+    def metrics(probabilities):
+        predicted=probabilities.argmax(axis=1)
+        matrix=np.zeros((classes,classes),dtype=np.int64)
+        np.add.at(matrix,(labels,predicted),1)
+        per_class=[]
+        for i in range(classes):
+            tp=int(matrix[i,i]); support=int(matrix[i].sum()); predicted_n=int(matrix[:,i].sum())
+            precision=tp/predicted_n if predicted_n else 0.0
+            recall=tp/support if support else 0.0
+            f1=2*tp/(support+predicted_n) if support+predicted_n else 0.0
+            per_class.append({'dense_label':i,'correct':tp,'support':support,'predicted':predicted_n,
+                              'precision':precision,'recall':recall,'f1':f1})
+        correct=int(np.trace(matrix)); n=len(labels)
+        result={'correct':correct,'n':n,'accuracy':correct/n,
+                'macro_f1':sum(v['f1'] for v in per_class)/classes,
+                'per_class':per_class,'confusion':matrix.tolist()}
+        validate_metrics({'accuracy':result['accuracy'],'macro_f1':result['macro_f1'],'class_count':classes},classes)
+        return result
+    a,b=keras.astype(np.float64),candidate.astype(np.float64)
+    delta=b-a
+    top_a,top_b=a.argmax(axis=1),b.argmax(axis=1)
+    conf_a,conf_b=a.max(axis=1),b.max(axis=1)
+    sorted_a,sorted_b=np.sort(a,axis=1),np.sort(b,axis=1)
+    margins_a=sorted_a[:,-1]-sorted_a[:,-2]; margins_b=sorted_b[:,-1]-sorted_b[:,-2]
+    result={'schema':1,'status':'diagnostic_not_approved_for_promotion',
+            'keras':metrics(a),'candidate':metrics(b),
+            'drift':{'top1_disagreements':int(np.count_nonzero(top_a!=top_b)),
+                     'n':len(labels),'max_absolute_probability_error':float(np.abs(delta).max()),
+                     'mean_absolute_probability_error':float(np.abs(delta).mean()),
+                     'mean_confidence_delta_candidate_minus_keras':float((conf_b-conf_a).mean()),
+                     'max_absolute_confidence_difference':float(np.abs(conf_b-conf_a).max()),
+                     'mean_margin_delta_candidate_minus_keras':float((margins_b-margins_a).mean()),
+                     'max_absolute_margin_difference':float(np.abs(margins_b-margins_a).max())}}
+    json.dumps(result,allow_nan=False)
+    return result
+
+
+def validate_probabilities(values, rows, classes):
+    if (not isinstance(values, np.ndarray) or values.dtype.kind != 'f'
+            or values.shape != (rows, classes) or not np.isfinite(values).all()
+            or (values < 0).any() or (values > 1).any()
+            or not np.allclose(values.sum(axis=1, dtype=np.float64), 1, rtol=0, atol=1e-5)):
+        raise ValueError('INVALID_PROBABILITIES')
+    # 1e-5 is only a softmax representation sanity check, NOT promotion tolerance.
+
+
+
+def validate_metrics(metrics, class_count):
+    if (type(metrics) is not dict or set(metrics) != {'accuracy', 'macro_f1', 'class_count'}
+            or type(class_count) is not int or class_count <= 1
+            or type(metrics.get('class_count')) is not int
+            or metrics['class_count'] != class_count):
+        raise ValueError('INVALID_METRICS')
+    for key in ('accuracy', 'macro_f1'):
+        value = metrics[key]
+        if type(value) not in (float, int) or not 0 <= value <= 1 or not math.isfinite(value):
+            raise ValueError('INVALID_METRICS')
+
+
+def main(argv=None):
+    parser=argparse.ArgumentParser(description=__doc__)
+    for name in ('config','config-sha256','output-root','output','landmark-dir','raw-dir'):
+        parser.add_argument('--'+name,required=True)
+    parser.add_argument('--incomplete-source-diagnostics',action='store_true',help='retain actual predictions but no success manifest when source metadata is nonresident')
+    args=parser.parse_args(argv)
+    try:
+        try:
+            path=safe_path(args.config)
+            if not re.fullmatch('[a-f0-9]{64}',args.config_sha256) or sha256(path)!=args.config_sha256:
+                raise ValueError()
+            config=strict_json(path)
+            validate_inputs(config)
+        except Exception:
+            raise ValueError('INVALID_CONFIG') from None
+        repo=Path(__file__).resolve().parents[2]
+        if safe_path(args.output_root).is_relative_to(repo):
+            raise ValueError('INVALID_OUTPUT')
+        runner=run_incomplete_campaign if args.incomplete_source_diagnostics else run_campaign
+        result=runner(config,args.output_root,args.output,args.landmark_dir,args.raw_dir)
+        incomplete=result['status']=='INCOMPLETE_SOURCE_METADATA'
+        manifest_name='INCOMPLETE-manifest.json' if incomplete else 'manifest.json'
+        print(json.dumps({'status':result['status'],'n':result['keras']['n'],
+                          'keras_correct':result['keras']['correct'],'candidate_correct':result['candidate']['correct'],
+                          'manifest_sha256':sha256(Path(args.output)/manifest_name)},allow_nan=False))
+        return 3 if incomplete else 0
+    except Exception as exc:
+        allowed={'INVALID_CONFIG','INVALID_OUTPUT','INVALID_INPUTS','INVALID_CLIP_METADATA','INFERENCE_FAILED',
+                 'INVALID_PROBABILITIES','INVALID_LABELS','SOURCE_CHANGED','OUTPUT_MISMATCH','CAMPAIGN_INTERRUPTED_OR_FAILED','SOURCE_NOT_RESIDENT'}
+        code=str(exc) if type(exc) is ValueError and str(exc) in allowed else 'CAMPAIGN_INTERRUPTED_OR_FAILED'
+        print(json.dumps({'error':code,'status':'INCOMPLETE'},allow_nan=False))
+        return 2
+
+
+if __name__=='__main__':
+    sys.exit(main())

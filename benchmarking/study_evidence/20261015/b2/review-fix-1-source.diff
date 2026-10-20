@@ -1,0 +1,164 @@
+--- before/training/models/validation_campaign.py
++++ after/training/models/validation_campaign.py
+@@ -74,6 +74,12 @@
+             if p[role] != protocol/name or protocol.parent != seq:
+                 raise ValueError()
+         manifest = strict_json(p['manifest'])
++        # Python dictionary equality alone accepts float/bool count aliases.
++        if (any(type(manifest[field]) is not int for field in ('n_fit_original','n_validation'))
++                or type(manifest['class_counts']) is not dict
++                or any(type(counts) is not dict or any(type(value) is not int for value in counts.values())
++                       for counts in manifest['class_counts'].values())):
++            raise ValueError()
+         for row in manifest['rows']:
+             if (type(row) is not dict or set(row) != {'index','clip','class_id','partition'}
+                     or type(row['index']) is not int or type(row['class_id']) is not int
+@@ -81,6 +87,10 @@
+                     or type(row['clip']) is not str or not re.fullmatch(r'clips_[0-9]+_[0-9]+\.npz',row['clip'])):
+                 raise ValueError()
+         freeze = strict_json(p['freeze'])
++        # Identity/policy schema only: retain historical prose, not a new policy.
++        if any(type(freeze[field]) is not str or not freeze[field].strip()
++               for field in ('run_id','selection_method','test_status')):
++            raise ValueError()
+         if safe_path(freeze['checkpoint']) != p['checkpoint']:
+             raise ValueError()
+         validate_metrics({'accuracy':freeze['best_val_accuracy'],'macro_f1':freeze['best_val_macro_f1'],
+--- before/training/tests/test_validation_campaign.py
++++ after/training/tests/test_validation_campaign.py
+@@ -26,20 +26,21 @@
+                 api('validate_metrics')({'accuracy':0.96,'macro_f1':0.9,'class_count':count},50)
+ 
+ class InputTests(unittest.TestCase):
+-    def setUp(self):
++    def setUp(self, originals_per_class=4):
+         import tempfile, json, numpy as np
+         from evaluation_protocol import build_protocol, sha256
+         self.tmp = tempfile.TemporaryDirectory()
+         self.addCleanup(self.tmp.cleanup)
+         root = Path(self.tmp.name); seq = root/'sequences'; seq.mkdir()
+         self.seq = seq; self.protocol = seq/'evaluation-v1'
+-        np.save(seq/'X_train.npy', np.arange(8*30*1662,dtype=np.float32).reshape(8,30,1662)/100000)
+-        np.save(seq/'y_train.npy', np.array([0]*4+[1]*4))
+-        (seq/'clips_train.json').write_text(json.dumps([f'clips_{i//4}_{i%4}.npz' for i in range(8)]))
++        count = 2*originals_per_class
++        np.save(seq/'X_train.npy', np.arange(count*30*1662,dtype=np.float32).reshape(count,30,1662)/100000)
++        np.save(seq/'y_train.npy', np.array([0]*originals_per_class+[1]*originals_per_class))
++        (seq/'clips_train.json').write_text(json.dumps([f'clips_{i//originals_per_class}_{i%originals_per_class}.npz' for i in range(count)]))
+         (seq/'clips_test.json').write_text(json.dumps(['clips_0_99.npz']))
+         (seq/'label_map.json').write_text(json.dumps({str(i):{'id':i,'label':str(i),'category':'TEST'} for i in range(2)}))
+         (root/'labels.csv').write_text('id,label,category\n0,0,TEST\n1,1,TEST\n')
+-        (root/'train.csv').write_text('vid_path,id_label,label,category\n'+''.join(f'clips/{i//4}/{i%4}.MOV,{i//4},{i//4},TEST\n' for i in range(8)))
++        (root/'train.csv').write_text('vid_path,id_label,label,category\n'+''.join(f'clips/{i//originals_per_class}/{i%originals_per_class}.MOV,{i//originals_per_class},{i//originals_per_class},TEST\n' for i in range(count)))
+         build_protocol(seq,self.protocol,factor=1)
+         for name in ['checkpoint.keras','candidate.tflite']: (root/name).write_bytes(b'synthetic-not-a-model')
+         manifest = json.loads((self.protocol/'manifest.json').read_text())
+@@ -56,6 +57,108 @@
+         paths.update({role:str(root/name) for role,name in [('checkpoint','checkpoint.keras'),('freeze','selection.json'),('candidate','candidate.tflite'),('provenance','provenance.json'),('source_labels','labels.csv'),('source_train_csv','train.csv')]})
+         self.config = {'schema':1,'class_count':2,'validation_count':4,'paths':paths,'sha256':{k:sha256(Path(v)) for k,v in paths.items()},
+                        'ordered_clips':[r['clip'] for r in manifest['rows'] if r['partition']=='validation']}
++
++    def _rebound_metadata(self, role, change):
++        """Temporarily edit synthetic JSON and rebind the complete digest graph."""
++        import copy, json
++        from contextlib import contextmanager
++        from evaluation_protocol import sha256
++        @contextmanager
++        def edited():
++            saved = {k:Path(self.config['paths'][k]).read_bytes()
++                     for k in ('manifest','freeze','provenance')}
++            hashes = copy.deepcopy(self.config['sha256'])
++            def write(key, value):
++                path = Path(self.config['paths'][key])
++                path.write_text(json.dumps(value, allow_nan=False))
++                self.config['sha256'][key] = sha256(path)
++            try:
++                value = json.loads(saved[role]); change(value); write(role, value)
++                freeze = json.loads(Path(self.config['paths']['freeze']).read_text())
++                freeze['protocol_sha256'] = self.config['sha256']['manifest']
++                write('freeze', freeze)
++                provenance = json.loads(saved['provenance'])
++                provenance.update(run_id=freeze['run_id'],
++                                  protocol_sha256=self.config['sha256']['manifest'],
++                                  selection_sha256=self.config['sha256']['freeze'])
++                write('provenance', provenance)
++                yield
++            finally:
++                for key, content in saved.items():
++                    Path(self.config['paths'][key]).write_bytes(content)
++                self.config['sha256'] = hashes
++        return edited()
++
++    def _assert_cli_schema_rejection(self):
++        import io, json, uuid
++        from contextlib import redirect_stdout
++        from unittest.mock import patch
++        from evaluation_protocol import sha256
++        root = Path(self.tmp.name); path = root/'cli-config.json'
++        path.write_text(json.dumps(self.config, allow_nan=False))
++        for incomplete in (False, True):
++            output = root/('rejected-'+uuid.uuid4().hex)
++            args = ['--config',str(path),'--config-sha256',sha256(path),
++                    '--output-root',str(root),'--output',str(output),
++                    '--landmark-dir',str(root/'unused-npz'),'--raw-dir',str(root/'unused-video')]
++            if incomplete:
++                args.append('--incomplete-source-diagnostics')
++            stream = io.StringIO()
++            with patch('validation_campaign.clip_metadata', side_effect=ValueError('INVALID_CLIP_METADATA')) as metadata, \
++                    patch('validation_campaign.predict_frozen') as prediction, redirect_stdout(stream):
++                code = api('main')(args)
++            self.assertEqual(code, 2)
++            self.assertEqual(json.loads(stream.getvalue()), {'error':'INVALID_CONFIG','status':'INCOMPLETE'})
++            metadata.assert_not_called(); prediction.assert_not_called()
++            self.assertFalse(output.exists())
++
++    def test_selection_identity_policy_types_rejected_with_rebound_hashes(self):
++        self.assertIsInstance(api('validate_inputs')(self.config), dict)
++        for field in ('run_id','selection_method','test_status'):
++            for value in ({'unexpected':'object'}, ['validation'], True, 1, 1.0, None, '', '   '):
++                with self._rebound_metadata('freeze', lambda j:j.update({field:value})):
++                    with self.subTest(boundary='validate_inputs',field=field,value=value):
++                        with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
++                            api('validate_inputs')(self.config)
++                    with self.subTest(boundary='CLI',field=field,value=value):
++                        self._assert_cli_schema_rejection()
++        # Existing historical prose and non-UUID run identity remain supported.
++        historical = {'run_id':'20260930_153819_protocol_v1_no_face_baseline',
++                      'selection_method':'highest validation accuracy; macro-F1 then run ID tie break',
++                      'test_status':'exploratory: existing FSL-105 test was consulted by historical runs'}
++        with self._rebound_metadata('freeze', lambda j:j.update(historical)):
++            self.assertEqual(api('validate_inputs')(self.config)['freeze']['run_id'], historical['run_id'])
++        self.assertIsInstance(api('validate_inputs')(self.config), dict)
++
++    def test_protocol_counts_require_exact_integers_with_rebound_hashes(self):
++        import json
++        # Three originals/class gives a genuine count of1: True==1 must not pass.
++        fixture = InputTests(); fixture.setUp(originals_per_class=3)
++        self.addCleanup(fixture.doCleanups)
++        self.assertIsInstance(api('validate_inputs')(fixture.config), dict)
++        manifest = json.loads(Path(fixture.config['paths']['manifest']).read_text())
++        paths = [('n_fit_original',), ('n_validation',)]
++        paths += [('class_counts',cid,partition) for cid,counts in manifest['class_counts'].items()
++                  for partition in counts]
++        for keys in paths:
++            parent = manifest
++            for key in keys[:-1]:
++                parent = parent[key]
++            original = parent[keys[-1]]
++            for value in (float(original), True, False, str(original), None, {}, [], -1, original+1):
++                def change(value_json):
++                    target = value_json
++                    for key in keys[:-1]:
++                        target = target[key]
++                    target[keys[-1]] = value
++                with fixture._rebound_metadata('manifest', change):
++                    with self.subTest(boundary='validate_inputs',keys=keys,value=value):
++                        with self.assertRaisesRegex(ValueError, '^INVALID_INPUTS$'):
++                            api('validate_inputs')(fixture.config)
++                    with self.subTest(boundary='CLI',keys=keys,value=value):
++                        fixture._assert_cli_schema_rejection()
++        # Restored exact integers retain original reconstruction/numeric semantics.
++        self.assertIsInstance(api('validate_inputs')(fixture.config), dict)
+ 
+     def test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound(self):
+         import numpy as np

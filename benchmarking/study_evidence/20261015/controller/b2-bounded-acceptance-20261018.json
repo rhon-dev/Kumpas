@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-18T00:18:39.098569+08:00",
+  "decision": "ACCEPT_BOUNDED_B2_TOOLING_AND_RETAIN_INCOMPLETE_DIAGNOSTICS_ONLY",
+  "source_hashes": {
+    "training/models/validation_campaign.py": "8e28d5ad110b76881e65d75e1e851ecb71fa2a6e21e232bc2d0a7fe8cea22998",
+    "training/tests/test_validation_campaign.py": "5d9f2e13f0896b36940fdd81384ee6db9c2708417edcfce5e8064eefe019fe46"
+  },
+  "review": "b2-review-2.md",
+  "review_sha256": "8ebfbaded2e293685074d00f068551a78c5ba421d46c3f6bec4dba9758b3c66e",
+  "closed_findings": [
+    "B2-R1",
+    "B2-R2"
+  ],
+  "parent_execution": "29training tests zero failures/errors/skips",
+  "reviewer_execution": "13focused tests zero failures/errors/skips; extra approval-timed-out probe excluded",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "full_source_provenance": "BLOCKED134missing metadata records",
+  "historical_diagnostics": "150records/model,144correcteach; originalv3source identity retained,no new inference or retroactive rebinding",
+  "limits": "No promotion/finaltest/signer/anatomy/runtime/physical/study acceptance",
+  "next": "C1 release artifact verification automation; no devices/installations"
+}

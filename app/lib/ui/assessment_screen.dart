@@ -38,8 +38,7 @@ class _AssessmentScreenState extends State<AssessmentScreen> {
 
   bool get _postFormComplete =>
       _preFormComplete &&
-      _susResponses.every((r) => r != 0) &&
-      _openFeedback.isNotEmpty;
+      _susResponses.every((r) => r != 0);
 
   bool get _formComplete =>
       widget.isPost ? _postFormComplete : _preFormComplete;

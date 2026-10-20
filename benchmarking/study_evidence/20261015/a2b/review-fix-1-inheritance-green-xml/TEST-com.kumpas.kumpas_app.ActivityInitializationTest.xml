@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.ActivityInitializationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-15T20:12:55.943Z" hostname="Ahrons-MacBook-Pro.local" time="3.718">
+  <properties/>
+  <testcase name="successfulReplacementCannotInheritDisplacedSubscriberBeforeNewListen" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="3.718"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

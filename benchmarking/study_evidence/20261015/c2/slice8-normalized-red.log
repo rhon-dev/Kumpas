@@ -1,0 +1,14 @@
+test_existing_engine_normalized_ranges_not_human_scores (evaluation.test_legacy_export.LegacyTests.test_existing_engine_normalized_ranges_not_human_scores) ... FAIL
+
+======================================================================
+FAIL: test_existing_engine_normalized_ranges_not_human_scores (evaluation.test_legacy_export.LegacyTests.test_existing_engine_normalized_ranges_not_human_scores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 135, in test_existing_engine_normalized_ranges_not_human_scores
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

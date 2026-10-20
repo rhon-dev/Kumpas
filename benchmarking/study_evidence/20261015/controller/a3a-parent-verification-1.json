@@ -1,0 +1,34 @@
+{
+  "source_hashes": {
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt": "50dab3cd90cedd2f41d5bcbc0d9fa26da607f0e8c6716f9e7ad47632000d0588",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt": "6d68f2b96ad154af94ad8eb05cb99c990ead3b4c6e1da92b8fb6aa45194c6431",
+    "app/android/app/build.gradle.kts": "f2f5136694dc3ddabcf5b0f45907f3bc53cdca811a53be6a23107dc2811e0ea9",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostArtifactRun.kt": "55f9e6fae1b2dd326176ddbb35b0068a03d45628b66137bfdbdd00618ab96e05",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFixture.kt": "821b3dc5c018d03cae274a0ce2404fcc8bb6938e7427cf36d36756391cf294d7",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyFlowTest.kt": "a78b0d37efd5e9bcee0817536e529963d42288a293ae181e558f98ffaabcf8aa",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/HostStudyProducer.kt": "7a27f1430b49996142303dc25381ca9e1fd5661885c6d8824ec13e4f55fb4ab3"
+  },
+  "jvm": {
+    "tests": 170,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "explicit_producer_tests": 5,
+  "forced_instrumentation_compile": true,
+  "manifest": "benchmarking/study_evidence/20261015/a3a/handoff-parent-1/323291af-c067-46dc-bae1-067d62fab10b/manifest.json",
+  "manifest_sha256": "3279cb7d01075a9192f2566ae5573dd6137a23c6710ef1d0a590b78564fe0fed",
+  "run_id": "323291af-c067-46dc-bae1-067d62fab10b",
+  "artifacts": 11,
+  "artifact_hashes_verified": true,
+  "native_sources_verified": 42,
+  "control_calls": 25,
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "A2a_all8_match": true,
+  "logs": [
+    "a3a/parent-explicit-1.log",
+    "a3a/parent-full-1.log"
+  ],
+  "review": "pending"
+}

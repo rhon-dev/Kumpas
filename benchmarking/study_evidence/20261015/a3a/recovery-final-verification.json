@@ -1,0 +1,221 @@
+{
+  "at": "2026-10-16T10:26:31.772355+08:00",
+  "status": "DONE_WITH_CONCERNS",
+  "manifest": "benchmarking/study_evidence/20261015/a3a/handoff-final3-20261016/22ebc4d3-32ee-4bf1-bb54-3708ede613d2/manifest.json",
+  "fixture_root": "benchmarking/study_evidence/20261015/a3a/handoff-final3-20261016/22ebc4d3-32ee-4bf1-bb54-3708ede613d2",
+  "manifest_sha256": "4bfa51cf5e4c67b304ef86c869326d2d0dd633337e6c3af6cb2a8cf128725c69",
+  "test_schema_version": 1,
+  "run_id": "22ebc4d3-32ee-4bf1-bb54-3708ede613d2",
+  "artifact_count": 11,
+  "artifacts": [
+    {
+      "path": "attempt-event.json",
+      "sha256": "1d7204638614d62243f42deb7bb7242e93c9cc8c6b511540dbc92a1983c10814",
+      "bytes": 759,
+      "kind": "event",
+      "identity": "study"
+    },
+    {
+      "path": "external-export.json",
+      "sha256": "1f79ac199783dd2086cbcd190df6580a1e0785029a97d9be06d7cfe2234dcff1",
+      "bytes": 1637,
+      "kind": "export",
+      "identity": "study"
+    },
+    {
+      "path": "internal-export.json",
+      "sha256": "1f79ac199783dd2086cbcd190df6580a1e0785029a97d9be06d7cfe2234dcff1",
+      "bytes": 1637,
+      "kind": "export",
+      "identity": "study"
+    },
+    {
+      "path": "reopened-export.json",
+      "sha256": "cd07445eabd827dba3c3f96c249d14afb4112959e194d5c9b30791603dcb9d6a",
+      "bytes": 371,
+      "kind": "export",
+      "identity": "study"
+    },
+    {
+      "path": "study.json",
+      "sha256": "ce0b408d470847b0732ed69035d82316c28ef74af7e5c191bf49805165f6983e",
+      "bytes": 22002,
+      "kind": "study",
+      "identity": "study"
+    },
+    {
+      "path": "confirmed-report.json",
+      "sha256": "47cad5e946d383a32a3cbb102c9250378486c1ae0f1a1853ff225b8b506fa593",
+      "bytes": 5883,
+      "kind": "benchmark_report",
+      "identity": "confirmed"
+    },
+    {
+      "path": "confirmed-control.json",
+      "sha256": "35e66c23a082a7284e33b73a27db2dc4852dd3ce960734e1c33c1b8a267667d5",
+      "bytes": 89,
+      "kind": "benchmark_control",
+      "identity": "confirmed"
+    },
+    {
+      "path": "unconfirmed-report.json",
+      "sha256": "66b667c1f558013877f9e035e9d133cb39b2eae846fb3bc705656094b92ee96c",
+      "bytes": 5895,
+      "kind": "benchmark_report",
+      "identity": "unconfirmed"
+    },
+    {
+      "path": "unconfirmed-control.json",
+      "sha256": "0d0898056c52649f4badbb7cc9432d3724535ce7fb47af0d17f7a4933594d3f3",
+      "bytes": 91,
+      "kind": "benchmark_control",
+      "identity": "unconfirmed"
+    },
+    {
+      "path": "faulted-report.json",
+      "sha256": "feebb1cef21476d09b46b42765b35da679977ef22a337ab76ea222c5bc46e479",
+      "bytes": 5903,
+      "kind": "benchmark_report",
+      "identity": "faulted"
+    },
+    {
+      "path": "benchmark-index.json",
+      "sha256": "29472eca1972707e02d6369fcd8571941709591548cafd2145c9c7df30e51043",
+      "bytes": 2582,
+      "kind": "benchmark_index",
+      "identity": "study"
+    }
+  ],
+  "source_hash_count": 42,
+  "source_hashes_match_precompile_ledger_and_current": true,
+  "tests": {
+    "focused-handoff-3": {
+      "tests": 129,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "explicit-handoff-3": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "full-handoff-3": {
+      "tests": 170,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "fresh_jvm_and_instrumentation_compile_task_lines": true,
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "a2a_count": 8,
+  "a2a_mismatches": [],
+  "control_call_count": 25,
+  "actual_error_codes": [
+    {
+      "method": "saveAssessment",
+      "code": "CONTROL_FAILED"
+    },
+    {
+      "method": "exportData",
+      "code": "EXPORT_FAILED"
+    },
+    {
+      "method": "clearAllData",
+      "code": "CLEAR_FAILED"
+    }
+  ],
+  "benchmark_modes": [
+    {
+      "mode": "confirmed",
+      "run_id": "4dae40d8-e238-4c0a-8f13-7280b4364f75",
+      "report": "confirmed-report.json",
+      "control": "confirmed-control.json",
+      "control_observation": "native exact bytes",
+      "setup_input": {
+        "setup_id": "1b6794c2-51be-4611-86a8-1a50f227e8d4",
+        "condition": "optimal",
+        "lux": 400,
+        "background": "plain",
+        "distance_cm": 75,
+        "device_fingerprint": "robolectric",
+        "chip": "Snapdragon 680",
+        "ram_gb": 4,
+        "setup_verified": true,
+        "device_verified": true,
+        "front_camera_verified": true,
+        "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+        "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "thermal_state": "nominal"
+      },
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    },
+    {
+      "mode": "unconfirmed",
+      "run_id": "ce4bdd66-f129-4bf9-a330-3129fa9e2838",
+      "report": "unconfirmed-report.json",
+      "control": "unconfirmed-control.json",
+      "control_observation": "native exact bytes",
+      "setup_input": {
+        "setup_id": "d43ffb70-c4fc-4ac5-9fda-2d96fc2ffa1a",
+        "condition": "optimal",
+        "lux": 400,
+        "background": "plain",
+        "distance_cm": 75,
+        "device_fingerprint": "robolectric",
+        "chip": "Snapdragon 680",
+        "ram_gb": 4,
+        "setup_verified": true,
+        "device_verified": true,
+        "front_camera_verified": true,
+        "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+        "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "thermal_state": "nominal"
+      },
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    },
+    {
+      "mode": "faulted",
+      "run_id": "77885417-5d44-4458-998b-cb2bd99fa20a",
+      "report": "faulted-report.json",
+      "control": null,
+      "control_observation": "publication fault: companion path is nonempty directory, no companion bytes",
+      "setup_input": {
+        "setup_id": "1c5a58a3-5f01-43c6-b01d-53f91d82c490",
+        "condition": "optimal",
+        "lux": 400,
+        "background": "plain",
+        "distance_cm": 75,
+        "device_fingerprint": "robolectric",
+        "chip": "Snapdragon 680",
+        "ram_gb": 4,
+        "setup_verified": true,
+        "device_verified": true,
+        "front_camera_verified": true,
+        "apk_sha256": "616d63be05148f01566e3a2e7fcddc68ee211e522ebfdd8921fdb664d8a412a5",
+        "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "thermal_state": "nominal"
+      },
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    }
+  ],
+  "git_diff_check_exit": 0,
+  "failed_schema_run_had_no_success_manifest": true,
+  "limits": [
+    "Constructed terminal result and fake native resource handles; no inference or camera execution",
+    "Direct AttemptBoundary start/replacement, production MethodChannel callable for controls, no BinaryMessenger startup",
+    "Later Dart/collector consumers not implemented or executed in A3a",
+    "A2b C1 registration limits retained; parent independent review/verification pending",
+    "No installed E2E, hardware performance, human/study gate acceptance"
+  ],
+  "superseded_handoffs": [
+    "handoff-recovery-b1e92771-819c-4056-b4e3-e24406a60f86",
+    "handoff-final-20261016-1023"
+  ]
+}

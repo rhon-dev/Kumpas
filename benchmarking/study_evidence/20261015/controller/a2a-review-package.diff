@@ -1,0 +1,1698 @@
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt
+index bffcd9b..b45e7db 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt
+@@ -19,44 +19,51 @@ import java.util.UUID
+  * - Start/end practice sessions with auto-timeout on app background
+  * - Route attempt results into the SQLite database
+  * - Migrate legacy JSONL data on first use
+  *
+  * Session auto-close: when the app goes to background, a 60-second timer
+  * starts. If the app resumes before timeout, the session stays active.
+  * If the timer fires, the session is closed.
+  */
+-class SessionManager(private val context: Context) {
++class SessionManager(private val context: Context,
++    databaseFactory: (Context) -> SessionDatabase = ::SessionDatabase) {
+ 
+     companion object {
+         private const val TAG = "KumpasSession"
+         private const val PREFS_NAME = "kumpas_session_prefs"
+         private const val KEY_PARTICIPANT_ID = "participant_id"
+         private const val KEY_MIGRATED = "jsonl_migrated"
+         private const val AUTO_CLOSE_DELAY_MS = 60_000L
+     }
+ 
+-    private val db = SessionDatabase(context)
+     private val prefs: SharedPreferences =
+         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+     private val handler = Handler(Looper.getMainLooper())
++    // Factory transfers ownership of a fresh helper; never pass a borrowed one.
++    private val db = databaseFactory(context)
+ 
+     private var activeSessionId: String? = null
+     private var autoCloseRunnable: Runnable? = null
+     private var closed = false
+ 
+     @get:Synchronized
+     val participantId: String
+         get() = getOrCreateParticipantId()
+ 
+     init {
+-        ensureParticipant()
+-        migrateIfNeeded()
+-        // Recover any unclosed session from a crash
+-        activeSessionId = db.getActiveSession(participantId)
++        try {
++            ensureParticipant()
++            migrateIfNeeded()
++            // Recover any unclosed session from a crash
++            activeSessionId = db.getActiveSession(participantId)
++        } catch (error: Throwable) {
++            try { db.close() } catch (cleanup: Throwable) { error.addSuppressed(cleanup) }
++            throw error
++        }
+     }
+ 
+     // ─── Participant ────────────────────────────────────────────────
+ 
+     private fun getOrCreateParticipantId(): String {
+         var id = prefs.getString(KEY_PARTICIPANT_ID, null)
+         if (id == null) {
+             id = UUID.randomUUID().toString()
+@@ -112,16 +119,19 @@ class SessionManager(private val context: Context) {
+     fun getActiveSessionId(): String? = activeSessionId
+ 
+     /**
+      * Called when app goes to background. Starts the 60s auto-close timer.
+      */
+     @Synchronized
+     fun onPause() {
+         if (activeSessionId == null) return
++        // Keep the first background deadline; repeated pause notifications must
++        // neither orphan an older callback nor extend the 60-second timeout.
++        if (autoCloseRunnable != null) return
+         autoCloseRunnable = Runnable {
+             Log.i(TAG, "Auto-closing session after ${AUTO_CLOSE_DELAY_MS / 1000}s background")
+             endSession()
+         }
+         handler.postDelayed(autoCloseRunnable!!, AUTO_CLOSE_DELAY_MS)
+     }
+ 
+     /**
+
+
+diff --git a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt
+index 59f21b7..753140d 100644
+--- a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt
++++ b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt
+@@ -37,22 +37,26 @@ class SessionManagerTest {
+         private val opened = mutableListOf<android.database.sqlite.SQLiteDatabase>()
+ 
+         override fun openOrCreateDatabase(name: String, mode: Int, factory: android.database.sqlite.SQLiteDatabase.CursorFactory?): android.database.sqlite.SQLiteDatabase =
+             super.openOrCreateDatabase(name, mode, factory).also { opened.add(it) }
+ 
+         override fun openOrCreateDatabase(name: String, mode: Int, factory: android.database.sqlite.SQLiteDatabase.CursorFactory?, handler: android.database.DatabaseErrorHandler?): android.database.sqlite.SQLiteDatabase =
+             super.openOrCreateDatabase(name, mode, factory, handler).also { opened.add(it) }
+ 
++        fun snapshot() = opened.toList()
+         fun closeFixtureDatabases() {
+             opened.forEach { if (it.isOpen) it.close() }
+             opened.clear()
+         }
+     }
+ 
++    private val managers = mutableListOf<SessionManager>()
++    private fun newManager(ctx: Context, factory: (Context) -> SessionDatabase = ::SessionDatabase): SessionManager =
++        SessionManager(ctx, factory).also { managers.add(it) }
+     private lateinit var context: Context
+     private lateinit var manager: SessionManager
+ 
+     /**
+      * Independent handle on the same underlying SQLite file, used to assert
+      * on persisted rows without reaching into SessionManager's internals.
+      */
+     private lateinit var probe: SessionDatabase
+@@ -74,36 +78,61 @@ class SessionManagerTest {
+           "overallMatch": $match,
+           "items": []
+         }
+     """.trimIndent()
+ 
+     @Before
+     fun setUp() {
+         context = TrackingDatabaseContext(RuntimeEnvironment.getApplication())
+-        manager = SessionManager(context)
++        manager = newManager(context)
+         probe = SessionDatabase(context)
+     }
+ 
+     @After
+     fun tearDown() {
+-        probe.close()
+-        (context as TrackingDatabaseContext).closeFixtureDatabases()
++        completeCleanup(managers.asReversed().map { owned -> { owned.close() } } + listOf(
++            { probe.close() }, { (context as TrackingDatabaseContext).closeFixtureDatabases() }))
+     }
+ 
+     /** Wipe every table via an independent handle on the same SQLite file. */
+     private fun resetDatabase() {
+         val helper = SessionDatabase(context)
+         try {
+             helper.clearAll()
+         } finally {
+             helper.close()
+         }
+     }
+ 
++    @Test fun failedInitializationClosesOnlyItsOwnDatabaseOnParticipantAndMigrationFaults() {
++        val tracking = context as TrackingDatabaseContext
++        for (migration in listOf(false, true)) {
++            if (migration) {
++                context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().putBoolean("jsonl_migrated", false).commit()
++                File(context.filesDir, "attempt_history.jsonl").writeText(JSONObject(attemptJson()).toString())
++            } else resetDatabase()
++            val table = if (migration) "attempts" else "participants"
++            probe.writableDatabase.execSQL("CREATE TRIGGER constructor_fault BEFORE INSERT ON $table BEGIN SELECT RAISE(ABORT, 'synthetic'); END")
++            var owned: SessionDatabase? = null
++            var handle: android.database.sqlite.SQLiteDatabase? = null
++            try {
++                org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) {
++                    newManager(context) { ctx -> SessionDatabase(ctx).also { owned = it; handle = it.writableDatabase } }
++                }
++                assertNotNull(handle)
++                assertFalse("failed constructor leaked owned helper", handle!!.isOpen)
++            } finally { owned?.close() }
++            assertTrue("borrowed probe was closed", probe.writableDatabase.isOpen)
++            probe.writableDatabase.execSQL("DROP TRIGGER constructor_fault")
++            val retry = newManager(context)
++            retry.close()
++        }
++    }
++
+     @Test
+     fun ignoredSessionInsertFailsWithoutCachingIdentity() {
+         probe.writableDatabase.execSQL("CREATE TRIGGER ignore_session BEFORE INSERT ON sessions BEGIN SELECT RAISE(IGNORE); END")
+         org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { manager.startSession() }
+         assertNull(manager.getActiveSessionId())
+     }
+ 
+     @Test
+@@ -119,30 +148,30 @@ class SessionManagerTest {
+         org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { manager.saveAssessment("pre", "{}") }
+         assertEquals("[]", manager.getAssessments())
+     }
+ 
+     @Test
+     fun ignoredParticipantInsertMustNotSucceed() {
+         resetDatabase()
+         probe.writableDatabase.execSQL("CREATE TRIGGER ignore_participant BEFORE INSERT ON participants BEGIN SELECT RAISE(IGNORE); END")
+-        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { SessionManager(context) }
++        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { newManager(context) }
+     }
+ 
+     @Test
+     fun ignoredMigrationInsertRollsBackAndRetainsSourceForRetry() {
+         context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().putBoolean("jsonl_migrated", false).commit()
+         val source = File(context.filesDir, "attempt_history.jsonl").apply { writeText(JSONObject(attemptJson()).toString()) }
+         probe.writableDatabase.execSQL("CREATE TRIGGER ignore_migration BEFORE INSERT ON attempts BEGIN SELECT RAISE(IGNORE); END")
+-        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { SessionManager(context) }
++        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { newManager(context) }
+         assertTrue(source.exists())
+         assertFalse(context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).getBoolean("jsonl_migrated", false))
+         probe.readableDatabase.rawQuery("SELECT COUNT(*) FROM sessions", null).use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
+         probe.writableDatabase.execSQL("DROP TRIGGER ignore_migration")
+-        SessionManager(context)
++        newManager(context)
+         assertEquals(1, probe.getAttemptCount())
+     }
+ 
+     @Test
+     fun closeCancelsTimerAndClosesOwnedHelperEvenWhenSessionSummaryFails() {
+         manager.startSession()
+         manager.onPause()
+         val owned = SessionManager::class.java.getDeclaredField("db").apply { isAccessible = true }.get(manager) as SessionDatabase
+@@ -173,25 +202,25 @@ class SessionManagerTest {
+                 .matches(first)
+         )
+     }
+ 
+     @Test
+     fun participantId_persistsAcrossManagerInstances() {
+         val original = manager.participantId
+ 
+-        val reopened = SessionManager(context)
++        val reopened = newManager(context)
+ 
+         assertEquals(original, reopened.participantId)
+     }
+ 
+     @Test
+     fun init_registersParticipantRowExactlyOnce() {
+         // Constructing a second manager must not duplicate the participant
+-        SessionManager(context)
++        newManager(context)
+ 
+         val cursor = probe.readableDatabase.rawQuery(
+             "SELECT COUNT(*) FROM ${SessionDatabase.T_PARTICIPANTS}", null
+         )
+         cursor.use {
+             it.moveToFirst()
+             assertEquals(1, it.getInt(0))
+         }
+@@ -265,17 +294,17 @@ class SessionManagerTest {
+             assertFalse("first session should be closed", it.isNull(0))
+         }
+     }
+ 
+     @Test
+     fun sessionRecoversUnclosedSessionOnRestart() {
+         val sessionId = manager.startSession()
+         // Simulate a crash: no endSession() call, then a fresh manager
+-        val recovered = SessionManager(context)
++        val recovered = newManager(context)
+ 
+         assertEquals(
+             "an unclosed session should be picked back up",
+             sessionId,
+             recovered.getActiveSessionId()
+         )
+     }
+ 
+@@ -293,16 +322,60 @@ class SessionManagerTest {
+         Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(
+             java.time.Duration.ofSeconds(61)
+         )
+ 
+         assertNull("session should auto-close after 60s in background",
+             manager.getActiveSessionId())
+     }
+ 
++    @Test
++    fun repeatedPauseThenResumeCannotCloseForegroundOrReplacementSession() {
++        val original = manager.startSession()
++        manager.onPause()
++        manager.onPause()
++        manager.onResume()
++        Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofSeconds(60))
++        assertEquals("obsolete pause callback closed foreground session", original, manager.getActiveSessionId())
++        manager.onPause()
++        manager.onPause()
++        val replacement = manager.startSession()
++        Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofSeconds(60))
++        assertEquals("obsolete pause callback closed replacement", replacement, manager.getActiveSessionId())
++    }
++
++    @Test
++    fun repeatedPauseThenCloseRemovesEveryPendingCallback() {
++        manager.startSession()
++        manager.onPause()
++        val timerField = SessionManager::class.java.getDeclaredField("autoCloseRunnable").apply { isAccessible = true }
++        val obsolete = timerField.get(manager) as Runnable
++        manager.onPause()
++        manager.close()
++        val handlerField = SessionManager::class.java.getDeclaredField("handler").apply { isAccessible = true }
++        val handler = handlerField.get(manager) as android.os.Handler
++        assertFalse("close left an obsolete timer queued", handler.hasCallbacks(obsolete))
++        val looper = Shadows.shadowOf(android.os.Looper.getMainLooper())
++        looper.idleFor(java.time.Duration.ofSeconds(61))
++        assertNull(manager.getActiveSessionId())
++    }
++
++    @Test
++    fun pauseTimeoutKeepsSessionUntilExactlySixtySeconds() {
++        val session = manager.startSession()
++        manager.onPause()
++        val looper = Shadows.shadowOf(android.os.Looper.getMainLooper())
++        looper.idleFor(java.time.Duration.ofMillis(30_000))
++        manager.onPause() // duplicate notification must not extend the deadline
++        looper.idleFor(java.time.Duration.ofMillis(29_999))
++        assertEquals(session, manager.getActiveSessionId())
++        looper.idleFor(java.time.Duration.ofMillis(1))
++        assertNull(manager.getActiveSessionId())
++    }
++
+     @Test
+     fun onResume_cancelsPendingAutoClose() {
+         val sessionId = manager.startSession()
+ 
+         manager.onPause()
+         manager.onResume()
+ 
+         Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(
+@@ -423,17 +496,17 @@ class SessionManagerTest {
+         manager.clearAllData()
+         for (file in listOf(externalExport, internalExport, legacy, migrated)) {
+             assertFalse("managed residue: ${file.name}", file.exists())
+         }
+         assertEquals("keep", sentinel.readText())
+         assertEquals("keep", externalSentinel.readText())
+         assertEquals("[]", manager.historyJson())
+         manager.clearAllData()
+-        assertEquals("[]", SessionManager(context).historyJson())
++        assertEquals("[]", newManager(context).historyJson())
+     }
+ 
+     @Test
+     fun managerOperations_shareTheManagerMonitor() {
+         val operations = listOf<() -> Unit>(
+             { manager.recordAttempt(attemptJson()) }, { manager.startSession() },
+             { manager.endSession() }, { manager.saveAssessment("pre", "{}") },
+             { manager.clearAllData() }, { manager.onPause() }, { manager.onResume() },
+@@ -463,17 +536,17 @@ class SessionManagerTest {
+     }
+ 
+     @Test
+     fun clearAllData_unavailableExternalStorageFailsWithoutClaimingSuccess() {
+         val unavailable = object : android.content.ContextWrapper(context) {
+             override fun getExternalFilesDir(type: String?): File? = null
+         }
+         manager.recordAttempt(attemptJson())
+-        val failing = SessionManager(unavailable)
++        val failing = newManager(unavailable)
+         try {
+             failing.clearAllData()
+             org.junit.Assert.fail("unavailable storage must fail closed")
+         } catch (_: java.io.IOException) { }
+         assertEquals(1, probe.getAttemptCount())
+         manager.clearAllData()
+         assertEquals(0, probe.getAttemptCount())
+     }
+@@ -481,17 +554,17 @@ class SessionManagerTest {
+     @Test
+     fun clearAllData_cannotListExternalStorageFailsClosed() {
+         val unreadable = object : android.content.ContextWrapper(context) {
+             override fun getExternalFilesDir(type: String?): File = object : File(context.filesDir, "unreadable") {
+                 override fun listFiles(): Array<File>? = null
+             }
+         }
+         try {
+-            SessionManager(unreadable).clearAllData()
++            newManager(unreadable).clearAllData()
+             org.junit.Assert.fail("uninspectable storage must fail closed")
+         } catch (_: java.io.IOException) { }
+     }
+ 
+     @Test
+     fun clearAllData_failedDeletionPreservesUnrelatedDirectoryContentsAndCanRetry() {
+         val blocked = File(context.getExternalFilesDir(null), "kumpas_export_old_20260101.json")
+         assertTrue(blocked.mkdir())
+@@ -517,17 +590,17 @@ class SessionManagerTest {
+         try {
+             manager.clearAllData()
+             org.junit.Assert.fail("database failure must propagate")
+         } catch (_: android.database.sqlite.SQLiteException) { }
+         assertFalse(exported.exists())
+         assertEquals(1, probe.getAttemptCount())
+         probe.writableDatabase.execSQL("DROP TRIGGER refuse_clear")
+         manager.clearAllData()
+-        assertEquals("[]", SessionManager(context).historyJson())
++        assertEquals("[]", newManager(context).historyJson())
+     }
+ 
+     @Test
+     fun clearAllData_failedPreferenceCommitIsHonestAndRetryable() {
+         val real = context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE)
+         var refuseCommit = false
+         val wrappedPrefs = object : android.content.SharedPreferences by real {
+             override fun edit(): android.content.SharedPreferences.Editor {
+@@ -543,46 +616,46 @@ class SessionManagerTest {
+                     }
+                     override fun commit(): Boolean = if (refuseCommit) false else editor.commit()
+                 }
+             }
+         }
+         val wrapped = object : android.content.ContextWrapper(context) {
+             override fun getSharedPreferences(name: String?, mode: Int) = wrappedPrefs
+         }
+-        val failing = SessionManager(wrapped)
++        val failing = newManager(wrapped)
+         failing.recordAttempt(attemptJson())
+         refuseCommit = true
+         try {
+             failing.clearAllData()
+             org.junit.Assert.fail("commit failure must propagate")
+         } catch (_: java.io.IOException) { }
+         assertEquals(0, probe.getAttemptCount()) // filesystem/DB/prefs cannot be one atomic transaction
+         refuseCommit = false
+         failing.clearAllData()
+-        val reopened = SessionManager(context)
++        val reopened = newManager(context)
+         assertEquals(failing.participantId, reopened.participantId)
+         assertEquals("[]", reopened.historyJson())
+         assertTrue(real.getBoolean("jsonl_migrated", false))
+     }
+ 
+     @Test
+     fun clearAllData_removesRealMigrationAndPreventsReimportOnReopen() {
+         context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().clear().commit()
+         resetDatabase()
+         val legacy = File(context.filesDir, "attempt_history.jsonl").apply { writeText(JSONObject(attemptJson()).toString()) }
+-        val migrated = SessionManager(context)
++        val migrated = newManager(context)
+         assertEquals(1, probe.getAttemptCount())
+         val backup = File(context.filesDir, "attempt_history.jsonl.migrated")
+         assertTrue(backup.exists())
+         migrated.clearAllData()
+         assertFalse(backup.exists())
+         val newId = migrated.participantId
+         legacy.writeText(attemptJson()) // an old copy cannot bypass the completed marker
+-        val reopened = SessionManager(context)
++        val reopened = newManager(context)
+         assertEquals(newId, reopened.participantId)
+         assertEquals("[]", reopened.historyJson())
+         reopened.clearAllData()
+         assertFalse(legacy.exists())
+         probe.readableDatabase.rawQuery("SELECT COUNT(*) FROM participants", null).use {
+             assertTrue(it.moveToFirst())
+             assertEquals(1, it.getInt(0))
+         }
+@@ -611,17 +684,17 @@ class SessionManagerTest {
+             manager.clearAllData()
+             org.junit.Assert.fail("missing fresh participant must report incomplete cleanup")
+         } catch (_: android.database.sqlite.SQLiteException) { }
+         assertEquals(0, probe.getAttemptCount())
+         assertNull(probe.getParticipant())
+         probe.writableDatabase.execSQL("DROP TRIGGER refuse_identity")
+         manager.clearAllData()
+         assertEquals(manager.participantId, probe.getParticipant()!!.getString("id"))
+-        assertEquals(manager.participantId, SessionManager(context).participantId)
++        assertEquals(manager.participantId, newManager(context).participantId)
+     }
+ 
+     @Test
+     fun clearAllData_preservesNonExportNamesAndModelDataAcrossBothRoots() {
+         val roots = listOf(context.getExternalFilesDir(null)!!, File(context.filesDir, "exports").apply { mkdirs() })
+         val keep = mutableListOf<File>()
+         val remove = mutableListOf<File>()
+         for (root in roots) {
+@@ -693,17 +766,17 @@ class SessionManagerTest {
+             listOf(
+                 """{"targetClass":1,"targetLabel":"AKO","predictedLabel":"AKO","predictedConfidence":0.9,"recognizedAsTarget":true,"overallMatch":0.8,"items":[],"timestamp":$base}""",
+                 """{"targetClass":2,"targetLabel":"IKAW","predictedLabel":"AKO","predictedConfidence":0.5,"recognizedAsTarget":false,"overallMatch":0.4,"items":[],"timestamp":${base + 1000}}""",
+                 "",
+                 "{ not valid json",
+             ).joinToString("\n")
+         )
+ 
+-        val migrated = SessionManager(context)
++        val migrated = newManager(context)
+ 
+         // Both well-formed rows imported, malformed + blank lines skipped
+         val history = JSONArray(migrated.historyJson())
+         assertEquals(2, history.length())
+         assertEquals("IKAW", history.getJSONObject(0).getString("targetLabel"))
+         assertEquals("AKO", history.getJSONObject(1).getString("targetLabel"))
+ 
+         // Legacy session recorded with migration provenance and computed summary
+@@ -734,29 +807,29 @@ class SessionManagerTest {
+             .edit().clear().commit()
+         resetDatabase()
+ 
+         val jsonl = File(context.filesDir, "attempt_history.jsonl")
+         jsonl.writeText(
+             """{"targetClass":1,"targetLabel":"AKO","predictedLabel":"AKO","predictedConfidence":0.9,"recognizedAsTarget":true,"overallMatch":0.8,"items":[],"timestamp":${System.currentTimeMillis()}}"""
+         )
+ 
+-        val first = SessionManager(context)
++        val first = newManager(context)
+         assertEquals(1, JSONArray(first.historyJson()).length())
+ 
+         // A second manager must not re-import (file is gone and flag is set)
+-        val second = SessionManager(context)
++        val second = newManager(context)
+         assertEquals(1, JSONArray(second.historyJson()).length())
+     }
+ 
+     @Test
+     fun migration_withNoLegacyFileIsANoOp() {
+         context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE)
+             .edit().clear().commit()
+         resetDatabase()
+         File(context.filesDir, "attempt_history.jsonl").delete()
+ 
+-        val fresh = SessionManager(context)
++        val fresh = newManager(context)
+ 
+         assertEquals("[]", fresh.historyJson())
+         assertNull(fresh.getActiveSessionId())
+     }
+ }
+
+
+diff --git a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt
+index 13ac481..3851704 100644
+--- a/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt
++++ b/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt
+@@ -24,33 +24,48 @@ import java.io.File
+  * Pinned to SDK 34: Robolectric 4.12.1 ships no runtime for targetSdk 36.
+  *
+  * Phase 8, Task 16 (export verification).
+  */
+ @RunWith(RobolectricTestRunner::class)
+ @Config(sdk = [34])
+ class DataExporterTest {
+ 
++    private lateinit var fixtureRoot: File
+     private lateinit var context: Context
+     private lateinit var db: SessionDatabase
+     private lateinit var exporter: DataExporter
+ 
+     private val participantId = "11111111-2222-3333-4444-555555555555"
+ 
+     @Before
+     fun setUp() {
+-        context = RuntimeEnvironment.getApplication()
++        val app = RuntimeEnvironment.getApplication() as Context
++        fixtureRoot = java.nio.file.Files.createTempDirectory("kumpas-export-test-").toFile()
++        context = object : android.content.ContextWrapper(app) {
++            override fun getFilesDir(): File = File(fixtureRoot, "internal").apply { mkdirs() }
++            override fun getExternalFilesDir(type: String?): File = File(fixtureRoot, "external").apply { mkdirs() }
++            override fun getDatabasePath(name: String): File = File(fixtureRoot, name)
++            override fun openOrCreateDatabase(name: String, mode: Int,
++                factory: android.database.sqlite.SQLiteDatabase.CursorFactory?): android.database.sqlite.SQLiteDatabase =
++                super.openOrCreateDatabase(getDatabasePath(name).absolutePath, mode, factory)
++            override fun openOrCreateDatabase(name: String, mode: Int,
++                factory: android.database.sqlite.SQLiteDatabase.CursorFactory?,
++                handler: android.database.DatabaseErrorHandler?): android.database.sqlite.SQLiteDatabase =
++                super.openOrCreateDatabase(getDatabasePath(name).absolutePath, mode, factory, handler)
++        }
+         db = SessionDatabase(context)
+-        exporter = DataExporter(context)
++        exporter = DataExporter(context, ExportPublication()) { java.util.Date(0L) }
+         db.insertParticipant(participantId, "test-device", "1.0.0")
+     }
+ 
+     @After
+     fun tearDown() {
+         db.close()
++        fixtureRoot.deleteRecursively()
+     }
+ 
+     /** Export and parse the resulting file back into JSON. */
+     private fun exportAndParse(): Pair<File, JSONObject> {
+         val path = exporter.export(participantId, db)
+         val file = File(path)
+         assertTrue("export file should exist at $path", file.exists())
+         return file to JSONObject(file.readText())
+@@ -187,23 +202,183 @@ class DataExporterTest {
+ 
+         val (_, root) = exportAndParse()
+ 
+         assertEquals(1, root.getJSONArray("sessions").length())
+         assertEquals("session-1", root.getJSONArray("sessions").getJSONObject(0).getString("id"))
+         assertEquals(1, root.getJSONArray("assessments").length())
+     }
+ 
++    @Test
++    fun export_summaryCountsOnlyNestedParticipantAttempts() {
++        seedSession("owned", "AKO", "IKAW")
++        val other = "99999999-8888-7777-6666-555555555555"
++        db.insertParticipant(other, "synthetic", "1.0.0")
++        db.insertSession("other", other)
++        db.insertAttempt("other", 1L, 1, "OTHER", "OTHER", 0.9, true, 0.8, "[]")
++        val (_, root) = exportAndParse()
++        val sessions = root.getJSONArray("sessions")
++        val nested = (0 until sessions.length()).sumOf {
++            val session = sessions.getJSONObject(it)
++            assertEquals(participantId, session.getString("participant_id"))
++            session.getJSONArray("attempts").length()
++        }
++        assertEquals(2, nested)
++        assertEquals(nested, root.getJSONObject("summary").getInt("total_attempts"))
++    }
++
++    @Test
++    fun export_repeatedSameTimeDoesNotOverwriteCompletedData() {
++        seedSession("first", "AKO")
++        val first = File(exporter.export(participantId, db))
++        val original = first.readBytes()
++        seedSession("second", "IKAW")
++        val second = File(exporter.export(participantId, db))
++        org.junit.Assert.assertNotEquals(first, second)
++        org.junit.Assert.assertArrayEquals(original, first.readBytes())
++        assertEquals(2, JSONObject(second.readText()).getJSONArray("sessions").length())
++    }
++
++    @Test
++    fun export_partialWriteFailureRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun open(file: File): java.io.OutputStream {
++                val real = super.open(file)
++                return object : java.io.FilterOutputStream(real) {
++                    override fun write(bytes: ByteArray, off: Int, len: Int) {
++                        out.write(bytes, off, minOf(8, len))
++                        throw java.io.IOException("synthetic partial write")
++                    }
++                }
++            }
++        })
++    }
++
++    @Test
++    fun export_closeFailureRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun open(file: File): java.io.OutputStream =
++                object : java.io.FilterOutputStream(super.open(file)) {
++                    override fun close() {
++                        super.close()
++                        throw java.io.IOException("synthetic close failure")
++                    }
++                }
++        })
++    }
++
++    @Test
++    fun export_publicationFailureRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                assertTrue("must publish from separate staging", staging != destination)
++                JSONObject(staging.readText())
++                throw java.io.IOException("synthetic publication failure")
++            }
++        })
++    }
++
++    @Test
++    fun export_corruptPublicationCannotReturnSuccess() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                super.publish(staging, destination)
++                destination.writeText("{}")
++            }
++        })
++    }
++
++    @Test
++    fun export_committedReadFailureCannotReturnSuccess() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun read(file: File): ByteArray {
++                if (!file.name.startsWith("kumpas_export_stage-")) {
++                    throw java.io.IOException("synthetic committed read failure")
++                }
++                return super.read(file)
++            }
++        })
++    }
++
++    @Test
++    fun export_errorAfterRenameRemovesOnlyNewArtifacts() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                super.publish(staging, destination)
++                throw java.io.IOException("synthetic error after rename")
++            }
++        })
++    }
++
++    @Test
++    fun export_allActualStagingAndCompletedNamesAreManagedByPurge() {
++        val artifacts = mutableListOf<File>()
++        val io = object : ExportPublication() {
++            override fun publish(staging: File, destination: File) {
++                artifacts.add(staging)
++                artifacts.add(destination)
++                super.publish(staging, destination)
++            }
++        }
++        DataExporter(context, io).export(participantId, db)
++        val internalOnly = object : android.content.ContextWrapper(context) {
++            override fun getExternalFilesDir(type: String?): File? = null
++        }
++        DataExporter(internalOnly, io).export(participantId, db)
++        // Recreate exact observed staging names to model interrupted work.
++        artifacts.forEach { if (!it.exists()) it.writeText("synthetic interrupted staging") }
++        val sentinels = artifacts.map { it.parentFile }.distinct().map {
++            File(it, "unrelated.json").apply { writeText("sentinel") }
++        }
++        StudyDataFiles.purge(context)
++        artifacts.forEach { org.junit.Assert.assertFalse(it.exists()) }
++        sentinels.forEach { assertEquals("sentinel", it.readText()) }
++    }
++
++    @Test
++    fun export_silentShortWriteFailsStagingVerification() {
++        assertPublicationFailure(object : ExportPublication() {
++            override fun open(file: File): java.io.OutputStream =
++                object : java.io.FilterOutputStream(super.open(file)) {
++                    override fun write(bytes: ByteArray, off: Int, len: Int) {
++                        out.write(bytes, off, minOf(8, len))
++                    }
++                }
++        })
++    }
++
++    private fun assertPublicationFailure(io: ExportPublication) {
++        seedSession("prior", "AKO")
++        val prior = File(exporter.export(participantId, db))
++        val priorBytes = prior.readBytes()
++        val sentinel = File(prior.parentFile, "unrelated.txt").apply { writeText("sentinel") }
++        val before = prior.parentFile!!.listFiles()!!.map { it.name }.toSet()
++        seedSession("later", "IKAW")
++        val borrowedHandle = db.writableDatabase
++        try {
++            DataExporter(context, io) { java.util.Date(0L) }.export(participantId, db)
++            org.junit.Assert.fail("failed export must not return a success path")
++        } catch (_: java.io.IOException) { }
++        org.junit.Assert.assertArrayEquals(priorBytes, prior.readBytes())
++        assertEquals("sentinel", sentinel.readText())
++        assertEquals("no partial new export may remain", before,
++            prior.parentFile!!.listFiles()!!.map { it.name }.toSet())
++        assertTrue("original borrowed handle must remain open before any getter can reopen it", borrowedHandle.isOpen)
++        assertEquals(2, db.getAttemptCount())
++        // Failure must not poison a subsequent export or the borrowed database.
++        assertEquals(2, exportAndParse().second.getJSONObject("summary").getInt("total_attempts"))
++    }
++
+     @Test
+     fun export_fileNameCarriesParticipantPrefix() {
+         val (file, _) = exportAndParse()
+ 
+         assertTrue(
+             "unexpected export file name: ${file.name}",
+-            Regex("^kumpas_export_${participantId.take(8)}_\\d{8}_\\d{6}\\.json$")
++            Regex("^kumpas_export_${participantId.take(8)}-[A-Za-z0-9-]+_\\d{8}_\\d{6}\\.json$")
+                 .matches(file.name)
+         )
+     }
+ 
+     @Test
+     fun export_unavailableExternalStorageUsesInternalFallbackAndLeavesBorrowedHelperOpen() {
+         seedSession("fallback-session", "SYNTHETIC")
+         val unavailable = object : android.content.ContextWrapper(context) {
+@@ -218,22 +393,23 @@ class DataExporterTest {
+     }
+ 
+     @Test
+     fun export_writeFailurePropagatesWithoutClosingBorrowedHelper() {
+         val blocked = File(context.filesDir, "blocked-export-root").apply { writeText("sentinel") }
+         val unavailable = object : android.content.ContextWrapper(context) {
+             override fun getExternalFilesDir(type: String?): File = blocked
+         }
++        val borrowedHandle = db.writableDatabase
+         try {
+             DataExporter(unavailable).export(participantId, db)
+             org.junit.Assert.fail("cannot claim an export path when writing fails")
+         } catch (_: java.io.IOException) { }
+         assertEquals("sentinel", blocked.readText())
+-        assertTrue("caller remains responsible for closing its helper", db.readableDatabase.isOpen)
++        assertTrue("caller remains responsible for closing its original handle", borrowedHandle.isOpen)
+     }
+ 
+     @Test
+     fun export_successLeavesBorrowedDatabaseOpenUntilCallerClosesIt() {
+         val openDatabase = db.writableDatabase
+         exportAndParse()
+         assertTrue(openDatabase.isOpen)
+         db.close()
+
+
+diff --git a/app/lib/session/session_repository.dart b/app/lib/session/session_repository.dart
+index 64becb0..83091bd 100644
+--- a/app/lib/session/session_repository.dart
++++ b/app/lib/session/session_repository.dart
+@@ -8,48 +8,71 @@ import '../feedback_engine/models.dart';
+ /// to avoid redundant platform channel calls. UI components should use this
+ /// instead of calling KumpasChannel session methods directly.
+ class SessionRepository {
+   SessionRepository._();
+   static final instance = SessionRepository._();
+ 
+   String? _activeSessionId;
+   String? _participantId;
++  // Clear fences reads at entry and completion. Only the newest issued session
++  // command may update its cache, regardless of response order. These guards
++  // protect only Dart state: no native effects are cancelled or IDs altered.
++  int _cacheEpoch = 0;
++  int _sessionCommand = 0;
+   final dataRevision = ValueNotifier<int>(0);
+ 
+   /// Whether a practice session is currently active.
+   bool get hasActiveSession => _activeSessionId != null;
+ 
+   /// The current active session ID, or null.
+   String? get activeSessionId => _activeSessionId;
+ 
+   /// The device-generated participant UUID (cached after first call).
+   Future<String> get participantId async {
+-    _participantId ??= await KumpasChannel.getParticipantId();
+-    return _participantId!;
++    final cached = _participantId;
++    if (cached != null) return cached;
++    final epoch = _cacheEpoch;
++    final id = await KumpasChannel.getParticipantId();
++    if (epoch == _cacheEpoch) _participantId = id;
++    return id;
+   }
+ 
+   /// Start a new practice session. Safe to call if one is already active
+   /// (the native side closes the old one first).
+   Future<String> startSession() async {
+-    _activeSessionId = await KumpasChannel.startSession();
+-    return _activeSessionId!;
++    final epoch = _cacheEpoch;
++    final command = ++_sessionCommand;
++    final id = await KumpasChannel.startSession();
++    if (epoch == _cacheEpoch && command == _sessionCommand) {
++      _activeSessionId = id;
++    }
++    return id;
+   }
+ 
+   /// End the active session. No-op if none is active.
+   Future<void> endSession() async {
+     if (_activeSessionId == null) return;
++    final epoch = _cacheEpoch;
++    final command = ++_sessionCommand;
+     await KumpasChannel.endSession();
+-    _activeSessionId = null;
++    if (epoch == _cacheEpoch && command == _sessionCommand) {
++      _activeSessionId = null;
++    }
+   }
+ 
+   /// Sync the cached session state with native (e.g. after app resume
+   /// when native may have auto-closed the session).
+   Future<void> sync() async {
+-    _activeSessionId = await KumpasChannel.getActiveSession();
++    final epoch = _cacheEpoch;
++    final command = ++_sessionCommand;
++    final id = await KumpasChannel.getActiveSession();
++    if (epoch == _cacheEpoch && command == _sessionCommand) {
++      _activeSessionId = id;
++    }
+   }
+ 
+   /// Get the attempt history (newest first), backed by SQLite.
+   Future<List<AttemptResult>> getHistory() => KumpasChannel.getHistory();
+ 
+   /// Save a pre or post assessment.
+   Future<void> saveAssessment({
+     required String type,
+@@ -60,18 +83,25 @@ class SessionRepository {
+   Future<List<Map<String, dynamic>>> getAssessments() =>
+       KumpasChannel.getAssessments();
+ 
+   /// Export all data to a JSON file. Returns the absolute file path.
+   Future<String> exportData() => KumpasChannel.exportData();
+ 
+   /// Permanently clear all session data and reset the participant ID.
+   Future<void> clearAllData() async {
++    _invalidateCaches();
+     try {
+       await KumpasChannel.clearAllData();
+     } finally {
+-      // A partial native purge must not leave old cached study data visible.
+-      _activeSessionId = null;
+-      _participantId = null;
++      // Fence both pre-clear requests and requests made during the purge.
++      // Native filesystem/SQLite/preferences purge is not an atomic rollback.
++      _invalidateCaches();
+       dataRevision.value++;
+     }
+   }
++
++  void _invalidateCaches() {
++    _cacheEpoch++;
++    _activeSessionId = null;
++    _participantId = null;
++  }
+ }
+
+
+diff --git a/app/lib/session/session_lifecycle.dart b/app/lib/session/session_lifecycle.dart
+index 07a1322..061b4a5 100644
+--- a/app/lib/session/session_lifecycle.dart
++++ b/app/lib/session/session_lifecycle.dart
+@@ -1,63 +1,100 @@
+ import 'package:flutter/material.dart';
+ import 'session_repository.dart';
+ 
+-/// Observer for app lifecycle state transitions to manage session start/end.
+-///
+-/// When the app enters the practice screen (resumed while in practice),
+-/// starts a new session. When the app enters background or the user
+-/// navigates away from practice, ends the session.
+-///
+-/// Phase 8, Task 9.
++/// Serializes this practice screen's lifecycle intent around channel replies.
++/// Native commands are not cancelled or rolled back when intent changes.
+ class SessionLifecycleObserver extends WidgetsBindingObserver {
+   bool _inPracticeScreen = false;
+-  AppLifecycleState? _lastLifecycleState;
++  bool _foreground = false;
++  int _departure = 0;
++  int _intent = 0;
++  String? _ownedSessionId;
++  Future<void>? _pending;
+ 
+-  /// Mark that the user is on the practice screen.
+   void setPracticeActive(bool active) {
+     _inPracticeScreen = active;
+-    if (active && _lastLifecycleState == AppLifecycleState.resumed) {
+-      _ensureSessionStarted();
+-    } else if (!active) {
+-      _ensureSessionEnded();
+-    }
++    if (!active) _departure++;
++    _schedule();
+   }
+ 
+   @override
+   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+-    _lastLifecycleState = state;
+-
+     switch (state) {
+       case AppLifecycleState.resumed:
+-        if (_inPracticeScreen) {
+-          await _ensureSessionStarted();
+-        }
++        _foreground = true;
+         break;
+-
+       case AppLifecycleState.paused:
+       case AppLifecycleState.detached:
+       case AppLifecycleState.hidden:
+-        // App entered background or is about to be destroyed.
+-        // End the session to allow native auto-timeout to take effect.
+-        await _ensureSessionEnded();
++        _foreground = false;
++        _departure++;
+         break;
+-
+       case AppLifecycleState.inactive:
+-        // Transitional state; no action needed.
+-        break;
++        // Transitional: keep the previous foreground/session intent.
++        return;
++    }
++    await _schedule();
++  }
++
++  bool get _wantsSession => _inPracticeScreen && _foreground;
++
++  Future<void> _schedule() {
++    _intent++;
++    return _pending ??= _drain();
++  }
++
++  Future<void> _drain() async {
++    try {
++      while (true) {
++        final intent = _intent;
++        try {
++          await _reconcile();
++        } catch (_) {
++          // Binding and setPracticeActive callers do not await this work.
++          // Avoid arbitrary channel details; a subsequent event can retry.
++          debugPrint(
++            'Session lifecycle operation failed; retry on next event.',
++          );
++        }
++        if (intent == _intent) return;
++      }
++    } finally {
++      // Release in the same continuation that checks intent, not in a later
++      // whenComplete callback which could swallow a new event in between.
++      _pending = null;
+     }
+   }
+ 
+-  /// Ensure a session is active. Safe to call multiple times.
+-  Future<void> _ensureSessionStarted() async {
+-    if (!SessionRepository.instance.hasActiveSession) {
+-      await SessionRepository.instance.startSession();
++  Future<void> _reconcile() async {
++    final repo = SessionRepository.instance;
++    while (true) {
++      if (!_wantsSession) {
++        await _endOwnedSession();
++        if (!_wantsSession) return;
++        continue;
++      }
++      if (repo.hasActiveSession) {
++        _ownedSessionId = repo.activeSessionId;
++        return;
++      }
++      final departure = _departure;
++      final id = await repo.startSession();
++      // Clear or an external replacement may have superseded our reply.
++      if (repo.activeSessionId != id) return;
++      _ownedSessionId = id;
++      if (departure == _departure && _wantsSession) return;
++      await _endOwnedSession();
++      // Re-entry during a pending start/end gets a fresh session only after
++      // the departed session's end command has completed.
+     }
+   }
+ 
+-  /// Ensure no session is active. Safe to call multiple times.
+-  Future<void> _ensureSessionEnded() async {
+-    if (SessionRepository.instance.hasActiveSession) {
+-      await SessionRepository.instance.endSession();
++  Future<void> _endOwnedSession() async {
++    final repo = SessionRepository.instance;
++    final owned = _ownedSessionId;
++    if (owned != null && repo.activeSessionId == owned) {
++      await repo.endSession();
+     }
++    _ownedSessionId = null;
+   }
+ }
+
+
+diff --git a/app/test/session_clear_test.dart b/app/test/session_clear_test.dart
+index 0006883..62831d7 100644
+--- a/app/test/session_clear_test.dart
++++ b/app/test/session_clear_test.dart
+@@ -1,36 +1,72 @@
+-
++import 'package:flutter/services.dart';
+ import 'package:flutter_test/flutter_test.dart';
+ import 'package:kumpas_app/session/session_repository.dart';
+ import 'package:kumpas_app/feedback_engine/kumpas_channel.dart';
+ 
+ void main() {
+   TestWidgetsFlutterBinding.ensureInitialized();
+-  test(
+-    'clear resets cached identity/session and invalidates visible data',
+-    () async {
+-      var cleared = false;
+-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+-          .setMockMethodCallHandler(KumpasChannel.control, (call) async {
+-            switch (call.method) {
+-              case 'getParticipantId':
+-                return cleared ? 'new' : 'old';
+-              case 'startSession':
+-                return 'session';
+-              case 'clearAllData':
+-                cleared = true;
+-                return null;
+-              default:
+-                return null;
+-            }
+-          });
+-      final repo = SessionRepository.instance;
+-      expect(await repo.participantId, 'old');
+-      await repo.startSession();
+-      final revision = repo.dataRevision.value;
+-      await repo.clearAllData();
+-      expect(repo.activeSessionId, isNull);
+-      expect(await repo.participantId, 'new');
+-      expect(repo.dataRevision.value, revision + 1);
+-    },
+-  );
++  final messenger =
++      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
++  final repo = SessionRepository.instance;
++
++  setUp(() async {
++    messenger.setMockMethodCallHandler(
++      KumpasChannel.control,
++      (_) async => null,
++    );
++    await repo.clearAllData();
++  });
++  tearDown(() async {
++    messenger.setMockMethodCallHandler(
++      KumpasChannel.control,
++      (_) async => null,
++    );
++    await repo.clearAllData();
++    messenger.setMockMethodCallHandler(KumpasChannel.control, null);
++  });
++
++  for (final partialFailure in [false, true]) {
++    test(
++      'clear resets cached identity/session and revision; partialFailure=$partialFailure',
++      () async {
++        var cleared = false;
++        messenger.setMockMethodCallHandler(KumpasChannel.control, (call) async {
++          switch (call.method) {
++            case 'getParticipantId':
++              return cleared ? 'new' : 'old';
++            case 'startSession':
++              return cleared ? 'new-session' : 'session';
++            case 'clearAllData':
++              cleared = true;
++              if (partialFailure) throw PlatformException(code: 'CLEAR_FAILED');
++              return null;
++            default:
++              return null;
++          }
++        });
++        expect(await repo.participantId, 'old');
++        await repo.startSession();
++        final revision = repo.dataRevision.value;
++        if (partialFailure) {
++          await expectLater(
++            repo.clearAllData(),
++            throwsA(
++              isA<PlatformException>().having(
++                (e) => e.code,
++                'code',
++                'CLEAR_FAILED',
++              ),
++            ),
++          );
++        } else {
++          await repo.clearAllData();
++        }
++        expect(repo.activeSessionId, isNull);
++        expect(await repo.participantId, 'new');
++        expect(repo.dataRevision.value, revision + 1);
++        expect(await repo.startSession(), 'new-session');
++        expect(repo.activeSessionId, 'new-session');
++      },
++    );
++  }
+ }
+
+
+CURRENT NEW FILE app/test/session_lifecycle_race_test.dart
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kumpas_app/feedback_engine/kumpas_channel.dart';
+import 'package:kumpas_app/session/session_lifecycle.dart';
+import 'package:kumpas_app/session/session_repository.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  final messenger =
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+  final repo = SessionRepository.instance;
+  late Future<Object?> Function(MethodCall) handler;
+  late SessionLifecycleObserver observer;
+  Future<void> flush() => pumpEventQueue();
+
+  setUp(() async {
+    handler = (_) async => null;
+    messenger.setMockMethodCallHandler(
+      KumpasChannel.control,
+      (call) => handler(call),
+    );
+    await repo.clearAllData();
+    observer = SessionLifecycleObserver();
+  });
+  tearDown(() async {
+    handler = (_) async => null;
+    await repo.clearAllData();
+    messenger.setMockMethodCallHandler(KumpasChannel.control, null);
+  });
+
+  test('practice entry and duplicate resume share one pending start', () async {
+    final start = Completer<String>();
+    var starts = 0;
+    handler = (call) async {
+      if (call.method == 'startSession') {
+        starts++;
+        return start.future;
+      }
+      return null;
+    };
+    await observer.didChangeAppLifecycleState(AppLifecycleState.resumed);
+    observer.setPracticeActive(true);
+    final resume = observer.didChangeAppLifecycleState(
+      AppLifecycleState.resumed,
+    );
+    observer.setPracticeActive(true);
+    await flush();
+    // Complete before asserting so failed baseline does not strand futures.
+    start.complete('owned');
+    await resume;
+    await flush();
+    expect(starts, 1);
+    expect(repo.activeSessionId, 'owned');
+  });
+
+  test(
+    'leave immediately after cached resume is not lost behind completed work',
+    () async {
+      final commands = <String>[];
+      handler = (call) async {
+        commands.add(call.method);
+        if (call.method == 'startSession') return 'owned';
+        return null;
+      };
+      observer.setPracticeActive(true);
+      await observer.didChangeAppLifecycleState(AppLifecycleState.resumed);
+      // Cached reconciliation returns synchronously, but its Future has not
+      // cleared _pending when the next actual observer method runs.
+      observer.setPracticeActive(true);
+      observer.setPracticeActive(false);
+      await flush();
+      expect(commands, ['startSession', 'endSession']);
+      expect(repo.activeSessionId, isNull);
+    },
+  );
+
+  for (final operation in ['startSession', 'endSession']) {
+    test(
+      'fire-and-forget $operation failure is handled and next event retries',
+      () async {
+        var failures = 0;
+        var starts = 0;
+        var ends = 0;
+        handler = (call) async {
+          if (call.method == 'startSession') starts++;
+          if (call.method == 'endSession') ends++;
+          if (call.method == operation && failures++ == 0) {
+            throw PlatformException(code: 'synthetic-lifecycle-failure');
+          }
+          if (call.method == 'startSession') return 'retry-session';
+          return null;
+        };
+        await observer.didChangeAppLifecycleState(AppLifecycleState.resumed);
+        observer.setPracticeActive(true);
+        await flush();
+        if (operation == 'startSession') {
+          expect(repo.activeSessionId, isNull);
+          observer.setPracticeActive(true);
+          await flush();
+          expect(starts, 2);
+          expect(repo.activeSessionId, 'retry-session');
+        } else {
+          observer.setPracticeActive(false);
+          await flush();
+          expect(repo.activeSessionId, 'retry-session');
+          observer.setPracticeActive(false);
+          await flush();
+          expect(ends, 2);
+          expect(repo.activeSessionId, isNull);
+        }
+      },
+    );
+  }
+
+  test('inactive is transitional during pending and active session', () async {
+    final start = Completer<String>();
+    final commands = <String>[];
+    handler = (call) async {
+      commands.add(call.method);
+      if (call.method == 'startSession') return start.future;
+      return null;
+    };
+    observer.setPracticeActive(true);
+    final resume = observer.didChangeAppLifecycleState(
+      AppLifecycleState.resumed,
+    );
+    await flush();
+    await observer.didChangeAppLifecycleState(AppLifecycleState.inactive);
+    start.complete('owned');
+    await resume;
+    await observer.didChangeAppLifecycleState(AppLifecycleState.inactive);
+    expect(commands, ['startSession']);
+    expect(repo.activeSessionId, 'owned');
+  });
+
+  test(
+    'departure and re-entry serialize old end before replacement start',
+    () async {
+      final start = Completer<String>();
+      final end = Completer<void>();
+      final commands = <String>[];
+      var starts = 0;
+      handler = (call) async {
+        commands.add(call.method);
+        if (call.method == 'startSession') {
+          if (starts++ == 0) return start.future;
+          return 'replacement';
+        }
+        if (call.method == 'endSession') await end.future;
+        return null;
+      };
+      observer.setPracticeActive(true);
+      final resume = observer.didChangeAppLifecycleState(
+        AppLifecycleState.resumed,
+      );
+      await flush();
+      observer.setPracticeActive(false);
+      observer.setPracticeActive(true);
+      start.complete('departed');
+      await flush();
+      expect(commands, ['startSession', 'endSession']);
+      end.complete();
+      await resume;
+      expect(commands, ['startSession', 'endSession', 'startSession']);
+      expect(repo.activeSessionId, 'replacement');
+    },
+  );
+
+  test(
+    'obsolete pending start does not end external replacement on leave',
+    () async {
+      final start = Completer<String>();
+      final commands = <String>[];
+      var starts = 0;
+      String? nativeSession;
+      handler = (call) async {
+        commands.add(call.method);
+        if (call.method == 'startSession') {
+          nativeSession = starts++ == 0 ? 'departed' : 'external-replacement';
+          if (starts == 1) return start.future;
+          return nativeSession;
+        }
+        if (call.method == 'endSession') nativeSession = null;
+        return null;
+      };
+      observer.setPracticeActive(true);
+      final resume = observer.didChangeAppLifecycleState(
+        AppLifecycleState.resumed,
+      );
+      await flush();
+      observer.setPracticeActive(false);
+      await repo.startSession();
+      start.complete('departed');
+      await resume;
+      expect(commands, ['startSession', 'startSession']);
+      expect(repo.activeSessionId, 'external-replacement');
+      expect(nativeSession, 'external-replacement');
+    },
+  );
+
+  test(
+    'late owned end cannot clear external replacement or send another end',
+    () async {
+      final end = Completer<void>();
+      final commands = <String>[];
+      var starts = 0;
+      handler = (call) async {
+        commands.add(call.method);
+        if (call.method == 'startSession') return 'session-${starts++}';
+        if (call.method == 'endSession') await end.future;
+        return null;
+      };
+      observer.setPracticeActive(true);
+      await observer.didChangeAppLifecycleState(AppLifecycleState.resumed);
+      final pause = observer.didChangeAppLifecycleState(
+        AppLifecycleState.paused,
+      );
+      await flush();
+      await repo.startSession();
+      observer.setPracticeActive(false);
+      end.complete();
+      await pause;
+      expect(commands, ['startSession', 'endSession', 'startSession']);
+      expect(repo.activeSessionId, 'session-1');
+    },
+  );
+
+  test(
+    'clear supersedes observer pending start without obsolete cleanup',
+    () async {
+      final start = Completer<String>();
+      final commands = <String>[];
+      var starts = 0;
+      handler = (call) async {
+        commands.add(call.method);
+        if (call.method == 'startSession') {
+          if (starts++ == 0) return start.future;
+          return 'post-clear';
+        }
+        return null;
+      };
+      observer.setPracticeActive(true);
+      final resume = observer.didChangeAppLifecycleState(
+        AppLifecycleState.resumed,
+      );
+      await flush();
+      observer.setPracticeActive(false);
+      await repo.clearAllData();
+      start.complete('removed');
+      await resume;
+      expect(commands, ['startSession', 'clearAllData']);
+      expect(repo.activeSessionId, isNull);
+      observer.setPracticeActive(true);
+      await flush();
+      expect(repo.activeSessionId, 'post-clear');
+    },
+  );
+
+  for (final terminal in ['leave', 'paused', 'hidden', 'detached']) {
+    test(
+      '$terminal while start pending eventually ends owned session',
+      () async {
+        final start = Completer<String>();
+        final commands = <String>[];
+        String? nativeSession;
+        handler = (call) async {
+          commands.add(call.method);
+          if (call.method == 'startSession') {
+            nativeSession = 'owned';
+            return start.future;
+          }
+          if (call.method == 'endSession') nativeSession = null;
+          return null;
+        };
+        observer.setPracticeActive(true);
+        final resume = observer.didChangeAppLifecycleState(
+          AppLifecycleState.resumed,
+        );
+        await flush();
+        Future<void>? departure;
+        if (terminal == 'leave') {
+          observer.setPracticeActive(false);
+        } else {
+          departure = observer.didChangeAppLifecycleState(
+            AppLifecycleState.values.byName(terminal),
+          );
+        }
+        await flush();
+        start.complete('owned');
+        await resume;
+        await departure;
+        await flush();
+        expect(commands, ['startSession', 'endSession']);
+        expect(nativeSession, isNull);
+        expect(repo.activeSessionId, isNull);
+      },
+    );
+  }
+}
+
+
+CURRENT NEW FILE app/test/session_repository_race_test.dart
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kumpas_app/feedback_engine/kumpas_channel.dart';
+import 'package:kumpas_app/session/session_repository.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  final messenger =
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+  final repo = SessionRepository.instance;
+  late Future<Object?> Function(MethodCall) handler;
+  Future<void> flush() => pumpEventQueue();
+
+  setUp(() async {
+    handler = (_) async => null;
+    messenger.setMockMethodCallHandler(
+      KumpasChannel.control,
+      (call) => handler(call),
+    );
+    await repo.clearAllData();
+  });
+  tearDown(() async {
+    handler = (_) async => null;
+    await repo.clearAllData();
+    messenger.setMockMethodCallHandler(KumpasChannel.control, null);
+  });
+
+  test('response order cannot undo later native session commands', () async {
+    final starts = [Completer<String>(), Completer<String>()];
+    final end = Completer<void>();
+    final sync = Completer<String?>();
+    final commands = <String>[];
+    String? nativeSession;
+    var startIndex = 0;
+    handler = (call) async {
+      commands.add(call.method);
+      switch (call.method) {
+        case 'startSession':
+          final index = startIndex++;
+          // Native side effect occurs on dispatch, not reply delivery.
+          nativeSession = 'session-$index';
+          if (index < starts.length) return starts[index].future;
+          return nativeSession;
+        case 'getActiveSession':
+          return sync.future;
+        case 'endSession':
+          nativeSession = null;
+          await end.future;
+          return null;
+      }
+      return null;
+    };
+    final first = repo.startSession();
+    await flush();
+    final second = repo.startSession();
+    await flush();
+    expect(commands, ['startSession', 'startSession']);
+    expect(nativeSession, 'session-1');
+    starts[1].complete('session-1');
+    expect(await second, 'session-1');
+    starts[0].complete('session-0');
+    expect(await first, 'session-0');
+    expect(repo.activeSessionId, 'session-1');
+
+    final oldSync = repo.sync();
+    await flush();
+    final oldEnd = repo.endSession();
+    await flush();
+    final replacement = await repo.startSession();
+    expect(nativeSession, replacement);
+    expect(commands, [
+      'startSession',
+      'startSession',
+      'getActiveSession',
+      'endSession',
+      'startSession',
+    ]);
+    sync.complete('session-1');
+    end.complete();
+    await Future.wait([oldSync, oldEnd]);
+    expect(repo.activeSessionId, replacement);
+    expect(nativeSession, replacement);
+  });
+
+  for (final method in [
+    'getParticipantId',
+    'startSession',
+    'getActiveSession',
+  ]) {
+    for (final partialFailure in [false, true]) {
+      for (final duringClear in [false, true]) {
+        test(
+          '$method fenced at clear ${duringClear ? 'finish' : 'entry'} failure=$partialFailure',
+          () async {
+            final response = Completer<String>();
+            final clear = Completer<void>();
+            var firstRead = true;
+            handler = (call) async {
+              if (call.method == 'clearAllData') {
+                await clear.future;
+                if (partialFailure) {
+                  throw PlatformException(code: 'CLEAR_FAILED');
+                }
+                return null;
+              }
+              if (call.method == method && firstRead) {
+                firstRead = false;
+                return response.future;
+              }
+              if (call.method == 'getParticipantId') return 'fresh-participant';
+              if (call.method == 'startSession') return 'fresh-session';
+              return null;
+            };
+            Future<Object?> request() async {
+              switch (method) {
+                case 'getParticipantId':
+                  return repo.participantId;
+                case 'startSession':
+                  return repo.startSession();
+                default:
+                  await repo.sync();
+                  return null;
+              }
+            }
+
+            Future<Object?>? pending;
+            if (!duringClear) pending = request();
+            await flush();
+            final purge = repo.clearAllData();
+            // Install an error listener before resolving a failing channel call.
+            final observedPurge = partialFailure
+                ? expectLater(purge, throwsA(isA<PlatformException>()))
+                : purge;
+            await flush();
+            if (duringClear) {
+              pending = request();
+              await flush();
+              clear.complete();
+              await observedPurge;
+            }
+            response.complete('removed-state');
+            await pending;
+            expect(repo.activeSessionId, isNull);
+            // Check participant cache before clear's finally can hide a stale
+            // pre-clear lookup; mock's next lookup is explicitly fresh.
+            expect(await repo.participantId, 'fresh-participant');
+            if (!duringClear) {
+              clear.complete();
+              await observedPurge;
+            }
+            expect(await repo.participantId, 'fresh-participant');
+            expect(await repo.startSession(), 'fresh-session');
+            expect(repo.activeSessionId, 'fresh-session');
+          },
+        );
+      }
+    }
+  }
+
+  for (final operation in ['endSession', 'getActiveSession']) {
+    test(
+      'late $operation alone cannot clear or overwrite replacement',
+      () async {
+        final oldResponse = Completer<Object?>();
+        var starts = 0;
+        final commands = <String>[];
+        String? nativeSession;
+        handler = (call) async {
+          commands.add(call.method);
+          if (call.method == 'startSession') {
+            nativeSession = 'session-${starts++}';
+            return nativeSession;
+          }
+          if (call.method == operation) {
+            if (operation == 'endSession') nativeSession = null;
+            return oldResponse.future;
+          }
+          return null;
+        };
+        await repo.startSession();
+        final old = operation == 'endSession' ? repo.endSession() : repo.sync();
+        await flush();
+        final replacement = await repo.startSession();
+        oldResponse.complete(operation == 'endSession' ? null : 'session-0');
+        await old;
+        expect(commands, ['startSession', operation, 'startSession']);
+        expect(repo.activeSessionId, replacement);
+        expect(nativeSession, replacement);
+      },
+    );
+  }
+
+  for (final fails in [false, true]) {
+    test(
+      'late participant/start/sync cannot restore cache after clear fails=$fails',
+      () async {
+        final participant = Completer<String>();
+        final start = Completer<String>();
+        final sync = Completer<String?>();
+        var freshReads = 0;
+        handler = (call) async {
+          switch (call.method) {
+            case 'getParticipantId':
+              if (freshReads++ == 0) return participant.future;
+              return 'fresh-participant';
+            case 'startSession':
+              return start.future;
+            case 'getActiveSession':
+              return sync.future;
+            case 'clearAllData':
+              if (fails) throw PlatformException(code: 'partial-clear');
+              return null;
+          }
+          return null;
+        };
+        final oldParticipant = repo.participantId;
+        final oldStart = repo.startSession();
+        final oldSync = repo.sync();
+        await flush();
+        final revision = repo.dataRevision.value;
+        if (fails) {
+          await expectLater(
+            repo.clearAllData(),
+            throwsA(isA<PlatformException>()),
+          );
+        } else {
+          await repo.clearAllData();
+        }
+        participant.complete('removed-participant');
+        start.complete('removed-session');
+        sync.complete('removed-session');
+        await Future.wait([oldParticipant, oldStart, oldSync]);
+        expect(repo.activeSessionId, isNull);
+        expect(await repo.participantId, 'fresh-participant');
+        expect(repo.dataRevision.value, revision + 1);
+      },
+    );
+  }
+}

@@ -1,0 +1,53 @@
+test_apk_digest_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_apk_digest_mismatch_rejected) ... ok
+test_checkout_source_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_checkout_source_symlink_rejected) ... FAIL
+test_corrupt_archive_rejected (benchmarking.test_inspect_release.ReleaseTests.test_corrupt_archive_rejected) ... ok
+test_duplicate_zip_member_rejected_even_when_not_required (benchmarking.test_inspect_release.ReleaseTests.test_duplicate_zip_member_rejected_even_when_not_required) ... ok
+test_missing_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_asset_rejected) ... ok
+test_missing_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_native_file_rejected) ... ok
+test_output_escape_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_escape_rejected) ... FAIL
+test_output_existing_preserved (benchmarking.test_inspect_release.ReleaseTests.test_output_existing_preserved) ... ok
+test_output_symlink_and_parent_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_symlink_and_parent_symlink_rejected) ... FAIL
+test_protected_checkout_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_protected_checkout_mismatch_rejected) ... ok
+test_stdout_only_does_not_write (benchmarking.test_inspect_release.ReleaseTests.test_stdout_only_does_not_write) ... ok
+test_strict_expectation_schema_types_and_independent_asset_binding (benchmarking.test_inspect_release.ReleaseTests.test_strict_expectation_schema_types_and_independent_asset_binding) ... ok
+test_valid_explicit_expectations_publish_bound_report (benchmarking.test_inspect_release.ReleaseTests.test_valid_explicit_expectations_publish_bound_report) ... ok
+test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) ... ok
+test_wrong_embedded_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_embedded_asset_rejected) ... ok
+test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) ... ok
+test_zip_file_directory_alias_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_file_directory_alias_rejected) ... ok
+test_zip_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_symlink_rejected) ... ok
+
+======================================================================
+FAIL: test_checkout_source_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_checkout_source_symlink_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 198, in test_checkout_source_symlink_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '182f65428b235235e7983a0491a013e33bf6e747195b2674e12f048e8f70b024', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_output_escape_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_escape_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 171, in test_output_escape_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '182f65428b235235e7983a0491a013e33bf6e747195b2674e12f048e8f70b024', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_output_symlink_and_parent_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_output_symlink_and_parent_symlink_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 190, in test_output_symlink_and_parent_symlink_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '182f65428b235235e7983a0491a013e33bf6e747195b2674e12f048e8f70b024', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.209s
+
+FAILED (failures=3)

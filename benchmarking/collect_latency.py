@@ -84,11 +84,15 @@ def collect_interpreter(serial):
             report = fps.strict_json_loads(matches[0])
         except ValueError as error:
             errors.append("malformed diagnostic JSON")
+    build = fps.read_package_build(serial)
+    if not build: errors.append("installed package metadata unavailable")
     if report is not None:
+        report, identity_errors = fps.bind_report_metadata(report, device, build)
+        errors.extend(identity_errors)
         report, unsafe = fps.safe_payload(report, fps.REPORT)
         if unsafe:
             errors.append("unsafe or unsupported diagnostic fields rejected")
-    return {"report": report, "device": device, "collection_errors": errors}
+    return {"report": report, "device": device, "build": build, "collection_errors": errors}
 
 
 def main(argv=None):

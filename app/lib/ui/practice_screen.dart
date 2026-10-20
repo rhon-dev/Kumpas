@@ -37,11 +37,16 @@ class _PracticeScreenState extends State<PracticeScreen>
   bool _signerVisible = true;
   String? _attemptId;
   int _requestGeneration = 0;
+  final Map<int, String> _pendingAttemptOutcomes = {};
   Timer? _attemptTimeout;
   bool _benchmarkStarted = false;
   bool _benchmarkStarting = false;
+  int _benchmarkGeneration = 0;
+  Timer? _benchmarkStartTimeout;
   Timer? _benchmarkWarmup;
   String? _benchmarkRunId;
+  bool _benchmarkComplete = false;
+  String _benchmarkConfirmation = 'confirmation pending';
   late SessionLifecycleObserver _lifecycleObserver;
 
   @override
@@ -125,7 +130,8 @@ class _PracticeScreenState extends State<PracticeScreen>
       case 'benchmark_complete':
         final report = m['results'];
         if (_benchmarkRunId == null || report is! Map || report['run_id'] != _benchmarkRunId) return;
-        _showBenchmarkIdentity('Benchmark complete');
+        _benchmarkComplete = true;
+        _showBenchmarkStatus();
       case 'prediction':
         setState(() {
           _warmingUp = false;
@@ -144,6 +150,7 @@ class _PracticeScreenState extends State<PracticeScreen>
   Future<void> _startAttempt() async {
     if (_attemptRunning) return;
     final generation = ++_requestGeneration;
+    _pendingAttemptOutcomes[generation] = 'cancelled';
     HapticFeedback.lightImpact();
     setState(() {
       _attemptRunning = true;
@@ -158,7 +165,8 @@ class _PracticeScreenState extends State<PracticeScreen>
     try {
       final id = await KumpasChannel.startAttempt(widget.sign.id);
       if (!mounted || generation != _requestGeneration || !_attemptRunning) {
-        await KumpasChannel.cancelAttempt(attemptId: id);
+        await KumpasChannel.cancelAttempt(
+          attemptId: id, outcome: _pendingAttemptOutcomes[generation] ?? 'cancelled');
         return;
       }
       _attemptId = id;
@@ -166,37 +174,89 @@ class _PracticeScreenState extends State<PracticeScreen>
       if (mounted && generation == _requestGeneration) {
         _captureError('Could not start capture: $error');
       }
+    } finally {
+      _pendingAttemptOutcomes.remove(generation);
     }
   }
 
   Future<void> _startBenchmark() async {
     if (_benchmarkStarted || _benchmarkStarting || !mounted) return;
+    final generation = ++_benchmarkGeneration;
     _benchmarkStarting = true;
+    // Control response deadline is independent of the >=60s observation window.
+    _benchmarkStartTimeout?.cancel();
+    _benchmarkStartTimeout = Timer(const Duration(seconds: 30), () {
+      if (!mounted || generation != _benchmarkGeneration) return;
+      _benchmarkGeneration++;
+      _benchmarkStarting = false;
+      _benchmarkStartError('Control response timed out; any late run is diagnostic.');
+    });
     try {
       final id = await KumpasChannel.startBenchmark(
         durationSeconds: widget.benchmarkDurationSeconds!,
       );
+      if (!mounted || generation != _benchmarkGeneration) {
+        // Native stop verifies the old run ID; a replacement can never be stopped.
+        try {
+          await KumpasChannel.stopBenchmark(runId: id).timeout(const Duration(seconds: 30));
+        } catch (_) {
+          // Retain a fixed-code diagnostic even after disposal or replacement;
+          // never print channel exception text/private payloads.
+          debugPrint('Late run cleanup failed; run_id=$id; retain USB diagnostics.');
+          if (mounted && !_benchmarkStarted && !_benchmarkStarting) {
+            _benchmarkStartError('Late run cleanup failed; retain USB diagnostics.');
+          }
+        }
+        return;
+      }
+      _benchmarkStartTimeout?.cancel();
+      // Ownership commits at valid current receipt, not the confirmation reply.
+      // Navigation after this point has the same policy as any owned run.
       _benchmarkStarted = true;
       _benchmarkRunId = id;
-      if (mounted) _showBenchmarkIdentity('Benchmark running');
+      _benchmarkConfirmation = 'confirmation pending';
+      _showBenchmarkStatus();
+      try {
+        final confirmed = await KumpasChannel.confirmBenchmarkStart(runId: id)
+            .timeout(const Duration(seconds: 30));
+        if (!mounted || generation != _benchmarkGeneration || _benchmarkRunId != id) return;
+        _benchmarkConfirmation = confirmed ? 'confirmed' : 'unconfirmed; diagnostic only';
+      } catch (_) {
+        // The producer may have confirmed before its reply was lost. Retain
+        // ownership/identity without asserting a producer state or echoing text.
+        if (!mounted || generation != _benchmarkGeneration || _benchmarkRunId != id) return;
+        _benchmarkConfirmation = 'confirmation uncertain; retain USB disposition';
+      }
+      _showBenchmarkStatus();
     } catch (error) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Benchmark could not start: $error'),
-            action: SnackBarAction(label: 'Retry', onPressed: _startBenchmark)),
-        );
+      if (mounted && generation == _benchmarkGeneration) {
+        _benchmarkStartError('Control request failed; retain diagnostics.');
       }
     } finally {
-      _benchmarkStarting = false;
+      if (generation == _benchmarkGeneration) {
+        _benchmarkStartTimeout?.cancel();
+        _benchmarkStarting = false;
+      }
     }
+  }
+
+  void _benchmarkStartError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Benchmark could not start: $message'),
+      action: SnackBarAction(label: 'Retry', onPressed: _startBenchmark),
+    ));
+  }
+
+  void _showBenchmarkStatus() {
+    _showBenchmarkIdentity(_benchmarkComplete ? 'Benchmark complete' : _benchmarkConfirmation == 'confirmed' ? 'Benchmark running' : 'Benchmark owned');
   }
 
   void _showBenchmarkIdentity(String status) {
     final id = _benchmarkRunId!;
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: const Duration(minutes: 2),
-      content: Text('$status: $id. USB report; physical gates remain separate.'),
+      content: Text('$status: $id. $_benchmarkConfirmation. USB report; physical gates remain separate.'),
       action: SnackBarAction(label: 'Copy ID', onPressed: () {
         unawaited(Clipboard.setData(ClipboardData(text: id)));
       }),
@@ -205,6 +265,9 @@ class _PracticeScreenState extends State<PracticeScreen>
 
   Future<void> _cancelAttempt({String outcome = 'cancelled'}) async {
     final id = _attemptId;
+    if (_pendingAttemptOutcomes.containsKey(_requestGeneration)) {
+      _pendingAttemptOutcomes[_requestGeneration] = outcome;
+    }
     _requestGeneration++;
     _attemptId = null;
     _attemptTimeout?.cancel();
@@ -243,6 +306,8 @@ class _PracticeScreenState extends State<PracticeScreen>
     _requestGeneration++;
     _attemptTimeout?.cancel();
     _benchmarkWarmup?.cancel();
+    _benchmarkGeneration++;
+    _benchmarkStartTimeout?.cancel();
     _lifecycleObserver.setPracticeActive(false);
     WidgetsBinding.instance.removeObserver(_lifecycleObserver);
     _sub?.cancel();

@@ -1,0 +1,7 @@
+test_append_serializes_read_modify_write_across_processes (test_history.HistoryConcurrencyTest.test_append_serializes_read_modify_write_across_processes) ... ok
+test_failures_preserve_bytes_clean_temp_release_lock_and_retry (test_history.HistoryFailureTest.test_failures_preserve_bytes_clean_temp_release_lock_and_retry) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.103s
+
+OK

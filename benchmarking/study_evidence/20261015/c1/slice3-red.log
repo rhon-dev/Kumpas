@@ -1,0 +1,180 @@
+test_apk_digest_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_apk_digest_mismatch_rejected) ... ok
+test_corrupt_archive_rejected (benchmarking.test_inspect_release.ReleaseTests.test_corrupt_archive_rejected) ... ok
+test_duplicate_zip_member_rejected_even_when_not_required (benchmarking.test_inspect_release.ReleaseTests.test_duplicate_zip_member_rejected_even_when_not_required) ... FAIL
+test_missing_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_asset_rejected) ... ok
+test_missing_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_missing_native_file_rejected) ... ok
+test_protected_checkout_mismatch_rejected (benchmarking.test_inspect_release.ReleaseTests.test_protected_checkout_mismatch_rejected) ... ok
+test_strict_expectation_schema_types_and_independent_asset_binding (benchmarking.test_inspect_release.ReleaseTests.test_strict_expectation_schema_types_and_independent_asset_binding) ... ok
+test_valid_explicit_expectations_publish_bound_report (benchmarking.test_inspect_release.ReleaseTests.test_valid_explicit_expectations_publish_bound_report) ... ok
+test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) ... 
+  test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) (name='lib/x86_64/libflutter.so') ... FAIL
+  test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) (name='lib/arm64-v8a/libextra.so') ... FAIL
+test_wrong_embedded_asset_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_embedded_asset_rejected) ... ok
+test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) ... 
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='../private') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='/absolute') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets//foo') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/./foo') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/../foo') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets\\foo') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='C:/private') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/%2e/foo') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/Label_map.json') ... FAIL
+  test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='lib/arm64-v8a/nested/odd.so') ... FAIL
+test_zip_file_directory_alias_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_file_directory_alias_rejected) ... FAIL
+test_zip_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_symlink_rejected) ... FAIL
+
+======================================================================
+FAIL: test_duplicate_zip_member_rejected_even_when_not_required (benchmarking.test_inspect_release.ReleaseTests.test_duplicate_zip_member_rejected_even_when_not_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 105, in test_duplicate_zip_member_rejected_even_when_not_required
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '8bb819f65881c6f23ede67c6e342992af5dd96dde8b2e8f74a5574412f359054', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) (name='lib/x86_64/libflutter.so')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 146, in test_wrong_abi_and_unexpected_native_file_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': 'e6bff3600617ba29a834da04cb77ebf2d04f99a0e97adf0636d23efa18f99d92', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_wrong_abi_and_unexpected_native_file_rejected (benchmarking.test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) (name='lib/arm64-v8a/libextra.so')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 146, in test_wrong_abi_and_unexpected_native_file_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': 'f23d8ebc0bcdbc3e05b24892e136d0302523068c5f33fdca199c37ba9ecab080', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='../private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '85d9b6b4fd3dbac2eb4e140041bfb26a0772c5d8abb3cd52ffbbc6cb1efe2696', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='/absolute')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '38bb3c0cde9cb48bb55f7b81fe8f7e86c794dd69359c991c32173ec0586aa62b', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets//foo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': 'eb1074401bcee02e5e5e385ef3e999d75e147f2ccaafc053bd0b91ff56b67b3b', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/./foo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '4cb824c2e52b5fc98e7a991826d66fc61d95ebcb907ec9d220d911b8672c681e', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/../foo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '4e309d56b758e5012897c9f1d158d3ebbfac3d5fdf96e2fcd643f11078f1f798', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets\\foo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '4ebe11829ae64d47919868966db13d6a9ab9d5d214c907ac674e0ff1a2488a07', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='C:/private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '0015856014ff11af013b286b668daf5e145cd909ba57ef49b7c86759ef7263f2', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/%2e/foo')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': 'd3d55abb06ff1384e37a539ca5dadb89ceac4919a4129fe9350191e09c4e6eae', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='assets/Label_map.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '749642585b39c4c0f982577e215ddb49e186f762d97abfab632c07e780efe57e', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_ambiguous_names_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) (name='lib/arm64-v8a/nested/odd.so')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 112, in test_zip_ambiguous_names_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': 'cf126f51998124a495ea48de445ac4cb2c5c94c4a8b32b90156097cc9de46198', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_file_directory_alias_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_file_directory_alias_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 116, in test_zip_file_directory_alias_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '45919c679c5c0b308baa9a5d8fea3ae2ff5c319632f6d1306cb300d91e0056f2', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+======================================================================
+FAIL: test_zip_symlink_rejected (benchmarking.test_inspect_release.ReleaseTests.test_zip_symlink_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 126, in test_zip_symlink_rejected
+    self.assert_rejected()
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_inspect_release.py", line 56, in assert_rejected
+    self.assertNotEqual(code, 0, report)
+AssertionError: 0 == 0 : {'abis': ['arm64-v8a'], 'apk_sha256': '052e3e80ed4f0e249d14d134062ed801477cf318c03684d39adef6582b58b8e8', 'artifact_kind': 'historical', 'assets': {'assets/gold_standards.bin': '4f63155856ffbd708fef876f2d7c25f9199d61229a7ff1d638d568c40a72c0f4', 'assets/hand_landmarker.task': 'f9fcd253dbfcb3c370a56b1a5d8c2625454d121b2dc2db9ea963b940cbecdf6f', 'assets/kumpas_50sign.tflite': 'f651dd81b76d2fa55cab0ad5952df1e4a33da028fc3b469f356ee60e1090a427', 'assets/label_map.json': '36581c8c8defe5ac873cedbd3f8636d3f82079f50a62d59ff012525727da6a0e', 'assets/pose_landmarker_lite.task': '431f39c1482648e015057c3fb5b8b0fa216a847660fee290f7b98e224e2949bd'}, 'current_source_build_provenance': False, 'native_files': {'lib/arm64-v8a/libapp.so': 'a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333', 'lib/arm64-v8a/libflutter.so': 'be13961a0ab037c4fd82b1ecc42dcc7c2759f4c96143ff9cb5f8a36ac329745b'}, 'ok': True, 'schema_version': 1}
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.016s
+
+FAILED (failures=15)

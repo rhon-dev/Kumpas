@@ -1,0 +1,24 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart
+00:00 +0: late benchmark cleanup failure after disposal retains coded diagnostics
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following assertion was thrown running a test:
+The value of a foundation debug variable was changed by the test.
+
+When the exception was thrown, this was the stack:
+#0      debugAssertAllFoundationVarsUnset.<anonymous closure> (package:flutter/src/foundation/debug.dart:45:7)
+#1      debugAssertAllFoundationVarsUnset (package:flutter/src/foundation/debug.dart:48:4)
+#2      TestWidgetsFlutterBinding._verifyInvariants (package:flutter_test/src/binding.dart:1725:7)
+#3      AutomatedTestWidgetsFlutterBinding._verifyInvariants (package:flutter_test/src/binding.dart:2224:11)
+#4      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1703:7)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  late benchmark cleanup failure after disposal retains coded diagnostics
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: late benchmark cleanup failure after disposal retains coded diagnostics [E]
+  Test failed. See exception logs above.
+  The test description was: late benchmark cleanup failure after disposal retains coded diagnostics
+  
+00:00 +0 -1: Some tests failed.

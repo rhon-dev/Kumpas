@@ -1,0 +1,309 @@
+{
+  "kind": "read_only_historical_inventory_not_acceptance",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "assets_expected_from": "controller/host-baseline.json protected expected map",
+  "artifacts": [
+    {
+      "path": "app/build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "bytes": 382400,
+      "sha256": "c276116bc3bad24383101f07191f1e71d29fa52c16fc4b3a6b38bec5b024b291",
+      "all_native_abis": [],
+      "flutter_abis": [],
+      "native_files": [],
+      "assets": {
+        "assets/pose_landmarker_lite.task": {
+          "missing": true
+        },
+        "assets/label_map.json": {
+          "missing": true
+        },
+        "assets/hand_landmarker.task": {
+          "missing": true
+        },
+        "assets/kumpas_50sign.tflite": {
+          "missing": true
+        },
+        "assets/gold_standards.bin": {
+          "missing": true
+        }
+      },
+      "historical_artifact": true,
+      "current_source_build_provenance": false,
+      "strict_arm64_native_match": false
+    },
+    {
+      "path": "app/build/app/outputs/apk/debug/app-debug.apk",
+      "bytes": 212207146,
+      "sha256": "0707d2f153c713055edaf50171b4c053393480f34940d380512cac0177543dff",
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "native_files": [
+        "lib/arm64-v8a/libVkLayer_khronos_validation.so",
+        "lib/arm64-v8a/libflutter.so",
+        "lib/arm64-v8a/libimage_processing_util_jni.so",
+        "lib/arm64-v8a/libmediapipe_tasks_vision_jni.so",
+        "lib/arm64-v8a/libsurface_util_jni.so",
+        "lib/arm64-v8a/libtensorflowlite_jni.so",
+        "lib/armeabi-v7a/libflutter.so",
+        "lib/armeabi-v7a/libimage_processing_util_jni.so",
+        "lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so",
+        "lib/armeabi-v7a/libsurface_util_jni.so",
+        "lib/armeabi-v7a/libtensorflowlite_jni.so",
+        "lib/x86_64/libflutter.so",
+        "lib/x86_64/libimage_processing_util_jni.so",
+        "lib/x86_64/libsurface_util_jni.so",
+        "lib/x86_64/libtensorflowlite_jni.so"
+      ],
+      "assets": {
+        "assets/pose_landmarker_lite.task": {
+          "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+          "matches_protected_checkout": true
+        },
+        "assets/label_map.json": {
+          "sha256": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+          "matches_protected_checkout": true
+        },
+        "assets/hand_landmarker.task": {
+          "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+          "matches_protected_checkout": true
+        },
+        "assets/kumpas_50sign.tflite": {
+          "sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+          "matches_protected_checkout": true
+        },
+        "assets/gold_standards.bin": {
+          "sha256": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+          "matches_protected_checkout": true
+        }
+      },
+      "historical_artifact": true,
+      "current_source_build_provenance": false,
+      "strict_arm64_native_match": false
+    },
+    {
+      "path": "app/build/app/outputs/apk/release/app-release 2.apk",
+      "bytes": 66969546,
+      "sha256": "ebe520dd92847e85a87de4708692904d673c7f870751a5fe587b0bda8633680e",
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a"
+      ],
+      "native_files": [
+        "lib/arm64-v8a/libapp.so",
+        "lib/arm64-v8a/libflutter.so",
+        "lib/arm64-v8a/libimage_processing_util_jni.so",
+        "lib/arm64-v8a/libmediapipe_tasks_vision_jni.so",
+        "lib/arm64-v8a/libsurface_util_jni.so",
+        "lib/arm64-v8a/libtensorflowlite_jni.so",
+        "lib/armeabi-v7a/libimage_processing_util_jni.so",
+        "lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so",
+        "lib/armeabi-v7a/libsurface_util_jni.so",
+        "lib/armeabi-v7a/libtensorflowlite_jni.so",
+        "lib/x86_64/libimage_processing_util_jni.so",
+        "lib/x86_64/libsurface_util_jni.so",
+        "lib/x86_64/libtensorflowlite_jni.so"
+      ],
+      "assets": {
+        "assets/pose_landmarker_lite.task": {
+          "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+          "matches_protected_checkout": true
+        },
+        "assets/label_map.json": {
+          "sha256": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+          "matches_protected_checkout": true
+        },
+        "assets/hand_landmarker.task": {
+          "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+          "matches_protected_checkout": true
+        },
+        "assets/kumpas_50sign.tflite": {
+          "sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+          "matches_protected_checkout": true
+        },
+        "assets/gold_standards.bin": {
+          "sha256": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+          "matches_protected_checkout": true
+        }
+      },
+      "historical_artifact": true,
+      "current_source_build_provenance": false,
+      "strict_arm64_native_match": false
+    },
+    {
+      "path": "app/build/app/outputs/apk/release/app-release.apk",
+      "bytes": 66969546,
+      "sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a"
+      ],
+      "native_files": [
+        "lib/arm64-v8a/libapp.so",
+        "lib/arm64-v8a/libflutter.so",
+        "lib/arm64-v8a/libimage_processing_util_jni.so",
+        "lib/arm64-v8a/libmediapipe_tasks_vision_jni.so",
+        "lib/arm64-v8a/libsurface_util_jni.so",
+        "lib/arm64-v8a/libtensorflowlite_jni.so",
+        "lib/armeabi-v7a/libimage_processing_util_jni.so",
+        "lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so",
+        "lib/armeabi-v7a/libsurface_util_jni.so",
+        "lib/armeabi-v7a/libtensorflowlite_jni.so",
+        "lib/x86_64/libimage_processing_util_jni.so",
+        "lib/x86_64/libsurface_util_jni.so",
+        "lib/x86_64/libtensorflowlite_jni.so"
+      ],
+      "assets": {
+        "assets/pose_landmarker_lite.task": {
+          "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+          "matches_protected_checkout": true
+        },
+        "assets/label_map.json": {
+          "sha256": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+          "matches_protected_checkout": true
+        },
+        "assets/hand_landmarker.task": {
+          "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+          "matches_protected_checkout": true
+        },
+        "assets/kumpas_50sign.tflite": {
+          "sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+          "matches_protected_checkout": true
+        },
+        "assets/gold_standards.bin": {
+          "sha256": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+          "matches_protected_checkout": true
+        }
+      },
+      "historical_artifact": true,
+      "current_source_build_provenance": false,
+      "strict_arm64_native_match": false
+    },
+    {
+      "path": "app/build/app/outputs/flutter-apk/app-debug.apk",
+      "bytes": 212207146,
+      "sha256": "0707d2f153c713055edaf50171b4c053393480f34940d380512cac0177543dff",
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "native_files": [
+        "lib/arm64-v8a/libVkLayer_khronos_validation.so",
+        "lib/arm64-v8a/libflutter.so",
+        "lib/arm64-v8a/libimage_processing_util_jni.so",
+        "lib/arm64-v8a/libmediapipe_tasks_vision_jni.so",
+        "lib/arm64-v8a/libsurface_util_jni.so",
+        "lib/arm64-v8a/libtensorflowlite_jni.so",
+        "lib/armeabi-v7a/libflutter.so",
+        "lib/armeabi-v7a/libimage_processing_util_jni.so",
+        "lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so",
+        "lib/armeabi-v7a/libsurface_util_jni.so",
+        "lib/armeabi-v7a/libtensorflowlite_jni.so",
+        "lib/x86_64/libflutter.so",
+        "lib/x86_64/libimage_processing_util_jni.so",
+        "lib/x86_64/libsurface_util_jni.so",
+        "lib/x86_64/libtensorflowlite_jni.so"
+      ],
+      "assets": {
+        "assets/pose_landmarker_lite.task": {
+          "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+          "matches_protected_checkout": true
+        },
+        "assets/label_map.json": {
+          "sha256": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+          "matches_protected_checkout": true
+        },
+        "assets/hand_landmarker.task": {
+          "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+          "matches_protected_checkout": true
+        },
+        "assets/kumpas_50sign.tflite": {
+          "sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+          "matches_protected_checkout": true
+        },
+        "assets/gold_standards.bin": {
+          "sha256": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+          "matches_protected_checkout": true
+        }
+      },
+      "historical_artifact": true,
+      "current_source_build_provenance": false,
+      "strict_arm64_native_match": false
+    },
+    {
+      "path": "app/build/app/outputs/flutter-apk/app-release.apk",
+      "bytes": 66969546,
+      "sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a"
+      ],
+      "native_files": [
+        "lib/arm64-v8a/libapp.so",
+        "lib/arm64-v8a/libflutter.so",
+        "lib/arm64-v8a/libimage_processing_util_jni.so",
+        "lib/arm64-v8a/libmediapipe_tasks_vision_jni.so",
+        "lib/arm64-v8a/libsurface_util_jni.so",
+        "lib/arm64-v8a/libtensorflowlite_jni.so",
+        "lib/armeabi-v7a/libimage_processing_util_jni.so",
+        "lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so",
+        "lib/armeabi-v7a/libsurface_util_jni.so",
+        "lib/armeabi-v7a/libtensorflowlite_jni.so",
+        "lib/x86_64/libimage_processing_util_jni.so",
+        "lib/x86_64/libsurface_util_jni.so",
+        "lib/x86_64/libtensorflowlite_jni.so"
+      ],
+      "assets": {
+        "assets/pose_landmarker_lite.task": {
+          "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+          "matches_protected_checkout": true
+        },
+        "assets/label_map.json": {
+          "sha256": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+          "matches_protected_checkout": true
+        },
+        "assets/hand_landmarker.task": {
+          "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+          "matches_protected_checkout": true
+        },
+        "assets/kumpas_50sign.tflite": {
+          "sha256": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+          "matches_protected_checkout": true
+        },
+        "assets/gold_standards.bin": {
+          "sha256": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2",
+          "matches_protected_checkout": true
+        }
+      },
+      "historical_artifact": true,
+      "current_source_build_provenance": false,
+      "strict_arm64_native_match": false
+    }
+  ]
+}

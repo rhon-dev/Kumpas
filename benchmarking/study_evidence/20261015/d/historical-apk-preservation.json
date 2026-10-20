@@ -1,0 +1,32 @@
+{
+  "app/build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk": {
+    "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/historical-apks/0-app-debug-androidTest.apk",
+    "sha256": "c276116bc3bad24383101f07191f1e71d29fa52c16fc4b3a6b38bec5b024b291",
+    "bytes": 382400
+  },
+  "app/build/app/outputs/apk/debug/app-debug.apk": {
+    "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/historical-apks/1-app-debug.apk",
+    "sha256": "0707d2f153c713055edaf50171b4c053393480f34940d380512cac0177543dff",
+    "bytes": 212207146
+  },
+  "app/build/app/outputs/apk/release/app-release 2.apk": {
+    "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/historical-apks/2-app-release 2.apk",
+    "sha256": "ebe520dd92847e85a87de4708692904d673c7f870751a5fe587b0bda8633680e",
+    "bytes": 66969546
+  },
+  "app/build/app/outputs/apk/release/app-release.apk": {
+    "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/historical-apks/3-app-release.apk",
+    "sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+    "bytes": 66969546
+  },
+  "app/build/app/outputs/flutter-apk/app-debug.apk": {
+    "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/historical-apks/4-app-debug.apk",
+    "sha256": "0707d2f153c713055edaf50171b4c053393480f34940d380512cac0177543dff",
+    "bytes": 212207146
+  },
+  "app/build/app/outputs/flutter-apk/app-release.apk": {
+    "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/historical-apks/5-app-release.apk",
+    "sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+    "bytes": 66969546
+  }
+}

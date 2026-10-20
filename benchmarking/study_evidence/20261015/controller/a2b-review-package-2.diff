@@ -1,0 +1,1130 @@
+diff --git a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
+index fec92cf..9950f56 100644
+--- a/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
++++ b/app/android/app/src/main/kotlin/com/kumpas/kumpas_app/MainActivity.kt
+@@ -22,40 +22,50 @@ class MainActivity : FlutterActivity() {
+     private var sessionManager: SessionManager? = null
+     private var dataExporter: DataExporter? = null
+     private var benchmarkMode: BenchmarkMode? = null
+     private var eventSink: EventChannel.EventSink? = null
+     private val mainHandler = Handler(Looper.getMainLooper())
+     // One reentrant lock protects frame processing, persistence, export, and purge.
+     private val pipelineLock = Any()
+     private val attempts = AttemptBoundary(50)
++    private val cameraViews = CameraViewOwnership(pipelineLock) { cancelCapture(null, "cancelled") }
+     private var pendingTrace: PipelineTrace? = null
+ 
++    internal class Initialization {
++        val resources = mutableListOf<() -> Unit>()
++        val registrations = mutableListOf<() -> Unit>()
++        var released = false
++    }
++    private var initialization: Initialization? = null
++    internal fun isCurrent(owner: Initialization) = initialization === owner && !owner.released
++
+     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+         super.configureFlutterEngine(flutterEngine)
+         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 7001)
+         }
+-        EventChannel(flutterEngine.dartExecutor.binaryMessenger, "kumpas/predictions")
+-            .setStreamHandler(object : EventChannel.StreamHandler {
+-                override fun onListen(args: Any?, sink: EventChannel.EventSink?) { eventSink = sink }
+-                override fun onCancel(args: Any?) { eventSink = null }
++        val owner = Initialization()
++        initializeResources(AndroidActivityResourceFactory(applicationContext, pipelineLock,
++            { attempts.generation }, { report -> postBenchmarkReport(owner, report) },
++            { json -> if (isCurrent(owner)) handleVisionEvent(json) }), owner) { cleanup ->
++            val predictions = EventChannel(flutterEngine.dartExecutor.binaryMessenger, "kumpas/predictions")
++            cleanup { predictions.setStreamHandler(null) }
++            predictions.setStreamHandler(object : EventChannel.StreamHandler {
++                override fun onListen(args: Any?, sink: EventChannel.EventSink?) { if (isCurrent(owner)) eventSink = sink }
++                override fun onCancel(args: Any?) { if (isCurrent(owner)) eventSink = null }
+             })
+-        sessionManager = SessionManager(applicationContext)
+-        dataExporter = DataExporter(applicationContext)
+-        benchmarkMode = BenchmarkMode(applicationContext) { report ->
+-            mainHandler.post {
+-                eventSink?.success(JSONObject().put("state", "benchmark_complete")
+-                    .put("results", JSONObject(report)).toString())
+-            }
+-        }
+-        visionEngine = VisionEngine(applicationContext, pipelineLock, { attempts.generation }, ::handleVisionEvent)
+-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "kumpas/control")
+-            .setMethodCallHandler { call, result ->
++            val control = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "kumpas/control")
++            cleanup { control.setMethodCallHandler(null) }
++            control.setMethodCallHandler { call, result ->
+                 synchronized(pipelineLock) {
++                    if (!isCurrent(owner)) {
++                        result.error("CONTROL_FAILED", "Activity initialization is no longer current", null)
++                        return@synchronized
++                    }
+                     try {
+                         when (call.method) {
+                             "getLabels" -> result.success(visionEngine!!.labelsJson())
+                             "startAttempt" -> {
+                                 check(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                                     "Camera permission denied"
+                                 }
+                                 val target = requireNotNull(call.argument<Int>("classId")) { "Missing target class" }
+@@ -106,96 +116,182 @@ class MainActivity : FlutterActivity() {
+                             "clearAllData" -> {
+                                 // Invalidate before purge, including when purge reports partial failure.
+                                 cancelCapture(null, "cancelled")
+                                 sessionManager!!.clearAllData()
+                                 result.success(null)
+                             }
+                             "getParticipantId" -> result.success(sessionManager!!.participantId)
+                             "startBenchmark" -> result.success(benchmarkMode!!.start(call.argument<Int>("durationSeconds") ?: 60))
++                            "confirmBenchmarkStart" -> result.success(benchmarkMode!!.confirmStart(requireNotNull(call.argument<String>("runId"))))
+                             "stopBenchmark" -> result.success(benchmarkMode!!.stop(requireNotNull(call.argument<String>("runId")) { "Missing run identity" }))
+                             "getBenchmarkReport" -> result.success(benchmarkMode!!.reportFor(requireNotNull(call.argument<String>("runId")) { "Missing run identity" }))
+                             "isBenchmarkActive" -> result.success(benchmarkMode!!.isActive)
+                             else -> result.notImplemented()
+                         }
+                     } catch (error: Exception) {
+                         val code = when (call.method) {
+                             "clearAllData" -> "CLEAR_FAILED"
+                             "exportData" -> "EXPORT_FAILED"
+                             "startAttempt" -> "CAMERA_ERROR"
+                             else -> "CONTROL_FAILED"
+                         }
+                         result.error(code, error.message, null)
+                     }
+                 }
+             }
+-        flutterEngine.platformViewsController.registry.registerViewFactory(
++            registerCameraView(flutterEngine.platformViewsController.registry, owner)
++        }
++    }
++
++    // Same posted completion callback used by the Android factory; host tests do not install a messenger.
++    internal fun postBenchmarkReport(owner: Initialization, report: String) {
++        mainHandler.post {
++            if (isCurrent(owner)) eventSink?.success(JSONObject().put("state", "benchmark_complete")
++                .put("results", JSONObject(report)).toString())
++        }
++    }
++
++    internal fun registerCameraView(registry: io.flutter.plugin.platform.PlatformViewRegistry, owner: Initialization) {
++        check(registry.registerViewFactory(
+             "kumpas/camera_preview", object : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
+-                override fun create(context: Context, viewId: Int, args: Any?): PlatformView =
+-                    CameraPreviewView(this@MainActivity, this@MainActivity, visionEngine!!, benchmarkMode)
+-            })
++                override fun create(context: Context, viewId: Int, args: Any?): PlatformView {
++                    check(isCurrent(owner)) { "Activity initialization is no longer current" }
++                    return CameraPreviewView(this@MainActivity, this@MainActivity, visionEngine!!, benchmarkMode, ownership = cameraViews)
++                }
++            })) { "Camera preview factory registration rejected" }
++    }
++
++    internal fun initializeResources(
++        factory: ActivityResourceFactory,
++        owner: Initialization = Initialization(),
++        register: ((() -> Unit) -> Unit) -> Unit,
++    ) = synchronized(pipelineLock) {
++        val previous = initialization
++        var published = false
++        try {
++            val session = factory.session().also { owner.resources.add(it.release) }
++            val exporter = factory.exporter()
++            val benchmark = factory.benchmark().also { owner.resources.add(it.release) }
++            val vision = factory.vision().also { owner.resources.add(it.release) }
++            initialization = owner
++            // Publication revokes the displaced subscription before registration can reenter.
++            // Early acquisition failures above still preserve the viable owner's listener.
++            eventSink = null
++            published = true
++            sessionManager = session.value
++            dataExporter = exporter
++            benchmarkMode = benchmark.value
++            visionEngine = vision.value
++            register { owner.registrations.add(it) }
++            // A reentrant registration may have installed a newer owner.
++            if (!isCurrent(owner)) releaseInitialization(owner)
++            previous?.let { releaseInitialization(it) }
++        } catch (original: Throwable) {
++            releaseInitialization(owner, original)
++            if (published) previous?.let { releaseInitialization(it, original) }
++            throw original
++        }
++    }
++
++    private fun releaseInitialization(owner: Initialization, primary: Throwable? = null) {
++        if (owner.released) return
++        val current = isCurrent(owner)
++        owner.released = true
++        val actions = mutableListOf<() -> Unit>()
++        if (current) {
++            // Invalidate before detaching callbacks; stale cleanup cannot remove newer handlers.
++            initialization = null
++            attempts.invalidate()
++            pendingTrace = null
++            sessionManager = null
++            dataExporter = null
++            benchmarkMode = null
++            visionEngine = null
++            eventSink = null
++            actions.addAll(owner.registrations)
++        }
++        actions.addAll(owner.resources)
++        if (primary == null) completeCleanup(actions) else actions.forEach { action ->
++            try { action() } catch (cleanup: Throwable) {
++                if (cleanup !== primary) primary.addSuppressed(cleanup)
++            }
++        }
+     }
+ 
+     private fun cancelCapture(id: String?, outcome: String) = synchronized(pipelineLock) {
+         require(outcome in setOf("cancelled", "timeout")) { "Invalid cancellation outcome" }
+         val current = attempts.currentId
+         if (attempts.cancel(id)) {
+             current?.let { benchmarkMode?.recordOutcome(it, outcome) }
+             pendingTrace = null
+             visionEngine?.cancelAttempt(id)
++        } else if (id != null && outcome == "timeout") {
++            // A delayed start response may describe a recognized older attempt.
++            // Ledger deduplicates and ignores unknown/closed-run identities; do
++            // not invalidate or cancel the replacement camera capture.
++            benchmarkMode?.recordOutcome(id, "timeout")
+         }
+     }
+ 
+     private fun handleVisionEvent(json: String) = synchronized(pipelineLock) {
+         val event = JSONObject(json)
++        val viewOwner = if (event.has("viewOwner")) event.getLong("viewOwner") else null
++        event.remove("viewOwner") // internal ownership never becomes retained measurement metadata
++        if (viewOwner != null && !cameraViews.isCurrent(viewOwner)) return@synchronized
+         val state = event.optString("state")
+         val id = event.optString("attemptId")
+         val attemptEvent = state in setOf("attempt_progress", "attempt_result", "attempt_failed")
+         if (attemptEvent && !attempts.canDeliver(id)) return@synchronized
+         if (state == "attempt_result" || state == "attempt_failed") {
+             if (!attempts.acceptTerminal(id)) return@synchronized
+         }
+         if (state == "camera_error") {
+             if (!event.has("cameraGeneration") || event.getLong("cameraGeneration") != attempts.generation) return@synchronized
+             attempts.currentId?.let { benchmarkMode?.recordOutcome(it, "camera_error") }
+             attempts.invalidate()
+             pendingTrace = null
+         }
+         if (state == "attempt_result") {
+             try {
+-                sessionManager!!.recordAttempt(json)
++                sessionManager!!.recordAttempt(event.toString())
+                 val timing = event.getJSONObject("timing")
+                 pendingTrace = PipelineTrace(id, timing.getLong("first_analyzer_ns"),
+                     timing.getLong("final_analyzer_ns"), timing.getLong("native_result_ns"),
+                     (timing.getDouble("inference_ms") * 1e6).toLong(), timing.getLong("attempt_started_ns"))
+             } catch (error: Exception) {
+                 pendingTrace = null
+                 event.put("state", "attempt_failed").put("reason", "Attempt could not be saved: ${error.message}")
+                 event.put("outcome", "persistence_failed")
+             }
+         }
+         if (event.optString("state") == "attempt_failed") {
+             benchmarkMode?.recordOutcome(id, event.optString("outcome", "failure"))
+         }
+         val deliveryGeneration = attempts.generation
++        val deliveryInitialization = initialization
++        val deliverySink = eventSink
+         mainHandler.post {
+             synchronized(pipelineLock) {
+                 // The posted event can outlive a clear, cancellation, or new attempt.
+-                if ((!attemptEvent || attempts.canDeliver(id)) &&
+-                    (state != "camera_error" || deliveryGeneration == attempts.generation) && eventSink != null) {
++                if (initialization === deliveryInitialization &&
++                    (!attemptEvent || attempts.canDeliver(id)) &&
++                    (state != "camera_error" || deliveryGeneration == attempts.generation) &&
++                    (viewOwner == null || cameraViews.isCurrent(viewOwner)) &&
++                    deliverySink != null && eventSink === deliverySink) {
+                     if (event.optString("state") == "attempt_result") {
+                         pendingTrace?.takeIf { it.attemptId == id }?.let {
+                             it.delivered(SystemClock.elapsedRealtimeNanos())
+                             event.put("timing", it.toJson())
+                             benchmarkMode?.recordTrace(it.toJson())
+                             benchmarkMode?.recordOutcome(id, "success")
+                         }
+                     }
+                     benchmarkMode?.recordEvent()
+-                    eventSink?.success(event.toString())
++                    deliverySink.success(event.toString())
+                 }
+             }
+         }
+         Unit
+     }
+ 
+     override fun onPause() {
+         synchronized(pipelineLock) {
+@@ -204,24 +300,24 @@ class MainActivity : FlutterActivity() {
+         }
+         super.onPause()
+     }
+     override fun onResume() {
+         super.onResume()
+         synchronized(pipelineLock) { sessionManager?.onResume() }
+     }
+     override fun onDestroy() {
+-        synchronized(pipelineLock) {
+-            attempts.invalidate()
+-            pendingTrace = null
+-            try { sessionManager?.close() }
+-            catch (error: Exception) { android.util.Log.e("KumpasLifecycle", "Session teardown failed", error) }
+-            finally {
+-                try { visionEngine?.close() }
+-                finally {
+-                    try { if (benchmarkMode?.isActive == true) benchmarkMode?.finish() }
+-                    finally { eventSink = null }
++        completeCleanup(listOf(
++            {
++                synchronized(pipelineLock) {
++                    attempts.invalidate()
++                    pendingTrace = null
++                    completeCleanup(listOf(
++                        { initialization?.let { releaseInitialization(it) } ?: completeCleanup(listOf(
++                            { sessionManager?.close(); Unit },
++                            { visionEngine?.close(); Unit },
++                            { if (benchmarkMode?.isActive == true) benchmarkMode?.finish(); Unit })); Unit },
++                        { eventSink = null }))
+                 }
+-            }
+-        }
+-        super.onDestroy()
++            },
++            { super.onDestroy() }))
+     }
+ }
+
+
+FULL CURRENT UNTRACKED FILE app/android/app/src/main/kotlin/com/kumpas/kumpas_app/ActivityResourceFactory.kt
+package com.kumpas.kumpas_app
+
+import android.content.Context
+
+/** Acquisition only. Null native values are reserved for isolated host orchestration tests. */
+internal interface ActivityResourceFactory {
+    fun session(): OwnedNative<SessionManager>
+    fun exporter(): DataExporter?
+    fun benchmark(): OwnedNative<BenchmarkMode>
+    fun vision(): OwnedNative<VisionEngine>
+}
+
+internal class AndroidActivityResourceFactory(
+    private val context: Context,
+    private val lock: Any,
+    private val generation: () -> Long,
+    private val onBenchmark: (String) -> Unit,
+    private val onVision: (String) -> Unit,
+) : ActivityResourceFactory {
+    override fun session(): OwnedNative<SessionManager> {
+        val value = SessionManager(context)
+        return OwnedNative(value) { value.close() }
+    }
+    override fun exporter() = DataExporter(context)
+    override fun benchmark(): OwnedNative<BenchmarkMode> {
+        val value = BenchmarkMode(context, onBenchmark)
+        return OwnedNative(value) { if (value.isActive) value.finish(); Unit }
+    }
+    override fun vision(): OwnedNative<VisionEngine> {
+        val value = VisionEngine(context, lock, generation, onResult = onVision)
+        return OwnedNative(value) { value.close() }
+    }
+}
+
+
+FULL CURRENT UNTRACKED FILE app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ActivityInitializationTest.kt
+package com.kumpas.kumpas_app
+
+import org.junit.Assert.*
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+
+/** Calls the same acquisition/registration transaction as configureFlutterEngine; no default stores. */
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34])
+class ActivityInitializationTest {
+    private class Factory(val failAt: String? = null, val releaseFails: Boolean = false) : ActivityResourceFactory {
+        val original = IllegalArgumentException("initialization")
+        val acquired = mutableListOf<String>()
+        val closed = mutableListOf<String>()
+        private fun stage(name: String) { if (name == failAt) throw original; acquired.add(name) }
+        private fun release(name: String) { closed.add(name); if (releaseFails) throw IllegalStateException(name) }
+        override fun session(): OwnedNative<SessionManager> { stage("session"); return OwnedNative(null) { release("session") } }
+        override fun exporter(): DataExporter? { stage("exporter"); return null }
+        override fun benchmark(): OwnedNative<BenchmarkMode> { stage("benchmark"); return OwnedNative(null) { release("benchmark") } }
+        override fun vision(): OwnedNative<VisionEngine> { stage("vision"); return OwnedNative(null) { release("vision") } }
+    }
+    private fun sink() = object : io.flutter.plugin.common.EventChannel.EventSink {
+        override fun success(event: Any?) {}
+        override fun error(code: String, message: String?, details: Any?) {}
+        override fun endOfStream() {}
+    }
+    private fun setSink(activity: MainActivity, sink: io.flutter.plugin.common.EventChannel.EventSink?) =
+        MainActivity::class.java.getDeclaredField("eventSink").apply { isAccessible = true }.set(activity, sink)
+    private fun getSink(activity: MainActivity) =
+        MainActivity::class.java.getDeclaredField("eventSink").apply { isAccessible = true }.get(activity)
+
+    private fun collectingSink(events: MutableList<String>) = object : io.flutter.plugin.common.EventChannel.EventSink {
+        override fun success(event: Any?) { events.add(event as String) }
+        override fun error(code: String, message: String?, details: Any?) {}
+        override fun endOfStream() {}
+    }
+    private fun prediction(activity: MainActivity) {
+        MainActivity::class.java.getDeclaredMethod("handleVisionEvent", String::class.java).apply { isAccessible = true }
+            .invoke(activity, "{\"state\":\"prediction\"}")
+    }
+    private fun drain() = org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idle()
+
+    @Test fun successfulReplacementCannotInheritDisplacedSubscriberBeforeNewListen() {
+        val activity = MainActivity()
+        val oldEvents = mutableListOf<String>()
+        val newEvents = mutableListOf<String>()
+        val a = Factory()
+        val b = Factory()
+        val ownerB = MainActivity.Initialization()
+        activity.initializeResources(a) { setSink(activity, collectingSink(oldEvents)) }
+        prediction(activity)
+        drain()
+        assertEquals(1, oldEvents.size)
+        oldEvents.clear()
+
+        activity.initializeResources(b, ownerB) { /* B has not listened. */ }
+        prediction(activity)
+        drain()
+        assertTrue("B prediction leaked to displaced A subscriber: $oldEvents", oldEvents.isEmpty())
+        assertTrue(activity.isCurrent(ownerB))
+        assertEquals(listOf("session", "benchmark", "vision"), a.closed)
+        assertTrue(b.closed.isEmpty())
+
+        setSink(activity, collectingSink(newEvents)) // Existing honest subscription seam, no BinaryMessenger claim.
+        prediction(activity)
+        drain()
+        assertEquals(1, newEvents.size)
+        assertEquals("prediction", org.json.JSONObject(newEvents.single()).getString("state"))
+        assertTrue(oldEvents.isEmpty())
+    }
+
+    @Test fun reentrantFailedOlderRegistrationCannotLeakItsSubscriberIntoNewerOwner() {
+        val activity = MainActivity()
+        val a = Factory()
+        val b = Factory()
+        val ownerB = MainActivity.Initialization()
+        val oldEvents = mutableListOf<String>()
+        val newEvents = mutableListOf<String>()
+        val attempts = MainActivity::class.java.getDeclaredField("attempts").apply { isAccessible = true }.get(activity) as AttemptBoundary
+        var attempt: String? = null
+        var staleDetach = 0
+        val original = IllegalStateException("older registration")
+        assertSame(original, assertThrows(IllegalStateException::class.java) {
+            activity.initializeResources(a) { cleanup ->
+                cleanup { staleDetach++ }
+                setSink(activity, collectingSink(oldEvents))
+                activity.initializeResources(b, ownerB) {
+                    attempt = attempts.start(0)
+                    // Runs inside registration, before B listens and before A's stale rollback.
+                    prediction(activity)
+                    activity.postBenchmarkReport(ownerB, "{\"probe\":1}")
+                    drain()
+                    assertTrue("registration inherited A subscriber", oldEvents.isEmpty())
+                }
+                throw original
+            }
+        })
+        prediction(activity)
+        activity.postBenchmarkReport(ownerB, "{\"probe\":2}")
+        drain()
+        assertTrue(oldEvents.isEmpty())
+        assertTrue(activity.isCurrent(ownerB))
+        assertEquals(attempt, attempts.currentId)
+        assertNotNull(attempt)
+        assertEquals(0, staleDetach)
+        assertEquals(listOf("session", "benchmark", "vision"), a.closed)
+        assertTrue(b.closed.isEmpty())
+        setSink(activity, collectingSink(newEvents))
+        prediction(activity)
+        activity.postBenchmarkReport(ownerB, "{\"probe\":3}")
+        drain()
+        assertEquals(listOf("prediction", "benchmark_complete"), newEvents.map { org.json.JSONObject(it).getString("state") })
+        assertTrue(oldEvents.isEmpty())
+    }
+
+    @Test fun benchmarkCompletionUsesOnlyCurrentOwnersPostPublicationSubscription() {
+        val activity = MainActivity()
+        val ownerA = MainActivity.Initialization()
+        val ownerB = MainActivity.Initialization()
+        val oldEvents = mutableListOf<String>()
+        val newEvents = mutableListOf<String>()
+        activity.initializeResources(Factory(), ownerA) { setSink(activity, collectingSink(oldEvents)) }
+        activity.postBenchmarkReport(ownerA, "{\"probe\":0}")
+        drain()
+        assertEquals("benchmark_complete", org.json.JSONObject(oldEvents.single()).getString("state"))
+        oldEvents.clear()
+        activity.postBenchmarkReport(ownerA, "{\"probe\":1}") // queued displaced callback
+        activity.initializeResources(Factory(), ownerB) {}
+        activity.postBenchmarkReport(ownerB, "{\"probe\":2}") // no B listener
+        drain()
+        assertTrue("benchmark inherited displaced subscriber", oldEvents.isEmpty())
+        assertTrue(newEvents.isEmpty())
+        setSink(activity, collectingSink(newEvents))
+        activity.postBenchmarkReport(ownerA, "{\"probe\":3}") // stale callback after listen
+        activity.postBenchmarkReport(ownerB, "{\"probe\":4}")
+        drain()
+        assertEquals(1, newEvents.size)
+        val event = org.json.JSONObject(newEvents.single())
+        assertEquals("benchmark_complete", event.getString("state"))
+        assertEquals(4, event.getJSONObject("results").getInt("probe"))
+        assertTrue(oldEvents.isEmpty())
+    }
+
+    @Test fun registrationFailureDetachesSubscriptionsReleasesAllAndAllowsCleanRetry() {
+        val activity = MainActivity()
+        val factory = Factory(releaseFails = true)
+        var detached = 0
+        val original = IllegalStateException("registration")
+        val thrown = assertThrows(IllegalStateException::class.java) {
+            activity.initializeResources(factory) { cleanup ->
+                cleanup { detached++; throw IllegalArgumentException("detach") }
+                setSink(activity, sink())
+                throw original
+            }
+        }
+        assertSame(original, thrown)
+        assertEquals(1, detached)
+        assertNull(getSink(activity))
+        assertEquals(listOf("session", "benchmark", "vision"), factory.closed)
+        assertEquals(4, thrown.suppressed.size)
+        val retry = Factory()
+        activity.initializeResources(retry) { setSink(activity, sink()) }
+        assertNotNull(getSink(activity))
+        assertTrue(retry.closed.isEmpty())
+    }
+
+    @Test fun failedOlderRegistrationCannotClearOrDetachNewerReplacement() {
+        val activity = MainActivity()
+        val a = Factory()
+        val b = Factory()
+        val ownerB = MainActivity.Initialization()
+        val newerSink = sink()
+        val attempts = MainActivity::class.java.getDeclaredField("attempts").apply { isAccessible = true }.get(activity) as AttemptBoundary
+        var replacementAttempt: String? = null
+        var staleDetach = 0
+        val original = IllegalStateException("old registration")
+        assertSame(original, assertThrows(IllegalStateException::class.java) {
+            activity.initializeResources(a) { cleanup ->
+                cleanup { staleDetach++ }
+                activity.initializeResources(b, ownerB) {
+                    setSink(activity, newerSink)
+                    replacementAttempt = attempts.start(0)
+                }
+                throw original
+            }
+        })
+        assertSame(newerSink, getSink(activity))
+        assertTrue(activity.isCurrent(ownerB))
+        assertNotNull(replacementAttempt)
+        assertEquals(replacementAttempt, attempts.currentId)
+        assertEquals(0, staleDetach)
+        assertEquals(listOf("session", "benchmark", "vision"), a.closed)
+        assertTrue(b.closed.isEmpty())
+    }
+
+    @Test fun failedInitializationQueuedEventCannotCrossRetryEvenWithSameSubscriber() {
+        val activity = MainActivity()
+        val delivered = mutableListOf<String>()
+        val subscriber = object : io.flutter.plugin.common.EventChannel.EventSink {
+            override fun success(event: Any?) { delivered.add(event as String) }
+            override fun error(code: String, message: String?, details: Any?) {}
+            override fun endOfStream() {}
+        }
+        val owner = MainActivity.Initialization()
+        val attempts = MainActivity::class.java.getDeclaredField("attempts").apply { isAccessible = true }.get(activity) as AttemptBoundary
+        assertThrows(IllegalStateException::class.java) {
+            activity.initializeResources(Factory(), owner) {
+                setSink(activity, subscriber)
+                attempts.start(0)
+                MainActivity::class.java.getDeclaredMethod("handleVisionEvent", String::class.java).apply { isAccessible = true }
+                    .invoke(activity, "{\"state\":\"prediction\"}")
+                throw IllegalStateException("view registration")
+            }
+        }
+        assertFalse(activity.isCurrent(owner))
+        assertNull("failed initialization left an attempt live", attempts.currentId)
+        activity.initializeResources(Factory()) { setSink(activity, subscriber) }
+        org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idle()
+        assertTrue("failed owner event reached retry subscriber", delivered.isEmpty())
+    }
+
+    @Test fun rejectedPlatformRegistrationRollsBackAndRetainedFactoryCannotCreate() {
+        val activity = MainActivity()
+        val factory = Factory()
+        val owner = MainActivity.Initialization()
+        var retained: io.flutter.plugin.platform.PlatformViewFactory? = null
+        val registry = object : io.flutter.plugin.platform.PlatformViewRegistry {
+            override fun registerViewFactory(id: String, viewFactory: io.flutter.plugin.platform.PlatformViewFactory): Boolean {
+                assertEquals("kumpas/camera_preview", id)
+                retained = viewFactory
+                return false
+            }
+        }
+        assertThrows(IllegalStateException::class.java) {
+            activity.initializeResources(factory, owner) { activity.registerCameraView(registry, owner) }
+        }
+        assertFalse(activity.isCurrent(owner))
+        assertEquals(listOf("session", "benchmark", "vision"), factory.closed)
+        assertThrows(IllegalStateException::class.java) {
+            retained!!.create(org.robolectric.RuntimeEnvironment.getApplication(), 7, null)
+        }
+    }
+
+    @Test fun everyAcquisitionStagePreservesViableOwnerAndSuccessfulHandlesCloseOnceAtDestroy() {
+        for (stage in listOf("session", "exporter", "benchmark", "vision")) {
+            val activity = MainActivity()
+            val viable = Factory()
+            val owner = MainActivity.Initialization()
+            val events = mutableListOf<String>()
+            val subscriber = collectingSink(events)
+            activity.initializeResources(viable, owner) { setSink(activity, subscriber) }
+            val failing = Factory(stage)
+            assertSame(failing.original, assertThrows(IllegalArgumentException::class.java) {
+                activity.initializeResources(failing) { fail("registered failed acquisition") }
+            })
+            assertTrue(activity.isCurrent(owner))
+            assertSame(subscriber, getSink(activity))
+            prediction(activity)
+            activity.postBenchmarkReport(owner, "{\"probe\":1}")
+            drain()
+            assertEquals(stage, listOf("prediction", "benchmark_complete"), events.map { org.json.JSONObject(it).getString("state") })
+            assertTrue(viable.closed.isEmpty())
+            val expected = when (stage) {
+                "session" -> emptyList()
+                "exporter", "benchmark" -> listOf("session")
+                else -> listOf("session", "benchmark")
+            }
+            assertEquals(stage, expected, failing.closed)
+            val destroy = MainActivity::class.java.getDeclaredMethod("onDestroy").apply { isAccessible = true }
+            // Bare FlutterActivity has no delegate; framework teardown is still attempted.
+            repeat(2) { assertThrows(java.lang.reflect.InvocationTargetException::class.java) { destroy.invoke(activity) } }
+            assertEquals(listOf("session", "benchmark", "vision"), viable.closed)
+            assertFalse(activity.isCurrent(owner))
+            assertNull(getSink(activity))
+        }
+    }
+
+    @Test fun rollbackClearsPublishedConcreteEngineAndRetryPublishesDifferentHandle() {
+        val context = org.robolectric.RuntimeEnvironment.getApplication()
+        fun engine() = VisionEngine(context, resourceFactory = object : VisionResourceFactory {
+            override fun pose() = OwnedNative<com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker>(null) {}
+            override fun hand() = OwnedNative<com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarker>(null) {}
+            override fun interpreter(model: java.nio.ByteBuffer) = OwnedNative<org.tensorflow.lite.Interpreter>(null) {}
+            override fun asset(name: String) = java.io.ByteArrayInputStream(if (name.endsWith("json")) "{\"0\":{\"label\":\"ONE\"}}".toByteArray() else byteArrayOf(1))
+        }, onResult = {})
+        val activity = MainActivity()
+        val field = MainActivity::class.java.getDeclaredField("visionEngine").apply { isAccessible = true }
+        val failed = engine()
+        val retry = engine()
+        fun factory(value: VisionEngine) = object : ActivityResourceFactory by Factory() {
+            override fun vision() = OwnedNative(value) { value.close() }
+        }
+        try {
+            assertThrows(IllegalStateException::class.java) {
+                activity.initializeResources(factory(failed)) {
+                    assertSame(failed, field.get(activity))
+                    throw IllegalStateException("registration")
+                }
+            }
+            assertNull(field.get(activity))
+            assertThrows(IllegalStateException::class.java) { failed.startAttempt(0) }
+            activity.initializeResources(factory(retry)) { assertSame(retry, field.get(activity)) }
+            retry.startAttempt(0)
+        } finally {
+            try { MainActivity::class.java.getDeclaredMethod("onDestroy").apply { isAccessible = true }.invoke(activity) }
+            catch (_: java.lang.reflect.InvocationTargetException) { /* bare Flutter delegate */ }
+            failed.close(); retry.close()
+        }
+        assertNull(field.get(activity))
+    }
+
+    @Test fun failedReplacementReleasesDisplacedOwnerWithoutRestoringStaleFields() {
+        val activity = MainActivity()
+        val a = Factory(releaseFails = true)
+        val b = Factory(releaseFails = true)
+        val ownerA = MainActivity.Initialization()
+        activity.initializeResources(a, ownerA) { setSink(activity, sink()) }
+        val original = IllegalStateException("replacement registration")
+        assertSame(original, assertThrows(IllegalStateException::class.java) {
+            activity.initializeResources(b) { throw original }
+        })
+        assertEquals(listOf("session", "benchmark", "vision"), a.closed)
+        assertEquals(listOf("session", "benchmark", "vision"), b.closed)
+        assertEquals(6, original.suppressed.size)
+        assertFalse(activity.isCurrent(ownerA))
+        assertNull(getSink(activity))
+    }
+
+    @Test fun ownedDestroyAttemptsEveryReleaseAndFrameworkEvenWhenEachCloseFails() {
+        val activity = MainActivity()
+        val factory = Factory(releaseFails = true)
+        var detached = 0
+        activity.initializeResources(factory) { cleanup -> cleanup { detached++ } }
+        val destroy = MainActivity::class.java.getDeclaredMethod("onDestroy").apply { isAccessible = true }
+        val error = assertThrows(java.lang.reflect.InvocationTargetException::class.java) { destroy.invoke(activity) }.targetException
+        assertEquals("session", error.message)
+        assertEquals(listOf("session", "benchmark", "vision"), factory.closed)
+        assertEquals(1, detached)
+        assertTrue(error.suppressed.any { it.message == "benchmark" })
+        assertTrue(error.suppressed.any { it.message == "vision" })
+        assertTrue(error.suppressed.any { failure -> failure.stackTrace.any { it.className.contains("FlutterActivity") && it.methodName == "onDestroy" } })
+        assertNull(getSink(activity))
+        assertThrows(java.lang.reflect.InvocationTargetException::class.java) { destroy.invoke(activity) }
+        assertEquals(3, factory.closed.size)
+    }
+
+    @Test fun laterAcquisitionFailureReleasesEveryOwnedHandleAndPreservesPrimary() {
+        val activity = MainActivity()
+        val factory = Factory("vision", releaseFails = true)
+        val thrown = assertThrows(IllegalArgumentException::class.java) {
+            activity.initializeResources(factory) { fail("registration after failed acquisition") }
+        }
+        assertSame(factory.original, thrown)
+        assertEquals(listOf("session", "benchmark"), factory.closed)
+        assertEquals(2, thrown.suppressed.size)
+    }
+}
+
+
+FULL CURRENT UNTRACKED FILE app/android/app/src/test/kotlin/com/kumpas/kumpas_app/VisionInitializationTest.kt
+package com.kumpas.kumpas_app
+
+import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarker
+import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
+import org.tensorflow.lite.Interpreter
+import org.junit.Assert.*
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
+import java.io.ByteArrayInputStream
+import java.io.InputStream
+import java.nio.ByteBuffer
+
+/** Actual VisionEngine constructor with synthetic owned native handles; no inference/device claims. */
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34])
+class VisionInitializationTest {
+    private class Factory(val failAt: String? = null, val closeFailures: Set<String> = emptySet()) : VisionResourceFactory {
+        val closed = mutableListOf<String>()
+        val failure = IllegalArgumentException("original initialization failure")
+        private fun stage(name: String) { if (failAt == name) throw failure }
+        private fun release(name: String) { closed.add(name); if (name in closeFailures) throw IllegalStateException("release $name") }
+        override fun pose() = OwnedNative<PoseLandmarker>(null) { release("pose") }.also { stage("pose") }
+        override fun hand() = OwnedNative<HandLandmarker>(null) { release("hand") }.also { stage("hand") }
+        override fun interpreter(model: ByteBuffer) = OwnedNative<Interpreter>(null) { release("interpreter") }.also { stage("interpreter") }
+        override fun asset(name: String): InputStream {
+            val tag = if (name.endsWith("tflite")) "model" else "labels"
+            stage("open-$tag")
+            val bytes = if (tag == "model") byteArrayOf(1) else if (failAt == "parse-labels") "bad".toByteArray() else "{\"0\":{\"label\":\"ONE\"}}".toByteArray()
+            return object : ByteArrayInputStream(bytes) {
+                override fun read(b: ByteArray, off: Int, len: Int): Int { stage("read-$tag"); return super.read(b, off, len) }
+                override fun close() { release(tag) }
+            }
+        }
+    }
+    @Test fun runtimeLabelAndGoldAssetStreamsCloseOnSuccessReadAndParseFailure() {
+        for (asset in listOf("label_map.json", "gold_standards.bin")) {
+            for (fault in listOf("success", "read", "parse")) {
+                var runtime = false
+                var closedStreams = 0
+                val original = IllegalStateException("runtime read failure")
+                val factory = object : VisionResourceFactory {
+                    override fun pose() = OwnedNative<PoseLandmarker>(null) {}
+                    override fun hand() = OwnedNative<HandLandmarker>(null) {}
+                    override fun interpreter(model: ByteBuffer) = OwnedNative<Interpreter>(null) {}
+                    override fun asset(name: String): InputStream {
+                        val bytes = if (name == "gold_standards.bin") {
+                            if (fault == "parse") byteArrayOf(1) else ByteArray(50 * VisionEngine.SEQ_LEN * VisionEngine.N_FEATURES * 4)
+                        } else if (name.endsWith("json")) "{\"0\":{\"label\":\"ONE\"}}".toByteArray() else byteArrayOf(1)
+                        return object : ByteArrayInputStream(bytes) {
+                            override fun read(b: ByteArray, off: Int, len: Int): Int {
+                                if (runtime && fault == "read") throw original
+                                return super.read(b, off, len)
+                            }
+                            override fun close() { if (runtime) closedStreams++ }
+                        }
+                    }
+                }
+                val engine = VisionEngine(RuntimeEnvironment.getApplication(), resourceFactory = factory, onResult = {})
+                runtime = true
+                try {
+                    val call = {
+                        if (asset.endsWith("json")) engine.labelsJson()
+                        else VisionEngine::class.java.getDeclaredMethod("loadGold").apply { isAccessible = true }.invoke(engine)
+                        Unit
+                    }
+                    if (fault == "read" || (fault == "parse" && asset.endsWith("bin"))) assertThrows(Exception::class.java) { call() }
+                    else call()
+                    assertEquals("$asset/$fault runtime stream not closed", 1, closedStreams)
+                } finally { engine.close() }
+            }
+        }
+    }
+
+    @Test fun stagedConstructorFailuresRollbackAllAcquiredResourcesAndStreams() {
+        for ((stage, expected) in listOf(
+            "pose" to emptyList(), "hand" to listOf("pose"),
+            "open-model" to listOf("pose", "hand"), "read-model" to listOf("model", "pose", "hand"),
+            "interpreter" to listOf("model", "pose", "hand"),
+            "open-labels" to listOf("model", "pose", "hand", "interpreter"),
+            "read-labels" to listOf("model", "labels", "pose", "hand", "interpreter"),
+            "parse-labels" to listOf("model", "labels", "pose", "hand", "interpreter"))) {
+            val factory = Factory(stage)
+            val thrown = assertThrows(Exception::class.java) { VisionEngine(RuntimeEnvironment.getApplication(), resourceFactory = factory, onResult = {}) }
+            if (stage != "parse-labels") assertSame(factory.failure, thrown)
+            assertEquals(stage, expected, factory.closed)
+        }
+    }
+    @Test fun rollbackKeepsOriginalFailureAndSuppressesEveryLaterReleaseFailure() {
+        val factory = Factory("open-labels", setOf("pose", "hand", "interpreter"))
+        val thrown = assertThrows(IllegalArgumentException::class.java) { VisionEngine(RuntimeEnvironment.getApplication(), resourceFactory = factory, onResult = {}) }
+        assertSame(factory.failure, thrown)
+        assertEquals(listOf("model", "pose", "hand", "interpreter"), factory.closed)
+        assertEquals(3, thrown.suppressed.size)
+    }
+    @Test fun constructorStreamCloseAndReadCloseFaultsPreservePrimaryAndReleaseNativeHandles() {
+        for (tag in listOf("model", "labels")) {
+            for (readFails in listOf(false, true)) {
+                val native = if (tag == "model") listOf("pose", "hand") else listOf("pose", "hand", "interpreter")
+                val factory = Factory(if (readFails) "read-$tag" else null, (native + tag).toSet())
+                val thrown = assertThrows(Exception::class.java) {
+                    VisionEngine(RuntimeEnvironment.getApplication(), resourceFactory = factory, onResult = {})
+                }
+                if (readFails) assertSame(factory.failure, thrown)
+                else assertEquals("release $tag", thrown.message)
+                assertEquals(if (tag == "model") listOf("model") + native else listOf("model", "labels") + native, factory.closed)
+                assertEquals(native.size + if (readFails) 1 else 0, thrown.suppressed.size)
+            }
+        }
+    }
+
+    @Test fun runtimeLabelsAndGoldCloseFaultsSuppressUnderReadFailureWithoutClosingEngine() {
+        for (asset in listOf("label_map.json", "gold_standards.bin")) {
+            for (readFails in listOf(false, true)) {
+                var runtime = false
+                var streamCloses = 0
+                val nativeCloses = mutableListOf<String>()
+                val readFailure = IllegalArgumentException("read")
+                val closeFailure = IllegalStateException("close")
+                val factory = object : VisionResourceFactory {
+                    override fun pose() = OwnedNative<PoseLandmarker>(null) { nativeCloses.add("pose") }
+                    override fun hand() = OwnedNative<HandLandmarker>(null) { nativeCloses.add("hand") }
+                    override fun interpreter(model: ByteBuffer) = OwnedNative<Interpreter>(null) { nativeCloses.add("interpreter") }
+                    override fun asset(name: String): InputStream {
+                        val bytes = if (name.endsWith("json")) "{\"0\":{\"label\":\"ONE\"}}".toByteArray()
+                            else if (name.endsWith("bin")) ByteArray(50 * VisionEngine.SEQ_LEN * VisionEngine.N_FEATURES * 4) else byteArrayOf(1)
+                        return object : ByteArrayInputStream(bytes) {
+                            override fun read(b: ByteArray, off: Int, len: Int): Int {
+                                if (runtime && readFails) throw readFailure
+                                return super.read(b, off, len)
+                            }
+                            override fun close() { if (runtime) { streamCloses++; throw closeFailure } }
+                        }
+                    }
+                }
+                val engine = VisionEngine(RuntimeEnvironment.getApplication(), resourceFactory = factory, onResult = {})
+                runtime = true
+                try {
+                    val thrown = assertThrows(Exception::class.java) {
+                        if (asset.endsWith("json")) engine.labelsJson()
+                        else try {
+                            VisionEngine::class.java.getDeclaredMethod("loadGold").apply { isAccessible = true }.invoke(engine)
+                        } catch (wrapped: java.lang.reflect.InvocationTargetException) { throw wrapped.targetException }
+                    }
+                    assertSame(if (readFails) readFailure else closeFailure, thrown)
+                    assertEquals(if (readFails) listOf(closeFailure) else emptyList<Throwable>(), thrown.suppressed.toList())
+                    assertEquals(1, streamCloses)
+                    assertTrue(nativeCloses.isEmpty())
+                    engine.startAttempt(0)
+                } finally { engine.close(); engine.close() }
+                assertEquals(listOf("pose", "hand", "interpreter"), nativeCloses)
+            }
+        }
+    }
+
+    @Test fun successfulConstructionTransfersOwnershipAndRepeatCloseIsSafe() {
+        val factory = Factory()
+        val engine = VisionEngine(RuntimeEnvironment.getApplication(), resourceFactory = factory, onResult = {})
+        assertEquals(listOf("model", "labels"), factory.closed)
+        engine.startAttempt(0)
+        engine.close()
+        engine.close()
+        assertEquals(listOf("model", "labels", "pose", "hand", "interpreter"), factory.closed)
+    }
+}
+
+
+FULL CURRENT UNTRACKED FILE app/android/app/src/test/kotlin/com/kumpas/kumpas_app/CameraViewOwnershipTest.kt
+package com.kumpas.kumpas_app
+
+import org.junit.Assert.*
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import java.io.ByteArrayInputStream
+import java.nio.ByteBuffer
+import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarker
+import com.google.mediapipe.tasks.vision.poselandmarker.PoseLandmarker
+import org.tensorflow.lite.Interpreter
+
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34], shadows = [CameraViewOwnershipTest.ProviderShadow::class])
+class CameraViewOwnershipTest {
+    /** Shadow only provider driver calls; real queued callback, use cases and view disposal execute. */
+    @org.robolectric.annotation.Implements(androidx.camera.lifecycle.ProcessCameraProvider::class)
+    class ProviderShadow {
+        companion object {
+            var binds = 0
+            val unbound = mutableListOf<androidx.camera.core.UseCase>()
+        }
+        @org.robolectric.annotation.Implementation
+        fun hasCamera(selector: androidx.camera.core.CameraSelector) = true
+        @org.robolectric.annotation.Implementation
+        fun bindToLifecycle(owner: LifecycleOwner, selector: androidx.camera.core.CameraSelector,
+            vararg cases: androidx.camera.core.UseCase): androidx.camera.core.Camera {
+            binds++
+            throw IllegalStateException("synthetic bind failure")
+        }
+        @org.robolectric.annotation.Implementation
+        fun unbind(vararg cases: androidx.camera.core.UseCase) { unbound.addAll(cases) }
+    }
+
+    @Test fun queuedProviderAndBindFailuresAreOwnedAndDisposeReleasesAcquiredUseCases() {
+        for (fault in listOf("provider", "bind", "stale-provider", "stale-bind", "disposed")) {
+            ProviderShadow.binds = 0
+            ProviderShadow.unbound.clear()
+            val events = mutableListOf<org.json.JSONObject>()
+            val engine = engine { events.add(org.json.JSONObject(it)) }
+            val future = com.google.common.util.concurrent.SettableFuture.create<androidx.camera.lifecycle.ProcessCameraProvider>()
+            var listenerRegistered = false
+            var ownedExecutor: java.util.concurrent.ExecutorService? = null
+            val factory = object : CameraViewResourceFactory {
+                override fun preview(context: android.content.Context) = AndroidCameraViewResourceFactory.preview(context)
+                override fun executor() = java.util.concurrent.Executors.newSingleThreadExecutor().also { ownedExecutor = it }
+                override fun provider(context: android.content.Context) = future
+                override fun listen(future: com.google.common.util.concurrent.ListenableFuture<androidx.camera.lifecycle.ProcessCameraProvider>, callback: Runnable, executor: java.util.concurrent.Executor) {
+                    listenerRegistered = true
+                    // Explicit Handler queue keeps completion and callback execution separate.
+                    future.addListener(callback) { task -> android.os.Handler(android.os.Looper.getMainLooper()).post(task) }
+                }
+            }
+            val a = CameraPreviewView(context, lifecycle, engine, resourceFactory = factory)
+            var b: CameraPreviewView? = null
+            try {
+                assertTrue(listenerRegistered)
+                if (fault.contains("provider") || fault == "disposed") future.setException(IllegalStateException("provider completion"))
+                else future.set(androidx.camera.lifecycle.ProcessCameraProvider::class.java.getDeclaredConstructor().apply { isAccessible = true }.newInstance())
+                assertTrue(events.isEmpty())
+                if (fault.startsWith("stale")) b = CameraPreviewView(context, lifecycle, engine, bindCamera = false)
+                if (fault == "disposed") a.dispose()
+                org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idle()
+                if (fault.startsWith("stale") || fault == "disposed") {
+                    assertTrue(events.isEmpty())
+                    assertEquals(0, ProviderShadow.binds)
+                    b?.let { assertTrue(it.runOwned {}) }
+                } else {
+                    assertEquals("camera_error", events.single().getString("state"))
+                    assertTrue(events.single().has("viewOwner"))
+                    assertEquals(if (fault == "bind") 1 else 0, ProviderShadow.binds)
+                }
+                a.dispose(); a.dispose()
+                assertTrue(ownedExecutor!!.isShutdown)
+                assertEquals(if (fault == "bind") 2 else 0, ProviderShadow.unbound.size)
+                if (fault == "bind") {
+                    assertTrue(ProviderShadow.unbound.any { it is androidx.camera.core.Preview })
+                    assertTrue(ProviderShadow.unbound.any { it is androidx.camera.core.ImageAnalysis })
+                }
+            } finally { a.dispose(); b?.dispose(); engine.close() }
+        }
+    }
+
+    private val context = RuntimeEnvironment.getApplication()
+    private val lifecycle = object : LifecycleOwner {
+        override val lifecycle = LifecycleRegistry(this)
+    }
+    private fun engine(onResult: (String) -> Unit = {}) = VisionEngine(context, resourceFactory = object : VisionResourceFactory {
+        override fun pose() = OwnedNative<PoseLandmarker>(null) {}
+        override fun hand() = OwnedNative<HandLandmarker>(null) {}
+        override fun interpreter(model: ByteBuffer) = OwnedNative<Interpreter>(null) {}
+        override fun asset(name: String) = ByteArrayInputStream(if (name.endsWith("json")) "{\"0\":{\"label\":\"ONE\"}}".toByteArray() else byteArrayOf(1))
+    }, onResult = onResult)
+    @Test fun actualProducerEmissionCarriesViewOwnerAcrossPostedActivityDelivery() {
+        val activity = MainActivity()
+        val delivered = mutableListOf<String>()
+        val sink = object : io.flutter.plugin.common.EventChannel.EventSink {
+            override fun success(event: Any?) { delivered.add(event as String) }
+            override fun error(code: String, message: String?, details: Any?) { fail(code) }
+            override fun endOfStream() {}
+        }
+        MainActivity::class.java.getDeclaredField("eventSink").apply { isAccessible = true }.set(activity, sink)
+        val emit = MainActivity::class.java.getDeclaredMethod("handleVisionEvent", String::class.java).apply { isAccessible = true }
+        val engine = engine { json -> emit.invoke(activity, json) }
+        val owners = MainActivity::class.java.getDeclaredField("cameraViews").apply { isAccessible = true }.get(activity) as CameraViewOwnership
+        val a = CameraPreviewView(context, lifecycle, engine, bindCamera = false, ownership = owners)
+        var b: CameraPreviewView? = null
+        try {
+            assertTrue(a.runOwned {
+                VisionEngine::class.java.getDeclaredMethod("emit", FloatArray::class.java, Long::class.javaPrimitiveType, Long::class.javaPrimitiveType, Int::class.javaPrimitiveType)
+                    .apply { isAccessible = true }.invoke(engine, floatArrayOf(1f), 0L, 0L, 0)
+                engine.reportCameraError("synthetic", 0)
+            })
+            b = CameraPreviewView(context, lifecycle, engine, bindCamera = false, ownership = owners)
+            org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idle()
+            assertTrue("actual A emission lost its view owner", delivered.isEmpty())
+        } finally { a.dispose(); b?.dispose(); engine.close() }
+    }
+
+    @Test fun actualViewConstructionRollsBackAcquisitionsAndOnlyItsPublishedOwner() {
+        for (stage in listOf("preview", "executor", "provider", "listener", "listener-newer")) {
+            val engine = engine()
+            var cancellations = 0
+            val owners = CameraViewOwnership(Any()) { cancellations++ }
+            val a = CameraPreviewView(context, lifecycle, engine, bindCamera = false, ownership = owners)
+            val original = IllegalArgumentException("original-$stage")
+            var acquiredExecutor: java.util.concurrent.ExecutorService? = null
+            var newer: Long? = null
+            val cleanups = mutableListOf<String>()
+            val factory = object : CameraViewResourceFactory {
+                override fun preview(context: android.content.Context): androidx.camera.view.PreviewView {
+                    if (stage == "preview") throw original
+                    return AndroidCameraViewResourceFactory.preview(context)
+                }
+                override fun executor(): java.util.concurrent.ExecutorService {
+                    if (stage == "executor") throw original
+                    return java.util.concurrent.Executors.newSingleThreadExecutor().also { acquiredExecutor = it }
+                }
+                override fun provider(context: android.content.Context): com.google.common.util.concurrent.ListenableFuture<androidx.camera.lifecycle.ProcessCameraProvider> {
+                    if (stage == "provider") throw original
+                    return com.google.common.util.concurrent.SettableFuture.create()
+                }
+                override fun listen(future: com.google.common.util.concurrent.ListenableFuture<androidx.camera.lifecycle.ProcessCameraProvider>, callback: Runnable, executor: java.util.concurrent.Executor) {
+                    if (stage == "listener-newer") newer = owners.register()
+                    throw original
+                }
+            }
+            try {
+                val thrown = assertThrows(IllegalArgumentException::class.java) {
+                    CameraPreviewView(context, lifecycle, engine, ownership = owners, resourceFactory = factory,
+                        clearOwnedAnalyzer = { cleanups.add("clear"); throw IllegalStateException("clear") },
+                        unbindOwnedUseCases = { cleanups.add("unbind"); throw IllegalStateException("unbind") })
+                }
+                assertSame(original, thrown)
+                if (acquiredExecutor != null) assertTrue("$stage leaked executor", acquiredExecutor!!.isShutdown)
+                if (stage.startsWith("listener")) {
+                    assertFalse("dead A restored", a.runOwned {})
+                    assertEquals(listOf("clear", "unbind"), cleanups)
+                    assertEquals(2, original.suppressed.size)
+                    assertEquals(if (newer == null) 1 else 0, cancellations)
+                    if (newer != null) assertTrue(owners.run(newer!!) {})
+                } else {
+                    assertTrue("early $stage displaced viable A", a.runOwned {})
+                    assertEquals(0, cancellations)
+                }
+            } finally {
+                a.dispose(); acquiredExecutor?.shutdown(); engine.close()
+            }
+        }
+    }
+
+    @Test fun queuedCallbacksCannotMutateReplacementAndCurrentDisposalInvalidatesActivityBoundary() {
+        val engine = engine()
+        val activity = MainActivity()
+        MainActivity::class.java.getDeclaredField("visionEngine").apply { isAccessible = true }.set(activity, engine)
+        val attempts = MainActivity::class.java.getDeclaredField("attempts").apply { isAccessible = true }.get(activity) as AttemptBoundary
+        val ownership = MainActivity::class.java.getDeclaredField("cameraViews").apply { isAccessible = true }.get(activity) as CameraViewOwnership
+        val benchmark = BenchmarkMode(context)
+        MainActivity::class.java.getDeclaredField("benchmarkMode").apply { isAccessible = true }.set(activity, benchmark)
+        val a = CameraPreviewView(context, lifecycle, engine, benchmark, bindCamera = false, ownership = ownership)
+        val b = CameraPreviewView(context, lifecycle, engine, benchmark, bindCamera = false, ownership = ownership)
+        benchmark.start(60)
+        val id = attempts.start(0)
+        engine.startAttempt(0, id)
+        benchmark.recordAttemptStart(id, android.os.SystemClock.elapsedRealtimeNanos())
+        try {
+            for (callback in listOf<() -> Unit>(
+                { benchmark.recordCamera("unknown", "unknown", false, "A") },
+                { benchmark.recordAnalyzer(); engine.tick() },
+                { benchmark.recordFailure("SecurityException"); engine.reportCameraError("stale") })) {
+                assertFalse(a.runOwned(callback))
+            }
+            assertEquals(id, attempts.currentId)
+            assertTrue(b.runOwned { benchmark.recordCamera("default_front", "front", true, "B"); benchmark.recordAnalyzer() })
+            a.dispose()
+            assertEquals(id, attempts.currentId)
+            b.dispose()
+            assertNull(attempts.currentId)
+            assertFalse(b.runOwned { fail("disposed-before-bind callback executed") })
+            b.dispose()
+            val c = CameraPreviewView(context, lifecycle, engine, benchmark, bindCamera = false, ownership = ownership)
+            assertFalse(b.runOwned { fail("old callback after new current") })
+            assertTrue(c.runOwned {})
+            c.dispose()
+            org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(1))
+            val report = org.json.JSONObject(benchmark.finish())
+            assertEquals(1, report.getInt("analyzer_count"))
+            assertEquals(0, report.getInt("failure_count"))
+            assertEquals("cancelled", report.getJSONArray("outcomes").getJSONObject(0).getString("code"))
+        } finally { a.dispose(); b.dispose(); engine.close() }
+    }
+
+    @Test fun defaultOwnedResourceFailuresStillUnbindAndShutdownWithoutCancellingReplacement() {
+        for (failClear in listOf(true, false)) {
+            val engine = engine()
+            val calls = mutableListOf<String>()
+            val a = CameraPreviewView(context, lifecycle, engine, bindCamera = false,
+                clearOwnedAnalyzer = { calls.add("clear"); if (failClear) throw IllegalStateException("clear") },
+                unbindOwnedUseCases = { calls.add("unbind"); if (!failClear) throw IllegalStateException("unbind") })
+            val b = CameraPreviewView(context, lifecycle, engine, bindCamera = false)
+            try {
+                engine.startAttempt(0)
+                assertThrows(IllegalStateException::class.java) { a.dispose() }
+                assertEquals(listOf("clear", "unbind"), calls)
+                assertEquals(0, VisionEngine::class.java.getDeclaredField("attemptTarget").apply { isAccessible = true }.getInt(engine))
+                val executor = CameraPreviewView::class.java.getDeclaredField("analysisExecutor").apply { isAccessible = true }.get(a) as java.util.concurrent.ExecutorService
+                assertTrue(executor.isShutdown)
+                a.dispose()
+                assertEquals(2, calls.size)
+            } finally { a.dispose(); b.dispose(); engine.close() }
+        }
+    }
+
+    @Test fun staleDefaultDisposePreservesReplacementCaptureCameraAndLedger() {
+        val engine = engine()
+        val benchmark = BenchmarkMode(context)
+        val a = CameraPreviewView(context, lifecycle, engine, benchmark, bindCamera = false)
+        val b = CameraPreviewView(context, lifecycle, engine, benchmark, bindCamera = false)
+        try {
+            benchmark.recordCamera("default_front", "front", true, "B")
+            benchmark.start(60)
+            val id = engine.startAttempt(0)
+            benchmark.recordAttemptStart(id, android.os.SystemClock.elapsedRealtimeNanos())
+            a.dispose()
+            a.dispose()
+            val target = VisionEngine::class.java.getDeclaredField("attemptTarget").apply { isAccessible = true }.getInt(engine)
+            assertEquals("stale default disposal cancelled B", 0, target)
+            val report = org.json.JSONObject(benchmark.finish())
+            val expected = "camera2-sha256:" + java.security.MessageDigest.getInstance("SHA-256")
+                .digest("B".toByteArray()).joinToString("") { "%02x".format(it.toInt() and 0xff) }
+            assertEquals(expected, report.getJSONObject("camera").getString("camera_id"))
+            assertFalse(report.getJSONObject("camera").getBoolean("changed"))
+            assertEquals(1, report.getInt("attempt_count"))
+        } finally { a.dispose(); b.dispose(); engine.close() }
+    }
+}

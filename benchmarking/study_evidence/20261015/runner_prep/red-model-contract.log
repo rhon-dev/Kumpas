@@ -1,0 +1,14 @@
+test_explicit_unchanged_no_face_model_and_structured_labels (training.tests.test_experiment_runner.RunnerTests.test_explicit_unchanged_no_face_model_and_structured_labels) ... FAIL
+
+======================================================================
+FAIL: test_explicit_unchanged_no_face_model_and_structured_labels (training.tests.test_experiment_runner.RunnerTests.test_explicit_unchanged_no_face_model_and_structured_labels)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 75, in test_explicit_unchanged_no_face_model_and_structured_labels
+    self.assertIsNotNone(prepared,'explicit unchanged model/structured label contract must prepare')
+AssertionError: unexpectedly None : explicit unchanged model/structured label contract must prepare
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

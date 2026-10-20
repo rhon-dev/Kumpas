@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-09T14:44:02+0800",
+  "decision": "Accept frozen package4 at bounded software-review boundary WITH disclosed nonblocking minor report schema type follow-up. NOT integrated runtime, physical or study acceptance.",
+  "review_reports": [
+    "spec-review-3.md",
+    "quality-review-3.md"
+  ],
+  "frozen_files_checked": 28,
+  "protected_files_checked": 82,
+  "minor_followup": {
+    "location": "benchmarking/collect_fps.py:121-125",
+    "case": "float schema_version2.0 accepted by validator; parent independently reproduced in memory",
+    "severity": "minor/nonblocking",
+    "fix": "exact integer schema2 validation plus reader/sink FPS/latency regressions; no fix claimed"
+  },
+  "prior_verified_evidence": {
+    "jvm": 137,
+    "flutter": 35,
+    "python": 42,
+    "analysis": "clean",
+    "builds": "debug/test/ARM64 release",
+    "record": "owner-parent-verification-1.json"
+  },
+  "no_default_store_device_access": true,
+  "head": "6b8b1b6770e46bea7728a8e9ca4ae6d78e857640"
+}

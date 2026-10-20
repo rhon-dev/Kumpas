@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.AttemptBoundaryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-16T02:19:24.216Z" hostname="Ahrons-MacBook-Pro.local" time="0.001">
+  <properties/>
+  <testcase name="newAttemptRejectsOldCallbackAndOldCancellation" classname="com.kumpas.kumpas_app.AttemptBoundaryTest" time="0.0"/>
+  <testcase name="clearRejectsPendingResultAndDelivery" classname="com.kumpas.kumpas_app.AttemptBoundaryTest" time="0.0"/>
+  <testcase name="invalidTargetCannotStart" classname="com.kumpas.kumpas_app.AttemptBoundaryTest" time="0.0"/>
+  <testcase name="ackRequiresCompletedCurrentAttempt" classname="com.kumpas.kumpas_app.AttemptBoundaryTest" time="0.0"/>
+  <testcase name="resultCanBePersistedOnlyOnce" classname="com.kumpas.kumpas_app.AttemptBoundaryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

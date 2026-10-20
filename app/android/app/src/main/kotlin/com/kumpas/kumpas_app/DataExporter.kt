@@ -21,7 +21,12 @@ import java.util.Locale
  * Output is written to app-specific external files directory, accessible
  * via `adb pull` without root.
  */
-class DataExporter(private val context: Context) {
+class DataExporter internal constructor(
+    private val context: Context,
+    private val publication: ExportPublication,
+    private val now: () -> Date = { Date() }
+) {
+    constructor(context: Context) : this(context, ExportPublication())
 
     companion object {
         private const val TAG = "KumpasExport"
@@ -37,7 +42,31 @@ class DataExporter(private val context: Context) {
         val root = buildExportJson(participantId, db)
         val outFile = getExportFile(participantId)
         outFile.parentFile?.mkdirs()
-        outFile.writeText(root.toString(2))
+        if (!outFile.createNewFile()) throw java.io.IOException("Export destination already exists")
+        // Both names deliberately fit StudyDataFiles' managed-export matcher.
+        // Reserve the unique destination before writing; never replace an existing export.
+        val staging = File(outFile.parentFile, outFile.name.replaceFirst("kumpas_export_", "kumpas_export_stage-"))
+        var stagingOwned = false
+        try {
+            if (!staging.createNewFile()) throw java.io.IOException("Export staging already exists")
+            stagingOwned = true
+            val bytes = root.toString(2).toByteArray(Charsets.UTF_8)
+            publication.open(staging).use { it.write(bytes) }
+            if (!publication.read(staging).contentEquals(bytes)) {
+                throw java.io.IOException("Export staging verification failed")
+            }
+            publication.publish(staging, outFile)
+            if (!publication.read(outFile).contentEquals(bytes) || staging.exists()) {
+                throw java.io.IOException("Export publication verification failed")
+            }
+        } catch (failure: Exception) {
+            for (file in listOfNotNull(outFile, staging.takeIf { stagingOwned })) {
+                if (!file.delete() && file.exists()) {
+                    failure.addSuppressed(java.io.IOException("Incomplete export cleanup; retry managed purge"))
+                }
+            }
+            throw failure
+        }
         Log.i(TAG, "Exported to: ${outFile.absolutePath}")
         return outFile.absolutePath
     }
@@ -74,7 +103,9 @@ class DataExporter(private val context: Context) {
         // Summary stats
         val summary = JSONObject().apply {
             put("total_sessions", sessions.length())
-            put("total_attempts", db.getAttemptCount())
+            put("total_attempts", (0 until sessionsWithAttempts.length()).sumOf {
+                sessionsWithAttempts.getJSONObject(it).getJSONArray("attempts").length()
+            })
             put("total_assessments", assessments.length())
         }
         root.put("summary", summary)
@@ -87,12 +118,12 @@ class DataExporter(private val context: Context) {
         val dir = context.getExternalFilesDir(null)
             ?: File(context.filesDir, "exports")
         val shortId = participantId.take(8)
-        val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-        return File(dir, "kumpas_export_${shortId}_$ts.json")
+        val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(now())
+        return File(dir, "kumpas_export_${shortId}-${java.util.UUID.randomUUID()}_$ts.json")
     }
 
     private fun isoTimestamp(): String {
-        return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US).format(Date())
+        return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US).format(now())
     }
 
     private fun getAppVersion(): String {

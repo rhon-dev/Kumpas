@@ -42,12 +42,16 @@ class SessionManagerTest {
         override fun openOrCreateDatabase(name: String, mode: Int, factory: android.database.sqlite.SQLiteDatabase.CursorFactory?, handler: android.database.DatabaseErrorHandler?): android.database.sqlite.SQLiteDatabase =
             super.openOrCreateDatabase(name, mode, factory, handler).also { opened.add(it) }
 
+        fun snapshot() = opened.toList()
         fun closeFixtureDatabases() {
             opened.forEach { if (it.isOpen) it.close() }
             opened.clear()
         }
     }
 
+    private val managers = mutableListOf<SessionManager>()
+    private fun newManager(ctx: Context, factory: (Context) -> SessionDatabase = ::SessionDatabase): SessionManager =
+        SessionManager(ctx, factory).also { managers.add(it) }
     private lateinit var context: Context
     private lateinit var manager: SessionManager
 
@@ -79,14 +83,14 @@ class SessionManagerTest {
     @Before
     fun setUp() {
         context = TrackingDatabaseContext(RuntimeEnvironment.getApplication())
-        manager = SessionManager(context)
+        manager = newManager(context)
         probe = SessionDatabase(context)
     }
 
     @After
     fun tearDown() {
-        probe.close()
-        (context as TrackingDatabaseContext).closeFixtureDatabases()
+        completeCleanup(managers.asReversed().map { owned -> { owned.close() } } + listOf(
+            { probe.close() }, { (context as TrackingDatabaseContext).closeFixtureDatabases() }))
     }
 
     /** Wipe every table via an independent handle on the same SQLite file. */
@@ -96,6 +100,31 @@ class SessionManagerTest {
             helper.clearAll()
         } finally {
             helper.close()
+        }
+    }
+
+    @Test fun failedInitializationClosesOnlyItsOwnDatabaseOnParticipantAndMigrationFaults() {
+        val tracking = context as TrackingDatabaseContext
+        for (migration in listOf(false, true)) {
+            if (migration) {
+                context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().putBoolean("jsonl_migrated", false).commit()
+                File(context.filesDir, "attempt_history.jsonl").writeText(JSONObject(attemptJson()).toString())
+            } else resetDatabase()
+            val table = if (migration) "attempts" else "participants"
+            probe.writableDatabase.execSQL("CREATE TRIGGER constructor_fault BEFORE INSERT ON $table BEGIN SELECT RAISE(ABORT, 'synthetic'); END")
+            var owned: SessionDatabase? = null
+            var handle: android.database.sqlite.SQLiteDatabase? = null
+            try {
+                org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) {
+                    newManager(context) { ctx -> SessionDatabase(ctx).also { owned = it; handle = it.writableDatabase } }
+                }
+                assertNotNull(handle)
+                assertFalse("failed constructor leaked owned helper", handle!!.isOpen)
+            } finally { owned?.close() }
+            assertTrue("borrowed probe was closed", probe.writableDatabase.isOpen)
+            probe.writableDatabase.execSQL("DROP TRIGGER constructor_fault")
+            val retry = newManager(context)
+            retry.close()
         }
     }
 
@@ -124,7 +153,7 @@ class SessionManagerTest {
     fun ignoredParticipantInsertMustNotSucceed() {
         resetDatabase()
         probe.writableDatabase.execSQL("CREATE TRIGGER ignore_participant BEFORE INSERT ON participants BEGIN SELECT RAISE(IGNORE); END")
-        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { SessionManager(context) }
+        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { newManager(context) }
     }
 
     @Test
@@ -132,12 +161,12 @@ class SessionManagerTest {
         context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().putBoolean("jsonl_migrated", false).commit()
         val source = File(context.filesDir, "attempt_history.jsonl").apply { writeText(JSONObject(attemptJson()).toString()) }
         probe.writableDatabase.execSQL("CREATE TRIGGER ignore_migration BEFORE INSERT ON attempts BEGIN SELECT RAISE(IGNORE); END")
-        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { SessionManager(context) }
+        org.junit.Assert.assertThrows(android.database.sqlite.SQLiteException::class.java) { newManager(context) }
         assertTrue(source.exists())
         assertFalse(context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).getBoolean("jsonl_migrated", false))
         probe.readableDatabase.rawQuery("SELECT COUNT(*) FROM sessions", null).use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
         probe.writableDatabase.execSQL("DROP TRIGGER ignore_migration")
-        SessionManager(context)
+        newManager(context)
         assertEquals(1, probe.getAttemptCount())
     }
 
@@ -178,7 +207,7 @@ class SessionManagerTest {
     fun participantId_persistsAcrossManagerInstances() {
         val original = manager.participantId
 
-        val reopened = SessionManager(context)
+        val reopened = newManager(context)
 
         assertEquals(original, reopened.participantId)
     }
@@ -186,7 +215,7 @@ class SessionManagerTest {
     @Test
     fun init_registersParticipantRowExactlyOnce() {
         // Constructing a second manager must not duplicate the participant
-        SessionManager(context)
+        newManager(context)
 
         val cursor = probe.readableDatabase.rawQuery(
             "SELECT COUNT(*) FROM ${SessionDatabase.T_PARTICIPANTS}", null
@@ -270,7 +299,7 @@ class SessionManagerTest {
     fun sessionRecoversUnclosedSessionOnRestart() {
         val sessionId = manager.startSession()
         // Simulate a crash: no endSession() call, then a fresh manager
-        val recovered = SessionManager(context)
+        val recovered = newManager(context)
 
         assertEquals(
             "an unclosed session should be picked back up",
@@ -296,6 +325,50 @@ class SessionManagerTest {
 
         assertNull("session should auto-close after 60s in background",
             manager.getActiveSessionId())
+    }
+
+    @Test
+    fun repeatedPauseThenResumeCannotCloseForegroundOrReplacementSession() {
+        val original = manager.startSession()
+        manager.onPause()
+        manager.onPause()
+        manager.onResume()
+        Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofSeconds(60))
+        assertEquals("obsolete pause callback closed foreground session", original, manager.getActiveSessionId())
+        manager.onPause()
+        manager.onPause()
+        val replacement = manager.startSession()
+        Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofSeconds(60))
+        assertEquals("obsolete pause callback closed replacement", replacement, manager.getActiveSessionId())
+    }
+
+    @Test
+    fun repeatedPauseThenCloseRemovesEveryPendingCallback() {
+        manager.startSession()
+        manager.onPause()
+        val timerField = SessionManager::class.java.getDeclaredField("autoCloseRunnable").apply { isAccessible = true }
+        val obsolete = timerField.get(manager) as Runnable
+        manager.onPause()
+        manager.close()
+        val handlerField = SessionManager::class.java.getDeclaredField("handler").apply { isAccessible = true }
+        val handler = handlerField.get(manager) as android.os.Handler
+        assertFalse("close left an obsolete timer queued", handler.hasCallbacks(obsolete))
+        val looper = Shadows.shadowOf(android.os.Looper.getMainLooper())
+        looper.idleFor(java.time.Duration.ofSeconds(61))
+        assertNull(manager.getActiveSessionId())
+    }
+
+    @Test
+    fun pauseTimeoutKeepsSessionUntilExactlySixtySeconds() {
+        val session = manager.startSession()
+        manager.onPause()
+        val looper = Shadows.shadowOf(android.os.Looper.getMainLooper())
+        looper.idleFor(java.time.Duration.ofMillis(30_000))
+        manager.onPause() // duplicate notification must not extend the deadline
+        looper.idleFor(java.time.Duration.ofMillis(29_999))
+        assertEquals(session, manager.getActiveSessionId())
+        looper.idleFor(java.time.Duration.ofMillis(1))
+        assertNull(manager.getActiveSessionId())
     }
 
     @Test
@@ -428,7 +501,7 @@ class SessionManagerTest {
         assertEquals("keep", externalSentinel.readText())
         assertEquals("[]", manager.historyJson())
         manager.clearAllData()
-        assertEquals("[]", SessionManager(context).historyJson())
+        assertEquals("[]", newManager(context).historyJson())
     }
 
     @Test
@@ -468,7 +541,7 @@ class SessionManagerTest {
             override fun getExternalFilesDir(type: String?): File? = null
         }
         manager.recordAttempt(attemptJson())
-        val failing = SessionManager(unavailable)
+        val failing = newManager(unavailable)
         try {
             failing.clearAllData()
             org.junit.Assert.fail("unavailable storage must fail closed")
@@ -486,7 +559,7 @@ class SessionManagerTest {
             }
         }
         try {
-            SessionManager(unreadable).clearAllData()
+            newManager(unreadable).clearAllData()
             org.junit.Assert.fail("uninspectable storage must fail closed")
         } catch (_: java.io.IOException) { }
     }
@@ -522,7 +595,7 @@ class SessionManagerTest {
         assertEquals(1, probe.getAttemptCount())
         probe.writableDatabase.execSQL("DROP TRIGGER refuse_clear")
         manager.clearAllData()
-        assertEquals("[]", SessionManager(context).historyJson())
+        assertEquals("[]", newManager(context).historyJson())
     }
 
     @Test
@@ -548,7 +621,7 @@ class SessionManagerTest {
         val wrapped = object : android.content.ContextWrapper(context) {
             override fun getSharedPreferences(name: String?, mode: Int) = wrappedPrefs
         }
-        val failing = SessionManager(wrapped)
+        val failing = newManager(wrapped)
         failing.recordAttempt(attemptJson())
         refuseCommit = true
         try {
@@ -558,7 +631,7 @@ class SessionManagerTest {
         assertEquals(0, probe.getAttemptCount()) // filesystem/DB/prefs cannot be one atomic transaction
         refuseCommit = false
         failing.clearAllData()
-        val reopened = SessionManager(context)
+        val reopened = newManager(context)
         assertEquals(failing.participantId, reopened.participantId)
         assertEquals("[]", reopened.historyJson())
         assertTrue(real.getBoolean("jsonl_migrated", false))
@@ -569,7 +642,7 @@ class SessionManagerTest {
         context.getSharedPreferences("kumpas_session_prefs", Context.MODE_PRIVATE).edit().clear().commit()
         resetDatabase()
         val legacy = File(context.filesDir, "attempt_history.jsonl").apply { writeText(JSONObject(attemptJson()).toString()) }
-        val migrated = SessionManager(context)
+        val migrated = newManager(context)
         assertEquals(1, probe.getAttemptCount())
         val backup = File(context.filesDir, "attempt_history.jsonl.migrated")
         assertTrue(backup.exists())
@@ -577,7 +650,7 @@ class SessionManagerTest {
         assertFalse(backup.exists())
         val newId = migrated.participantId
         legacy.writeText(attemptJson()) // an old copy cannot bypass the completed marker
-        val reopened = SessionManager(context)
+        val reopened = newManager(context)
         assertEquals(newId, reopened.participantId)
         assertEquals("[]", reopened.historyJson())
         reopened.clearAllData()
@@ -616,7 +689,7 @@ class SessionManagerTest {
         probe.writableDatabase.execSQL("DROP TRIGGER refuse_identity")
         manager.clearAllData()
         assertEquals(manager.participantId, probe.getParticipant()!!.getString("id"))
-        assertEquals(manager.participantId, SessionManager(context).participantId)
+        assertEquals(manager.participantId, newManager(context).participantId)
     }
 
     @Test
@@ -698,7 +771,7 @@ class SessionManagerTest {
             ).joinToString("\n")
         )
 
-        val migrated = SessionManager(context)
+        val migrated = newManager(context)
 
         // Both well-formed rows imported, malformed + blank lines skipped
         val history = JSONArray(migrated.historyJson())
@@ -739,11 +812,11 @@ class SessionManagerTest {
             """{"targetClass":1,"targetLabel":"AKO","predictedLabel":"AKO","predictedConfidence":0.9,"recognizedAsTarget":true,"overallMatch":0.8,"items":[],"timestamp":${System.currentTimeMillis()}}"""
         )
 
-        val first = SessionManager(context)
+        val first = newManager(context)
         assertEquals(1, JSONArray(first.historyJson()).length())
 
         // A second manager must not re-import (file is gone and flag is set)
-        val second = SessionManager(context)
+        val second = newManager(context)
         assertEquals(1, JSONArray(second.historyJson()).length())
     }
 
@@ -754,7 +827,7 @@ class SessionManagerTest {
         resetDatabase()
         File(context.filesDir, "attempt_history.jsonl").delete()
 
-        val fresh = SessionManager(context)
+        val fresh = newManager(context)
 
         assertEquals("[]", fresh.historyJson())
         assertNull(fresh.getActiveSessionId())

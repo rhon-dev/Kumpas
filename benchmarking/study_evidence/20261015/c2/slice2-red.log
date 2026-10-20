@@ -1,0 +1,257 @@
+test_actual_encoded_shape_counts_and_privacy (evaluation.test_legacy_export.LegacyTests.test_actual_encoded_shape_counts_and_privacy) ... ok
+test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) ... 
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RELATION') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RELATION') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='DUPLICATE_ID') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='DUPLICATE_ID') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='DUPLICATE_ID') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='COUNT_MISMATCH') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='UUID') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='PHASE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RANGE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='REQUIRED') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='REQUIRED') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RANGE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='ENUM') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RANGE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE') ... FAIL
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID') ... ERROR
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID') ... ERROR
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID') ... ERROR
+  test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='SHAPE') ... ERROR
+
+======================================================================
+ERROR: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 61, in test_strict_encoded_and_relational_rejections
+    result=validate_bytes(data)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/legacy_export.py", line 7, in validate_bytes
+    "sessions": len(root["sessions"]),
+                    ~~~~^^^^^^^^^^^^
+KeyError: 'sessions'
+
+======================================================================
+ERROR: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 61, in test_strict_encoded_and_relational_rejections
+    result=validate_bytes(data)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/legacy_export.py", line 7, in validate_bytes
+    "sessions": len(root["sessions"]),
+                    ~~~~^^^^^^^^^^^^
+TypeError: 'float' object is not subscriptable
+
+======================================================================
+ERROR: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 61, in test_strict_encoded_and_relational_rejections
+    result=validate_bytes(data)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/legacy_export.py", line 7, in validate_bytes
+    "sessions": len(root["sessions"]),
+                    ~~~~^^^^^^^^^^^^
+KeyError: 'sessions'
+
+======================================================================
+ERROR: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='SHAPE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 61, in test_strict_encoded_and_relational_rejections
+    result=validate_bytes(data)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/legacy_export.py", line 7, in validate_bytes
+    "sessions": len(root["sessions"]),
+                    ~~~~^^^^^^^^^^^^
+TypeError: list indices must be integers or slices, not str
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RELATION')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RELATION')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='DUPLICATE_ID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='DUPLICATE_ID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='DUPLICATE_ID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='COUNT_MISMATCH')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='UUID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='PHASE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RANGE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='REQUIRED')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='REQUIRED')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RANGE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='ENUM')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='JSON_INVALID')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='RANGE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) (code='TYPE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/evaluation/test_legacy_export.py", line 62, in test_strict_encoded_and_relational_rejections
+    self.assertFalse(result['valid'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=22, errors=4)

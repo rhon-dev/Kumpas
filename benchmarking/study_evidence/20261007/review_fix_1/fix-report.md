@@ -1,0 +1,76 @@
+# Consolidated final-review repairs
+
+Status: IN PROGRESS; no acceptance claim. Scope: F1/F2/Q1–Q6, five regression-first vertical slices. Preserve all existing edits and protected assets. No commits, devices, ADB, default participant stores or dependency/provider changes.
+
+## Initial discovery
+Read complete final-review-fix-brief-1.md, spec-review-1.md and quality-review-1.md before production changes. Loaded study-readiness and TDD procedures. Findings remain unresolved pending execution.
+
+## Command ledger and incremental evidence
+Append each actual RED/GREEN command, exit, unique log and source delta below immediately after its slice. Coverage-only existing behavior must be identified honestly.
+
+### Slice 1a — host recognized metadata
+Behavioral RED: `cd benchmarking && python3 -B -m unittest test_collectors.AdbCollectionTest.test_recognized_metadata_privacy_through_real_history -v` exit 1, 24 failed subcases; log privacy-host-red-1.log. Actual mocked reader/interpreter→shared sink→isolated real history retained/accepted contamination.
+GREEN covering: `cd benchmarking && python3 -B -m unittest test_collectors -v` exit 0, 23 tests; log privacy-host-green-1.log. Source changes: exact hash/revision/chip/UUID/opaque-ID schema; bind report device/setup fingerprint to selected independent getprop metadata and build version name to installed-package dumpsys metadata, before reader and sink retention in both modes. Mismatch/unavailable metadata fails closed, numeric diagnostics remain. Fixtures updated to real UUID format and complete trusted metadata (no ADB actually executed). Native privacy and wider text census remain pending; this is not F1/Q1 closure yet.
+
+### Slice 1b — native invalid setup retention
+Behavioral RED: shared locked Gradle `:app:testDebugUnitTest --tests '*BenchmarkModeTest.invalidSetupTextNeverReachesNativePublishedReports' --rerun` exit 1 (1 test/1 failure: retained invalid setup_id), privacy-native-red-1.log. GREEN covering: `:app:testDebugUnitTest --tests '*BenchmarkModeTest' --rerun` exit 0, privacy-native-green-1.log. Actual producer return/immutable/latest targets asserted marker-free across eight setup text categories with lux/codes retained. BenchmarkMode strips malformed format values and mismatched supplied fingerprint after validation, preserving original fixed rejection diagnostics. Existing APK digest mismatch, publication fault and setup semantics regressions pass. Deprecation warning: Android versionCode fallback.
+
+### Slice 2 — persisted pending/confirmed control ownership and bounded cleanup
+RED native: locked `:app:testDebugUnitTest --tests '*BenchmarkModeTest.unconfirmedFullWindowRemainsDiagnosticAfterReplacementAndLateResponse' --rerun`, exit 1 (missing persisted unconfirmed disposition), control-native-red-1.log. RED Dart: `flutter test test/practice_flow_test.dart --plain-name 'hung benchmark control response'`, exit 1 (current B never confirmed), control-flutter-red-1.log. RED host: `python3 -B -m unittest test_collectors.AdbCollectionTest.test_control_disposition_is_independent_required_scoped_evidence -v`, exit 1 (4 missing/mismatched/unconfirmed companion cases erroneously passed), control-host-red-1.log.
+GREEN covering commands: locked `:app:testDebugUnitTest --tests '*BenchmarkModeTest' --rerun`; `flutter test test/practice_flow_test.dart`; `python3 -B -m unittest test_collectors -v`, each exit 0; corresponding control-*-green-1.log. Producer now publishes/readbacks scoped unconfirmed control record at start; only current active run within native30s may confirm; report qualification requires confirmation. Closed/unowned A cannot upgrade, remains measured/non-gating even when stop never returns; immutable A bytes unchanged while B active. Dart confirms only current received identity, with bounded30s confirmation future. Both camera collectors require report and independently read scoped authoritative control record; missing/unreadable/unconfirmed fails closed. Direct-native runs are diagnostic by default.
+F2/Q6 coverage-only GREEN: `flutter test test/practice_flow_test.dart --plain-name 'hung late stop deadline'`, exit 0,6 tests on first run, stop-coverage-green-1.log. Assertions cover29999ms/30000ms/30001ms, replacement/disposal, still-pending and late success/private-error, exactly one coded diagnostic/no raw text/no unhandled error, unchanged B/status; debugPrint restored in finally. Existing timeout implementation required no repair. Further protocol edge/fault/coupled replay verification remains before closure.
+
+### Slice 3 — actual VisionEngine constructor rollback
+Tests written first with narrow resource factory API; factory refactor exposed the existing sequential constructor behavior without adding rollback/stream closure. Genuine behavioral RED: locked `:app:testDebugUnitTest --tests '*VisionInitializationTest' --rerun` exit1,3 failed assertions (missing acquired releases/stream closures), engine-init-red-1.log. GREEN: locked `:app:testDebugUnitTest --tests '*VisionInitializationTest' --tests '*ResourceCleanupTest' --rerun` exit0, engine-init-green-1.log. New VisionResourceFactory/OwnedNative seam supplies real default MediaPipe/Interpreter creation unchanged; constructor stages resources, uses streams, transfers only on complete label parse, attempts all rollback releases and preserves original/suppressed failures. Three constructor tests cover pose/hand/model open+read/Interpreter/label open+read+parse, first+later close faults, successful construction/normal+repeat close; prior constructed teardown tests retained. Synthetic nullable native handles prove production constructor orchestration, not actual detector release/inference. No asset/reference/math changes.
+
+### Slice 4 — view ownership
+Behavioral RED after provider-disabled synthetic seam (default teardown unchanged): locked `:app:testDebugUnitTest --tests '*CameraViewOwnershipTest' --rerun`, exit1, stale default disposal cleared B capture; camera-owner-red-1.log. GREEN covering: locked `:app:testDebugUnitTest --tests '*CameraViewOwnershipTest' --tests '*ResourceCleanupTest' --tests '*MainActivityBoundaryTest' --rerun`, exit0; camera-owner-green-1.log. Added explicit view ownership under pipeline lock, separate from attempt generation; provider bind/error and analyzer processing/error use final shared-state gate. Default disposal clears/cancels only current owner, through Activity cancellation/outcome boundary; stale own-use-case cleanup/executor release remains independent. Added queued-callback/current-owner/replacement/repeated-dispose coverage. Its first expanded run in failure-native-green-1.log failed a zero-observation-duration fixture count (not an ownership defect); fixture now advances1ms before snapshot, reexecution pending.
+
+### Slice 5 — shared fixed failure census
+RED native: locked `:app:testDebugUnitTest --tests '*BenchmarkModeTest.failureCensusUsesFixedCodesWithUnknownClassFallback' --rerun`, exit1, generic fallback missing; failure-native-red-1.log. RED host: `python3 -B -m unittest test_collectors.AdbCollectionTest.test_shared_failure_codes_retain_category_and_total -v`, exit1, recognized categories rejected; failure-host-red-1.log. Producer normalizes unknown class labels to failure and host retains all fixed categories including SecurityException/FileNotFoundException. GREEN host covering: `python3 -B -m unittest test_collectors -v`, exit0; failure-host-green-1.log. Combined native covering run failure-native-green-1.log exited1 solely on expanded camera fixture zero-duration assertion; all BenchmarkMode tests passed; final covering reexecution pending.
+
+## Disposition map (initial)
+F1/Q1 privacy: pending. Q2 retained control disposition: pending. F2/Q6 hung-stop coverage: pending. Q3 initialization rollback: pending. Q4 view ownership: pending. Q5 failure vocabulary: pending.
+IDs 1–16: parent acceptance/disposition remains unchanged; runtime/physical/human/study gates remain open.
+
+## Incremental completion evidence (supersedes pending entries, not prior results)
+
+- Slice4/5 covering reexecution: shared locked runner `native-covering-green-2.log :app:testDebugUnitTest --tests '*BenchmarkModeTest' --tests '*CameraViewOwnershipTest' --tests '*ResourceCleanupTest' --tests '*VisionInitializationTest' --tests '*MainActivityBoundaryTest' --rerun`, exit0. Expanded actual Activity owner boundary passes after1ms fixture adjustment. Default teardown wiring now also tested with clear/unbind fault seams: both later own-resource actions and executor shutdown attempted, stale capture intact, repeat dispose no repeat calls. Pending callback tests exercise final ownership gate synthetically, not CameraX provider runtime.
+- Additional native attempt privacy RED: shared runner `attempt-privacy-red-1.log :app:testDebugUnitTest --tests '*BenchmarkModeTest.malformedAttemptIdentitiesNeverReachRetainedNativeEvidence' --rerun`, exit1,1 failed assertion. Invalid attempt IDs no longer enter starts/outcomes/traces or exclusion text; legitimate synthetic fixtures updated to exact producer UUIDs, not normalization of source tokens. Final full suite GREEN below.
+- Coverage-only additions: native29999/30000/30001ms ownership confirmation and actual scoped-control publication fault; confirmed publication readback failure stays unconfirmed. Pending control publication now precedes observation-clock start, so control I/O does not consume measured time. Wider29 recognized-text probes ×3 collectors =87 subcases traverse mocked actual reader/assessment plus isolated real history; numeric traces and trusted names retained. Existing code passes these additional census cases; no invented RED. Original four error-field cases remain permanent.
+- Required docs only: README/environment_protocol describe explicit owner confirmation, pending/confirmed immutable companion, deadlines, fail-closed host checks, independent device/package text binding, syntax/provenance limits and shared failure vocabulary.
+
+### Full command ledger
+All commands executed in repository unless specified. Native commands use `/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-locked-gradle.py` (shared exclusive lock, existing offline wrapper).
+1. `python3 .../kumpas-locked-gradle.py benchmarking/study_evidence/20261007/review_fix_1/native-full-1.log :app:testDebugUnitTest :app:compileDebugAndroidTestKotlin --rerun` — exit0; actual forced JVM execution132 tests,0 failures/errors/skips from all XML; instrumentation-source Kotlin compile executed, not installed/run. Android versionCode compatibility fallback deprecation warning only.
+2. In app: `flutter analyze` — exit0, no issues, flutter-analyze-1.log. `flutter test` — exit0,27 tests, flutter-full-1.log.
+3. In benchmarking: `python3 -B -m unittest discover -v` — exit1,32 discovered including4 import errors, python-full-1.log: system Python3.9 lacks numpy/matplotlib. No dependencies installed.
+4. `/opt/homebrew/bin/python3.11 -B -m unittest discover -v` — exit1,40 tests including1 training import error, python-full-2.log. Existing3.11 has needed scientific packages but repository import path required.
+5. `PYTHONPATH=.. /opt/homebrew/bin/python3.11 -B -m unittest discover -v` — exit0,41 tests, python-full-3.log; repeated after wider census test edits exit0,41 tests, python-full-4.log. No new packages/config installed.
+6. Python XML/log/hash parser executed: verification-summary-1.json,132 native/27 Flutter/41 Python; SHA256 all82 protected paths match original expected controller snapshot, no mismatches. HEAD unchanged6b8b1b6770e46bea7728a8e9ca4ae6d78e857640. Parent's existing edits preserved.
+7. Extracted actual native full-window A report+control from executed JVM XML into native-unconfirmed-fixture.json; `python3 -B benchmarking/study_evidence/20261007/review_fix_1/replay-native-control.py` — exit0, control-coupled-replay-1.log. Both actual host assessments+real isolated history retain completed1800-event diagnostics and independently reject unconfirmed scoped disposition. Replay is synthetic JVM→host integration; Flutter delayed/hung fixtures separately verify channel ownership and replacement B. This is not a live Flutter/native/CameraX end-to-end session.
+8. `git diff --check` — exit0; `git status --short; git rev-parse HEAD` observed existing authorized edits/new files, no commit/reset/stash. No ADB/default participant store/device operations.
+
+## Final finding disposition and ALL16 boundary map
+Status: DONE_WITH_CONCERNS — requested software repairs/regressions executed; independent parent review/acceptance remains mandatory. F1/Q1, Q2, Q3, Q4, Q5 implemented with behavioral RED/GREEN. F2/Q6 covered with honest first-run GREEN for previously bounded stop behavior. No known failing software assertion remains. Synthetic seams do not establish real release/camera or physical/human outcomes. New confirmation protocol and trust boundary require independent re-review.
+
+| ID | Current scope / unresolved acceptance |
+|---|---|
+|1|Parent-owned documentary adjudication; no progress/readiness/gate edits by fixer.|
+|2|Prior persistence/retry regression preserved/full GREEN; integrated runtime remains open.|
+|3|Prior capture watchdog/terminal-reason software support preserved; physical timing unclaimed.|
+|4|New per-view final callback ownership support plus prior stale-error guards; actual CameraX races remain unverified.|
+|5|Hung-stop deadline/permanent late-success/error/disposal tests now covered; warmup/control windows preserved; runtime acceptance open.|
+|6|Identity-scoped stop/report plus new persisted pending/confirmed handshake; synthetic late/full-window consumer replay; no USB handoff.|
+|7|Ledger/censor accounting preserved, malformed IDs omitted; no invented failed latency.|
+|8|Existing immutable/latest committed readback tests preserved; companion atomic publication readback/fault covered; crash durability unclaimed.|
+|9|Half-open sample/window/censor contracts preserved/full GREEN; no real runtime crossing claim.|
+|10|Named same-native-clock boundaries preserved; no sensor exposure/physical display interpretation.|
+|11|Actual constructor rollback/default view ownership fault orchestration now tested; real native detector/camera release remains open.|
+|12|Existing plot/provenance tests and protected figure hashes retained; no new measured observations.|
+|13|Native invalid-setup privacy and host trust binding repaired, APK/camera qualification preserved; actual provisioning/physical setup remains open.|
+|14|Dense blank forms/protected labels retained; candidate hardware/trials not acquired.|
+|15|Recognized metadata and native setup/attempt privacy repaired, trusted independent host names retained; schema/trust boundary review pending, no arbitrary heuristic name guarantee.|
+|16|Prior history locking/four fault/retry regressions pass; protected historical bytes unchanged.|
+
+Unresolved broader acceptance: IDs1,2,4,5,11,13 require parent documentary/runtime/physical follow-up; all16 retain original scope limits. Phone availability, physical FPS/latency/thermal/all-sign/condition measurements, anatomical/expert checks, human learning/model-selection and participant-study authorization remain separate/open. No acceptance claim.

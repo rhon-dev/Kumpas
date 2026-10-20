@@ -56,6 +56,10 @@ class KumpasChannel {
     return id;
   }
 
+  /// Confirm only an identity received by its current request owner.
+  static Future<bool> confirmBenchmarkStart({required String runId}) async =>
+      await control.invokeMethod<bool>('confirmBenchmarkStart', {'runId': runId}) ?? false;
+
   /// Stop a running benchmark early and get results.
   static Future<String> stopBenchmark({required String runId}) async {
     final raw = await control.invokeMethod<String>('stopBenchmark', {'runId': runId});

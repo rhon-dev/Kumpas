@@ -1,0 +1,86 @@
+{
+  "initial288": {
+    "count": 288,
+    "mismatches": []
+  },
+  "protected82": {
+    "count": 82,
+    "mismatches": []
+  },
+  "native42": {
+    "count": 42,
+    "mismatches": []
+  },
+  "a3b4": {
+    "count": 4,
+    "mismatches": []
+  },
+  "b1source4": {
+    "count": 4,
+    "mismatches": []
+  },
+  "b1manifest": {
+    "count": 1,
+    "mismatches": []
+  },
+  "old_evidence": {
+    "count": 279,
+    "mismatches": []
+  },
+  "ledger_prefix_preserved": true,
+  "new_sources": {
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/validation_campaign.py": "8e28d5ad110b76881e65d75e1e851ecb71fa2a6e21e232bc2d0a7fe8cea22998",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py": "5d9f2e13f0896b36940fdd81384ee6db9c2708417edcfce5e8064eefe019fe46"
+  },
+  "historical_v3_binding": {
+    "roles": 33,
+    "current_source_mismatch_roles": [
+      "source_code_0",
+      "source_code_1"
+    ],
+    "old_source_sha256": {
+      "source_code_0": "bc7c342a768334c3f0c640451af11b05f2839f23c0ea9ce5736512a2a9998019",
+      "source_code_1": "4fdae28615d80488ca6d313e1d15f15585e0de45ecc9cb50b9df5247af0381f8"
+    },
+    "meaning": "expected two authorized postimages; original config/campaign not rebound; no new inference"
+  },
+  "tests": {
+    "r1-red": {
+      "sha256": "7ab08a3a8eff3e4eb2aeb2f57467e4aff6d9e96545033dc9f26f82156aa0474c",
+      "tests": 1,
+      "failures": 36,
+      "ok": false
+    },
+    "r1-green": {
+      "sha256": "3d796744c93e6e04c2255ec85e299e6d7ae4a4352ee109eada3a0d249869328b",
+      "tests": 1,
+      "failures": 0,
+      "ok": true
+    },
+    "r2-red": {
+      "sha256": "622f1937167c20271ea12c8c268377c5431b91ffc6a967117e9e172396d789e6",
+      "tests": 1,
+      "failures": 16,
+      "ok": false
+    },
+    "r2-green": {
+      "sha256": "235b96a40f2891cc3b4fa4215ae1d81599ec39c2d81d02e7498a48591d01176a",
+      "tests": 1,
+      "failures": 0,
+      "ok": true
+    },
+    "focused": {
+      "sha256": "0933ffe732feaa09711ea28c1b7d9840e9c5904a5b5bc67c396ef8fd35446637",
+      "tests": 13,
+      "failures": 0,
+      "ok": true
+    },
+    "training-full": {
+      "sha256": "d55c9f7e76b24fb423f26c9df8e83bf4b35181ccdd5ff93daa9b183a1328953d",
+      "tests": 29,
+      "failures": 0,
+      "ok": true
+    }
+  },
+  "new_diff_sha256": "2f54b74c1a8ea58ae167f3be0f39f790faf5684c56189750a5e926b0df21cc07"
+}

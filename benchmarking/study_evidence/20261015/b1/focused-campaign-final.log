@@ -1,0 +1,9 @@
+test_failed_generation_never_publishes_complete_manifest (test_parity_fixtures.CampaignTests.test_failed_generation_never_publishes_complete_manifest) ... ok
+test_freeze_all_six_before_any_extraction_and_refuse_overwrite (test_parity_fixtures.CampaignTests.test_freeze_all_six_before_any_extraction_and_refuse_overwrite) ... ok
+test_generate_six_real_synthetic_video_references_and_validate_publication (test_parity_fixtures.CampaignTests.test_generate_six_real_synthetic_video_references_and_validate_publication) ... ok
+test_wrong_partition_label_hash_and_unsafe_output_fail_before_write (test_parity_fixtures.CampaignTests.test_wrong_partition_label_hash_and_unsafe_output_fail_before_write) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 4.340s
+
+OK

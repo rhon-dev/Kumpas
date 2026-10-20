@@ -1,0 +1,58 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart
+00:00 +0: benchmark starts after bounded warmup without any camera events
+00:00 +1: benchmark run identity is visible copyable and completion correlated
+00:00 +2: benchmark channel requires valid UUID and binds report and stop
+00:00 +3: failed benchmark can retry on existing snackbar
+00:00 +4: hung benchmark control response recovers and late run cannot stop replacement
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "Retry": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:252:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 252
+The test description was:
+  hung benchmark control response recovers and late run cannot stop replacement
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +4 -1: hung benchmark control response recovers and late run cannot stop replacement [E]
+  Test failed. See exception logs above.
+  The test description was: hung benchmark control response recovers and late run cannot stop replacement
+  
+00:00 +4 -1: late benchmark identity after disposal is stopped by its own run ID
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: ['22222222-2222-4222-8222-222222222222']
+  Actual: []
+   Which: at location [0] is [] which shorter than expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart:271:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/practice_flow_test.dart line 271
+The test description was:
+  late benchmark identity after disposal is stopped by its own run ID
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +4 -2: late benchmark identity after disposal is stopped by its own run ID [E]
+  Test failed. See exception logs above.
+  The test description was: late benchmark identity after disposal is stopped by its own run ID
+  
+00:00 +4 -2: Some tests failed.

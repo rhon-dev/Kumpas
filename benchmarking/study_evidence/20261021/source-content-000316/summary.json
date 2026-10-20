@@ -1,0 +1,785 @@
+{
+  "completed_at": "2026-10-21T00:03:26.665184+08:00",
+  "status": "INCOMPLETE_SOURCE_CHECK_FAILURE",
+  "required_pairs": 150,
+  "processed_pairs": 150,
+  "passed_pairs": 0,
+  "failures": [
+    {
+      "clip": "clips_0_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_0_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_0_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_10_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_10_17.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_10_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_11_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_11_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_11_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_12_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_12_12.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_12_13.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_13_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_13_5.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_13_8.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_14_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_14_10.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_14_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_15_13.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_15_16.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_15_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_16_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_16_11.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_16_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_17_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_17_10.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_17_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_18_14.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_18_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_18_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_19_17.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_19_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_19_2.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_1_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_1_12.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_1_2.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_20_11.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_20_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_20_2.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_21_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_21_18.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_21_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_22_14.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_22_8.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_22_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_23_16.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_23_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_23_5.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_24_10.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_24_11.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_24_18.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_2_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_2_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_2_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_3_11.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_3_12.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_3_8.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_49_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_49_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_49_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_4_10.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_4_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_4_8.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_50_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_50_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_50_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_51_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_51_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_51_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_52_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_52_14.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_52_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_53_10.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_53_16.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_53_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_54_14.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_54_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_54_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_55_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_55_18.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_55_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_56_12.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_56_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_56_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_57_18.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_57_2.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_57_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_5_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_5_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_5_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_62_13.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_62_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_62_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_63_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_63_11.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_63_17.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_64_16.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_64_18.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_64_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_65_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_65_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_65_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_66_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_66_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_66_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_67_14.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_67_5.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_67_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_6_13.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_6_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_6_16.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_72_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_72_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_72_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_74_16.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_74_18.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_74_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_76_12.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_76_17.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_76_5.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_77_13.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_77_2.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_77_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_7_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_7_14.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_7_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_85_12.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_85_15.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_85_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_86_12.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_86_16.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_86_6.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_89_10.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_89_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_89_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_8_11.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_8_13.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_8_8.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_91_1.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_91_13.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_91_18.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_95_14.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_95_4.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_95_9.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_96_0.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_96_3.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_96_7.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_9_11.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_9_19.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    },
+    {
+      "clip": "clips_9_8.npz",
+      "error_code": "VIDEO_PROBE",
+      "error_type": "AssertionError"
+    }
+  ],
+  "historical_hash_matched_pairs": 16,
+  "current_capture_only_pairs": 134,
+  "archive_equal_videos": 150,
+  "full_decoded_videos": 0,
+  "original_reconstructions_equal": 150,
+  "validation_reconstructions_equal": 150,
+  "protected_originals_unchanged": 82,
+  "preserved_paths": 114,
+  "preservation_mismatches": [],
+  "historical_role_drift": [
+    "source_code_0",
+    "source_code_1",
+    "source_code_11"
+  ],
+  "source_hashes_rechecked_after_scan": false,
+  "no_tensorflow_mediapipe_tflite_import": true,
+  "inference_performed": false,
+  "training_performed": false,
+  "devices_used": false,
+  "limits": [
+    "Current capture does not retroactively supply absent historical source hashes.",
+    "Archive equality binds videos to the local archive, not independently authenticated publisher bytes.",
+    "Exact sequence reconstruction does not prove detector correctness, linguistic validity or signer independence.",
+    "Original incomplete inference campaign remains incomplete; no new full-provenance inference campaign is authorized.",
+    "No accuracy, deployment, installed runtime, physical performance or participant-study gate is closed."
+  ]
+}

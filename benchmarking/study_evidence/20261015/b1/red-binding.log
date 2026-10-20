@@ -1,0 +1,31 @@
+test_clip_binding_required_mode_and_identity_mismatch (test_pipeline_parity.ParityTests.test_clip_binding_required_mode_and_identity_mismatch) ... ERROR
+test_document_and_frame_types_fail_with_fixed_safe_errors (test_pipeline_parity.ParityTests.test_document_and_frame_types_fail_with_fixed_safe_errors) ... ok
+test_frame_index_selection_preserves_endpoints_and_count (test_pipeline_parity.ParityTests.test_frame_index_selection_preserves_endpoints_and_count) ... ok
+test_image_digest_mismatch_fails_closed (test_pipeline_parity.ParityTests.test_image_digest_mismatch_fails_closed) ... ok
+test_missing_frame_or_wrong_dimension_fails (test_pipeline_parity.ParityTests.test_missing_frame_or_wrong_dimension_fails) ... ok
+test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) ... ok
+test_png_manifest_uses_actual_file_bytes_and_stable_indices (test_pipeline_parity.ParityTests.test_png_manifest_uses_actual_file_bytes_and_stable_indices) ... ok
+test_prediction_payloads_not_mistaken_for_equivalent_class_results (test_pipeline_parity.ParityTests.test_prediction_payloads_not_mistaken_for_equivalent_class_results) ... FAIL
+test_same_frame_comparison_and_explicit_anatomical_unknown (test_pipeline_parity.ParityTests.test_same_frame_comparison_and_explicit_anatomical_unknown) ... ok
+
+======================================================================
+ERROR: test_clip_binding_required_mode_and_identity_mismatch (test_pipeline_parity.ParityTests.test_clip_binding_required_mode_and_identity_mismatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 89, in test_clip_binding_required_mode_and_identity_mismatch
+    self.assertEqual(compare_vectors(good, good)["clip_identity"], "unbound_legacy_frames_only")
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'clip_identity'
+
+======================================================================
+FAIL: test_prediction_payloads_not_mistaken_for_equivalent_class_results (test_pipeline_parity.ParityTests.test_prediction_payloads_not_mistaken_for_equivalent_class_results)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 109, in test_prediction_payloads_not_mistaken_for_equivalent_class_results
+    self.assertNotIn("prediction_agreement", report)
+AssertionError: 'prediction_agreement' unexpectedly found in {'matched_frames': 1, 'block_mae': {'pose': 0.0, 'left_hand': 0.0, 'right_hand': 0.0}, 'block_max_abs': {'pose': 0.0, 'left_hand': 0.0, 'right_hand': 0.0}, 'presence_disagreements': {'pose_seen': 0, 'left_seen': 0, 'right_seen': 0}, 'anatomical_left_right': 'unverified', 'reason': 'No independently labeled anatomical hands or on-phone signer calibration.', 'interpretation': 'Feature errors include detector differences (Python Holistic vs Android pose+hands).', 'prediction_agreement': True}
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.199s
+
+FAILED (failures=1, errors=1)

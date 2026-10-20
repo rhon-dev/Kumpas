@@ -1,0 +1,12 @@
+test_document_and_frame_types_fail_with_fixed_safe_errors (test_pipeline_parity.ParityTests.test_document_and_frame_types_fail_with_fixed_safe_errors) ... ok
+test_frame_index_selection_preserves_endpoints_and_count (test_pipeline_parity.ParityTests.test_frame_index_selection_preserves_endpoints_and_count) ... ok
+test_image_digest_mismatch_fails_closed (test_pipeline_parity.ParityTests.test_image_digest_mismatch_fails_closed) ... ok
+test_missing_frame_or_wrong_dimension_fails (test_pipeline_parity.ParityTests.test_missing_frame_or_wrong_dimension_fails) ... ok
+test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) ... ok
+test_png_manifest_uses_actual_file_bytes_and_stable_indices (test_pipeline_parity.ParityTests.test_png_manifest_uses_actual_file_bytes_and_stable_indices) ... ok
+test_same_frame_comparison_and_explicit_anatomical_unknown (test_pipeline_parity.ParityTests.test_same_frame_comparison_and_explicit_anatomical_unknown) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.201s
+
+OK

@@ -1,0 +1,15 @@
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "report latest publication unverified",
+    "report latest publication unverified"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "report latest publication unverified"
+    ],
+    "boundary": "camerax_analyzer_entry_throughput",
+    "minimum_sustained_fps": 24
+  }
+}

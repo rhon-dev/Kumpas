@@ -1,0 +1,6 @@
+test_command_requires_string_array_at_public_cli (test_host_producer_replay.ProducerLedgerCliTypes.test_command_requires_string_array_at_public_cli) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.405s
+
+OK

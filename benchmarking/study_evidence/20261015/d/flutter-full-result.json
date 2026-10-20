@@ -1,0 +1,38 @@
+{
+  "event": "end",
+  "label": "flutter-full",
+  "command": [
+    "/opt/homebrew/bin/flutter",
+    "test",
+    "--no-pub",
+    "--machine"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app",
+  "at": "2026-10-18T13:43:00.967427+08:00",
+  "source_manifest": "flutter-full-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "ended_at": "2026-10-18T13:43:07.603413+08:00",
+  "log": "flutter-full.log",
+  "log_sha256": "dade3afd4a39a9fc9e2571b4c486599f2a312a8dc04e5d83a2fc9003933efa2d",
+  "source_changes": [],
+  "tests": 79,
+  "failures": 0,
+  "skipped": 0,
+  "done_events": [
+    {
+      "success": true,
+      "type": "done",
+      "time": 5855
+    }
+  ]
+}

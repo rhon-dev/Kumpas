@@ -1,0 +1,446 @@
+{
+  "synthetic_origin": true,
+  "not_physical_measurement": true,
+  "origin": "executed-native-artifacts; mocked-adb; real-isolated-history",
+  "history": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/a3b/replay-final2/synthetic-history.json",
+  "observations": [
+    {
+      "mode": "confirmed",
+      "run_id": "b8ea26b4-ab5f-4171-9893-9cecd8bfc0d2",
+      "measurement_type": "fps",
+      "collector_exit": 1,
+      "collection_errors": [],
+      "report_transport_sha256": "0f0ad909b0712495bc3b2574e5d512848be1e86cc641c404b46f856f45899231",
+      "artifact_sha256": "0f0ad909b0712495bc3b2574e5d512848be1e86cc641c404b46f856f45899231",
+      "transport_calls": [
+        [
+          "get-state"
+        ],
+        [
+          "shell",
+          "pm",
+          "path",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "sha256sum",
+          "/data/app/synthetic/base.apk"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.model"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.hardware"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.manufacturer"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.build.fingerprint"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.kernel.qemu"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/latest.json"
+        ],
+        [
+          "shell",
+          "dumpsys",
+          "package",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/b8ea26b4-ab5f-4171-9893-9cecd8bfc0d2.control.json"
+        ]
+      ],
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    },
+    {
+      "mode": "confirmed",
+      "run_id": "b8ea26b4-ab5f-4171-9893-9cecd8bfc0d2",
+      "measurement_type": "latency",
+      "collector_exit": 1,
+      "collection_errors": [],
+      "report_transport_sha256": "0f0ad909b0712495bc3b2574e5d512848be1e86cc641c404b46f856f45899231",
+      "artifact_sha256": "0f0ad909b0712495bc3b2574e5d512848be1e86cc641c404b46f856f45899231",
+      "transport_calls": [
+        [
+          "get-state"
+        ],
+        [
+          "shell",
+          "pm",
+          "path",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "sha256sum",
+          "/data/app/synthetic/base.apk"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.model"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.hardware"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.manufacturer"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.build.fingerprint"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.kernel.qemu"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/latest.json"
+        ],
+        [
+          "shell",
+          "dumpsys",
+          "package",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/b8ea26b4-ab5f-4171-9893-9cecd8bfc0d2.control.json"
+        ]
+      ],
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    },
+    {
+      "mode": "unconfirmed",
+      "run_id": "458e4cb3-e49c-43ac-bc0c-e6db00140737",
+      "measurement_type": "fps",
+      "collector_exit": 1,
+      "collection_errors": [],
+      "report_transport_sha256": "99e87effa46eac2f4ceb6db1924b0ae15123edcb428f25012734dda9e84c9632",
+      "artifact_sha256": "99e87effa46eac2f4ceb6db1924b0ae15123edcb428f25012734dda9e84c9632",
+      "transport_calls": [
+        [
+          "get-state"
+        ],
+        [
+          "shell",
+          "pm",
+          "path",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "sha256sum",
+          "/data/app/synthetic/base.apk"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.model"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.hardware"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.manufacturer"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.build.fingerprint"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.kernel.qemu"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/latest.json"
+        ],
+        [
+          "shell",
+          "dumpsys",
+          "package",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/458e4cb3-e49c-43ac-bc0c-e6db00140737.control.json"
+        ]
+      ],
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    },
+    {
+      "mode": "unconfirmed",
+      "run_id": "458e4cb3-e49c-43ac-bc0c-e6db00140737",
+      "measurement_type": "latency",
+      "collector_exit": 1,
+      "collection_errors": [],
+      "report_transport_sha256": "99e87effa46eac2f4ceb6db1924b0ae15123edcb428f25012734dda9e84c9632",
+      "artifact_sha256": "99e87effa46eac2f4ceb6db1924b0ae15123edcb428f25012734dda9e84c9632",
+      "transport_calls": [
+        [
+          "get-state"
+        ],
+        [
+          "shell",
+          "pm",
+          "path",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "sha256sum",
+          "/data/app/synthetic/base.apk"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.model"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.hardware"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.manufacturer"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.build.fingerprint"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.kernel.qemu"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/latest.json"
+        ],
+        [
+          "shell",
+          "dumpsys",
+          "package",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/458e4cb3-e49c-43ac-bc0c-e6db00140737.control.json"
+        ]
+      ],
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    },
+    {
+      "mode": "faulted",
+      "run_id": "2e8e5da6-6c3d-4c16-9b54-5b938c1b3f62",
+      "measurement_type": "fps",
+      "collector_exit": 1,
+      "collection_errors": [
+        "benchmark control disposition unreadable",
+        "benchmark control disposition malformed or unavailable"
+      ],
+      "report_transport_sha256": "60d6e400f13cdf4c82567d9adfbe28df1bd56754d3df7540fbf2ab15b97327f5",
+      "artifact_sha256": "60d6e400f13cdf4c82567d9adfbe28df1bd56754d3df7540fbf2ab15b97327f5",
+      "transport_calls": [
+        [
+          "get-state"
+        ],
+        [
+          "shell",
+          "pm",
+          "path",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "sha256sum",
+          "/data/app/synthetic/base.apk"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.model"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.hardware"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.manufacturer"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.build.fingerprint"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.kernel.qemu"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/latest.json"
+        ],
+        [
+          "shell",
+          "dumpsys",
+          "package",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/2e8e5da6-6c3d-4c16-9b54-5b938c1b3f62.control.json"
+        ]
+      ],
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    },
+    {
+      "mode": "faulted",
+      "run_id": "2e8e5da6-6c3d-4c16-9b54-5b938c1b3f62",
+      "measurement_type": "latency",
+      "collector_exit": 1,
+      "collection_errors": [
+        "benchmark control disposition unreadable",
+        "benchmark control disposition malformed or unavailable"
+      ],
+      "report_transport_sha256": "60d6e400f13cdf4c82567d9adfbe28df1bd56754d3df7540fbf2ab15b97327f5",
+      "artifact_sha256": "60d6e400f13cdf4c82567d9adfbe28df1bd56754d3df7540fbf2ab15b97327f5",
+      "transport_calls": [
+        [
+          "get-state"
+        ],
+        [
+          "shell",
+          "pm",
+          "path",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "sha256sum",
+          "/data/app/synthetic/base.apk"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.model"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.hardware"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.product.manufacturer"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.build.fingerprint"
+        ],
+        [
+          "shell",
+          "getprop",
+          "ro.kernel.qemu"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/latest.json"
+        ],
+        [
+          "shell",
+          "dumpsys",
+          "package",
+          "com.kumpas.kumpas_app"
+        ],
+        [
+          "shell",
+          "run-as",
+          "com.kumpas.kumpas_app",
+          "cat",
+          "files/benchmarks/2e8e5da6-6c3d-4c16-9b54-5b938c1b3f62.control.json"
+        ]
+      ],
+      "synthetic_origin": true,
+      "not_physical_measurement": true
+    }
+  ]
+}

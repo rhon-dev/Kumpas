@@ -1,0 +1,9 @@
+test_actual_encoded_shape_counts_and_privacy (evaluation.test_legacy_export.LegacyTests.test_actual_encoded_shape_counts_and_privacy) ... ok
+test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) ... ok
+test_ambiguity_unmatched_empty_and_invalid_are_not_imputed (evaluation.test_synthetic_descriptive.DescriptiveTests.test_ambiguity_unmatched_empty_and_invalid_are_not_imputed) ... ok
+test_explicit_labels_pair_and_optional_absence (evaluation.test_synthetic_descriptive.DescriptiveTests.test_explicit_labels_pair_and_optional_absence) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+OK

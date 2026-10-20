@@ -1,0 +1,36 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: response order cannot undo later native session commands
+00:00 +1: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: response order cannot undo later native session commands
+00:00 +2: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: leave immediately after cached resume is not lost behind completed work
+00:00 +3: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getParticipantId fenced at clear entry failure=false
+00:00 +4: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: fire-and-forget startSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:00 +5: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getParticipantId fenced at clear finish failure=false
+00:00 +6: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: fire-and-forget endSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:00 +7: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getParticipantId fenced at clear entry failure=true
+00:00 +8: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: inactive is transitional during pending and active session
+00:00 +9: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getParticipantId fenced at clear finish failure=true
+00:00 +10: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: departure and re-entry serialize old end before replacement start
+00:00 +11: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: startSession fenced at clear entry failure=false
+00:00 +12: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: startSession fenced at clear entry failure=false
+00:00 +13: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: late owned end cannot clear external replacement or send another end
+00:00 +14: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: startSession fenced at clear finish failure=false
+00:00 +15: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_clear_test.dart: clear resets cached identity/session and revision; partialFailure=false
+00:00 +16: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_clear_test.dart: clear resets cached identity/session and revision; partialFailure=false
+00:00 +17: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: startSession fenced at clear entry failure=true
+00:00 +18: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: leave while start pending eventually ends owned session
+00:00 +19: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_clear_test.dart: clear resets cached identity/session and revision; partialFailure=true
+00:00 +20: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: startSession fenced at clear finish failure=true
+00:00 +21: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: paused while start pending eventually ends owned session
+00:00 +22: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getActiveSession fenced at clear entry failure=false
+00:00 +23: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: hidden while start pending eventually ends owned session
+00:00 +24: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getActiveSession fenced at clear finish failure=false
+00:00 +25: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: detached while start pending eventually ends owned session
+00:00 +26: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getActiveSession fenced at clear entry failure=true
+00:00 +27: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: getActiveSession fenced at clear finish failure=true
+00:00 +28: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: late endSession alone cannot clear or overwrite replacement
+00:00 +29: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: late getActiveSession alone cannot clear or overwrite replacement
+00:00 +30: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: late participant/start/sync cannot restore cache after clear fails=false
+00:00 +31: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: late participant/start/sync cannot restore cache after clear fails=true
+00:00 +32: All tests passed!

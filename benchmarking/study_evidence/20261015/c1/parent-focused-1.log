@@ -1,0 +1,33 @@
+test_apk_digest_mismatch_rejected (test_inspect_release.ReleaseTests.test_apk_digest_mismatch_rejected) ... ok
+test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot (test_inspect_release.ReleaseTests.test_apk_path_replacement_cannot_mix_digest_and_zip_snapshot) ... ok
+test_case_sensitive_android_resource_names_remain_distinct (test_inspect_release.ReleaseTests.test_case_sensitive_android_resource_names_remain_distinct) ... ok
+test_checkout_source_symlink_rejected (test_inspect_release.ReleaseTests.test_checkout_source_symlink_rejected) ... ok
+test_corrupt_archive_rejected (test_inspect_release.ReleaseTests.test_corrupt_archive_rejected) ... ok
+test_duplicate_zip_member_rejected_even_when_not_required (test_inspect_release.ReleaseTests.test_duplicate_zip_member_rejected_even_when_not_required) ... ok
+test_expectation_digest_and_checkout_capture_are_bound (test_inspect_release.ReleaseTests.test_expectation_digest_and_checkout_capture_are_bound) ... ok
+test_fresh_build_label_is_not_source_provenance (test_inspect_release.ReleaseTests.test_fresh_build_label_is_not_source_provenance) ... ok
+test_invalid_cli_has_fixed_json_no_argument_echo (test_inspect_release.ReleaseTests.test_invalid_cli_has_fixed_json_no_argument_echo) ... ok
+test_missing_asset_rejected (test_inspect_release.ReleaseTests.test_missing_asset_rejected) ... ok
+test_missing_native_file_rejected (test_inspect_release.ReleaseTests.test_missing_native_file_rejected) ... ok
+test_output_escape_rejected (test_inspect_release.ReleaseTests.test_output_escape_rejected) ... ok
+test_output_existing_preserved (test_inspect_release.ReleaseTests.test_output_existing_preserved) ... ok
+test_output_root_must_be_an_existing_directory_not_target (test_inspect_release.ReleaseTests.test_output_root_must_be_an_existing_directory_not_target) ... ok
+test_output_symlink_and_parent_symlink_rejected (test_inspect_release.ReleaseTests.test_output_symlink_and_parent_symlink_rejected) ... ok
+test_protected_checkout_mismatch_rejected (test_inspect_release.ReleaseTests.test_protected_checkout_mismatch_rejected) ... ok
+test_publication_fsync_link_and_readback_faults_leave_no_success (test_inspect_release.ReleaseTests.test_publication_fsync_link_and_readback_faults_leave_no_success) ... ok
+test_stage_collision_preserves_preexisting_file (test_inspect_release.ReleaseTests.test_stage_collision_preserves_preexisting_file) ... ok
+test_stdout_only_does_not_write (test_inspect_release.ReleaseTests.test_stdout_only_does_not_write) ... ok
+test_strict_expectation_schema_types_and_independent_asset_binding (test_inspect_release.ReleaseTests.test_strict_expectation_schema_types_and_independent_asset_binding) ... ok
+test_unsupported_zip_compression_has_safe_error (test_inspect_release.ReleaseTests.test_unsupported_zip_compression_has_safe_error) ... ok
+test_valid_explicit_expectations_publish_bound_report (test_inspect_release.ReleaseTests.test_valid_explicit_expectations_publish_bound_report) ... ok
+test_wrong_abi_and_unexpected_native_file_rejected (test_inspect_release.ReleaseTests.test_wrong_abi_and_unexpected_native_file_rejected) ... ok
+test_wrong_embedded_asset_rejected (test_inspect_release.ReleaseTests.test_wrong_embedded_asset_rejected) ... ok
+test_zip_ambiguous_names_rejected (test_inspect_release.ReleaseTests.test_zip_ambiguous_names_rejected) ... ok
+test_zip_file_directory_alias_rejected (test_inspect_release.ReleaseTests.test_zip_file_directory_alias_rejected) ... ok
+test_zip_null_filename_rejected (test_inspect_release.ReleaseTests.test_zip_null_filename_rejected) ... ok
+test_zip_symlink_rejected (test_inspect_release.ReleaseTests.test_zip_symlink_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 3.100s
+
+OK

@@ -1,0 +1,47 @@
+"""Parent execution only; never opens installed stores or device transport."""
+from pathlib import Path
+import os, subprocess, fcntl, json, datetime, re
+root = Path(__file__).resolve().parents[4]
+evidence = Path(__file__).resolve().parent
+env = os.environ.copy()
+scratch = Path.home() / '.hermes/cache/scratch/kumpas-a3b'
+scratch.mkdir(parents=True, exist_ok=True)
+env.update(TMPDIR=str(scratch), PYTHONDONTWRITEBYTECODE='1', MPLBACKEND='Agg')
+commands = [
+    ('parent-python-1', ['/opt/homebrew/bin/python3.11', '-E', '-m', 'unittest', 'discover', '-s', 'benchmarking', '-p', 'test_*.py', '-v'], root),
+    ('parent-analyze-1', ['/opt/homebrew/bin/flutter', 'analyze', '--no-pub'], root / 'app'),
+    ('parent-flutter-1', ['/opt/homebrew/bin/flutter', 'test', '--no-pub', '--machine'], root / 'app'),
+    ('parent-replay-1', ['/opt/homebrew/bin/python3.11', '-E', 'benchmarking/host_fixture_replay.py', 'replay', '--output', str(evidence / 'parent-replay-1')], root),
+]
+records = []
+with (scratch.parent / 'kumpas-gradle.lock').open('a') as lock:
+    fcntl.flock(lock, fcntl.LOCK_EX)
+    for label, command, cwd in commands:
+        log = evidence / (label + '.log')
+        with log.open('x') as out:
+            result = subprocess.run(command, cwd=cwd, env=env, stdout=out, stderr=subprocess.STDOUT)
+        text = log.read_text()
+        record = {'at': datetime.datetime.now().astimezone().isoformat(), 'label': label, 'command': command, 'cwd': str(cwd), 'exit': result.returncode, 'log': str(log.relative_to(root))}
+        if label == 'parent-python-1':
+            record['summary'] = re.findall(r'Ran \d+ tests[^\n]*|^OK[^\n]*|^FAILED[^\n]*', text, re.MULTILINE)
+        if label == 'parent-flutter-1':
+            events = []
+            for line in text.splitlines():
+                try:
+                    value = json.loads(line)
+                    if isinstance(value, dict): events.append(value)
+                except ValueError: pass
+            done = [e for e in events if e.get('type') == 'testDone' and not e.get('hidden', False)]
+            record['tests'] = len(done)
+            record['failures'] = sum(e.get('result') != 'success' for e in done)
+            record['skipped'] = sum(e.get('skipped', False) for e in done)
+            record['done_events'] = [e for e in events if e.get('type') == 'done']
+        if label == 'parent-analyze-1': record['summary'] = text.strip()
+        records.append(record)
+        print(json.dumps(record))
+        if result.returncode:
+            print(text[-6000:])
+            break
+with (evidence / 'parent-command-ledger-1.json').open('x') as out:
+    json.dump(records, out, indent=2)
+raise SystemExit(0 if len(records) == len(commands) and all(r['exit'] == 0 for r in records) else 1)

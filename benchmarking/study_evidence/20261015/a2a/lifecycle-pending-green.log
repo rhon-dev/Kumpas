@@ -1,0 +1,11 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: practice entry and duplicate resume share one pending start
+00:00 +1: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: response order cannot undo later native session commands
+00:00 +2: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: response order cannot undo later native session commands
+00:00 +3: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: paused while start pending eventually ends owned session
+00:00 +4: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: paused while start pending eventually ends owned session
+00:00 +5: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: late participant/start/sync cannot restore cache after clear fails=true
+00:00 +6: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_repository_race_test.dart: late participant/start/sync cannot restore cache after clear fails=true
+00:00 +7: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart: detached while start pending eventually ends owned session
+00:00 +8: /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_clear_test.dart: clear resets cached identity/session and invalidates visible data
+00:00 +9: All tests passed!

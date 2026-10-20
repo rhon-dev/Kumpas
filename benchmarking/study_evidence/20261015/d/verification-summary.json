@@ -1,0 +1,172 @@
+{
+  "at": "2026-10-18T14:24:26.066175+08:00",
+  "head": "6b8b1b6770e46bea7728a8e9ca4ae6d78e857640",
+  "status": "HOST_EVIDENCE_PREPARED_PARENT_VERIFICATION_AND_WHOLE_PACKAGE_REVIEW_PENDING",
+  "test_source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "source_before_count": 261,
+  "source_after_count": 264,
+  "non_document_source_changes": [],
+  "authorized_new_documents": [
+    "docs/host-completion-2026-10-18.md",
+    "docs/host-reproducible-handoff.md",
+    "docs/decisions/2026-10-18-host-scope-deviations.md"
+  ],
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "current_accepted_source_count": 69,
+  "current_accepted_source_mismatches": [],
+  "tests": {
+    "flutter": {
+      "tests": 79,
+      "failures": 0,
+      "skipped": 0
+    },
+    "jvm": {
+      "suites": 17,
+      "tests": 170,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "benchmarking": {
+      "discovered": 124,
+      "passed": 122,
+      "skipped": 2,
+      "skip_lines": [
+        "test_generate_six_real_synthetic_video_references_and_validate_publication (test_parity_fixtures.CampaignTests.test_generate_six_real_synthetic_video_references_and_validate_publication) ... skipped \"This interpreter's MediaPipe lacks Holistic solutions; training/.venv exercised separately\"",
+        "test_reference_records_actual_detector_presence_counts (test_pipeline_parity.ParityTests.test_reference_records_actual_detector_presence_counts) ... skipped \"This interpreter's MediaPipe lacks Holistic solutions; training/.venv exercised separately\""
+      ]
+    },
+    "evaluation": {
+      "tests": 18,
+      "failures": 0,
+      "skipped": 0
+    },
+    "training": {
+      "tests": 29,
+      "failures": 0,
+      "skipped": 0
+    },
+    "compatible_holistic": {
+      "tests": 21,
+      "failures": 0,
+      "skipped": 0,
+      "overlaps_broad_suite": true
+    }
+  },
+  "results": {
+    "flutter-analyze": {
+      "result_file": "flutter-analyze-result.json",
+      "log_sha256": "3edabbc06d6354ae3d72f6c6ed1015d04eba7f430e2e9a76ed9b9fd653666640",
+      "exit": 0
+    },
+    "flutter-full": {
+      "result_file": "flutter-full-result.json",
+      "log_sha256": "dade3afd4a39a9fc9e2571b4c486599f2a312a8dc04e5d83a2fc9003933efa2d",
+      "exit": 0
+    },
+    "benchmark-full": {
+      "result_file": "benchmark-full-result.json",
+      "log_sha256": "32df61460c466ebe0deed4f630c1beb3e9dae8240f8003b81f69b04fbbb098b9",
+      "exit": 0
+    },
+    "evaluation-full": {
+      "result_file": "evaluation-full-result.json",
+      "log_sha256": "802b46e63d32675e82f6e04d91734fc4174400289f766552a8ef6509a06c8537",
+      "exit": 0
+    },
+    "training-full": {
+      "result_file": "training-full-result.json",
+      "log_sha256": "d224ffc519a7a7356b796d68acfe138407c8d8b89ba0d2153fd1cb83c9aeebe1",
+      "exit": 0
+    },
+    "holistic-compatible": {
+      "result_file": "holistic-compatible-result.json",
+      "log_sha256": "d55bb173eec42148321e9660e2004bb3e3f8bd46443e4815ed614fa0c84895de",
+      "exit": 0
+    },
+    "jvm-full": {
+      "result_file": "jvm-full-result.json",
+      "log_sha256": "8a11ae100774a116f1ca57e335f49a10478558c7a77d2c2c15972765dd8fe6cd",
+      "exit": 0
+    },
+    "debug-test-build-fresh3": {
+      "result_file": "debug-test-build-fresh3-result.json",
+      "log_sha256": "e3cad4bf51baa6453c9817f6f0c926aad4c30a1bee9bc9c9c08843fec87613f9",
+      "exit": 0
+    },
+    "release-build-retry4": {
+      "result_file": "release-build-retry4-result.json",
+      "log_sha256": "7a6b5c1ec158b2827649f1db4c7a39b0768ad3e7f15086ccd7af39b0f0bae326",
+      "exit": 0
+    },
+    "accepted-producer-preflight": {
+      "result_file": "accepted-producer-preflight-result.json",
+      "log_sha256": "6e35add9c1f344e3c1c3ab60b7ce29ca9d8ad78c4bf21421c480f6e61bdce21d",
+      "exit": 0
+    },
+    "historical-artifact-readback": {
+      "result_file": "historical-artifact-readback-result.json",
+      "log_sha256": "713cf3aad3972c41b248abb1440d8a240a1dc945b1d6a49ec8600121c84bef29",
+      "exit": 0
+    }
+  },
+  "artifacts": {
+    "debug": {
+      "path": "app/build/app/outputs/apk/debug/app-debug.apk",
+      "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/current-apks/debug.apk",
+      "sha256": "f45353b6f7711ab21bb222b5171e678de0f46902e5bf1714cbe2ad55f596ff95",
+      "bytes": 197412392,
+      "build_result": "debug-test-build-fresh3-result.json",
+      "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ]
+    },
+    "android_test": {
+      "path": "app/build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/current-apks/android_test.apk",
+      "sha256": "f6a80996b8e18188b3cb02fe429e313891d4fc97e4d7e035a4a5ae949c9b506e",
+      "bytes": 374427,
+      "build_result": "debug-test-build-fresh3-result.json",
+      "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+      "all_native_abis": [],
+      "flutter_abis": []
+    },
+    "release": {
+      "path": "app/build/app/outputs/flutter-apk/app-release.apk",
+      "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/current-apks/release.apk",
+      "sha256": "ad59b02daeae01f2fa71e4ca09fbc93985e63aef702025c91f85cc56b462ba27",
+      "bytes": 66969546,
+      "build_result": "release-build-retry4-result.json",
+      "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a"
+      ]
+    }
+  },
+  "strict_arm64_only_accepted": false,
+  "historical_apk_snapshot_count": 6,
+  "review": {
+    "tracked_modified_files": 29,
+    "complete_new_files": 41,
+    "parent_verification": "PENDING",
+    "spec_review": "PENDING",
+    "quality_review": "PENDING"
+  },
+  "all16_complete": false,
+  "installed_runtime_verified": false,
+  "physical_or_study_acceptance": false
+}

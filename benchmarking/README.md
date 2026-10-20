@@ -29,7 +29,14 @@ python benchmarking/accuracy_benchmark.py --model-path ../kumpas-data/tflite/kum
 
 Start a ≥60s benchmark using the existing settings action / native
 `startBenchmark(durationSeconds: 60)` channel entry point. Retain the returned
-run ID. Keep the camera active for the whole window and perform practice attempts
+run ID. The practice flow commits ownership as soon as the current request
+receives its valid identity, before the separately bounded confirmation await.
+Pending/lost/error confirmation retains a copyable owned ID and truthful uncertain
+status, not failed start/Retry; navigation after receipt does not revoke ownership.
+Native report/companion evidence, not a sent call or UI uncertainty, controls gates. Direct native callers must explicitly call
+`confirmBenchmarkStart(runId: RUN_ID)` while that run is active and before the
+native 30-second ownership deadline; otherwise it is retained diagnostic only.
+Keep the camera active for the whole window and perform practice attempts
 for latency traces. An idle/stalled run still finishes and reports honest zeros.
 After `benchmark_complete`, collect the **same** run explicitly:
 
@@ -43,6 +50,10 @@ Collectors read `com.kumpas.kumpas_app` internal
 debuggable build for this readback. Release-build `run-as` denial is a collection
 failure, not permission to reuse a Downloads/logcat artifact. Immutable run files
 are retained at `files/benchmarks/RUN_ID.json`; collectors never delete them.
+Collectors also independently read `files/benchmarks/RUN_ID.control.json` and
+require exact integer schema1, exactly the protocol keys, matching UUID and confirmed status, as well as the matching
+report control_status. Missing/unreadable/unconfirmed state fails qualification
+closed. Never edit either retained artifact to qualify an abandoned run.
 
 Schema v2 separates analyzer, stride-selected, processed and emitted-event counts,
 full-window means, and fixed per-second samples including leading/trailing zeros.
@@ -138,3 +149,19 @@ Each benchmark appends a JSON entry to `benchmark_history.json`:
   "notes": ""
 }
 ```
+
+## Native setup handoff
+
+Before a qualified run, provision `files/benchmarks/next_setup.json` using the
+blank diagnostic template, schema, verification sources and study-free-device
+workflow in `environment_protocol.md` → “Provisioning the next run”. Producer
+APK identity is checked before timing; host identity checks remain independent.
+Missing/unreadable/split APK setup is diagnostic, never a physical pass.
+Setup IDs are generated lowercase UUIDs, not operator aliases; supported chip
+vocabulary is exactly Snapdragon 680 / Helio G80 (manual hardware checks still
+required). Bound Camera2 identifiers retain only camera2-sha256 plus the digest
+of exact API bytes, supporting OEM IDs without cleartext aliases. This is the
+trusted producer structured-identity boundary, not host hardware attestation.
+Package trust acquisition failures and unsupported source fields fail closed
+without discarding already-read safe measured diagnostics; raw companion extras
+are never retained. See the protocol for exact schema and provenance limits.

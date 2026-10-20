@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.CameraViewOwnershipTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-10-15T20:15:52.259Z" hostname="Ahrons-MacBook-Pro.local" time="0.925">
+  <properties/>
+  <testcase name="staleDefaultDisposePreservesReplacementCaptureCameraAndLedger" classname="com.kumpas.kumpas_app.CameraViewOwnershipTest" time="0.793"/>
+  <testcase name="queuedProviderAndBindFailuresAreOwnedAndDisposeReleasesAcquiredUseCases" classname="com.kumpas.kumpas_app.CameraViewOwnershipTest" time="0.054"/>
+  <testcase name="actualProducerEmissionCarriesViewOwnerAcrossPostedActivityDelivery" classname="com.kumpas.kumpas_app.CameraViewOwnershipTest" time="0.036"/>
+  <testcase name="queuedCallbacksCannotMutateReplacementAndCurrentDisposalInvalidatesActivityBoundary" classname="com.kumpas.kumpas_app.CameraViewOwnershipTest" time="0.017"/>
+  <testcase name="defaultOwnedResourceFailuresStillUnbindAndShutdownWithoutCancellingReplacement" classname="com.kumpas.kumpas_app.CameraViewOwnershipTest" time="0.011"/>
+  <testcase name="actualViewConstructionRollsBackAcquisitionsAndOnlyItsPublishedOwner" classname="com.kumpas.kumpas_app.CameraViewOwnershipTest" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

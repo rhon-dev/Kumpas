@@ -1,0 +1,15 @@
+test_main_schema_requires_exact_integer_for_fps_and_latency (test_collectors.FpsValidationTest.test_main_schema_requires_exact_integer_for_fps_and_latency) ... 
+  test_main_schema_requires_exact_integer_for_fps_and_latency (test_collectors.FpsValidationTest.test_main_schema_requires_exact_integer_for_fps_and_latency) (value='2.0') ... FAIL
+
+======================================================================
+FAIL: test_main_schema_requires_exact_integer_for_fps_and_latency (test_collectors.FpsValidationTest.test_main_schema_requires_exact_integer_for_fps_and_latency) (value='2.0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 60, in test_main_schema_requires_exact_integer_for_fps_and_latency
+    self.assertEqual(expected, not fps.validate_report(report, report['run_id']))
+AssertionError: False != True
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

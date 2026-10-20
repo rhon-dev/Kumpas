@@ -1,0 +1,12 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: replacement screen waits for prior screen end reply
+00:00 +0 -1: replacement screen waits for prior screen end reply [E]
+  Expected: ['startSession', 'endSession', 'startSession']
+    Actual: ['startSession', 'endSession']
+     Which: at location [2] is ['startSession', 'endSession'] which shorter than expected
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/session_lifecycle_race_test.dart 66:5          main.<fn>
+  
+00:00 +0 -1: Some tests failed.

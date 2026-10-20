@@ -1,0 +1,19 @@
+{
+  "execution": [
+    {
+      "invocation": "package",
+      "tests": 34,
+      "exit": 0
+    },
+    {
+      "invocation": "discovery",
+      "tests": 34,
+      "exit": 0
+    }
+  ],
+  "changed_source": "benchmarking/test_host_producer_replay.py",
+  "sha256": "c33e27de158f7833c3c9acc29126496b2f763c12501172f41ebf0797d298ccbb",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "scope": "Test import bootstrap only; historical snapshots not rebound. Runner deferred."
+}

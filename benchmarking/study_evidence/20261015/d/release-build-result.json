@@ -1,0 +1,60 @@
+{
+  "event": "end",
+  "label": "release-build",
+  "command": [
+    "./gradlew",
+    "--offline",
+    "--console=plain",
+    "-Ptarget-platform=android-arm64",
+    "-Ptarget=lib/main.dart",
+    "-Pdart-obfuscation=false",
+    "-Ptrack-widget-creation=false",
+    "-Ptree-shake-icons=true",
+    ":app:assembleRelease",
+    "--rerun"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android",
+  "at": "2026-10-18T13:44:33.759513+08:00",
+  "source_manifest": "release-build-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 1,
+  "ended_at": "2026-10-18T13:46:44.525075+08:00",
+  "log": "release-build.log",
+  "log_sha256": "604adaa7148d6b6c3372976ce79c40827dd94ac78fb3503ce1206dd0a591a271",
+  "source_changes": [],
+  "artifacts": {
+    "app/build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk": {
+      "sha256": "c276116bc3bad24383101f07191f1e71d29fa52c16fc4b3a6b38bec5b024b291",
+      "bytes": 382400
+    },
+    "app/build/app/outputs/apk/debug/app-debug.apk": {
+      "sha256": "8242ea484ebf4010910b80af624524f1ec6e2511329836870295450d9723a6b4",
+      "bytes": 212210568
+    },
+    "app/build/app/outputs/apk/release/app-release 2.apk": {
+      "sha256": "ebe520dd92847e85a87de4708692904d673c7f870751a5fe587b0bda8633680e",
+      "bytes": 66969546
+    },
+    "app/build/app/outputs/apk/release/app-release.apk": {
+      "sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+      "bytes": 66969546
+    },
+    "app/build/app/outputs/flutter-apk/app-debug.apk": {
+      "sha256": "8242ea484ebf4010910b80af624524f1ec6e2511329836870295450d9723a6b4",
+      "bytes": 212210568
+    },
+    "app/build/app/outputs/flutter-apk/app-release.apk": {
+      "sha256": "da66697f562d56ef34ea22e70c515c537f8cff640e3dda99007e8cf3fd617266",
+      "bytes": 66969546
+    }
+  }
+}

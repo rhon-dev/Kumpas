@@ -1,0 +1,18 @@
+
+┌─────────────────────────────────────────────────────────┐
+│ A new version of Flutter is available!                  │
+│                                                         │
+│ To update to the latest version, run "flutter upgrade". │
+└─────────────────────────────────────────────────────────┘
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/host_study_flow_test.dart
+00:00 +0: current execution loads pinned verified native fixture without skip
+00:00 +0 -1: current execution loads pinned verified native fixture without skip [E]
+  Expected: return normally
+    Actual: <Closure: () => HostFixture>
+     Which: threw UnimplementedError:<UnimplementedError: bound_fixture_loader>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/host_study_flow_test.dart 6:5                  main.<fn>
+  
+00:00 +0 -1: Some tests failed.

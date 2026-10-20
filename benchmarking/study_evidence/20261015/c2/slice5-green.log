@@ -1,0 +1,8 @@
+test_actual_encoded_shape_counts_and_privacy (evaluation.test_legacy_export.LegacyTests.test_actual_encoded_shape_counts_and_privacy) ... ok
+test_closed_session_counts_are_reconciled_but_active_counts_may_lag (evaluation.test_legacy_export.LegacyTests.test_closed_session_counts_are_reconciled_but_active_counts_may_lag) ... ok
+test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+OK

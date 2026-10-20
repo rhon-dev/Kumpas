@@ -1,0 +1,229 @@
+{
+  "kind": "SYNTHETIC_CLI_EVIDENCE_ONLY",
+  "external_root": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-runner-prep-cli-o_abp3g8",
+  "count": 9,
+  "results": [
+    {
+      "event": "end",
+      "label": "cli-prepare",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "prepare",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-prepare-config.json"
+      ],
+      "at": "2026-10-18T15:09:43.766775+08:00",
+      "exit": 0,
+      "stdout_sha256": "64d850b40e5b0bbcf6c2ea3cbd78fe9f95352e66dad269a2e3b5d5af49ff6d21",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "kind": "SYNTHETIC_PREPARATION_ONLY",
+        "manifest_sha256": "1db6d17c0a6ef9c39234dd702879c2aeee07c6ce70a6bd39fb061075ae4f16bf",
+        "status": "PREPARED",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-demo",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "dry-run",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-dry-run-config.json"
+      ],
+      "at": "2026-10-18T15:09:43.812661+08:00",
+      "exit": 0,
+      "stdout_sha256": "0cbb0a1c32ac9e4d07312cb9f6bf99dae91a7efc67d1b85e5626886313c6d4c5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "kind": "SYNTHETIC_PREPARATION_ONLY",
+        "manifest_sha256": "0f035096e89427e0340939829e5d038dd0c4fecbbffeb62ef3f38b073b4301b7",
+        "status": "SYNTHETIC_COMPLETE",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-timeout",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "dry-run",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-timeout-config.json"
+      ],
+      "at": "2026-10-18T15:09:43.866507+08:00",
+      "exit": 1,
+      "stdout_sha256": "e33d3aec510d67177a9dc1de6181f741960e0c401ea4e370e3549a4021926d6e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "kind": "SYNTHETIC_PREPARATION_ONLY",
+        "manifest_sha256": "22698f650e85e71b5f6895ee8ffca8000d14b2f2014ac709728697747f025aa1",
+        "status": "TIMEOUT",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-invalid",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "prepare",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-invalid-config.json"
+      ],
+      "at": "2026-10-18T15:09:43.924282+08:00",
+      "exit": 2,
+      "stdout_sha256": "e4f6a0bfb7b32bbf3d2b1835ecf5a5b5108a5f1de8960c6ede6b15dada74b9cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "code": "INVALID_REQUEST",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-authflag",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "prepare",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-authflag-config.json"
+      ],
+      "at": "2026-10-18T15:09:43.965182+08:00",
+      "exit": 3,
+      "stdout_sha256": "c15a394448f1a12a5f45092b8baf6f7956a28a5424d81fffd1a8bcc2ee4b9f5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "code": "TRAINING_NOT_AUTHORIZED",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-execute",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "execute",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-prepare-config.json"
+      ],
+      "at": "2026-10-18T15:09:44.005258+08:00",
+      "exit": 3,
+      "stdout_sha256": "c15a394448f1a12a5f45092b8baf6f7956a28a5424d81fffd1a8bcc2ee4b9f5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "code": "TRAINING_NOT_AUTHORIZED",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-train",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "train",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-prepare-config.json"
+      ],
+      "at": "2026-10-18T15:09:44.055832+08:00",
+      "exit": 3,
+      "stdout_sha256": "c15a394448f1a12a5f45092b8baf6f7956a28a5424d81fffd1a8bcc2ee4b9f5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "code": "TRAINING_NOT_AUTHORIZED",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-command-refusal",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "execute",
+        "--command",
+        "PRIVATE"
+      ],
+      "at": "2026-10-18T15:09:44.099009+08:00",
+      "exit": 3,
+      "stdout_sha256": "c15a394448f1a12a5f45092b8baf6f7956a28a5424d81fffd1a8bcc2ee4b9f5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "code": "TRAINING_NOT_AUTHORIZED",
+        "training_authorized": false
+      }
+    },
+    {
+      "event": "end",
+      "label": "cli-no-overwrite",
+      "command": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/tf/bin/python",
+        "-B",
+        "-E",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/experiment_runner.py",
+        "prepare",
+        "--config",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/runner_prep/cli-prepare-config.json"
+      ],
+      "at": "2026-10-18T15:09:44.151475+08:00",
+      "exit": 2,
+      "stdout_sha256": "e4f6a0bfb7b32bbf3d2b1835ecf5a5b5108a5f1de8960c6ede6b15dada74b9cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload": {
+        "code": "INVALID_REQUEST",
+        "training_authorized": false
+      }
+    }
+  ],
+  "external_hashes": {
+    "dry-run/completion.json": "9e0befb9f7bcb270da78b0e86494d831d93599fdcecfb595a12b1e68601ba8cc",
+    "dry-run/execution.json": "aef9f6bfec6926bda2de8aab4641a4d967abaec65726c6dacd6def6a779e11d0",
+    "dry-run/logs/SYNTHETIC-A.result.json": "87ed1ce1f925c40ab1aa5dc07903e3dbfdf95b0bfd7fc55cd27985cd2abf8bc7",
+    "dry-run/logs/SYNTHETIC-A.started.json": "4cd712e4d5d9a83689e8a0107892460e91ee93785cdfc6b446c77168958b1685",
+    "dry-run/logs/SYNTHETIC-B.result.json": "bcb80d8dce1cea15517cc1b7a450040108d140498d52a7c5c3b710bb2d1badfe",
+    "dry-run/logs/SYNTHETIC-B.started.json": "3088fda19d68c0f01d5b58a97c621f75d947fde189bd4b8831b9b808c6df849c",
+    "dry-run/manifest.json": "0f035096e89427e0340939829e5d038dd0c4fecbbffeb62ef3f38b073b4301b7",
+    "inputs/candidate.json": "a9ce553dc381516eeb4d81fe6289221926b1c1d9513b1db5cf672c37fd07cb87",
+    "inputs/freeze.json": "40edc9930f3eafd923cf702736496924523396dbdeffc511a2b303c93dac75da",
+    "inputs/labels.json": "953055255e9c8d2742763232a42c2f1aa76a8f0ec466f27272c80686a8e3d32b",
+    "inputs/protocol.json": "aa4f6cc95ba90565cb678899d3ed617714a9765e304d2fbdae6d40cc5f7a1d57",
+    "inputs/source.json": "b350a897d9133bd8bc82ef3dc87a9d393fe1c86cfd912690c469c0bbb37fa8eb",
+    "prepare/manifest.json": "1db6d17c0a6ef9c39234dd702879c2aeee07c6ce70a6bd39fb061075ae4f16bf",
+    "timeout/completion.json": "02d2b17e3de33c301ed74c12a8d97164cdd0e551a54a798f2f6db7726c61f947",
+    "timeout/execution.json": "68c75aaf262d9165dfc8220c71be45cc3a76a2dea137eb9b02d5402c22c5d563",
+    "timeout/logs/SYNTHETIC-B.result.json": "fbac50c859ffa04f997bca512983ca551802f5488acfd1fee187f30494fc14a4",
+    "timeout/logs/SYNTHETIC-B.started.json": "3088fda19d68c0f01d5b58a97c621f75d947fde189bd4b8831b9b808c6df849c",
+    "timeout/manifest.json": "22698f650e85e71b5f6895ee8ffca8000d14b2f2014ac709728697747f025aa1"
+  },
+  "config_hashes": {
+    "prepare": "70f42a367f302ed5a4bf6bcb11841689050d38a80cd23f29444134b1b47121bf",
+    "dry-run": "54c0788ef293c4453a51c94ce83aae3a883c0b83a46dceac64733e3f9253a300",
+    "timeout": "d6bec7f44ddffc77f7ed091591c7e61481a104c73f5e0ff1655cc1dddf1d8281",
+    "invalid": "3d940c9dbe5086a55c6dd96a104d3d95e3c7b3c1762d9825b7cee641c603a859",
+    "authflag": "f28828f320a1e8dc6a1133b8ee5dc04d814240adcd49b77646d664c90b150972"
+  }
+}

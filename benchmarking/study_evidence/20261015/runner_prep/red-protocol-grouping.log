@@ -1,0 +1,24 @@
+test_protocol_original_clip_count_and_fraction_contract_rebound (training.tests.test_experiment_runner.RunnerTests.test_protocol_original_clip_count_and_fraction_contract_rebound) ... 
+  test_protocol_original_clip_count_and_fraction_contract_rebound (training.tests.test_experiment_runner.RunnerTests.test_protocol_original_clip_count_and_fraction_contract_rebound) (mode='too_few_originals') ... FAIL
+  test_protocol_original_clip_count_and_fraction_contract_rebound (training.tests.test_experiment_runner.RunnerTests.test_protocol_original_clip_count_and_fraction_contract_rebound) (mode='changed_fraction') ... FAIL
+
+======================================================================
+FAIL: test_protocol_original_clip_count_and_fraction_contract_rebound (training.tests.test_experiment_runner.RunnerTests.test_protocol_original_clip_count_and_fraction_contract_rebound) (mode='too_few_originals')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 82, in test_protocol_original_clip_count_and_fraction_contract_rebound
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+======================================================================
+FAIL: test_protocol_original_clip_count_and_fraction_contract_rebound (training.tests.test_experiment_runner.RunnerTests.test_protocol_original_clip_count_and_fraction_contract_rebound) (mode='changed_fraction')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_experiment_runner.py", line 82, in test_protocol_original_clip_count_and_fraction_contract_rebound
+    with self.assertRaises(runner.RunnerError):runner.prepare(c)
+AssertionError: RunnerError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (failures=2)

@@ -1,0 +1,7 @@
+test_freeze_all_six_before_any_extraction_and_refuse_overwrite (test_parity_fixtures.CampaignTests.test_freeze_all_six_before_any_extraction_and_refuse_overwrite) ... ok
+test_wrong_partition_label_hash_and_unsafe_output_fail_before_write (test_parity_fixtures.CampaignTests.test_wrong_partition_label_hash_and_unsafe_output_fail_before_write) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.902s
+
+OK

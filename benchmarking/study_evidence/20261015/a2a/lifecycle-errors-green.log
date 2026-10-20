@@ -1,0 +1,11 @@
+00:00 +0: loading /Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/test/session_lifecycle_race_test.dart
+00:00 +0: practice entry and duplicate resume share one pending start
+00:00 +1: fire-and-forget startSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:00 +2: fire-and-forget endSession failure is handled and next event retries
+Session lifecycle operation failed; retry on next event.
+00:00 +3: leave while start pending eventually ends owned session
+00:00 +4: paused while start pending eventually ends owned session
+00:00 +5: hidden while start pending eventually ends owned session
+00:00 +6: detached while start pending eventually ends owned session
+00:00 +7: All tests passed!

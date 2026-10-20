@@ -1,0 +1,37 @@
+test_clip_binding_required_mode_and_identity_mismatch (test_pipeline_parity.ParityTests.test_clip_binding_required_mode_and_identity_mismatch) ... ok
+test_document_and_frame_types_fail_with_fixed_safe_errors (test_pipeline_parity.ParityTests.test_document_and_frame_types_fail_with_fixed_safe_errors) ... ok
+test_frame_index_selection_preserves_endpoints_and_count (test_pipeline_parity.ParityTests.test_frame_index_selection_preserves_endpoints_and_count) ... ok
+test_image_digest_mismatch_fails_closed (test_pipeline_parity.ParityTests.test_image_digest_mismatch_fails_closed) ... ok
+test_missing_frame_or_wrong_dimension_fails (test_pipeline_parity.ParityTests.test_missing_frame_or_wrong_dimension_fails) ... ok
+test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) ... ok
+test_png_manifest_uses_actual_file_bytes_and_stable_indices (test_pipeline_parity.ParityTests.test_png_manifest_uses_actual_file_bytes_and_stable_indices) ... ok
+test_prediction_payloads_not_mistaken_for_equivalent_class_results (test_pipeline_parity.ParityTests.test_prediction_payloads_not_mistaken_for_equivalent_class_results) ... ok
+test_prepare_retains_only_sampled_frames_not_all_decoded_frames (test_pipeline_parity.ParityTests.test_prepare_retains_only_sampled_frames_not_all_decoded_frames) ... ok
+test_prepare_video_counts_and_samples_actual_decode (test_pipeline_parity.ParityTests.test_prepare_video_counts_and_samples_actual_decode) ... ok
+test_reference_records_actual_detector_presence_counts (test_pipeline_parity.ParityTests.test_reference_records_actual_detector_presence_counts) ... WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792233094.050015 5177120 gl_context.cc:357] GL version: 2.1 (2.1 Metal - 90.5), renderer: Apple M1
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+W0000 00:00:1792233094.131294 5177236 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792233094.139204 5177236 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792233094.140941 5177234 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792233094.140941 5177236 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792233094.141356 5177241 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792233094.143678 5177241 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792233094.146240 5177236 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792233094.148387 5177240 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+FAIL
+test_reference_rejects_unsafe_manifest_before_detector_or_output (test_pipeline_parity.ParityTests.test_reference_rejects_unsafe_manifest_before_detector_or_output) ... ok
+test_same_frame_comparison_and_explicit_anatomical_unknown (test_pipeline_parity.ParityTests.test_same_frame_comparison_and_explicit_anatomical_unknown) ... ok
+
+======================================================================
+FAIL: test_reference_records_actual_detector_presence_counts (test_pipeline_parity.ParityTests.test_reference_records_actual_detector_presence_counts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 168, in test_reference_records_actual_detector_presence_counts
+    self.assertIn("detector_presence_counts", result)
+AssertionError: 'detector_presence_counts' not found in {'schema': 'kumpas-feature-reference-v1', 'extractor': 'Python MediaPipe Holistic', 'anatomical_left_right': 'unverified', 'frames': [{'index': 0, 'sha256': '068e50beddfb7c8695b606fd3c9acfb439ae937b7d39bb1aed8b02d8bf111ddd', 'features': [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 'pose_seen': False, 'left_seen': False, 'right_seen': False}]}
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.127s
+
+FAILED (failures=1)

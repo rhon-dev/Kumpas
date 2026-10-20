@@ -1,0 +1,44 @@
+test_clip_binding_required_mode_and_identity_mismatch (test_pipeline_parity.ParityTests.test_clip_binding_required_mode_and_identity_mismatch) ... ok
+test_document_and_frame_types_fail_with_fixed_safe_errors (test_pipeline_parity.ParityTests.test_document_and_frame_types_fail_with_fixed_safe_errors) ... ok
+test_frame_index_selection_preserves_endpoints_and_count (test_pipeline_parity.ParityTests.test_frame_index_selection_preserves_endpoints_and_count) ... ok
+test_image_digest_mismatch_fails_closed (test_pipeline_parity.ParityTests.test_image_digest_mismatch_fails_closed) ... ok
+test_missing_frame_or_wrong_dimension_fails (test_pipeline_parity.ParityTests.test_missing_frame_or_wrong_dimension_fails) ... ok
+test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) ... ok
+test_png_manifest_uses_actual_file_bytes_and_stable_indices (test_pipeline_parity.ParityTests.test_png_manifest_uses_actual_file_bytes_and_stable_indices) ... ok
+test_prediction_payloads_not_mistaken_for_equivalent_class_results (test_pipeline_parity.ParityTests.test_prediction_payloads_not_mistaken_for_equivalent_class_results) ... ok
+test_prepare_retains_only_sampled_frames_not_all_decoded_frames (test_pipeline_parity.ParityTests.test_prepare_retains_only_sampled_frames_not_all_decoded_frames) ... FAIL
+test_prepare_video_counts_and_samples_actual_decode (test_pipeline_parity.ParityTests.test_prepare_video_counts_and_samples_actual_decode) ... ok
+test_reference_rejects_unsafe_manifest_before_detector_or_output (test_pipeline_parity.ParityTests.test_reference_rejects_unsafe_manifest_before_detector_or_output) ... WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792232482.513025 5160288 gl_context.cc:357] GL version: 2.1 (2.1 Metal - 90.5), renderer: Apple M1
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+W0000 00:00:1792232482.596636 5160377 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792232482.606296 5160377 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792232482.609554 5160381 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792232482.609565 5160378 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792232482.609749 5160377 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792232482.612254 5160377 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792232482.615730 5160378 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792232482.618117 5160381 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+FAIL
+test_same_frame_comparison_and_explicit_anatomical_unknown (test_pipeline_parity.ParityTests.test_same_frame_comparison_and_explicit_anatomical_unknown) ... ok
+
+======================================================================
+FAIL: test_prepare_retains_only_sampled_frames_not_all_decoded_frames (test_pipeline_parity.ParityTests.test_prepare_retains_only_sampled_frames_not_all_decoded_frames)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 187, in test_prepare_retains_only_sampled_frames_not_all_decoded_frames
+    self.assertLessEqual(peak[0], 5)
+AssertionError: 40 not less than or equal to 5
+
+======================================================================
+FAIL: test_reference_rejects_unsafe_manifest_before_detector_or_output (test_pipeline_parity.ParityTests.test_reference_rejects_unsafe_manifest_before_detector_or_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 133, in test_reference_rejects_unsafe_manifest_before_detector_or_output
+    with self.assertRaisesRegex(ValueError, "invalid replay"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.960s
+
+FAILED (failures=2)

@@ -1,0 +1,56 @@
+# Owner-approved contract closure — resumed October 9, 2026
+
+## Explicit owner decisions (verbatim)
+
+The owner answered the two clarification questions, then said `continue` after an interrupted response:
+
+1. **Commit ownership when the valid UUID reaches the screen; retain it and show uncertain confirmation, not failed start**.
+2. **No free-form metadata aliases: generated/structured identities, fixed chip vocabulary, and trusted camera identifiers**.
+
+These decisions supersede the paused automatic-loop state. This is a deliberately owner-approved contract repair, not a third blind optimistic acknowledgement patch. Preserve existing repairs and worktree. No commits/reset/clean/stash/worktree, dependency installs, actual device/ADB operations, participant/default-store access, model/reference/history/training/evaluation/figures, feedback mathematics/XP/layout changes.
+
+## Verified starting state
+
+Repo `/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas`; HEAD `6b8b1b6770e46bea7728a8e9ca4ae6d78e857640`. Parent checked Git/status/diff on2026-10-09T13:58:13+0800; no live workers. Authorized modified/new files remain. Prior parent132 JVM/27 Flutter/41 Python, forced instrumentation-source compilation, debug/test/ARM64 release and82 protected hashes are dated prior results, NOT acceptance for new changes. Exact prior snapshot/controller artifacts: `reviewfix-parent-verification-1.json`. Preserve failed duplicate-DEX build and quarantine manifests. Do not rerun old completed A–G or prior fixer work wholesale.
+
+Read COMPLETE `controller/spec-review-2.md`, `controller/quality-review-2.md`, `controller/review-adjudication-2.json`, previous brief `final-review-fix-brief-1.md`, prior `review_fix_1/fix-report.md`, original closure plan and current live code. Address the UNION of both review findings. These reports have different R numbering; always name report+finding. Parent will independently test/build/review after completion.
+
+Create `benchmarking/study_evidence/20261007/owner_closure_2/fix-report.md` BEFORE production changes. Use append-only command ledger and unique actual RED/GREEN logs. Record each landed vertical slice immediately; durable progress must survive interruption. One cohesive writer only, production regression-first; coverage-only GREEN honestly labeled. Load study-readiness, TDD, systematic-debugging, receiving-code-review and verification skills.
+
+## A — ownership commits at valid current UUID receipt, not confirmation-response receipt
+
+Implement the owner-approved policy coherently across Dart/native/host/docs. Retain valid current returned UUID and screen ownership BEFORE awaiting confirmation. A confirmation response timeout/error is **uncertain confirmation of an owned run**, not failed start/no identity/retry-busy. Keep ID copy/report/completion correlation and bounded status/recovery. Native confirmed run whose reply is lost is not disqualified solely because screen wrongly called it failed: remove that erroneous classification. Native unconfirmed/missing/faulted disposition still cannot qualify; report actual uncertainty and authoritative scoped diagnostics, never claim confirmed/running based only on a sent call. Do not introduce a recursively optimistic third acknowledgement RPC/lease unless a real necessity emerges and parent is consulted.
+
+Define and document receipt-commit behavior for navigation/disposal while confirmation is pending: owner committed before disposal, consistent with successfully owned runs after navigation; preserve identity/disposition and avoid dropping late exceptions/unhandled futures or changing replacement B. Original start reply AFTER timeout/disposal remains unowned diagnostic and scoped late-stop behavior stays unchanged. Keep original start watchdog and separate bounded confirmation await. Scope future callbacks to ID and owner generation. Confirm false/throw versus response uncertainty must remain understandable and safe; no private raw exception messages in retained diagnostics. Successful measurement bytes/censors stay immutable; host companion rules remain conservative.
+
+Genuine widget/producer/host regressions must cover valid identity arrives near original deadline, native confirms before response hangs/errors, full observation closes before future resolves, confirmation timeout then late success/error, disposal while confirmation pending, replacement B, completion during pending confirmation, and confirmed vs unconfirmed/faulted companion. Assert retained copyable ID, truthful uncertain state (not failed start or spurious retry), correlation and no replacement mutation. Replay actual executed producer report/companion into isolated host histories; label separate Flutter mocks vs live integration honestly.
+
+## B — no free-form aliases, fixed chip vocabulary and trusted camera IDs
+
+Resolve spec R2 and all related metadata findings under the owner's stricter policy. Do not narrow privacy to trusted free-form operators or human-name heuristics. Remove unnecessary aliases from native/host retained reports, including rejected interpreter diagnostics. Setup identity must be generated/structured (e.g. generated UUID or deterministic immutable snapshot identity), not arbitrary supplied cleartext alias. If setup accepts a provided identity, validate exact contract without repairing malformed token into acceptance; native-generated identity should not legitimize arbitrary aliases. Fixed chip vocabulary must contain only supported protocol options with documented provenance/manual physical verification limits, never broad alphabetic suffix regex. Unsupported chip names stay non-gating and marker-free. Do not change actual manufacturer/device/build values that are independently verified.
+
+Camera ID must be from actual producer Camera2 provenance and an independently trusted host verification path OR use a bounded generated/structured representation that cannot retain free-form report text and binds to trusted producer camera info. Merely opaque `[A-Za-z0-9_]` is not enough. No actual ADB in tests; mock any independent camera enumeration. Do not invent unsupported Android metadata commands or promise cryptographic attestation. Prefer smallest supported representation/provenance contract; explain what it proves and does not. If a conflict with actual legitimate OEM camera identifiers arises, report design issue rather than silently discarding trusted cameras or retaining arbitrary private labels.
+
+Add syntax-valid adversarial `PRIVATE_patient_text` and `Snapdragon 680PRIVATE` through actual native setup/immutable/latest output and all3 host reader/sink/history paths. Preserve real valid protocol names/IDs and numeric diagnostics. Native and host retention policy/docs/blank provisioning schemas must agree; do not overwrite historical handoff observations or hashes.
+
+## C — acquisition/unknown-field trust failures retain diagnostics AND fail closed
+
+Spec R3 and quality R4: catch package metadata acquisition/parse errors inside reader; preserve already-read sanitized measured report/numbers/traces and selected safe device information. Append fixed unavailable diagnostic and reject qualification irrespective of report field presence. Missing/ambiguous package text and missing report version text cannot bypass trust checks. Apply both camera and interpreter paths. No raw exception text or unsupported report labels retained.
+
+Detect unsupported source keys BEFORE reconstructing report.device; propagate safe unsafe/rejection indicator through both reader and repeated sink binding. Never restore private unsupported values just to flag them. Cover unknown nested device members in all3 ingestion paths, marker-free diagnostics and gate false, legitimate trusted identity retained. Companion validation must require exact integer schema (not bool/float), exact run UUID/fixed status and proper structural contract; raw private extras must not reach diagnostics or accidentally qualify. Cover missing/unreadable/duplicate/malformed/private extras/type faults.
+
+## D — camera identity at final posted delivery and constructor acquisition rollback
+
+Quality R2: carry view-owner identity from actual production analyzer/event emission across MainActivity Handler posting, and recheck under pipeline lock at FINAL delivery/event-count boundary. Preserve separately justified terminal persistence/accounting; no erasing immutable measured completed attempts merely to suppress stale UI. Add actual Handler/EventSink regression: A emits while current, B registers before queue drain, no A prediction/no-signer/warmup/error reaches B or increments B events; attempt generation deliberately unchanged. Test subscribed sink replacement and relevant terminal/error paths. Retain current default stale disposal protection.
+
+Quality R3/spec R5: transactional view acquisition/registration. A failed replacement B must not leave phantom current token or unowned executor/usecases. Stage fallible setup before ownership publication or roll back only its own token/resources with explicit A/B/C policy; never restore dead/stale A or overwrite newer C. Tests must use production construction/factory path with injected preview/executor/provider/listener faults, not just detached helper or bindCamera=false disposal. Preserve original exception, suppress cleanup failures, attempt all owned cleanup. Cover successful replacement, early/late failure, cleanup faults and repeat disposal.
+
+Quality minor R5: close loadGold()/labelsJson() asset streams with use at actual production seams; success/read/parse failures must close, retain model/reference/math bytes. Existing resource factory may be extended narrowly to these actual reads; no constructor bypass proof substitution.
+
+## Evidence/completion
+
+Allowed focused source/test scope: BenchmarkMode/MainActivity/VisionEngine/CameraPreviewView/CameraViewOwnership/VisionResourceFactory/OwnedCleanup and narrow necessary ownership helper; Dart channel/practice; collect_fps/collect_latency/tests; required README/environment_protocol schema changes. Parent owns progress/readiness/phase-gates/controller evidence: do not edit. You own new `owner_closure_2/` report/logs. Preserve all previous working edits/source/new files.
+
+At end run full JVM with actual forced execution, forced instrumentation-source compile under existing scratch shared Gradle lock; full Flutter analyze/tests; full benchmarking Python discovery with existing `/opt/homebrew/bin/python3.11`, repository import path, no bytecode/new dependency installs. Parse real counts/errors/warnings; hash all82 original expected protected files from controller/artifact-verification-1.json. Record failures accurately, no stale success. Do not run installed instrumentation/devices/ADB/default stores. Parent builds exact APKs independently later.
+
+Self-review full coupled contract and all16 dispositions, including changed owner-approved meaning of uncertain confirmation versus original lost-start diagnostic. Return DONE/DONE_WITH_CONCERNS/BLOCKED, exact report path, actual commands/test results and unresolved report-specific IDs. If policy cannot be implemented coherently, report blocker before contradictory code. No software/study acceptance claim; real runtime/physical/human/model/expert/participant gates remain open.

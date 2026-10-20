@@ -1,0 +1,9 @@
+test_argument_help_is_json_and_duplicate_input_paths_fail (evaluation.test_export_cli.CliTests.test_argument_help_is_json_and_duplicate_input_paths_fail) ... ok
+test_cli_fails_closed_without_payload_echo (evaluation.test_export_cli.CliTests.test_cli_fails_closed_without_payload_echo) ... ok
+test_cli_publishes_readback_and_hash_bound_manifest (evaluation.test_export_cli.CliTests.test_cli_publishes_readback_and_hash_bound_manifest) ... ok
+test_symlink_inputs_roots_and_outputs_rejected (evaluation.test_export_cli.CliTests.test_symlink_inputs_roots_and_outputs_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.574s
+
+OK

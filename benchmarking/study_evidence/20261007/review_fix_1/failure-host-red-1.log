@@ -1,0 +1,14 @@
+test_shared_failure_codes_retain_category_and_total (test_collectors.AdbCollectionTest) ... FAIL
+
+======================================================================
+FAIL: test_shared_failure_codes_retain_category_and_total (test_collectors.AdbCollectionTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_collectors.py", line 145, in test_shared_failure_codes_retain_category_and_total
+    self.assertFalse(unsafe)
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

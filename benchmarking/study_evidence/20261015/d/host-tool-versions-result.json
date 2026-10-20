@@ -1,0 +1,27 @@
+{
+  "event": "end",
+  "label": "host-tool-versions",
+  "command": [
+    "/bin/bash",
+    "-c",
+    "/opt/homebrew/bin/flutter --version --machine; \"$JAVA_HOME/bin/java\" -version; /usr/bin/sw_vers; /usr/sbin/sysctl -n hw.memsize hw.logicalcpu"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+  "at": "2026-10-18T14:18:49.995702+08:00",
+  "source_manifest": "host-tool-versions-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "ended_at": "2026-10-18T14:18:50.644629+08:00",
+  "log": "host-tool-versions.log",
+  "log_sha256": "1b228c044d0788ff1d92e9297768e88b23eb5673f2c4bd64d9efb5b4611c02be",
+  "source_changes": []
+}

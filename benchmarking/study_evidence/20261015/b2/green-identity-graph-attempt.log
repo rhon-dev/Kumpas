@@ -1,0 +1,20 @@
+test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking (test_validation_campaign.CampaignTests.test_metric_boundary_rejects_non_numeric_and_nonfinite_before_ranking) ... ok
+test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata) ... ERROR
+test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound (test_validation_campaign.InputTests.test_reject_shape_compatible_validation_tampering_even_when_current_hash_rebound) ... ok
+test_probability_boundary_rejects_shape_type_and_nonfinite (test_validation_campaign.ProbabilityTests.test_probability_boundary_rejects_shape_type_and_nonfinite) ... ok
+
+======================================================================
+ERROR: test_identity_graph_rejects_tampering_and_malformed_metadata (test_validation_campaign.InputTests.test_identity_graph_rejects_tampering_and_malformed_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/tests/test_validation_campaign.py", line 73, in test_identity_graph_rejects_tampering_and_malformed_metadata
+    self.assertIsInstance(api('validate_inputs')(self.config),dict)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/training/models/validation_campaign.py", line 162, in validate_inputs
+    raise ValueError('INVALID_INPUTS') from None
+ValueError: INVALID_INPUTS
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.257s
+
+FAILED (errors=1)

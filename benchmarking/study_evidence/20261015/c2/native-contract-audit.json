@@ -1,0 +1,62 @@
+{
+  "binding_sha256": "403a990584469018b27281269b4c9bb8aba89c83fd5fbb32c01f840eaede158b",
+  "limitation": "Transport producer uses synthetic/stage response keys, not UI questionnaire responses; expected REQUIRED rejection is not an app repair or human instrument approval.",
+  "manifest_sha256": "3279cb7d01075a9192f2566ae5573dd6137a23c6710ef1d0a590b78564fe0fed",
+  "observations": [
+    {
+      "artifact": "external-export.json",
+      "counts": {
+        "assessments": 2,
+        "attempts": 1,
+        "sessions": 1
+      },
+      "sha256": "2f4a52af6f6591cb48cb81a5d819cacd33707e0a70e6cd23bd29d30ec04a4dd0",
+      "validation": {
+        "diagnostics": [
+          {
+            "code": "REQUIRED"
+          }
+        ],
+        "valid": false
+      }
+    },
+    {
+      "artifact": "internal-export.json",
+      "counts": {
+        "assessments": 2,
+        "attempts": 1,
+        "sessions": 1
+      },
+      "sha256": "2f4a52af6f6591cb48cb81a5d819cacd33707e0a70e6cd23bd29d30ec04a4dd0",
+      "validation": {
+        "diagnostics": [
+          {
+            "code": "REQUIRED"
+          }
+        ],
+        "valid": false
+      }
+    },
+    {
+      "artifact": "reopened-export.json",
+      "counts": {
+        "assessments": 0,
+        "attempts": 0,
+        "sessions": 0
+      },
+      "sha256": "94a295a2362637dff82293198c67c0f8de1c45561502fa705d6e3073adb6d408",
+      "validation": {
+        "counts": {
+          "assessments": 0,
+          "attempts": 0,
+          "sessions": 0
+        },
+        "diagnostics": [],
+        "valid": true
+      }
+    }
+  ],
+  "source_hashes_matched": 42,
+  "successful_producer_tests": 5,
+  "synthetic": true
+}

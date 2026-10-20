@@ -1,0 +1,20 @@
+test_argument_help_is_json_and_duplicate_input_paths_fail (evaluation.test_export_cli.CliTests.test_argument_help_is_json_and_duplicate_input_paths_fail) ... ok
+test_cli_fails_closed_without_payload_echo (evaluation.test_export_cli.CliTests.test_cli_fails_closed_without_payload_echo) ... ok
+test_cli_publishes_readback_and_hash_bound_manifest (evaluation.test_export_cli.CliTests.test_cli_publishes_readback_and_hash_bound_manifest) ... ok
+test_nonregular_input_and_symlink_parent_rejected (evaluation.test_export_cli.CliTests.test_nonregular_input_and_symlink_parent_rejected) ... ok
+test_publication_collision_preserves_unowned_manifest (evaluation.test_export_cli.CliTests.test_publication_collision_preserves_unowned_manifest) ... ok
+test_publication_faults_never_leave_success_manifest (evaluation.test_export_cli.CliTests.test_publication_faults_never_leave_success_manifest) ... ok
+test_symlink_inputs_roots_and_outputs_rejected (evaluation.test_export_cli.CliTests.test_symlink_inputs_roots_and_outputs_rejected) ... ok
+test_validate_mode_unattested_is_not_descriptive_authorization (evaluation.test_export_cli.CliTests.test_validate_mode_unattested_is_not_descriptive_authorization) ... ok
+test_actual_encoded_shape_counts_and_privacy (evaluation.test_legacy_export.LegacyTests.test_actual_encoded_shape_counts_and_privacy) ... ok
+test_closed_session_counts_are_reconciled_but_active_counts_may_lag (evaluation.test_legacy_export.LegacyTests.test_closed_session_counts_are_reconciled_but_active_counts_may_lag) ... ok
+test_exact_types_requiredness_and_optional_domains_matrix (evaluation.test_legacy_export.LegacyTests.test_exact_types_requiredness_and_optional_domains_matrix) ... ok
+test_feedback_types_nonfinite_unknown_keys_and_empty_export (evaluation.test_legacy_export.LegacyTests.test_feedback_types_nonfinite_unknown_keys_and_empty_export) ... ok
+test_strict_encoded_and_relational_rejections (evaluation.test_legacy_export.LegacyTests.test_strict_encoded_and_relational_rejections) ... ok
+test_ambiguity_unmatched_empty_and_invalid_are_not_imputed (evaluation.test_synthetic_descriptive.DescriptiveTests.test_ambiguity_unmatched_empty_and_invalid_are_not_imputed) ... ok
+test_explicit_labels_pair_and_optional_absence (evaluation.test_synthetic_descriptive.DescriptiveTests.test_explicit_labels_pair_and_optional_absence) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.794s
+
+OK

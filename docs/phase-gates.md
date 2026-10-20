@@ -3,6 +3,16 @@
 Source of truth for where the project is. Update this file when a gate opens/closes.
 Full phase descriptions: `PRD.md` §6.
 
+## Current parent status — owner-directed deferral and host evidence
+
+This section supersedes older active-worker, open-repair and test-count descriptions below; historical records and gate rows are retained, not newly certified. The October 11 exact-integer report-schema repair and the later B1 arithmetic/C1 publication-test/C2 snapshot-test follow-ups are closed within their recorded host scopes. C1 artifact tooling and C2 technical export validation/synthetic descriptives have bounded controller acceptances under `benchmarking/study_evidence/20261015/controller/`.
+
+Package D recorded clean Flutter analysis, 79 Flutter tests, 170 JVM tests, 122 benchmarking passes with 2 explicit capability skips, 21 overlapping compatible Holistic tests, 18 evaluation tests and 29 training tests. It built debug/test/release APKs; parent readback independently checked artifact/asset hashes and JVM XML. These are dated executions, not a new rerun or installed-runtime pass. The release build has ARM64 Flutter libraries and dependency libraries in three ABI namespaces; strict ARM64-only packaging was not accepted. See `d/verification-summary.json`, `controller/final-host-parent-readback-1.json` and `controller/final-host-parent-xml-1.json` relative to that evidence root.
+
+Whole-package quality review passed within bounded scope. Whole-package specification review requested isolated experiment-runner preparation. The later runner implementation is preserved but unaccepted; the owner explicitly deferred its further work/review. Do not automatically restart it or represent the deferral as implementation acceptance. The subsequent replay-test import adjustment passed 34 tests through each of package-qualified and discovery invocation; it changes only test setup and does not retroactively rebind frozen D sources.
+
+No all16 completion or PRD gate closure is granted here. Full B2 source provenance still lacks 134 source metadata pairs. Actual training, human instruments/scoring/statistics, expert/anatomical and signer-independent evidence, installed continuous flow, physical performance and participant authorization remain blocked or unverified. Proposed architecture decisions remain unsigned. Existing model numerical-gate and historical-lineage limitations remain unchanged. No participant stores or devices were exercised by this status update.
+
 ## Status legend
 
 | Marker | Meaning |
@@ -12,6 +22,32 @@ Full phase descriptions: `PRD.md` §6.
 | ⚠️ UNEVIDENCED IN REPO | Claimed, possibly true, but no artifact here supports it. Not the same as false |
 | ❌ NOT MET | Evidence is absent or contradicts the claim |
 | ⬜ | Not started |
+
+## October11 follow-up — schema repair accepted
+
+The nonblocking schema-type repair now rejects floating/bool/null/string report schema values in shared validation and raw-reader/history sanitization. Genuine RED and GREEN logs plus current-source hashes are in `benchmarking/study_evidence/20261007/controller/schema-minor-parent-20261011.{md,json}`. Fresh full Python discovery passed43 tests; fresh forced JVM execution passed137 with0 failures/errors/skips. All82 protected originals unchanged. Read-only review `deleg_36a911af` APPROVED the narrow repair with no blocking findings. Parent read the report, matched all3 reviewed source hashes and reran full discovery43/43 under the existing Python3.11 environment. The reviewer independently passed27 collector tests; its broader default-Python3.9 attempt had4 missing dependency import errors, preserved as an environment limitation rather than a source defect. Minor quality-review-3 R1 is closed; no reviewer remains active. Broader integration/physical/study limits remain unchanged.
+
+No connected Android device. Isolated emulator boot/install permission prompt timed out; no boot/install/default-store operation occurred. Deletion/ownership is host/JVM reverified only; installed isolated tests and continuous camera/channel/UI/persistence/export/delete/reopen remain pending. Physical/research/participant gates remain unapproved. The October9 minor-open description below is historical, superseded by this reviewed schema closure.
+
+## Current parent software adjudication — October9 final closure
+
+**Bounded software-review closure accepted with one minor follow-up; integrated/physical/study acceptance NOT granted.** Both final reports in `deleg_5c924f1e` approve frozen package4 under the owner-approved receipt-commit/structured-metadata policy, with no Critical/Important unresolved software finding. Parent rechecked all28 frozen files and82 protected originals; recorded actual137 JVM/35 Flutter/42 Python, clean analysis, forced instrumentation-source compile/debug+test/ARM64 APK builds and exact identities reside in `controller/owner-parent-verification-1.json`. All16 bounded software versus runtime/research dispositions and decision time2026-10-09T14:44:02+0800 are `controller/bounded-software-acceptance-1.md`/JSON. No workers remain active.
+
+Minor nonblocking issue remains: main report schema_version2.0 float accepted; parent reproduced it. Exact integer typing plus FPS/latency reader/sink regressions remains open, not a claimed fix. Real installed CameraX/channel/UI/persistence/export/delete/reopen, actual resource release, target phone/provisioning/performance/thermal/signers/all signs, model/expert/human and participant authorization remain OPEN. The dated repair/review statuses below preserve history and are superseded by this decision; no Phase physical/study gate is closed from unit/build evidence.
+
+## Historical software adjudication — earlier review changes required
+
+The current focused repair base is `6b8b1b6770e46bea7728a8e9ca4ae6d78e857640`. October7 parent execution confirmed121 JVM tests,21 Flutter tests,38 benchmarking Python tests and clean analysis, actual forced instrumentation-source compilation, debug/test APK builds and ARM64 release build. Exact artifact identities/protected82 hashes are in `benchmarking/study_evidence/20261007/controller/artifact-verification-1.json`. These are software/build evidence, not installation, continuous camera/channel/UI/export/delete execution or physical performance.
+
+Both fresh final reviewers (`deleg_cd600020`) returned **CHANGES REQUIRED**; see `controller/{spec-review-1,quality-review-1}.md`. Green suites do not close the remaining malformed/forged recognized-metadata privacy/trust boundary, late-control disposition qualification, partial-engine acquisition ownership, stale camera-view disposal ownership, failure-code retention and missing late-stop timeout regression. Parent source/in-memory verification is `controller/review-adjudication-1.json` (observed2026-10-08T00:10:33+0800). One consolidated fix batch `deleg_646441a9` is active; its brief and incremental report are retained in the same campaign evidence directory. Final source/tests/APK identities must be reverified after those changes.
+
+### Superseding second rereview — October8 continuation
+
+Consolidated fixes completed; parent independently confirmed132 JVM/27 Flutter/41 Python, clean analysis, actual forced instrumentation-source compilation/debug+test/ARM64 release builds and82 protected original hashes. `controller/reviewfix-parent-verification-1.json` is the exact current artifact/test snapshot; preserved duplicate-generated-DEX failure/quarantine does not alter source or establish filesystem origin. Review batch `deleg_47703dbd` completed: both `controller/spec-review-2.md` and `controller/quality-review-2.md` return CHANGES REQUIRED. Neither fixer nor reviewers remain active.
+
+Current software blockers: uncertain confirmation reply versus durable qualification; syntax-valid private metadata labels; metadata acquisition failure discarding diagnostics or absent-field trust bypass; unsupported device-field rejection lost during reconstruction; stale already-posted view events; failed replacement-view acquisition rollback. Minor companion type and unchanged asset-stream closure follow-ups remain. Parent source/in-memory adjudication is `controller/review-adjudication-2.json`. The owner subsequently approved UUID-receipt ownership with retained identity/uncertain confirmation, and strict generated/structured metadata without free-form aliases. Sole focused contract-repair worker `deleg_6abccb29` resumed on October9 under `controller/owner-approved-review-closure-brief-2.md`. Fresh regression-first evidence and parent testing/building/review remain necessary; no gate is closed by this authorization.
+
+**No Phase4/5/8/9/9a software/integration/physical acceptance is newly closed by these tests.** Checked persistence-write/rollback/retry improvements and earlier fixtures remain, but full cross-boundary acceptance is open. Table counts and earlier review descriptions below preserve dated snapshots; this superseding adjudication controls current software acceptance. Target-phone/three-condition/all-sign/signers, real resource release/provisioning, expert/anatomical, model numerical/signer-independent and participant-study gates remain open/unapproved. Model/reference/math/XP/layout/history are unchanged; no participant collection was authorized.
 
 ## Truth-in-docs audit, 2026-09-23 (Day 1 of `docs/30-day-plan.md`, PR #2 Stage A1 and A2)
 

@@ -1,0 +1,68 @@
+> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:compileFlutterBuildDebug UP-TO-DATE
+> Task :app:packJniLibsflutterBuildDebug UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:cleanMergeDebugAssets
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:copyFlutterAssetsDebug
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:outputDebugAppLinkSettings UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :app:packageDebugUnitTestForUnitTest UP-TO-DATE
+> Task :app:generateDebugUnitTestConfig UP-TO-DATE
+> Task :app:compileDebugKotlin
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:bundleDebugClassesToRuntimeJar
+
+> Task :app:compileDebugUnitTestKotlin FAILED
+e: file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt:36:30 Unresolved reference 'sun'.
+e: file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt:36:53 Cannot infer type for type parameter 'T'. Specify it explicitly.
+e: file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt:36:53 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+val <T> KClass<T>.java: Class<T>
+e: file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt:36:131 Unresolved reference 'sun'.
+e: file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt:37:61 Unresolved reference 'allocateInstance'.
+e: file:///Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/android/app/src/test/kotlin/com/kumpas/kumpas_app/ResourceCleanupTest.kt:105:68 Cannot access 'fun onDestroy(): Unit': it is protected in 'com.kumpas.kumpas_app.MainActivity'.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugUnitTestKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 2s
+34 actionable tasks: 7 executed, 27 up-to-date

@@ -1,0 +1,13 @@
+{
+  "scope": "SOURCE_CONTENT_ONLY_NOT_INFERENCE_CAMPAIGN",
+  "status": "INCOMPLETE_SOURCE_CHECK_FAILURE",
+  "outputs": {
+    "sources.jsonl": "cde785ee025180ea7a04de5a1f3948748113577c3211bd9e68c7c1731706365d",
+    "before.json": "5071faf5fe5f235b7e001f95ff8589cd369f94e54c65f18d1111944421d47f9b",
+    "scope.json": "2a0d6f1ccb25b2d784ec8ac8b02be67b6d47593d9d535e929b5b231f27a65ed6",
+    "summary.json": "a107cc146b3d28969fa1a04b21c5e5c6448218a2952ff6bb4bc20a4e62827fea",
+    "audit_source.py": "0fb30954ec1a71c8a3b65a4407dd66611f3e8229b9798c454f20775e9b40b06b"
+  },
+  "historical_manifest_sha256": "013f3933fe898dadf2fc25fcf7a12cc50689964f7fba39400cba38e0199b497d",
+  "historical_configuration_sha256": "0df969259b620e64ea0b3ea40484492178dfcb4f719437684af94471c50bb78e"
+}

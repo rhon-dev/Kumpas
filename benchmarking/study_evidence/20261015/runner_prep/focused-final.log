@@ -1,0 +1,27 @@
+test_binding_every_role_hash_symlink_and_array_refusal (training.tests.test_experiment_runner.RunnerTests.test_binding_every_role_hash_symlink_and_array_refusal) ... ok
+test_budget_exact_integer_matrix_and_variant_order_schema (training.tests.test_experiment_runner.RunnerTests.test_budget_exact_integer_matrix_and_variant_order_schema) ... ok
+test_cancel_before_start_and_invalid_clock_or_cancel_signal (training.tests.test_experiment_runner.RunnerTests.test_cancel_before_start_and_invalid_clock_or_cancel_signal) ... ok
+test_cli_prepares_and_synthetic_demo_only (training.tests.test_experiment_runner.RunnerTests.test_cli_prepares_and_synthetic_demo_only) ... ok
+test_cli_training_arbitrary_command_invalid_and_safe_errors (training.tests.test_experiment_runner.RunnerTests.test_cli_training_arbitrary_command_invalid_and_safe_errors) ... ok
+test_config_schema_authorization_numeric_and_selection (training.tests.test_experiment_runner.RunnerTests.test_config_schema_authorization_numeric_and_selection) ... ok
+test_explicit_unchanged_no_face_model_and_structured_labels (training.tests.test_experiment_runner.RunnerTests.test_explicit_unchanged_no_face_model_and_structured_labels) ... ok
+test_final_readback_fault_never_leaves_a_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_final_readback_fault_never_leaves_a_success_receipt) ... ok
+test_manifest_tamper_and_log_symlink_refused (training.tests.test_experiment_runner.RunnerTests.test_manifest_tamper_and_log_symlink_refused) ... ok
+test_prepare_exclusive_binding_and_immutable_snapshot (training.tests.test_experiment_runner.RunnerTests.test_prepare_exclusive_binding_and_immutable_snapshot) ... ok
+test_prepare_protocol_semantics_rebound_hashes (training.tests.test_experiment_runner.RunnerTests.test_prepare_protocol_semantics_rebound_hashes) ... ok
+test_prepare_refuses_unsafe_roots_and_changed_bindings (training.tests.test_experiment_runner.RunnerTests.test_prepare_refuses_unsafe_roots_and_changed_bindings) ... ok
+test_protocol_original_clip_count_and_fraction_contract_rebound (training.tests.test_experiment_runner.RunnerTests.test_protocol_original_clip_count_and_fraction_contract_rebound) ... ok
+test_publication_collision_and_fsync_failure_preserve_old_bytes (training.tests.test_experiment_runner.RunnerTests.test_publication_collision_and_fsync_failure_preserve_old_bytes) ... ok
+test_publication_interface_refuses_arbitrary_artifact_paths (training.tests.test_experiment_runner.RunnerTests.test_publication_interface_refuses_arbitrary_artifact_paths) ... ok
+test_selection_accuracy_then_macro_f1 (training.tests.test_experiment_runner.RunnerTests.test_selection_accuracy_then_macro_f1) ... ok
+test_strict_json_duplicate_and_nonfinite_rejected (training.tests.test_experiment_runner.RunnerTests.test_strict_json_duplicate_and_nonfinite_rejected) ... ok
+test_synthetic_input_and_manifest_change_fail_before_executor (training.tests.test_experiment_runner.RunnerTests.test_synthetic_input_and_manifest_change_fail_before_executor) ... ok
+test_synthetic_order_ties_immutable_request_and_no_retry (training.tests.test_experiment_runner.RunnerTests.test_synthetic_order_ties_immutable_request_and_no_retry) ... ok
+test_synthetic_output_tamper_has_no_success_receipt (training.tests.test_experiment_runner.RunnerTests.test_synthetic_output_tamper_has_no_success_receipt) ... ok
+test_synthetic_stop_conditions_and_safe_incomplete_logs (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_conditions_and_safe_incomplete_logs) ... ok
+test_synthetic_stop_exception_text_never_echoed (training.tests.test_experiment_runner.RunnerTests.test_synthetic_stop_exception_text_never_echoed) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.235s
+
+OK

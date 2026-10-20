@@ -1,0 +1,13 @@
+# A3b review fix1 — strict producer ledger containers
+
+Read controller/a3b-review-1.md full F1 and a3b/task-brief.md. Both spec and quality REQUEST CHANGES. Actual selected producer ledger is valid; defect is malformed JSON container acceptance, not failed native execution. No new native output, hash pin changes, production consumer changes or dependency edits needed.
+
+F1 actual independent main(['preflight']) reproductions: selected row command as JSON string '--tests com.kumpas.kumpas_app.HostStudyFlowTest', or fixture_outputs as a single manifest-output string, each returned0/success receipt because Python string membership works. Fix strict list-of-strings checks BEFORE membership, preserving exit/source/target/output/log/XML checks. Use fixed rejection code, no payload echo.
+
+Ownership ONLY benchmarking/host_fixture_replay.py and test_host_producer_replay.py plus a3b fix evidence. Native42sources,11original artifacts,8A2a source,82protected, both Dart files frozen. Do not rewrite binding, old producer report/XML/ledger or prior logs. No emulator/ADB/default stores/install/commit/reset/worktree/training.
+
+Regression-first required through public main boundary captured stdout/stderr: command and fixture_outputs each as string/object/scalar/null, mixed-type lists and bools where meaningful; assert nonzero code/no receipt or bundle/no raw marker leakage. Keep positive unchanged accepted ledger and valid array controls. Add failing cases first and execute behavioral RED, then minimal explicit list-of-string validation, GREEN. Include both preflight/bundle success suppression for invalid ledger, no broad threat model expansion.
+
+Create review-fix-1-report.md before editing and append exact commands/exits/logs to fix ledger each slice. Existing Python3.11 -E handles inherited Python contamination, no installation. TMPDIR ~/.hermes/cache/scratch/kumpas-a3b; no raw participant data. Run focused31+new Python tests, full benchmarking discovery and actual replay CLI to a fresh explicitly safe output root. Run focused4Dart host consumer tests as byte-bridge integration covering changed Python subprocess, then Flutter analyze/full suite if reasonable (existing runner patterns, shared fcntl lock). Never overwrite old log/output names. Actual six collector exit1/gatefalse is expected and remains no physical qualification.
+
+Compare original artifacts/native/A2a/protected hashes, git diff --check, freeze changed postimages and actual new results. Return concise DONE/DONE_WITH_CONCERNS/BLOCKED, paths/counts/limits. Parent independently verifies and re-reviews; A3b/tasks01/03/05 not accepted yet.

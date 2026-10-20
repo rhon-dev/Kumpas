@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-10-16T03:38:54.445745+08:00",
+  "targeted_jvm": {
+    "SessionManagerTest": {
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "DataExporterTest": {
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "targeted_jvm_total": 64,
+  "full_native_suite_executed": false,
+  "flutter": {
+    "final-focused-dart": 32,
+    "full-flutter-tests-final": 67
+  },
+  "flutter_analyze_exit": 0,
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "git_diff_check_exit": 0,
+  "source_paths": [
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/SessionManager.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/SessionManagerTest.kt",
+    "app/android/app/src/test/kotlin/com/kumpas/kumpas_app/DataExporterTest.kt",
+    "app/lib/session/session_repository.dart",
+    "app/lib/session/session_lifecycle.dart",
+    "app/test/session_clear_test.dart",
+    "app/test/session_lifecycle_race_test.dart",
+    "app/test/session_repository_race_test.dart"
+  ]
+}

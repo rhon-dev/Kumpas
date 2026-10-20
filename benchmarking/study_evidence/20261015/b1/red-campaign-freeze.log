@@ -1,0 +1,16 @@
+test_freeze_all_six_before_any_extraction_and_refuse_overwrite (test_parity_fixtures.CampaignTests.test_freeze_all_six_before_any_extraction_and_refuse_overwrite) ... FAIL
+test_wrong_partition_label_hash_and_unsafe_output_fail_before_write (test_parity_fixtures.CampaignTests.test_wrong_partition_label_hash_and_unsafe_output_fail_before_write) ... ok
+
+======================================================================
+FAIL: test_freeze_all_six_before_any_extraction_and_refuse_overwrite (test_parity_fixtures.CampaignTests.test_freeze_all_six_before_any_extraction_and_refuse_overwrite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_parity_fixtures.py", line 51, in test_freeze_all_six_before_any_extraction_and_refuse_overwrite
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 2 != 0 : /opt/homebrew/Cellar/python@3.11/3.11.15/Frameworks/Python.framework/Versions/3.11/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/parity_fixtures.py': [Errno 2] No such file or directory
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.173s
+
+FAILED (failures=1)

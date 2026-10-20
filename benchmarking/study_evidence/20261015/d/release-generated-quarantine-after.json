@@ -1,0 +1,30 @@
+{
+  "event": "release-generated-quarantine",
+  "at": "2026-10-18T14:17:32.545624+08:00",
+  "reason": "final-release-inspection.log rejects assets/flutter_assets/NativeAssetsManifest 2.json; exact generated input independently identified",
+  "before": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/release/flutter_assets/NativeAssetsManifest 2.json",
+    "bytes": 45,
+    "inode": 27581974,
+    "device": 16777232,
+    "flags": 64,
+    "sha256": "9548a31e4a048135c1d94f919328bfb62ae2c7bb3cab96557c7941daa97776cb"
+  },
+  "counterpart": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/intermediates/flutter/release/flutter_assets/NativeAssetsManifest.json",
+    "bytes": 45,
+    "inode": 26515197,
+    "device": 16777232,
+    "flags": 32832,
+    "sha256": "9548a31e4a048135c1d94f919328bfb62ae2c7bb3cab96557c7941daa97776cb"
+  },
+  "git_ignored": "app/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/release/flutter_assets/NativeAssetsManifest 2.json\napp/.gitignore:33:/build/\tapp/build/app/intermediates/flutter/release/flutter_assets/NativeAssetsManifest.json\n",
+  "after": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/kumpas-d-quarantine/NativeAssetsManifest 2.json",
+    "bytes": 45,
+    "inode": 27581974,
+    "device": 16777232,
+    "flags": 64,
+    "sha256": "9548a31e4a048135c1d94f919328bfb62ae2c7bb3cab96557c7941daa97776cb"
+  }
+}

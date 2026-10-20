@@ -1,0 +1,51 @@
+{
+  "diagnostics": [],
+  "valid": true,
+  "validation": [
+    {
+      "counts": {
+        "assessments": 2,
+        "attempts": 1,
+        "sessions": 1
+      },
+      "diagnostics": [],
+      "valid": true
+    },
+    {
+      "counts": {
+        "assessments": 1,
+        "attempts": 1,
+        "sessions": 1
+      },
+      "diagnostics": [],
+      "valid": true
+    },
+    {
+      "counts": {
+        "assessments": 1,
+        "attempts": 1,
+        "sessions": 1
+      },
+      "diagnostics": [],
+      "valid": true
+    },
+    {
+      "counts": {
+        "assessments": 3,
+        "attempts": 1,
+        "sessions": 1
+      },
+      "diagnostics": [],
+      "valid": true
+    },
+    {
+      "counts": {
+        "assessments": 0,
+        "attempts": 0,
+        "sessions": 0
+      },
+      "diagnostics": [],
+      "valid": true
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+test_frame_index_selection_preserves_endpoints_and_count (test_pipeline_parity.ParityTests.test_frame_index_selection_preserves_endpoints_and_count) ... ok
+test_image_digest_mismatch_fails_closed (test_pipeline_parity.ParityTests.test_image_digest_mismatch_fails_closed) ... ok
+test_missing_frame_or_wrong_dimension_fails (test_pipeline_parity.ParityTests.test_missing_frame_or_wrong_dimension_fails) ... ok
+test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) ... 
+  test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=None) ... FAIL
+  test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest='') ... FAIL
+  test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest='abc') ... FAIL
+  test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest='gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg') ... FAIL
+  test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=7) ... FAIL
+  test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=[]) ... FAIL
+  test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=True) ... FAIL
+test_png_manifest_uses_actual_file_bytes_and_stable_indices (test_pipeline_parity.ParityTests.test_png_manifest_uses_actual_file_bytes_and_stable_indices) ... ok
+test_same_frame_comparison_and_explicit_anatomical_unknown (test_pipeline_parity.ParityTests.test_same_frame_comparison_and_explicit_anatomical_unknown) ... ok
+
+======================================================================
+FAIL: test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 52, in test_missing_or_malformed_equal_digests_rejected
+    with self.assertRaisesRegex(ValueError, "invalid frame hash"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 52, in test_missing_or_malformed_equal_digests_rejected
+    with self.assertRaisesRegex(ValueError, "invalid frame hash"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest='abc')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 52, in test_missing_or_malformed_equal_digests_rejected
+    with self.assertRaisesRegex(ValueError, "invalid frame hash"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest='gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 52, in test_missing_or_malformed_equal_digests_rejected
+    with self.assertRaisesRegex(ValueError, "invalid frame hash"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 52, in test_missing_or_malformed_equal_digests_rejected
+    with self.assertRaisesRegex(ValueError, "invalid frame hash"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 52, in test_missing_or_malformed_equal_digests_rejected
+    with self.assertRaisesRegex(ValueError, "invalid frame hash"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_malformed_equal_digests_rejected (test_pipeline_parity.ParityTests.test_missing_or_malformed_equal_digests_rejected) (digest=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/test_pipeline_parity.py", line 52, in test_missing_or_malformed_equal_digests_rejected
+    with self.assertRaisesRegex(ValueError, "invalid frame hash"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.205s
+
+FAILED (failures=7)

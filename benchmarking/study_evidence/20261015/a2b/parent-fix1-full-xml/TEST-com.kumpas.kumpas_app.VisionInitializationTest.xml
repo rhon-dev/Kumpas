@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.VisionInitializationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-10-15T20:15:56.592Z" hostname="Ahrons-MacBook-Pro.local" time="0.046">
+  <properties/>
+  <testcase name="successfulConstructionTransfersOwnershipAndRepeatCloseIsSafe" classname="com.kumpas.kumpas_app.VisionInitializationTest" time="0.007"/>
+  <testcase name="stagedConstructorFailuresRollbackAllAcquiredResourcesAndStreams" classname="com.kumpas.kumpas_app.VisionInitializationTest" time="0.006"/>
+  <testcase name="runtimeLabelAndGoldAssetStreamsCloseOnSuccessReadAndParseFailure" classname="com.kumpas.kumpas_app.VisionInitializationTest" time="0.013"/>
+  <testcase name="runtimeLabelsAndGoldCloseFaultsSuppressUnderReadFailureWithoutClosingEngine" classname="com.kumpas.kumpas_app.VisionInitializationTest" time="0.009"/>
+  <testcase name="constructorStreamCloseAndReadCloseFaultsPreservePrimaryAndReleaseNativeHandles" classname="com.kumpas.kumpas_app.VisionInitializationTest" time="0.006"/>
+  <testcase name="rollbackKeepsOriginalFailureAndSuppressesEveryLaterReleaseFailure" classname="com.kumpas.kumpas_app.VisionInitializationTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

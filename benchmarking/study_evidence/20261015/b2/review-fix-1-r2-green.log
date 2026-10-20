@@ -1,0 +1,6 @@
+test_protocol_counts_require_exact_integers_with_rebound_hashes (training.tests.test_validation_campaign.InputTests.test_protocol_counts_require_exact_integers_with_rebound_hashes) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.953s
+
+OK

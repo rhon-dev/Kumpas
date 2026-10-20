@@ -1,0 +1,46 @@
+{
+  "status": "DONE_WITH_CONCERNS",
+  "full_source_provenance": "BLOCKED_SOURCE_NOT_RESIDENT",
+  "incomplete_manifest_sha256": "013f3933fe898dadf2fc25fcf7a12cc50689964f7fba39400cba38e0199b497d",
+  "recomputed": {
+    "keras": {
+      "n": 150,
+      "correct": 144,
+      "accuracy": 0.96,
+      "macro_f1": 0.9592380952380953,
+      "classes": 50
+    },
+    "candidate": {
+      "n": 150,
+      "correct": 144,
+      "accuracy": 0.96,
+      "macro_f1": 0.9592380952380953,
+      "classes": 50
+    }
+  },
+  "drift": {
+    "max_absolute_confidence_difference": 0.18056780099868774,
+    "max_absolute_margin_difference": 0.3608846217393875,
+    "max_absolute_probability_error": 0.18056780099868774,
+    "mean_absolute_probability_error": 0.0003132479067915363,
+    "mean_confidence_delta_candidate_minus_keras": 0.0006970469156901041,
+    "mean_margin_delta_candidate_minus_keras": 0.001708345503096401,
+    "n": 150,
+    "top1_disagreements": 0
+  },
+  "source_metadata_available": 16,
+  "source_metadata_unavailable": 134,
+  "preservation": {
+    "initial_count": 288,
+    "initial_mismatches": [],
+    "protected_count": 82,
+    "protected_mismatches": [],
+    "native_count": 42,
+    "native_mismatches": [],
+    "a3b_count": 4,
+    "a3b_mismatches": [],
+    "b1_source_mismatches": [],
+    "b1_manifest_matches": true
+  },
+  "additional_boundary_coverage": "strict nonresident failure; salvage rejects malformed metadata; no predictions called:PASS"
+}

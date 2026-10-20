@@ -1,0 +1,43 @@
+{
+  "event": "end",
+  "label": "benchmark-full",
+  "command": [
+    "/opt/homebrew/bin/python3.11",
+    "-B",
+    "-E",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "benchmarking",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+  "at": "2026-10-18T13:43:14.631628+08:00",
+  "source_manifest": "benchmark-full-sources.json",
+  "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+  "lock": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-gradle.lock",
+  "environment": {
+    "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018",
+    "JAVA_HOME": "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home",
+    "ANDROID_HOME": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "ANDROID_SDK_ROOT": "/Users/ahronjanl.rafaelahron.0804icloudcom/Library/Android/sdk",
+    "MPLBACKEND": "Agg",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exit": 0,
+  "ended_at": "2026-10-18T13:43:27.767132+08:00",
+  "log": "benchmark-full.log",
+  "log_sha256": "32df61460c466ebe0deed4f630c1beb3e9dae8240f8003b81f69b04fbbb098b9",
+  "source_changes": [],
+  "tests": 124,
+  "summary": [
+    "OK (skipped=2)"
+  ],
+  "skip_lines": [
+    "test_generate_six_real_synthetic_video_references_and_validate_publication (test_parity_fixtures.CampaignTests.test_generate_six_real_synthetic_video_references_and_validate_publication) ... skipped \"This interpreter's MediaPipe lacks Holistic solutions; training/.venv exercised separately\"",
+    "test_reference_records_actual_detector_presence_counts (test_pipeline_parity.ParityTests.test_reference_records_actual_detector_presence_counts) ... skipped \"This interpreter's MediaPipe lacks Holistic solutions; training/.venv exercised separately\""
+  ]
+}

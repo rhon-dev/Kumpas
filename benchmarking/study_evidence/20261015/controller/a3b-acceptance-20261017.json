@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-17T18:11:24.279201+08:00",
+  "decision": "Accept A3b bounded host artifact consumer scope; spec APPROVE and quality APPROVE",
+  "review": "a3b-review-2.md",
+  "source_hashes": {
+    "benchmarking/host_fixture_replay.py": "08e259ba337a10eabc05be184386a1e1c52fabb33ffd0b848779a3c2e795819f",
+    "benchmarking/test_host_producer_replay.py": "07a0754b66ad97a10dd12731b65c6e906e8870ada2270a7ce02553fd1c66450f",
+    "app/test/host_study_flow_test.dart": "332bd04f11120334ceaf95f30222de43d92b157a4426400b7066b6b09a9ea831",
+    "app/test/support/host_fixture.dart": "2d7de2a0c04c8ef5688af85ae1172892c89f858ac3517d61521920efd21605e6"
+  },
+  "fresh_parent_check": "Python3.11 -B -E host_fixture_replay.py preflight:exit0,42source/11artifact/5producer-test provenance accepted for pinned run323291af-c067-46dc-bae1-067d62fab10b",
+  "reviewer_execution": "3focused tests;56negative+6positive public calls;fresh bundle11decoded digests matched",
+  "prior_parent_execution": "October16:77Python/79Flutter,clean analysis;6replay history rows expected gatesfalse",
+  "protected_count": 82,
+  "protected_mismatches": [],
+  "host_task_dispositions": {
+    "01": "Prepared executed layered native/Flutter/Python contract harness accepted;not installed integration",
+    "03": "Host isolated native persistence/export/purge/reopen and fault/cache coverage accepted",
+    "05": "Executed native producer through actual collector readers/history with mocked transport accepted"
+  },
+  "limits": [
+    "Trusted local interpreter/checkout/stdout snapshot not hostile-filesystem attestation",
+    "Staged recorded controls not one consecutive installed session",
+    "Interpreter newline adapter remains diagnostic",
+    "No runtime/physical/model/expert/study acceptance"
+  ],
+  "next": "B parity/provenance/model diagnostics,C release/research tooling,D documentation/final verification;retraining/scoring still separately gated"
+}

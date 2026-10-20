@@ -1,0 +1,206 @@
+{
+  "at": "2026-10-18T14:18:00.431136+08:00",
+  "artifacts": {
+    "debug": {
+      "path": "app/build/app/outputs/apk/debug/app-debug.apk",
+      "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/current-apks/debug.apk",
+      "sha256": "f45353b6f7711ab21bb222b5171e678de0f46902e5bf1714cbe2ad55f596ff95",
+      "bytes": 197412392,
+      "native_files": [
+        "lib/arm64-v8a/libVkLayer_khronos_validation.so",
+        "lib/arm64-v8a/libflutter.so",
+        "lib/arm64-v8a/libimage_processing_util_jni.so",
+        "lib/arm64-v8a/libmediapipe_tasks_vision_jni.so",
+        "lib/arm64-v8a/libsurface_util_jni.so",
+        "lib/arm64-v8a/libtensorflowlite_jni.so",
+        "lib/armeabi-v7a/libflutter.so",
+        "lib/armeabi-v7a/libimage_processing_util_jni.so",
+        "lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so",
+        "lib/armeabi-v7a/libsurface_util_jni.so",
+        "lib/armeabi-v7a/libtensorflowlite_jni.so",
+        "lib/x86_64/libflutter.so",
+        "lib/x86_64/libimage_processing_util_jni.so",
+        "lib/x86_64/libsurface_util_jni.so",
+        "lib/x86_64/libtensorflowlite_jni.so"
+      ],
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "app_abis": [],
+      "assets": {
+        "assets/pose_landmarker_lite.task": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+        "assets/label_map.json": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+        "assets/hand_landmarker.task": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+        "assets/kumpas_50sign.tflite": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+        "assets/gold_standards.bin": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2"
+      },
+      "missing_required_assets": [],
+      "zip_crc_error": null,
+      "build_result": "debug-test-build-fresh3-result.json",
+      "build_log_sha256": "e3cad4bf51baa6453c9817f6f0c926aad4c30a1bee9bc9c9c08843fec87613f9",
+      "source_manifest": "debug-test-build-fresh3-sources.json",
+      "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+      "independent_build_run_provenance": true,
+      "signature_verified": false,
+      "elf_verified": false,
+      "installed_or_runtime_verified": false,
+      "accepted_inspector": {
+        "event": "inspector",
+        "label": "current-debug",
+        "command": [
+          "/opt/homebrew/bin/python3.11",
+          "-B",
+          "-E",
+          "benchmarking/inspect_release.py",
+          "--repo-root",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+          "--expectation",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d/current-debug-expectation.json",
+          "--apk",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/outputs/apk/debug/app-debug.apk",
+          "--output-root",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d",
+          "--output",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d/current-debug-inspection.json"
+        ],
+        "at": "2026-10-18T14:17:59.937618+08:00",
+        "exit": 0,
+        "expected_exit": 0,
+        "log": "current-debug-inspection.log",
+        "log_sha256": "9f40bad4d210dea42862b6051e5c7b704deb2e1ce8b8882e8424c966b43a4af6",
+        "expectation_sha256": "17ab56ee7e7936f52b9e3e1ba263ab589fee1e31fccbbb020b4bed59ea321ceb"
+      }
+    },
+    "android_test": {
+      "path": "app/build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/current-apks/android_test.apk",
+      "sha256": "f6a80996b8e18188b3cb02fe429e313891d4fc97e4d7e035a4a5ae949c9b506e",
+      "bytes": 374427,
+      "native_files": [],
+      "all_native_abis": [],
+      "flutter_abis": [],
+      "app_abis": [],
+      "assets": {},
+      "missing_required_assets": [],
+      "zip_crc_error": null,
+      "build_result": "debug-test-build-fresh3-result.json",
+      "build_log_sha256": "e3cad4bf51baa6453c9817f6f0c926aad4c30a1bee9bc9c9c08843fec87613f9",
+      "source_manifest": "debug-test-build-fresh3-sources.json",
+      "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+      "independent_build_run_provenance": true,
+      "signature_verified": false,
+      "elf_verified": false,
+      "installed_or_runtime_verified": false
+    },
+    "release": {
+      "path": "app/build/app/outputs/flutter-apk/app-release.apk",
+      "snapshot": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/kumpas-d-20261018/current-apks/release.apk",
+      "sha256": "ad59b02daeae01f2fa71e4ca09fbc93985e63aef702025c91f85cc56b462ba27",
+      "bytes": 66969546,
+      "native_files": [
+        "lib/arm64-v8a/libapp.so",
+        "lib/arm64-v8a/libflutter.so",
+        "lib/arm64-v8a/libimage_processing_util_jni.so",
+        "lib/arm64-v8a/libmediapipe_tasks_vision_jni.so",
+        "lib/arm64-v8a/libsurface_util_jni.so",
+        "lib/arm64-v8a/libtensorflowlite_jni.so",
+        "lib/armeabi-v7a/libimage_processing_util_jni.so",
+        "lib/armeabi-v7a/libmediapipe_tasks_vision_jni.so",
+        "lib/armeabi-v7a/libsurface_util_jni.so",
+        "lib/armeabi-v7a/libtensorflowlite_jni.so",
+        "lib/x86_64/libimage_processing_util_jni.so",
+        "lib/x86_64/libsurface_util_jni.so",
+        "lib/x86_64/libtensorflowlite_jni.so"
+      ],
+      "all_native_abis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86_64"
+      ],
+      "flutter_abis": [
+        "arm64-v8a"
+      ],
+      "app_abis": [
+        "arm64-v8a"
+      ],
+      "assets": {
+        "assets/pose_landmarker_lite.task": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+        "assets/label_map.json": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+        "assets/hand_landmarker.task": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+        "assets/kumpas_50sign.tflite": "1f4543b8fb159dbe9a662f0b37e64b096f717d7527c45b2d7778f34bc0885aeb",
+        "assets/gold_standards.bin": "6373ae694a06416b0ccae465ad218dc4f51904ecbccdd21f98b708e0c33617e2"
+      },
+      "missing_required_assets": [],
+      "zip_crc_error": null,
+      "build_result": "release-build-retry4-result.json",
+      "build_log_sha256": "7a6b5c1ec158b2827649f1db4c7a39b0768ad3e7f15086ccd7af39b0f0bae326",
+      "source_manifest": "release-build-retry4-sources.json",
+      "source_manifest_sha256": "0223e7b1ef0e85e82afdd891993c5f05c3bfb932141e3c80213d1a0f5cb2b989",
+      "independent_build_run_provenance": true,
+      "signature_verified": false,
+      "elf_verified": false,
+      "installed_or_runtime_verified": false,
+      "accepted_inspector": {
+        "event": "inspector",
+        "label": "current-release",
+        "command": [
+          "/opt/homebrew/bin/python3.11",
+          "-B",
+          "-E",
+          "benchmarking/inspect_release.py",
+          "--repo-root",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+          "--expectation",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d/current-release-expectation.json",
+          "--apk",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/outputs/flutter-apk/app-release.apk",
+          "--output-root",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d",
+          "--output",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d/current-release-inspection.json"
+        ],
+        "at": "2026-10-18T14:18:00.340882+08:00",
+        "exit": 0,
+        "expected_exit": 0,
+        "log": "current-release-inspection.log",
+        "log_sha256": "e15496d4995382de17ad20feb0dd976dbb66f40862582467e61146f90e5f41fe",
+        "expectation_sha256": "c3e38a27e8e1a28ad2315548708d1d9476528e5d2bd67d0e7ea9bc4dd9e4b050"
+      },
+      "strict_arm64_probe": {
+        "event": "inspector",
+        "label": "current-release-strict-arm64",
+        "command": [
+          "/opt/homebrew/bin/python3.11",
+          "-B",
+          "-E",
+          "benchmarking/inspect_release.py",
+          "--repo-root",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas",
+          "--expectation",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d/current-release-strict-arm64-expectation.json",
+          "--apk",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/app/build/app/outputs/flutter-apk/app-release.apk",
+          "--output-root",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d",
+          "--output",
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/Documents/Thesis/kumpas/benchmarking/study_evidence/20261015/d/current-release-strict-arm64-inspection.json"
+        ],
+        "at": "2026-10-18T14:18:00.430718+08:00",
+        "exit": 1,
+        "expected_exit": 1,
+        "log": "current-release-strict-arm64-inspection.log",
+        "log_sha256": "34389503cfb90a28456a124d8087eb1015b10f20e38e9f0656bdb453d7b5d847",
+        "expectation_sha256": "1616128d965c4f84aad9d4d8c7a747f78d6cc45db8a1dd9f4ae9bee609748e7c"
+      },
+      "strict_arm64_accepted": false
+    }
+  },
+  "limits": "Actual host build-run/source/log binding is composed here; inspector alone deliberately reports current_source_build_provenance=false. Release native expectations retained C1 three-ABI historical packaging, not a newly approved ABI policy. Debug native paths independently from preserved baseline. Test APK has no model/native requirement. CRC and hashes are not signatures/ELF/runtime claims."
+}

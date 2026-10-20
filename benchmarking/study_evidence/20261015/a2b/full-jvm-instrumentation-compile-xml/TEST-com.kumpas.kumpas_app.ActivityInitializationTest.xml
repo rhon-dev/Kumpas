@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kumpas.kumpas_app.ActivityInitializationTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-15T20:02:49.780Z" hostname="Ahrons-MacBook-Pro.local" time="3.975">
+  <properties/>
+  <testcase name="failedInitializationQueuedEventCannotCrossRetryEvenWithSameSubscriber" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="3.875"/>
+  <testcase name="laterAcquisitionFailureReleasesEveryOwnedHandleAndPreservesPrimary" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.017"/>
+  <testcase name="failedOlderRegistrationCannotClearOrDetachNewerReplacement" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.012"/>
+  <testcase name="registrationFailureDetachesSubscriptionsReleasesAllAndAllowsCleanRetry" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.01"/>
+  <testcase name="failedReplacementReleasesDisplacedOwnerWithoutRestoringStaleFields" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.012"/>
+  <testcase name="everyAcquisitionStagePreservesViableOwnerAndSuccessfulHandlesCloseOnceAtDestroy" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.014"/>
+  <testcase name="rejectedPlatformRegistrationRollsBackAndRetainedFactoryCannotCreate" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.009"/>
+  <testcase name="rollbackClearsPublishedConcreteEngineAndRetryPublishesDifferentHandle" classname="com.kumpas.kumpas_app.ActivityInitializationTest" time="0.026"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

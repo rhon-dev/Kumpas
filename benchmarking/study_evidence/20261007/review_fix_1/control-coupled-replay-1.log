@@ -1,0 +1,59 @@
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "benchmark start ownership unconfirmed",
+    "benchmark start ownership unconfirmed",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed"
+    ]
+  }
+}
+fps actual producer diagnostics retained, independent disposition rejected
+{
+  "gate_pass": false,
+  "rejection_reasons": [
+    "benchmark start ownership unconfirmed",
+    "missing camera/analyzer traces",
+    "benchmark start ownership unconfirmed",
+    "authoritative benchmark control disposition missing or unconfirmed"
+  ],
+  "assessment": {
+    "gate_pass": false,
+    "rejection_reasons": [
+      "benchmark start ownership unconfirmed",
+      "missing camera/analyzer traces"
+    ],
+    "boundary": "final_analyzer_to_event_ms",
+    "event_latency_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "first_analyzer_to_ui_ack_upper_bound_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "ui_ack_endpoint": "native_post_frame_ack_upper_bound_not_physical_display",
+    "collection_interval_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    },
+    "interpreter_inference_diagnostic_ms": {
+      "n": 0,
+      "p50": null,
+      "p95": null
+    }
+  }
+}
+latency actual producer diagnostics retained, independent disposition rejected

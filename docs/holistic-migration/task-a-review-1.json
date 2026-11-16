@@ -1,0 +1,78 @@
+{
+  "passed": false,
+  "spec_compliant": false,
+  "quality_approved": false,
+  "missing_requirements": [
+    {
+      "id": "REQ-A-INPUT-INTEGRITY",
+      "blocking": true,
+      "file": "training/holistic_migration/features.py",
+      "lines": [19, 27],
+      "requirement_references": [
+        "docs/holistic-migration/task-a-brief.md:24",
+        "docs/holistic-migration/FEATURES.md:26-30"
+      ],
+      "description": "The promised fail-closed component/type/finiteness validation is incomplete for standard NumPy ndarray subclasses. MaskedArray inputs can pass validation while hiding nonfinite underlying coordinates or leaving masked hand coordinates unnormalized, and matrix pose inputs escape as IndexError rather than a clear ValueError. See L01."
+    }
+  ],
+  "security_concerns": [],
+  "logic_errors": [
+    {
+      "id": "L01",
+      "blocking": true,
+      "severity": "medium",
+      "file": "training/holistic_migration/features.py",
+      "lines": [19, 27],
+      "related_locations": [
+        {
+          "file": "training/holistic_migration/features.py",
+          "lines": [47, 67]
+        },
+        {
+          "file": "training/holistic_migration/tests/test_features.py",
+          "lines": [69, 102]
+        }
+      ],
+      "title": "Accepted semantic ndarray subclasses bypass fail-closed validation and can silently corrupt packed features",
+      "description": "The isinstance(array, np.ndarray) check admits np.ma.MaskedArray and np.matrix. Their arithmetic/indexing semantics are not those assumed by the normalization code. For MaskedArray, np.isfinite(array).all() ignores masked entries; astype preserves the subclass; masked coordinates are not normalized by the assignments; concatenation drops their missingness while retaining underlying unnormalized data. A partially masked hand can therefore become an apparently complete observation with a hand-present mask of 1. A masked NaN in an unselected pose point is also accepted despite the all-components-finite requirement. For matrix pose input, shoulder_delta remains shape (1,2), so shoulder_delta[1] at line 50 raises IndexError. The normal SDK conversion currently returns ordinary ndarrays, but pack_frame is itself the public shared input-validation boundary and does not reject these other NumPy types.",
+      "observed_evidence": [
+        "Minimal ordinary pose fixture: pose=np.zeros((33,4)); pose[11]=[0,0,0,1]; pose[12]=[2,0,0,1]; left_hand=np.ones((21,3)); right_hand=None. Its ordinary ndarray hand has normalized packed[3]=0.0.",
+        "Wrapping that hand with np.ma.array(..., mask=False), then setting hand.mask[1,0]=True, passes validation and returns MaskedArray shape (153,) with packed[3]=1.0 (the raw, unnormalized X), rather than rejecting the unsupported partial observation; masks are [1.0,0.0,1.0].",
+        "Wrapping the pose with np.ma.array(..., mask=False), setting pose.data[0,0]=np.nan and pose.mask[0,0]=True, makes np.isfinite(pose.data).all() False but np.isfinite(pose).all() True; pack_frame returns pose-usable mask 1.0 instead of raising ValueError.",
+        "Replacing the fixture pose with np.asmatrix(pose) raises IndexError: index 1 is out of bounds for axis 0 with size 1, at features.py:50.",
+        "Executed an additional in-memory unittest harness for exactly these three boundaries with the approved Python, TMPDIR and -E -B flags: exit 1, Ran 3 tests, FAILED (failures=2, errors=1). This was not a rerun of the existing 38-test suite. No fixture files, native detectors, models, cameras or data sources were used."
+      ],
+      "minimal_reproducer": "import dataclasses\nimport numpy as np\nfrom training.holistic_migration.features import RawFrame, pack_frame\np = np.zeros((33, 4), dtype=np.float64)\np[11] = [0, 0, 0, 1]\np[12] = [2, 0, 0, 1]\nf = RawFrame(0, p, np.ones((21, 3)), None)\nh = np.ma.array(f.left_hand, mask=False, copy=True)\nh.mask[1, 0] = True\nprint(pack_frame(f)[3], pack_frame(dataclasses.replace(f, left_hand=h))[3])\nq = np.ma.array(p, mask=False, copy=True)\nq.data[0, 0] = np.nan\nq.mask[0, 0] = True\nprint(pack_frame(dataclasses.replace(f, pose=q))[152])\npack_frame(dataclasses.replace(f, pose=np.asmatrix(p)))\n",
+      "expected_behavior": "Reject masked/otherwise unsupported semantic array types with a component-specific ValueError before normalization; any deliberately supported ndarray subclass must preserve plain-array normalization and must not hide nonfinite or missing observations. Do not return apparently observed raw coordinates or leak incidental indexing errors.",
+      "recommended_change": "Make the accepted array semantics explicit at the shared boundary: reject semantic subclasses such as MaskedArray/matrix, or intentionally support safe subclasses through validated plain-ndarray copies without discarding masking or nonfinite evidence. Add covering tests for partially masked hands, masked nonfinite pose values, and matrix pose input. No source changes were made by this review."
+    }
+  ],
+  "suggestions": [
+    {
+      "blocking": false,
+      "kind": "maintainability",
+      "file": "training/holistic_migration/tests/test_detector.py",
+      "lines": [4, 4],
+      "description": "Remove the unused importlib import when addressing the blocking validation finding."
+    },
+    {
+      "blocking": false,
+      "kind": "residual_validation_limit",
+      "description": "The supplied parent evidence records 38 passing unit tests and an actual official-bundle blank VIDEO detector-plus-packer smoke. These were not repeated by this reviewer. Blank images and SDK-shaped fixtures do not establish nonempty native landmark conversion, anatomical left/right correctness, signer/gesture accuracy, facial/non-manual sufficiency, capture feasibility, training suitability or mobile performance. Keep those later acceptance gates open; this review is limited to Task A foundation."
+    },
+    {
+      "blocking": false,
+      "kind": "review_limit",
+      "description": "The six-file static review identified no security concern; the provided empty dynamic-execution/shell/deserialization/secret-pattern scan is limited evidence, not a comprehensive security audit. TDD history is supported by the hash-matched implementer report with 29 RED/GREEN slice headings and 9 existing-behavior extensions, not independently replayed historical executions. No installs, downloads, training, model/camera/data-source operations, source edits or commits were performed."
+    }
+  ],
+  "summary": "Task A is not approved: one independently reproduced input-validation defect blocks both specification compliance and code-quality approval. Read task-a-brief.md and the actual contract docs/holistic-migration/FEATURES.md first, then reviewed every byte of all six package files and task-a.diff, the manifest and the full implementer report. All six source SHA-256 values, all three supporting input hashes and the package hash matched; regeneration from the six source additions reproduced task-a.diff byte-for-byte. Package SHA-256: e0a98910b167588c67bf97f5828acb94e297a1709117a9421ef8f94c9ae4764e; manifest SHA-256: b0e086a118304274173de97a9fa9c520c849c0bad1e015d618c9f035a14af8f5. Source scope and HEAD match base 4d901693642af5f572455b2c75ba095b0ec65c7f on holistic-migration; the original tracked diff remains empty. The ordinary-ndarray feature layout, masks, geometry/depth origins, temporal selection, lazy SDK conversion and detector ownership otherwise match the bounded contract. AST inspection counted 38 existing tests; the additional three focused boundary regressions produced two failures and one error. Approval remains bound to the exact six source hashes below and requires a fix plus affected-scope re-review, not a source change under this report. Only docs/holistic-migration/task-a-review-1.json was created by this reviewer.",
+  "reviewed_source_sha256": {
+    "training/holistic_migration/__init__.py": "7ed3f3c320c0550817cd33c425d442b68ecc7edeb3890d86ce3dc4c91a62a9e0",
+    "training/holistic_migration/detector.py": "f1d110acd4681eb138b41c96e0dffcb116a1a7168b3743558a519260a1dd7f8c",
+    "training/holistic_migration/features.py": "c26fd2132efa8861f88c84729f5cb516e6776a55a5d32887b027ae2081fd77db",
+    "training/holistic_migration/tests/__init__.py": "cac0b6f1ba14c5703c188a5e24947664da2bf934ddbc35a7195910ba388d9450",
+    "training/holistic_migration/tests/test_detector.py": "1d5f6892f81d7c3a10ed83a61521917500f9a9e00683c651ec69ce2e190ec1dc",
+    "training/holistic_migration/tests/test_features.py": "49379384c7281c6609884bbf674aed9ff4a2c73ac3cd2449a17a9ba78bd91bc4"
+  }
+}

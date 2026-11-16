@@ -1,0 +1,32 @@
+{
+  "passed": false,
+  "spec_compliant": false,
+  "quality_approved": false,
+  "missing_requirements": [],
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [],
+  "summary": "Checkpoint only: both complete sequence-group files and accepted helper interfaces have been read, all frozen candidate/support/package hashes match; focused gap probes and final cross-part disposition are pending. This checkpoint is not an approval.",
+  "covered_paths": [
+    "training/holistic_migration/sequence.py",
+    "training/holistic_migration/tests/test_sequence.py"
+  ],
+  "reviewed_source_sha256": {
+    "training/holistic_migration/sequence.py": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+    "training/holistic_migration/tests/test_sequence.py": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331"
+  },
+  "input_hashes": {
+    "manifest.json": "0c9f41e397ab035caabba385c510403e92a9aa340de1828a786fef2eff979992",
+    "task-c.diff": "26bd733ec6ed05aa4f65b64645000775b2fc2ace5e506b125f4045203ef1caf1",
+    "sequence.diff": "406e4cc51628c2edfb7197c939b2d4005caac7996a4f11ac4e3c50af9ac2e7ba",
+    "data.diff": "d21b1a8d5af4d73300c71a863dca5326439ccd27a69730076aab887bce7bb5c5"
+  },
+  "cross_part_requirements": [
+    {
+      "requirement": "Parent consolidates the disjoint complete file groups and resolves producer/consumer integration and dataset denominators before Task C can close.",
+      "owner": "parent and data-group reviewer",
+      "status": "pending_parent_consolidation"
+    }
+  ],
+  "review_status": "checkpoint_not_final"
+}

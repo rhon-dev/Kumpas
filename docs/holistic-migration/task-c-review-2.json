@@ -1,0 +1,935 @@
+{
+  "status": "complete",
+  "review_status": "complete",
+  "complete": true,
+  "passed": true,
+  "spec_compliant": true,
+  "quality_approved": true,
+  "missing_requirements": [],
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [],
+  "summary": "Complete independent specification and quality re-review approves the exact frozen nine-file Task C software candidate: complete affected data7 plus independently revalidated unchanged sequence2. L-C01/MR-C01 and S-C01 are resolved; no new blocking or nonblocking finding. All source/support/evidence bindings match, with historical B protection resolved against preserved postimages rather than later authorized live B bytes. Parent acceptance and all real-source/research/human gates remain pending.",
+  "reviewed_at": "2026-11-13T19:30:04+08:00",
+  "scope": {
+    "repository": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration",
+    "branch": "holistic-migration",
+    "task_base": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+    "snapshot_head": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+    "complete_candidate_files": 9,
+    "affected_data_group_files": 7,
+    "sequence_group_files": 2,
+    "changed_paths_from_prior_failed_review": [
+      "training/holistic_migration/README.md",
+      "training/holistic_migration/dataset.py",
+      "training/holistic_migration/tests/test_dataset.py",
+      "training/holistic_migration/tests/test_extract.py"
+    ],
+    "frozen_manifest": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/manifest.json",
+    "source_package": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/task-c.diff",
+    "affected_package": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/task-c-data.diff",
+    "reviewer_owns_only": "docs/holistic-migration/task-c-review-2.json",
+    "parent_retains_acceptance": true,
+    "task_acceptance_granted": false
+  },
+  "specification_verdict": {
+    "approved": true,
+    "scope": "All9 frozen Task C software files and named cross-interface assumptions",
+    "basis": "All eight requirement mappings below are satisfied within the explicitly synthetic/offline software scope. Required real campaign execution belongs to parent after review, not to this reviewer. No human or research gate was waived."
+  },
+  "quality_verdict": {
+    "approved": true,
+    "scope": "Complete data7 plus sequence2 integration",
+    "basis": "No unresolved correctness/security/quality finding after complete source/test/doc review. Narrow exact integer guard is sound for representability and retains large exact controls; resource improvement retains meaningful pixel/geometry/channel/cadence/closure assertions rather than removing them. Existing source/schema/output failure guards remain tested and fail closed. Compact fixture metadata may remain until registry reset; no RSS/native-leak/OOM improvement claim is made."
+  },
+  "covered_paths": [
+    "training/holistic_migration/README.md",
+    "training/holistic_migration/build_dataset.py",
+    "training/holistic_migration/dataset.py",
+    "training/holistic_migration/extract.py",
+    "training/holistic_migration/requirements.txt",
+    "training/holistic_migration/sequence.py",
+    "training/holistic_migration/tests/test_dataset.py",
+    "training/holistic_migration/tests/test_extract.py",
+    "training/holistic_migration/tests/test_sequence.py"
+  ],
+  "reviewed_source_sha256": {
+    "training/holistic_migration/README.md": "6750c2ed933dd76cc5b05129758063e46931844ad16b31fb06cbefd398ac1c46",
+    "training/holistic_migration/build_dataset.py": "fb59c1c78c4f892f75c372fe84fe62b5c93473997e50321fa8b803618cd92401",
+    "training/holistic_migration/dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+    "training/holistic_migration/extract.py": "126641cacc8f91032ca21efd032d6af821b94c755ba52ed8534f35a68fac6631",
+    "training/holistic_migration/requirements.txt": "e75ed2df1ab04bc8284229eb7b95169e9e20b7d35ff453a71b9abff7bdc25778",
+    "training/holistic_migration/sequence.py": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+    "training/holistic_migration/tests/test_dataset.py": "b72df50ad53f86261decaf92e3340e7366e26f1261c65fe6bfecee0a20505099",
+    "training/holistic_migration/tests/test_extract.py": "729f38aecad2d53d4875508b1443fb6f89bea4f92e6dc33de007eb02eea55fd3",
+    "training/holistic_migration/tests/test_sequence.py": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331"
+  },
+  "input_hashes": {
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/candidate-partitions-v1.json": "a80620494894701c9f4f2dfde5a3050f4f80b5532b04004c0761c7945300275f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/decoded-source-audit-v1/records.jsonl": "a1926b7f0d3ecc7788db4126fd435a287c867519e642ff9770aeddcc74f63e3b",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/decoded-source-audit-v1/summary.json": "57c5e676fab823a5d96d2cedf44bb4b69f03b6530dc557817553a383f1b44035",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-fixed-parent-634f9208378240d695b14a921ef93250/verification.json": "82dd7c97537a56da13244fb956707934b0e294200df03f27b7b6acc73c5d7bd9",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/handoff.json": "3e007232d8a555464fe290fded1c4be1573635cdb565ddc330fb321d468370a1",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/docs/holistic-migration/task-b-report.md": "c1614db591714bf2b0f6eb2a07c920e869c73453827da0e0a28820388b027575",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/training/holistic_migration/camera.py": "bf1f77ce2b67e8611f659f3a6589a10937a8c78753849232b920819a7197a2c4",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/training/holistic_migration/tests/test_camera.py": "6136d9da96210997be89448b687e42df841797a0cc1dceb34d79192ce48bab55",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/training/holistic_migration/tests/test_webcam.py": "696eecf639021cd545782be5ad0a3e5504fe33e60b113bceebb6cbd2c5311400",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/training/holistic_migration/webcam.py": "23c03f6220330fd90ebe8a1b19db52d86ef3eb5e27b35fae29580182e4216389",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/snapshot-index.json": "3bd95bd72a430843fcb5b62e45e8e78e5c5490048bd7f7ef38b49b7c5e467e6f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-review-fixed-6229865bbcbc4de1a38bfdee1854c2fc/task-c-fix-protection.json": "2d58a88b730dc79f28868f5c52d7c5cb7e8de3a4281f0dafdac485a45ca99672",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/handoff.json": "d90783c79b816ee60260a26516432e90125f0875d5eaab990ea4c30599e34088",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/synthetic-smoke/bundle/data_manifest.json": "431a00ad729a0ec8a5038de50e6eca01099b5ac6cb47532cd47a28180184cab9",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/synthetic-smoke/campaign/extraction_manifest.json": "dee7566cc7f4e50f8a5828650ac5450ca6e862a9153d53d0cd3fad5135f0ae49",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/synthetic-smoke/diagnostic/extraction_manifest.json": "bd7bceb52240bd917ebcc3beaeec6a4a0eff1102ccfcf430b82ee7aabd3133af",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/docs/holistic-migration/task-c-report.md": "b58d02dd4b6407d125238c2dbca261c4b83355285a8a00144e02483fee053f3f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/docs/holistic-migration/task-c-review-recovery-1.json": "eee5d1bb5582fc3d36101d85a38bebae22bc9ea7c0b53e423e01746b4525b69e",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/snapshot-index.json": "b12b09adee5caaa70a3b636761c88a7c8ad4a789c4591523838f562baaec6b08",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/README.md": "e8e6db92d516d4f8f9e10f263619d3e10e9b998db890b573536c56ec62afad66",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/build_dataset.py": "fb59c1c78c4f892f75c372fe84fe62b5c93473997e50321fa8b803618cd92401",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/dataset.py": "b54c4fb235fa1b2836414e615e9e5bdcc140c918efddc503acd59e9010c172fd",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/extract.py": "126641cacc8f91032ca21efd032d6af821b94c755ba52ed8534f35a68fac6631",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/requirements.txt": "e75ed2df1ab04bc8284229eb7b95169e9e20b7d35ff453a71b9abff7bdc25778",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/sequence.py": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/tests/test_dataset.py": "700d072ec170f5f4a222ccf7c3361c5292338bc265108e1a6da3b87d2ef814ff",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/tests/test_extract.py": "f3dea999568c70fda291621068a6b74aa08260f80e821c0196e9f519c9adb32a",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-before-fix-570ad20c8af34710b1cba83dc83c55c2/training/holistic_migration/tests/test_sequence.py": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/01-maxima-RED.command.json": "e369f7d076f76416f06fc0dd21139edec36ac1b34fe78215ed2367220ec95d9e",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/01-maxima-RED.log": "b5dfca7e64731b0edd80f93fda1909a4a6687e6d3a3e1b07afd6f254896031ce",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/02-maxima-GREEN.command.json": "2a5dfc73ff1f4b8b8c990755197c0fdd0d9a88ae28e5a4939f9154558b3c9008",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/02-maxima-GREEN.log": "5859b1163a33558782f37c8e69888d764918112baa6b1b541304c9c086b85e7d",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/03-retention-RED.command.json": "55db7474c7c930836edb3b060a8fe1c36ee1f2540fe5fa867c62d852a7ac6f94",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/03-retention-RED.log": "3872b47bc4b7e5246a18a3eb11976454b6e5ba7d471d001cb82bbda5e12a951f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/04-retention-GREEN.command.json": "4f1a54d73c40826fffc03f5c61923b19399b4c8934693a475caa01dd31c0310a",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/04-retention-GREEN.log": "af154cf9f567c106d10c2c9ee1925f0b41b43466ebc341b0414ac1c311d3ffe6",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/05-parent-maxima-GREEN.command.json": "5de68aaea3125d785340452d6fc49a7236e7c4e942bded81c39b06c688626f88",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/05-parent-maxima-GREEN.log": "d4687e421550c4961053f23c9e271a4e9e485b2c0584c89dac270df7e7489092",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/06-codec-controls-coverage-GREEN.command.json": "5786d45fb996bc5c5c6c98c306982457e0e0ab9d299acd48f07ec0810171e429",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/06-codec-controls-coverage-GREEN.log": "825cec6458f339c902a7b23120c84e4b09dd17f7608dd792cb397ad8b7a4a648",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/07-affected-suite.command.json": "9a96212151dc0fa09985807280ab21fdb4069971ebfb373851a32e7a4f4751d6",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/07-affected-suite.log": "1af1adcc2006f968f213b1f7fa2495f868a89c0fc1e03d8db9a47ec561e13f6d",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/07-affected.xml": "c76e011256e935e56fd5445ef35ebf2d1cac755814c5d0235aa93d47e7e48324",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/08-full-migration-suite.command.json": "825cc26a08c1c804b2d399c060bd2102b558a78027a17b6ba3d5018bb9b4ef75",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/08-full-migration-suite.log": "9644a327a7e363a9093a16dfa0caff495fbdbed2b103fc06cf9b9d511e159a67",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/08-migration.xml": "68cb8e795f8b624053ff13eac49fedff0657e3f2c00865bf443bc6d167a477a0",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/09-original-suite.command.json": "61e6500f2db949b9f67e2cd4ddbfc26b0d8818a688d46bcfd30ae4e031475e4a",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/09-original-suite.log": "21b13f8c43a14a466f0a1e855d4e7daee107aabc4e319f48cd3e928281e1e23b",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/09-original.xml": "d938d7d3170d1ab3ea0515fab603ba8865d654c645e76071742068480472c095",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/10-synthetic-producer.command.json": "e3be61772068748bebc835c1eca081d072ae5fd0a5e30dd604631205b13624dd",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/10-synthetic-producer.log": "f80ae3748d93a9646fc7f80b9a902667a91e29df5c19f7966edd68173a43c52f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/11-synthetic-builder-CLI.command.json": "6437ef13e134de5c97e00afc5395b4aa734e48609e00d1ca4da92e232e47f52d",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/11-synthetic-builder-CLI.log": "e7e1be004595f408563b82f94c15ae07700ddf42785715e43d16a095175d0b44",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/12-diagnostic-builder-refusal.command.json": "156a5bbb24a3fcffc8d5ccf1dc5144691f4a4ec709714bb4b9ce78d2d4925f88",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/12-diagnostic-builder-refusal.log": "37bd9866b7b0bb3fc9055f1ab4f38aea58d42d8e74d7e9a426ded3ae8c880747",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/13-final-readback.command.json": "46e105fd1594061736991a9accf237230cb67a1ea8993567638c929cd8b5a83a",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/13-final-readback.log": "7945b7cea19c660a66b179f8f8f28b51a02bfc2e6712c703be4e6f5d979a47b1",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/evidence-index.json": "ac1a89c1c2e12f40922ae9ff539db869dd0eeb23e76b79cd66207a188c52f678",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/handoff.json": "59be17f93fb78fa1911d0a6a730b9eb48a484993093953b4e8a1da510dd08636",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/postimages/docs/holistic-migration/task-c-report.md": "2fa276f075f813cec4aadc6526b8473ddf03b6db4b225cf1fbf8a408ca3f0c82",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/postimages/training/holistic_migration/README.md": "6750c2ed933dd76cc5b05129758063e46931844ad16b31fb06cbefd398ac1c46",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/postimages/training/holistic_migration/dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/postimages/training/holistic_migration/tests/test_dataset.py": "b72df50ad53f86261decaf92e3340e7366e26f1261c65fe6bfecee0a20505099",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/postimages/training/holistic_migration/tests/test_extract.py": "729f38aecad2d53d4875508b1443fb6f89bea4f92e6dc33de007eb02eea55fd3",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/readback.json": "5ed02ff1485485fe27b883e69a901187074a8202529cd9e5df3b661c669018f4",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/repair-report.append.md": "181f315c4c18d03a8f4e88b6cfa10c91c87fd1474e448074a1c3061535ec0367",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/repair-source.diff": "74e7e3af699456abe2f77415692026e477d9cbff13050871dfd1dee724a37f62",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/manifest.json": "162f1a708425ba0a9b9c020be101cad615f00b74c036374db6b2a078f31803f1",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/original-parent-probe/parent_codec_red.py": "5eb9853d840c1ed739587f4725bfd0cf6f63d3cedc3c98e88e9a1b9a8db936cb",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/original-parent-probe/parent_codec_red.result.json": "8740a1cee7a46d6b59514a78c3e60b75314c281ad507ec91989c55157ef1b979",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/parent-affected.command.json": "bb1f2b15abbc1743f643b2ec6bb1e4905c6935a1fbe7ee603df83d9046dd4b91",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/parent-affected.log": "bb7f720dc7f978461dcd7ffde61fb09ed91988340eefc4c37f8d6ebd35cbaf8c",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/parent-affected.xml": "26bfc866d4e4308ac73b1edb9363e156d610c417366732dbe35ad9cc4f92c2c1",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/parent-codec.command.json": "b3ed53df6ef13db868be8c3b5b63514b9f50a461e5a752d8746a34c387ff0f40",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/parent-codec.log": "1fdfb89125b9eb09fa3295c69a5f01d81708ad47189aa0da14dc8baa8aae5353",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/postimages/docs/holistic-migration/task-c-report.md": "2fa276f075f813cec4aadc6526b8473ddf03b6db4b225cf1fbf8a408ca3f0c82",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/postimages/training/holistic_migration/README.md": "6750c2ed933dd76cc5b05129758063e46931844ad16b31fb06cbefd398ac1c46",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/postimages/training/holistic_migration/dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/postimages/training/holistic_migration/tests/test_dataset.py": "b72df50ad53f86261decaf92e3340e7366e26f1261c65fe6bfecee0a20505099",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/postimages/training/holistic_migration/tests/test_extract.py": "729f38aecad2d53d4875508b1443fb6f89bea4f92e6dc33de007eb02eea55fd3",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/task-b-fix2-protection.json": "f7dd9bb956392fb804d2be72eb5587b032b0fd0d6fe302d1ea217c74badee6dc",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/task-c-data.diff": "ca0dbc26564ff6cc624cfb9dc9468949d7c480171af53e44e95f8bc8a82660a0",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/task-c.diff": "99f058fb257e3b4778713081ac9a88c9646a6c66ca53b4e8f01871d8791c5d16",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/verification.json": "5c76ff0ab8beb9450a64ebc89738c2d0fee3c77ad401334bf80ec72a6c08629f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/migration.log": "9e85b77d6a7d84e289afa9c6c3885142706c61b7ba520d479c9ef7be6ef9e5ba",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/migration.xml": "cf9e043e9b33a76fa994179c060822f0e5fc0891206127982583f44678df0f73",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/original.log": "828f66041cb8640a4cbfa61a5f6a4a95aec6a3f25e384c9bda80a2680178efe3",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/original.xml": "c28653fcee47b01e44b98fd467f25b3abe26c30814b5c114aa767e9277df19b4",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/verification.json": "d382b49ce322a68b12890dd0e2b10ffc1c964190a4f7f3a206be098788c11b73",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/data.diff": "d21b1a8d5af4d73300c71a863dca5326439ccd27a69730076aab887bce7bb5c5",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/manifest.json": "0c9f41e397ab035caabba385c510403e92a9aa340de1828a786fef2eff979992",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/sequence.diff": "406e4cc51628c2edfb7197c939b2d4005caac7996a4f11ac4e3c50af9ac2e7ba",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/task-b-fix-protection.json": "696639567e04259295fc4eedce4fb32086934c37fbc627d4d764717b1432b4a0",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/task-c.diff": "26bd733ec6ed05aa4f65b64645000775b2fc2ace5e506b125f4045203ef1caf1",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/holistic_landmarker.task": "e2dab61191e2dcd0a15f943d8e3ed1dce13c82dfa597b9dd39f562975a50c3f8",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/selected-source-inventory.json": "23697b80445fe1daedd9dfb1d1127e02e1a474eb13144ff5fcad9e4d589701ca",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/verified-video-byte-inventory.json": "0ff0c09c7df877c860258049427243aacc03d5f35ef11526715366f28940d41e",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/CAPTURE_CANDIDATE.md": "f27ae050887a411a72a445f2ae1891f1899a665e082f617a746b88b054cfcea4",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/FEATURES.md": "aa3776bc9c2cb1d94e5dde88e83e20410e64f877ff95e3aff5bea9f9b45752c2",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-a-acceptance.json": "d3645f51a24493040d7b131b6df7790497b01159038862d1ef1c28a7a3413eca",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-a-review-2.json": "d11ba81793e0cfae572f2d9a94799501e9be01e08b9e83ef27a7cf7c2c3b412d",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-brief.md": "b0621d59d3fb9efaea87c50aadae23bae6963667bfa4f857f41a3c5631c6a95c",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-fix-1-brief.md": "4b351a4b9c91085a9cc2e6021137825cdce8ba100c4f148ed9882454aef11ffb",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-report.md": "2fa276f075f813cec4aadc6526b8473ddf03b6db4b225cf1fbf8a408ca3f0c82",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-review-recovery-1.json": "eee5d1bb5582fc3d36101d85a38bebae22bc9ea7c0b53e423e01746b4525b69e",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/README.md": "6750c2ed933dd76cc5b05129758063e46931844ad16b31fb06cbefd398ac1c46",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/__init__.py": "7ed3f3c320c0550817cd33c425d442b68ecc7edeb3890d86ce3dc4c91a62a9e0",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/build_dataset.py": "fb59c1c78c4f892f75c372fe84fe62b5c93473997e50321fa8b803618cd92401",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/camera.py": "bf1f77ce2b67e8611f659f3a6589a10937a8c78753849232b920819a7197a2c4",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/camera.swift": "4837c7723ef484fcc05856be62240e3aaf85e6a685c5ff79d6709840b6701825",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/detector.py": "f1d110acd4681eb138b41c96e0dffcb116a1a7168b3743558a519260a1dd7f8c",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/extract.py": "126641cacc8f91032ca21efd032d6af821b94c755ba52ed8534f35a68fac6631",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/features.py": "9d6436a316d70abcace9bde0108761e19263782bdff0ccf76196d650e5e36656",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/requirements.txt": "e75ed2df1ab04bc8284229eb7b95169e9e20b7d35ff453a71b9abff7bdc25778",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/sequence.py": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/__init__.py": "cac0b6f1ba14c5703c188a5e24947664da2bf934ddbc35a7195910ba388d9450",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_camera.py": "6136d9da96210997be89448b687e42df841797a0cc1dceb34d79192ce48bab55",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_dataset.py": "b72df50ad53f86261decaf92e3340e7366e26f1261c65fe6bfecee0a20505099",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_detector.py": "1d5f6892f81d7c3a10ed83a61521917500f9a9e00683c651ec69ce2e190ec1dc",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_extract.py": "729f38aecad2d53d4875508b1443fb6f89bea4f92e6dc33de007eb02eea55fd3",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_features.py": "80ef827bf28099addc53415d8930ea0eaf04f4bf57d892362fc6e4995ab74304",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_sequence.py": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/preprocessing/selected_classes.json": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5"
+  },
+  "coverage": {
+    "expected_files": 9,
+    "complete_files_read": 9,
+    "complete_line_ranges": {
+      "training/holistic_migration/README.md": [
+        1,
+        208
+      ],
+      "training/holistic_migration/build_dataset.py": [
+        1,
+        23
+      ],
+      "training/holistic_migration/dataset.py": [
+        1,
+        513
+      ],
+      "training/holistic_migration/extract.py": [
+        1,
+        183
+      ],
+      "training/holistic_migration/requirements.txt": [
+        1,
+        7
+      ],
+      "training/holistic_migration/sequence.py": [
+        1,
+        80
+      ],
+      "training/holistic_migration/tests/test_dataset.py": [
+        1,
+        570
+      ],
+      "training/holistic_migration/tests/test_extract.py": [
+        1,
+        198
+      ],
+      "training/holistic_migration/tests/test_sequence.py": [
+        1,
+        146
+      ]
+    },
+    "groups_disjoint": true,
+    "group_union_exact": true,
+    "data_group": {
+      "covered_paths": [
+        "training/holistic_migration/README.md",
+        "training/holistic_migration/build_dataset.py",
+        "training/holistic_migration/dataset.py",
+        "training/holistic_migration/extract.py",
+        "training/holistic_migration/requirements.txt",
+        "training/holistic_migration/tests/test_dataset.py",
+        "training/holistic_migration/tests/test_extract.py"
+      ],
+      "complete_files_read": 7,
+      "spec_compliant": true,
+      "quality_approved": true,
+      "method": "Complete seven current files read, not a four-file fix-hunk review; all current package sections reconstructed and byte-matched."
+    },
+    "sequence_group": {
+      "covered_paths": [
+        "training/holistic_migration/sequence.py",
+        "training/holistic_migration/tests/test_sequence.py"
+      ],
+      "complete_files_read": 2,
+      "spec_compliant": true,
+      "quality_approved": true,
+      "mapping": {
+        "training/holistic_migration/sequence.py": {
+          "prior_sha256": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+          "current_sha256": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+          "prior_review_line_range": [
+            1,
+            80
+          ],
+          "operation": "new_file",
+          "mode": "100644",
+          "prior_review": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-review-recovery-1.json",
+          "prior_whole_review_passed": false,
+          "prior_scope_basis": "Prior complete review covered both sequence files and CP-C01 as verified; its entire verdict failed for raw codec L-C01. This is coverage evidence, not a prior approved whole task or independently approved sequence report.",
+          "current_review": "Complete current file reread and interfaces independently revalidated in this recovery; current sequence verdict is newly made here, not inherited from a failed review."
+        },
+        "training/holistic_migration/tests/test_sequence.py": {
+          "prior_sha256": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331",
+          "current_sha256": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331",
+          "prior_review_line_range": [
+            1,
+            146
+          ],
+          "operation": "new_file",
+          "mode": "100644",
+          "prior_review": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-review-recovery-1.json",
+          "prior_whole_review_passed": false,
+          "prior_scope_basis": "Prior complete review covered both sequence files and CP-C01 as verified; its entire verdict failed for raw codec L-C01. This is coverage evidence, not a prior approved whole task or independently approved sequence report.",
+          "current_review": "Complete current file reread and interfaces independently revalidated in this recovery; current sequence verdict is newly made here, not inherited from a failed review."
+        }
+      },
+      "method": "Preserve and explicitly map unchanged prior coverage, then independently reread both complete current files and reassess current accepted-A/producer/consumer interfaces. Neither old failing report nor old sequence checkpoint supplies approval."
+    },
+    "accepted_A_interfaces_read_completely": [
+      "training/holistic_migration/features.py:1-94",
+      "training/holistic_migration/detector.py:1-98"
+    ],
+    "accepted_A_hash_bound_files": 6,
+    "requirements_read": [
+      "AGENTS.md",
+      "docs/PRD.md",
+      "docs/phase-gates.md",
+      "docs/holistic-migration/task-c-brief.md",
+      "docs/holistic-migration/task-c-fix-1-brief.md",
+      "docs/holistic-migration/FEATURES.md",
+      "docs/holistic-migration/CAPTURE_CANDIDATE.md"
+    ],
+    "current_report_support_read": "docs/holistic-migration/task-c-report.md:1410-1793; complete historic pre-report bytes verified through snapshot and current exact append, not recertified as current executions",
+    "interrupted_review_handling": "deleg_f5bb815f/task-0.log was partial recovery context with no final JSON/checkpoint, not approval. All decisive source/binding/consumer work was independently repeated here. No current provider/rate failure occurred."
+  },
+  "requirement_judgments": [
+    {
+      "id": "C-SPEC-01",
+      "requirement": "Accepted-A dependencies, shared image/cadence and exact bounded capture semantics",
+      "status": "verified",
+      "paths": [
+        "sequence.py:7-80",
+        "extract.py:30-88",
+        "dataset.py:369-372,439-441,467-475",
+        "features.py:8-91",
+        "detector.py:10-94"
+      ],
+      "basis": "Read all current interfaces completely and matched accepted-A six-file hashes. Clock validates every timestamp before mutation, including skipped input; admits no invented rows. Unmirrored plain RGB resize uses INTER_AREA at 640x360. All observations validate before end-only trimming; missingness remains internal. Exact 8-observation/4-hand, 400-5000ms, <=250ms and usable-pose policy precedes accepted resample_frames. Retained 36 sequence cases and current focused invalid-clock/asymmetric-readonly-RGB/end-trim exact-resampler controls corroborate current callers."
+    },
+    {
+      "id": "C-SPEC-02",
+      "requirement": "Exact full source/class/partition/decode companion graph, path and runtime/model/contract identities",
+      "status": "verified",
+      "paths": [
+        "dataset.py:155-342",
+        "extract.py:14-21,91-113",
+        "requirements.txt:1-7",
+        "tests/test_dataset.py:187-327,552-570"
+      ],
+      "basis": "Public preflight and rebound tamper tests cover built-in integer schema IDs/counts (not bool/equal floats), literal source tokens, sparse original IDs, duplicate identities/bytes/pixels, all declared class/partition coverage, archive/upstream/decode bindings and original-test isolation. Descriptive finite positive OpenCV floats remain allowed. All external paths are absolute, traversal/symlink checked; DATALESS guards precede raw-media opening. Output is fresh/exclusive and protected-tree overlap is rejected. Fresh metadata-only preflight validated 1016 sources (663/150/203), all 50 literal classes and dense25=original49/TODAY with current direct installed pins; no raw video opened."
+    },
+    {
+      "id": "C-SPEC-03",
+      "requirement": "Lossless numeric raw codec, explicit absence, variable face cardinality, exact prepublication rejection",
+      "status": "verified",
+      "paths": [
+        "dataset.py:26-115",
+        "tests/test_dataset.py:17-174,506-516",
+        "README.md:93-120"
+      ],
+      "basis": "Float64 fixed blocks plus uint8 presence, int64 timestamps and ragged face offsets reconstruct None and present-empty distinctly with allow_pickle=False and no object arrays/truncation/absent-block contamination. Corrected integer comparison is unbounded Python int/int after finite conversion, not cast-back or mixed NumPy equality. Exactly representable large signed/unsigned integers remain admitted. All validation precedes output opening. Exact raw scalar checks, not normalized face-excluding equality alone, verify controls. L-C01/MR-C01 resolved; see dispositions and fresh 40 component/value cases."
+    },
+    {
+      "id": "C-SPEC-04",
+      "requirement": "Actual streaming extraction, decoded audit, resource lifetime, append-only all-source ledger and fail-closed publication",
+      "status": "verified",
+      "paths": [
+        "extract.py:30-183",
+        "dataset.py:347-390",
+        "tests/test_extract.py:66-91,116-198"
+      ],
+      "basis": "Default path enforces frozen graph/model identities before native imports/output, hashes source bytes/length before decoding, hashes full ordered int32 little-endian H/W/C plus contiguous BGR pixels, checks decoded count/shapes, rounds only actual finite monotonic POS_MSEC with no fallback, and creates/closes one accepted tracker per clip. Shared helpers run before detect. Finally releases video even on detector-close failure. Failures keep attempt/ledger/progress/stderr with fixed status and nonzero exit, not a completion manifest; interruptions are not resumable. Readback verifies artifacts/current inputs and exclusively publishes staged manifest. Synthetic failure/CLI tests and earlier focused fault coverage remain bound to unchanged production bytes; no native inference was rerun."
+    },
+    {
+      "id": "C-SPEC-05",
+      "requirement": "Diagnostic first-literal frozen-fit clip per class, persisted pre-inference selection, no dataset qualification",
+      "status": "verified",
+      "paths": [
+        "extract.py:91-156",
+        "dataset.py:394-441",
+        "tests/test_extract.py:95-112",
+        "tests/test_dataset.py:400-424"
+      ],
+      "basis": "Full graph remains unchanged. Selected IDs are persisted before native factories. Nonselected validation/test rows remain explicit not_selected and are not opened for inference. Successful bounded diagnostic has false full qualification and separate declared/selected/processed counts. Consumer checks exact full selection/attempt/count/rows, so changing only status/qualification cannot disguise it. Current read-only retained diagnostic:150 declared/50 selected/50 processed/0 errors, literal-first fit selection verified; public consumer refused it. Existing builder CLI refusal exit2 and absent requested output are preserved."
+    },
+    {
+      "id": "C-SPEC-06",
+      "requirement": "Canonical unaugmented Float32[N,30,153] bundle, ordered IDs/int labels/50-class metadata, denominators and fit/validation support",
+      "status": "verified",
+      "paths": [
+        "dataset.py:394-513",
+        "build_dataset.py:1-23",
+        "tests/test_dataset.py:367-503,519-548",
+        "README.md:177-208"
+      ],
+      "basis": "Consumer reopens full campaign/current graph/ledger/raw digests and repeats same capture helper without detector execution. Ordered per-partition IDs, dense int64 labels, exact Float32 tensors and all sparse-original/literal class metadata are retained. Every declared source/class appears in eligibility denominators and reasons. Missing eligible fit/validation support fails without successful data manifest; test ineligibility stays reported with empty [0,30,153] rather than placeholders. No splitting, selection by test predictions, augmentation, optimization or fitting. Artifact and input final readback guards withhold successful publication on tamper. Retained corrected bundle independently revalidated:150 exact tensors,13 artifact digests and1600 exact raw observations across campaign/diagnostic."
+    },
+    {
+      "id": "C-SPEC-07",
+      "requirement": "Bounded repair ownership, real RED/GREEN, preserved original receipts/report and complete re-review",
+      "status": "verified",
+      "paths": [
+        "docs/holistic-migration/task-c-fix-1-brief.md",
+        "docs/holistic-migration/task-c-report.md:1418-1793",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/handoff.json",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/manifest.json"
+      ],
+      "basis": "Only four C source/test/document postimages changed from prior failed candidate; production AST change is write_raw body only with unchanged arguments and every other dataset AST node identical. All25 original dataset test functions remain AST-identical. Exact original report preimage plus exact repair append equals current report. Eleven immutable preimages, five worker/parent postimages and427 indexed worker artifacts verified; old synthetic receipts retain historical hashes and current consumer rejects their stale contract. Intermediate RED/GREEN preserve original source bindings; final suites bind current four changed files plus unchanged protected dependencies. Full seven-file group and both sequence files were independently reread in this review, not merely fix hunks or interrupted transcripts."
+    },
+    {
+      "id": "C-SPEC-08",
+      "requirement": "No worker acceptance or research/live/model qualification",
+      "status": "verified_as_scope_boundary",
+      "paths": [
+        "README.md:3-8,122-175,199-208",
+        "docs/holistic-migration/task-c-brief.md:5-7,53-57",
+        "dataset.py:508-511"
+      ],
+      "basis": "Synthetic evidence is explicitly synthetic_in_process and training_qualified=false. Trusted in-process callbacks and locally writable integrity hashes are not a sandbox, signatures or hostile-writer race guarantees. Real diagnostic/full campaigns remain parent-owned. Human tracking/anatomy/linguistic/signer-independent/model metrics/physical gates remain open; this report approves bounded reviewed software, not those gates or task acceptance."
+    }
+  ],
+  "cross_interface_assumptions": [
+    {
+      "id": "CP-C01",
+      "status": "resolved",
+      "assumption": "Accepted RawFrame numeric/None semantics, pack_frame validation/pose mask and nearest-observation resampler remain the exact foundations.",
+      "verification": "Accepted-A six-file hashes/review hash match; full features/detector interfaces read. sequence uses pack_frame before trimming and accepted resample_frames once eligible; data consumer and extractor both call the same unchanged sequence helper. Fresh retained tensors match exactly."
+    },
+    {
+      "id": "CP-C02",
+      "status": "resolved",
+      "assumption": "Producer and consumer share exact capture receipt fields, missingness/time/count semantics and raw writer/reader public signatures after the repair.",
+      "verification": "Only write_raw body changed, arguments and every other dataset AST node unchanged. Sequence2/extract.py/build_dataset.py bytes match prior complete coverage; complete current callers read. Capture receipt dict uses the same current CaptureResult fields. Exact1600 raw observations and150 consumer tensors pass current readback."
+    },
+    {
+      "id": "CP-C03",
+      "status": "resolved",
+      "assumption": "The repaired raw integer guard preserves representable values without accepting saturation and cannot be validated only through face-excluding normalized equality.",
+      "verification": "Int/int equality uses actual unbounded values; independent Python float.as_integer_ratio controls across4 components/40 values produced20 exact acceptances and20 rejections before open. Parent original2-case NPZ harness passed on current dataset hash; raw face scalar and None/empty/478/variable cardinality retained controls are exact."
+    },
+    {
+      "id": "CP-C04",
+      "status": "resolved",
+      "assumption": "Corrected current contract invalidates old campaign receipts rather than silently rebinding them.",
+      "verification": "Current contract digest944e7b7acb495899bd78a937d3a453e2e188812c9a747ce05b9667537ccb15bc matches corrected graph/producer/bundle. Old manifest bytes retain their hashes and public consumer rejects them for current-contract mismatch. Runtime digest matches retained corrected evidence."
+    },
+    {
+      "id": "CP-C05",
+      "status": "resolved",
+      "assumption": "C has no B camera/webcam dependency; later authorized B-only recovery cannot excuse C/A drift or retroactively alter historical suite coverage.",
+      "verification": "C import/call graph uses only accepted features/detector plus C helpers; no camera/webcam import. Current22 protection matches. Exact historical20 receipt equals worker readback and old protection, with3 changed live B targets resolved through hash-matched preserved B delivery postimages and linked parent receipt. Older whole-migration suite is historical at B delivery; no current B approval is granted."
+    }
+  ],
+  "finding_dispositions": [
+    {
+      "id": "L-C01",
+      "prior_blocking": true,
+      "status": "resolved",
+      "related_requirement": "MR-C01",
+      "paths": [
+        "dataset.py:34-52",
+        "tests/test_dataset.py:64-165",
+        "README.md:105-119"
+      ],
+      "basis": "Finite converted values now compare input/encoded integer values using Python unbounded int/int semantics. No saturating integer cast-back or mixed NumPy equality remains in integer branch; no integer ban/2**53 ceiling. Both signed/unsigned maxima reject before opening; representable signed minimum and large powers/multiples remain exact. Late-invalid components cannot publish partial raw output.",
+      "evidence": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/01-maxima-RED.command.json",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/02-maxima-GREEN.command.json",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/06-codec-controls-coverage-GREEN.command.json",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/original-parent-probe/parent_codec_red.result.json",
+        "verification_evidence.fresh_focused_probe.focused_memory_codec"
+      ]
+    },
+    {
+      "id": "MR-C01",
+      "prior_blocking": true,
+      "status": "resolved",
+      "basis": "Raw numeric representability requirement is met by the repaired writer and scalar-exact tests/readback; no weakening to normalized-output-only equality or Float64-SDK-only claims. All four component paths, None/empty/478/variable faces, float widths, timestamp range and semantic/finiteness controls remain covered.",
+      "evidence": [
+        "requirement_judgments.C-SPEC-03",
+        "verification_evidence.fresh_focused_probe.retained_consumer"
+      ]
+    },
+    {
+      "id": "S-C01",
+      "prior_blocking": false,
+      "status": "resolved",
+      "paths": [
+        "tests/test_extract.py:34-55,79-88",
+        "tests/test_dataset.py:331-364",
+        "README.md:36-41"
+      ],
+      "basis": "Fake calls retain compact full-image SHA-256/shape/dtype/contiguity/timestamp evidence instead of RGB ndarray copies. Independent expected resized-RGB digests are asserted for every admitted frame in all150 synthetic clips, preserving/strengthening channel/mirror/geometry and cadence checks. Dataset-module repeated-helper test keeps both closed detectors through assertions, confirms videos released and zero retained RGB ndarray bytes, then restores registries. Local autouse reset now tears down as well. No new top-level fixture import cycle or production machinery added.",
+      "evidence": [
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/03-retention-RED.command.json",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/04-retention-GREEN.command.json",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/07-affected.xml",
+        "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/parent-affected.xml"
+      ],
+      "limits": "Compact metadata retention until reset remains documented. This is fixture retention, not a native detector leak, measured RSS decrease or observed OOM claim."
+    }
+  ],
+  "inventory_and_preservation": {
+    "package_section_counts": {
+      "task-c.diff": 9,
+      "task-c-data.diff": 7
+    },
+    "package_operations": "All9 files are new_file/mode100644; full and data packages reconstruct exactly current manifest bytes with exact disjoint7+2 union.",
+    "source_hashes_match": true,
+    "support_hashes_match": true,
+    "support_files": 5,
+    "owned_worker_and_parent_postimages_verified": 5,
+    "worker_evidence_index": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26/evidence-index.json",
+    "worker_evidence_hashes_verified": 427,
+    "immutable_C_preimages_verified": 11,
+    "report_append_only_exact": true,
+    "original_dataset_test_functions_preserved": 25,
+    "production_scope": "write_raw body only; unchanged public arguments and all other dataset AST nodes",
+    "historical_protected20": {
+      "count": 20,
+      "all_verified_against_exact_historical_bytes": true,
+      "receipt_equals_worker_readback_and_original_protection": true,
+      "resolved_paths": {
+        "training/holistic_migration/build_dataset.py": {
+          "expected_sha256": "fb59c1c78c4f892f75c372fe84fe62b5c93473997e50321fa8b803618cd92401",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/build_dataset.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/extract.py": {
+          "expected_sha256": "126641cacc8f91032ca21efd032d6af821b94c755ba52ed8534f35a68fac6631",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/extract.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/requirements.txt": {
+          "expected_sha256": "e75ed2df1ab04bc8284229eb7b95169e9e20b7d35ff453a71b9abff7bdc25778",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/requirements.txt",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/sequence.py": {
+          "expected_sha256": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/sequence.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/tests/test_sequence.py": {
+          "expected_sha256": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_sequence.py",
+          "current_live_matches": true
+        },
+        "docs/holistic-migration/CAPTURE_CANDIDATE.md": {
+          "expected_sha256": "f27ae050887a411a72a445f2ae1891f1899a665e082f617a746b88b054cfcea4",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/CAPTURE_CANDIDATE.md",
+          "current_live_matches": true
+        },
+        "docs/holistic-migration/FEATURES.md": {
+          "expected_sha256": "aa3776bc9c2cb1d94e5dde88e83e20410e64f877ff95e3aff5bea9f9b45752c2",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/FEATURES.md",
+          "current_live_matches": true
+        },
+        "docs/holistic-migration/task-c-brief.md": {
+          "expected_sha256": "b0621d59d3fb9efaea87c50aadae23bae6963667bfa4f857f41a3c5631c6a95c",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-brief.md",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/__init__.py": {
+          "expected_sha256": "7ed3f3c320c0550817cd33c425d442b68ecc7edeb3890d86ce3dc4c91a62a9e0",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/__init__.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/detector.py": {
+          "expected_sha256": "f1d110acd4681eb138b41c96e0dffcb116a1a7168b3743558a519260a1dd7f8c",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/detector.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/features.py": {
+          "expected_sha256": "9d6436a316d70abcace9bde0108761e19263782bdff0ccf76196d650e5e36656",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/features.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/camera.swift": {
+          "expected_sha256": "4837c7723ef484fcc05856be62240e3aaf85e6a685c5ff79d6709840b6701825",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/camera.swift",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/tests/__init__.py": {
+          "expected_sha256": "cac0b6f1ba14c5703c188a5e24947664da2bf934ddbc35a7195910ba388d9450",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/__init__.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/tests/test_detector.py": {
+          "expected_sha256": "1d5f6892f81d7c3a10ed83a61521917500f9a9e00683c651ec69ce2e190ec1dc",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_detector.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/tests/test_features.py": {
+          "expected_sha256": "80ef827bf28099addc53415d8930ea0eaf04f4bf57d892362fc6e4995ab74304",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_features.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/camera.py": {
+          "expected_sha256": "bf1f77ce2b67e8611f659f3a6589a10937a8c78753849232b920819a7197a2c4",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/camera.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/webcam.py": {
+          "expected_sha256": "23c03f6220330fd90ebe8a1b19db52d86ef3eb5e27b35fae29580182e4216389",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/training/holistic_migration/webcam.py",
+          "current_live_matches": false
+        },
+        "training/holistic_migration/tests/test_camera.py": {
+          "expected_sha256": "6136d9da96210997be89448b687e42df841797a0cc1dceb34d79192ce48bab55",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/training/holistic_migration/tests/test_camera.py",
+          "current_live_matches": true
+        },
+        "training/holistic_migration/tests/test_webcam.py": {
+          "expected_sha256": "696eecf639021cd545782be5ad0a3e5504fe33e60b113bceebb6cbd2c5311400",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/training/holistic_migration/tests/test_webcam.py",
+          "current_live_matches": false
+        },
+        "docs/holistic-migration/task-b-report.md": {
+          "expected_sha256": "c1614db591714bf2b0f6eb2a07c920e869c73453827da0e0a28820388b027575",
+          "verified_path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-l02-resume-20261113-e79f7bd38c3141fa8d4c78a309234a7d/postimages/docs/holistic-migration/task-b-report.md",
+          "current_live_matches": false
+        }
+      },
+      "B_delivery_parent_receipt_link_verified": true,
+      "note": "Do not compare historical B hashes to later authorized live B bytes or rehash the old receipt. Three changed targets resolve to B delivery postimages verified against its owned_sha256 and parent-linked handoff."
+    },
+    "current_protection22_match": true,
+    "later_authorized_B_paths": [
+      "training/holistic_migration/webcam.py",
+      "training/holistic_migration/tests/test_webcam.py",
+      "docs/holistic-migration/task-b-report.md"
+    ],
+    "C_or_A_drift": false,
+    "git": {
+      "HEAD": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+      "branch": "holistic-migration",
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0
+    },
+    "diff_check_exit": 0,
+    "static_scan": {
+      "complete_scope_files": 9,
+      "matches": [],
+      "checks": [
+        "eval/exec",
+        "os.system/shell=True",
+        "unsafe pickle/allow_pickle=True",
+        "private-key blocks",
+        "checked secret prefixes"
+      ],
+      "qualification": "Bounded pattern scan and manual source inspection, not proof of absence of all security issues or adversarial filesystem isolation."
+    },
+    "final_source_and_support_recheck": {
+      "checked_at": "2026-11-13T19:30:04+08:00",
+      "candidate_source_files_unchanged": 9,
+      "candidate_support_files_unchanged": 5,
+      "current_protection_match": 22,
+      "changed_C_paths_from_prior_review": [
+        "training/holistic_migration/README.md",
+        "training/holistic_migration/dataset.py",
+        "training/holistic_migration/tests/test_dataset.py",
+        "training/holistic_migration/tests/test_extract.py"
+      ],
+      "tracked_diff_bytes": 0,
+      "staged_diff_bytes": 0,
+      "pyc_created": false
+    },
+    "review_writes": [
+      "docs/holistic-migration/task-c-review-2.json"
+    ]
+  },
+  "verification_evidence": {
+    "reused_not_rerun": {
+      "tests": {
+        "worker_affected": {
+          "cases": 197,
+          "subtests": 0,
+          "warnings": 0,
+          "xml_tests_including_subtests": 197,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "summary": "============================= 197 passed in 39.21s =============================",
+          "class_counts": {
+            "training.holistic_migration.tests.test_dataset": 143,
+            "training.holistic_migration.tests.test_extract": 18,
+            "training.holistic_migration.tests.test_sequence": 36
+          }
+        },
+        "worker_migration": {
+          "cases": 271,
+          "subtests": 252,
+          "warnings": 0,
+          "xml_tests_including_subtests": 523,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "summary": "================== 271 passed, 252 subtests passed in 41.59s ===================",
+          "class_counts": {
+            "training.holistic_migration.tests.test_camera.HandshakeTests": 2,
+            "training.holistic_migration.tests.test_camera.PacketTests": 3,
+            "training.holistic_migration.tests.test_camera.NativeBindingTests": 2,
+            "training.holistic_migration.tests.test_camera.BuildFailureTests": 1,
+            "training.holistic_migration.tests.test_camera.CaptureTests": 4,
+            "training.holistic_migration.tests.test_camera.ConstructorRollbackTests": 3,
+            "training.holistic_migration.tests.test_camera.TeardownRetryTests": 3,
+            "training.holistic_migration.tests.test_dataset": 143,
+            "training.holistic_migration.tests.test_detector.DetectorPreflightTests": 11,
+            "training.holistic_migration.tests.test_detector.ResultConversionTests": 6,
+            "training.holistic_migration.tests.test_extract": 18,
+            "training.holistic_migration.tests.test_features.PackFrameTests": 16,
+            "training.holistic_migration.tests.test_features.ResampleFramesTests": 6,
+            "training.holistic_migration.tests.test_features.RawFrameTests": 1,
+            "training.holistic_migration.tests.test_sequence": 36,
+            "training.holistic_migration.tests.test_webcam.AdmissionTests": 2,
+            "training.holistic_migration.tests.test_webcam.PixelsAndOverlayTests": 2,
+            "training.holistic_migration.tests.test_webcam.PreviewLoopTests": 5,
+            "training.holistic_migration.tests.test_webcam.SourceReconciliationTests": 7
+          }
+        },
+        "worker_original": {
+          "cases": 51,
+          "subtests": 289,
+          "warnings": 3,
+          "xml_tests_including_subtests": 340,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "summary": "============= 51 passed, 3 warnings, 289 subtests passed in 8.90s ==============",
+          "class_counts": {
+            "training.tests.test_evaluate_frozen.FrozenEvaluationTests": 4,
+            "training.tests.test_evaluation_protocol.EvaluationProtocolTests": 5,
+            "training.tests.test_experiment_runner.RunnerTests": 22,
+            "training.tests.test_export_frozen.FrozenExportTests": 4,
+            "training.tests.test_training_protocol.TrainingProtocolTests": 3,
+            "training.tests.test_validation_campaign.CampaignTests": 1,
+            "training.tests.test_validation_campaign.InputTests": 7,
+            "training.tests.test_validation_campaign.BackendTests": 1,
+            "training.tests.test_validation_campaign.ResidencyTests": 1,
+            "training.tests.test_validation_campaign.CliTests": 1,
+            "training.tests.test_validation_campaign.DiagnosticTests": 1,
+            "training.tests.test_validation_campaign.ProbabilityTests": 1
+          }
+        },
+        "parent_affected": {
+          "cases": 197,
+          "subtests": 0,
+          "warnings": 0,
+          "xml_tests_including_subtests": 197,
+          "failures": 0,
+          "errors": 0,
+          "skips": 0,
+          "summary": "============================= 197 passed in 41.47s =============================",
+          "class_counts": {
+            "training.holistic_migration.tests.test_dataset": 143,
+            "training.holistic_migration.tests.test_extract": 18,
+            "training.holistic_migration.tests.test_sequence": 36
+          }
+        }
+      },
+      "parent_original_codec": {
+        "scope": "synthetic parent raw-codec representability regression",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "numpy": "2.1.3",
+        "observations": [
+          {
+            "dtype": "int64",
+            "input_integer": 9223372036854775807,
+            "rejected": true,
+            "published": false
+          },
+          {
+            "dtype": "uint64",
+            "input_integer": 18446744073709551615,
+            "rejected": true,
+            "published": false
+          }
+        ],
+        "source_sha256": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+        "script_sha256": "5eb9853d840c1ed739587f4725bfd0cf6f63d3cedc3c98e88e9a1b9a8db936cb"
+      },
+      "source_scope": "Worker final receipts bind changed4 current postimages; immutable protected5 current C sources and accepted-A hashes match their retained interfaces. Parent affected197 and original codec2 results independently read/hash-verified, not newly executed here. Worker full migration271/252 predates later B-only recovery and is not a current B regression/approval claim. Original51/289 retains its3 documented baseline deprecation warnings. XML testcase and suite totals were independently parsed; cases and subtests are not added as one headline count.",
+      "warnings": "Two existing Keras/NumPy copy-keyword deprecations and one TensorFlow Lite interpreter deprecation; no suppression or new full-suite run.",
+      "red_green": [
+        {
+          "label": "01-maxima-RED",
+          "exit": 1,
+          "summary": "======================= 2 failed, 71 deselected in 1.56s =======================",
+          "source_sha256": {
+            "dataset.py": "b54c4fb235fa1b2836414e615e9e5bdcc140c918efddc503acd59e9010c172fd",
+            "tests/test_dataset.py": "8f092eef052e052157fee35ecb8b42873a0a103a1964c2b8ac4e837bb681831b",
+            "tests/test_extract.py": "f3dea999568c70fda291621068a6b74aa08260f80e821c0196e9f519c9adb32a",
+            "README.md": "e8e6db92d516d4f8f9e10f263619d3e10e9b998db890b573536c56ec62afad66"
+          }
+        },
+        {
+          "label": "02-maxima-GREEN",
+          "exit": 0,
+          "summary": "======================= 2 passed, 71 deselected in 1.51s =======================",
+          "source_sha256": {
+            "dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+            "tests/test_dataset.py": "8f092eef052e052157fee35ecb8b42873a0a103a1964c2b8ac4e837bb681831b",
+            "tests/test_extract.py": "f3dea999568c70fda291621068a6b74aa08260f80e821c0196e9f519c9adb32a",
+            "README.md": "e8e6db92d516d4f8f9e10f263619d3e10e9b998db890b573536c56ec62afad66"
+          }
+        },
+        {
+          "label": "03-retention-RED",
+          "exit": 1,
+          "summary": "====================== 1 failed, 142 deselected in 1.85s =======================",
+          "source_sha256": {
+            "dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+            "tests/test_dataset.py": "b72df50ad53f86261decaf92e3340e7366e26f1261c65fe6bfecee0a20505099",
+            "tests/test_extract.py": "f3dea999568c70fda291621068a6b74aa08260f80e821c0196e9f519c9adb32a",
+            "README.md": "e8e6db92d516d4f8f9e10f263619d3e10e9b998db890b573536c56ec62afad66"
+          }
+        },
+        {
+          "label": "04-retention-GREEN",
+          "exit": 0,
+          "summary": "====================== 1 passed, 142 deselected in 0.56s =======================",
+          "source_sha256": {
+            "dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+            "tests/test_dataset.py": "b72df50ad53f86261decaf92e3340e7366e26f1261c65fe6bfecee0a20505099",
+            "tests/test_extract.py": "729f38aecad2d53d4875508b1443fb6f89bea4f92e6dc33de007eb02eea55fd3",
+            "README.md": "e8e6db92d516d4f8f9e10f263619d3e10e9b998db890b573536c56ec62afad66"
+          }
+        }
+      ],
+      "red_green_binding_note": "Historical intermediate GREEN test/README hashes need not equal final expanded test/doc bytes. Paired RED/GREEN test hashes match their own stage; final suite postimage hashes match current files. No historical source hash was replaced."
+    },
+    "fresh_focused_probe": {
+      "current_metadata": {
+        "sources": 1016,
+        "classes": 50,
+        "partitions": {
+          "fit": 663,
+          "test": 203,
+          "validation": 150
+        },
+        "dense25": {
+          "dense_id": 25,
+          "original_id": 49,
+          "label": "TODAY",
+          "category": "DAYS"
+        },
+        "runtime": {
+          "python": "3.11.15 (main, Mar  3 2026, 00:52:57) [Clang 17.0.0 (clang-1700.6.3.2)]",
+          "executable": "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/rv2-holistic-tf-20261101/bin/python",
+          "platform": "macOS-26.6-arm64-arm-64bit",
+          "packages": {
+            "numpy": "2.1.3",
+            "opencv-contrib-python": "5.0.0.93",
+            "mediapipe": "1.2.0"
+          }
+        },
+        "contract_sha256": "944e7b7acb495899bd78a937d3a453e2e188812c9a747ce05b9667537ccb15bc",
+        "runtime_sha256": "0b6e143ada7a2be0599379004980aa0ec15a06f7edbb7d10b8415a552ed5d7f9",
+        "opened_raw_videos": 0,
+        "inference_calls": 0
+      },
+      "retained_consumer": {
+        "exact_tensors": 150,
+        "exact_raw_observations": 1600,
+        "artifact_digests": 13,
+        "shapes": {
+          "fit": [
+            50,
+            30,
+            153
+          ],
+          "validation": [
+            50,
+            30,
+            153
+          ],
+          "test": [
+            50,
+            30,
+            153
+          ]
+        },
+        "full_counts": {
+          "declared": 150,
+          "errors": 0,
+          "processed": 150,
+          "selected": 150
+        },
+        "diagnostic_counts": {
+          "declared": 150,
+          "errors": 0,
+          "processed": 50,
+          "selected": 50
+        },
+        "diagnostic_status_counts": {
+          "eligible": 50,
+          "not_selected": 100
+        },
+        "diagnostic_literal_first_fit_selection": true,
+        "diagnostic_refused": true,
+        "old_contract_refusal": "campaign input/current contract/runtime mismatch"
+      },
+      "focused_memory_codec": {
+        "component_value_cases": 40,
+        "accepted_exact": 20,
+        "rejected_before_open": 20,
+        "files_created": 0,
+        "source_changes": 0
+      },
+      "sequence_interfaces": {
+        "invalid_clock_inputs_without_mutation": 5,
+        "strided_readonly_asymmetric_RGB_exact": true,
+        "trimmed_shared_resampler_exact": true,
+        "source_bounded_hand_counts": [
+          12,
+          8,
+          6
+        ]
+      },
+      "native_inference_calls": 0,
+      "mediapipe_imported": false
+    },
+    "fresh_probe_execution": {
+      "exit": 0,
+      "executable": "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/rv2-holistic-tf-20261101/bin/python",
+      "flags": [
+        "-E",
+        "-B"
+      ],
+      "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration",
+      "TMPDIR": "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch",
+      "source": "\nfrom pathlib import Path\nfrom dataclasses import replace\nfrom unittest.mock import patch\nimport io,hashlib,json,sys,importlib.metadata\nimport numpy as np\nfrom training.holistic_migration import dataset as d\nfrom training.holistic_migration.features import pack_frame,resample_frames\nfrom training.holistic_migration.sequence import prepare_capture,ObservationClock,prepare_image\nfrom training.holistic_migration.tests.test_sequence import frames\nfrom training.holistic_migration.tests.test_dataset import integer_frame\nr=Path.cwd();data=r.parent/'holistic-migration-data';w=data/'evidence/task-c-fix1-00ffe6b02d21421f86d86ba5fc208a26';s=w/'synthetic-corrected'\n# Current real metadata only; no raw-media open or native tracker construction.\ng=d.preflight(partition_manifest=data/'candidate-partitions-v1.json',source_inventory=data/'verified-video-byte-inventory.json',decode_summary=data/'decoded-source-audit-v1/summary.json',raw_root=data/'clips_raw',classes=r/'training/preprocessing/selected_classes.json',model=data/'holistic_landmarker.task')\nassert len(g.rows)==1016 and len(g.classes)==50 and g.classes[25]['original_id']==49 and g.classes[25]['label']=='TODAY'\nfrom collections import Counter\nassert Counter(row['partition'] for row in g.rows)==dict(fit=663,validation=150,test=203)\nfor line in (r/'training/holistic_migration/requirements.txt').read_text().splitlines():\n if '==' in line:\n  name,version=line.split('==');assert importlib.metadata.version(name)==version\nreal_metadata={'sources':len(g.rows),'classes':len(g.classes),'partitions':dict(Counter(row['partition'] for row in g.rows)),'dense25':g.classes[25],'runtime':d.runtime_binding(),'contract_sha256':d.canonical_hash(g.contract),'runtime_sha256':d.canonical_hash(g.runtime),'opened_raw_videos':0,'inference_calls':0}\n# Read retained corrected producer/bundle; exercise public consumer, not regenerate.\ng,manifest,rows=d.validate_campaign(s/'campaign');bundle=d.load_json(s/'bundle/data_manifest.json')\nassert manifest['evidence_kind']==bundle['evidence_kind']=='synthetic_in_process' and bundle['training_qualified'] is False\nassert bundle['graph']==d.graph_receipt(g) and len(bundle['classes'])==50\nfor name,record in bundle['artifacts'].items():assert d.sha256(s/'bundle'/name)==record['sha256']\ncount=0;shapes={}\nfor part in d.PARTITIONS:\n selected=[row for row in rows if row['partition']==part]\n x=np.load(s/'bundle'/f'X_{part}.npy',allow_pickle=False);y=np.load(s/'bundle'/f'y_{part}.npy',allow_pickle=False);ids=np.load(s/'bundle'/f'clip_ids_{part}.npy',allow_pickle=False)\n assert x.shape==(50,30,153) and x.dtype==np.float32 and y.dtype==np.int64\n assert ids.tolist()==[row['clip_id'] for row in selected] and y.tolist()==[row['dense_id'] for row in selected]\n for i,row in enumerate(selected):\n  np.testing.assert_array_equal(x[i],prepare_capture(d.read_raw(s/'campaign'/row['raw_file'],row['raw_sha256'])).tensor);count+=1\n shapes[part]=list(x.shape)\n assert bundle['eligibility']['partitions'][part]==dict(declared=50,eligible=50,ineligible=0,reasons={})\n# Independently compare every retained raw scalar to synthetic controls.\ntimes=[0,67,133,200,267,333,400,467]\nfaces=[None,np.empty((0,3),np.float64),np.arange(478*3,dtype=np.float64).reshape(478,3)/13,np.full((2,3),-.125),np.array([[2**64-2048,0,0]],np.uint64),np.array([[-(2**63),2**53+2,0]],np.int64),None,np.array([[0.,-0.,.5]],np.float64)]\nobservations=0\nfor name in ['campaign','diagnostic']:\n rr=[json.loads(line) for line in (s/name/'rows.jsonl').read_text().splitlines()]\n for row in rr:\n  if 'raw_file' not in row:continue\n  back=d.read_raw(s/name/row['raw_file'],row['raw_sha256']);assert len(back)==8\n  for i,frame in enumerate(back):\n   expected=replace(frames()[i],timestamp_ms=times[i],face=faces[i]);assert frame.timestamp_ms==expected.timestamp_ms\n   for component in ['pose','left_hand','right_hand','face']:\n    source,stored=getattr(expected,component),getattr(frame,component)\n    if source is None:assert stored is None\n    else:\n     assert source.shape==stored.shape and stored.dtype==np.float64\n     for a,b in zip(source.flat,stored.flat):\n      if source.dtype.kind in 'iu':assert float(b).as_integer_ratio()==(int(a),1)\n      else:assert float(b).hex()==float(a).hex()\n   np.testing.assert_array_equal(pack_frame(expected),pack_frame(frame));observations+=1\n diag=d.load_json(s/'diagnostic/extraction_manifest.json')\nassert diag['status']=='diagnostic_fit_only' and diag['full_campaign_qualification'] is False\nassert diag['counts']==dict(declared=150,selected=50,processed=50,errors=0)\ndiagrows=[json.loads(line) for line in (s/'diagnostic/rows.jsonl').read_text().splitlines()]\nselected=d.load_json(s/'diagnostic/selected_ids.json')\nexpected=sorted(min(row['clip_id'] for row in g.rows if row['partition']=='fit' and row['dense_id']==i) for i in range(50))\nassert selected==expected and Counter(row['status'] for row in diagrows)==dict(eligible=50,not_selected=100)\ntry:d.validate_campaign(s/'diagnostic')\nexcept ValueError as error:assert 'diagnostic refused' in str(error)\nelse:raise AssertionError('diagnostic accepted')\ntry:d.validate_campaign(data/'evidence/task-c-20261113T044844/synthetic-smoke/campaign')\nexcept ValueError as error:assert 'contract' in str(error);old_refusal=str(error)\nelse:raise AssertionError('stale contract accepted')\n# A focused in-memory public codec probe; only its NPZ transport is redirected.\np=Path.home()/'.hermes/cache/scratch/task-c-review-2-memory-only.npz';assert not p.exists()\ntransport={};realopen=Path.open;realload=np.load;realsha=d.sha256\nclass MemoryWrite(io.BytesIO):\n def __exit__(self,*args):transport['bytes']=self.getvalue();self.close()\ndef opened(path,mode='r',*args,**kwargs):\n if path==p:\n  assert mode=='xb';transport['opens']=transport.get('opens',0)+1;return MemoryWrite()\n return realopen(path,mode,*args,**kwargs)\ndef loaded(path,*args,**kwargs):\n return realload(io.BytesIO(transport['bytes']) if isinstance(path,Path) and path==p else path,*args,**kwargs)\ndef checksum(path):return hashlib.sha256(transport['bytes']).hexdigest() if path==p else realsha(path)\ncontrols=[(np.int64,-(2**63),True),(np.int64,-(2**63)+1,False),(np.int64,2**53+1,False),(np.int64,2**53+2,True),(np.int64,2**63-1024,True),(np.int64,2**63-1,False),(np.uint64,2**63,True),(np.uint64,2**64-2048,True),(np.uint64,2**64-2,False),(np.uint64,2**64-1,False)]\naccepted=rejected=0\nwith patch.object(Path,'open',opened),patch.object(np,'load',loaded),patch.object(d,'sha256',checksum):\n for component in ['pose','left_hand','right_hand','face']:\n  for dtype,value,representable in controls:\n   source=integer_frame(component,dtype,[value]);before=transport.get('opens',0)\n   try:back=d.read_raw(p,d.write_raw(p,[source]))[0]\n   except ValueError as error:\n    assert not representable and 'losslessly' in str(error);assert transport.get('opens',0)==before;rejected+=1\n   else:\n    assert representable and transport['opens']==before+1\n    for a,b in zip(getattr(source,component).flat,getattr(back,component).flat):assert float(b).as_integer_ratio()==(int(a),1)\n    np.testing.assert_array_equal(pack_frame(source),pack_frame(back));accepted+=1\nassert not p.exists()\n# Sequence and accepted-A interface boundary with exact current shared caller behavior.\nclock=ObservationClock();assert clock.admit(0) and not clock.admit(1)\nbefore=clock.__dict__.copy()\nfor bad in [True,1.0,-1,0,1]:\n try:clock.admit(bad)\n except ValueError:pass\n else:raise AssertionError('bad clock timestamp admitted')\n assert clock.__dict__==before\nassert clock.admit(67)\nf=frames(12)\nfor i in [0,1,4,6,10,11]:f[i]=replace(f[i],left_hand=None)\ncapture=prepare_capture(f);np.testing.assert_array_equal(capture.tensor,resample_frames(f[2:10]));assert (capture.source_observation_count,capture.observation_count,capture.hand_count)==(12,8,6)\nimport cv2\nrgb=np.arange(18*40*3,dtype=np.uint8).reshape(18,40,3)[:,::-1];rgb.setflags(write=False)\nnp.testing.assert_array_equal(prepare_image(rgb,cv2),cv2.resize(rgb,(640,360),interpolation=cv2.INTER_AREA))\nassert 'mediapipe' not in sys.modules\nprint(json.dumps({'current_metadata':real_metadata,'retained_consumer':{'exact_tensors':count,'exact_raw_observations':observations,'artifact_digests':len(bundle['artifacts']),'shapes':shapes,'full_counts':manifest['counts'],'diagnostic_counts':diag['counts'],'diagnostic_status_counts':dict(Counter(row['status'] for row in diagrows)),'diagnostic_literal_first_fit_selection':True,'diagnostic_refused':True,'old_contract_refusal':old_refusal},'focused_memory_codec':{'component_value_cases':len(controls)*4,'accepted_exact':accepted,'rejected_before_open':rejected,'files_created':0,'source_changes':0},'sequence_interfaces':{'invalid_clock_inputs_without_mutation':5,'strided_readonly_asymmetric_RGB_exact':True,'trimmed_shared_resampler_exact':True,'source_bounded_hand_counts':[12,8,6]},'native_inference_calls':0,'mediapipe_imported':False}))\n",
+      "storage": "In-memory NPZ transport only for fresh numeric controls; retained synthetic campaigns/bundles were read-only. No source/scratch artifacts were created by the probe."
+    },
+    "execution_limits": "No full-suite rerun, source change, real-media decode or model inference, camera/GUI/phone/app operation, install, fitting/export/activation, index/commit/push or provider change. OpenCV used only for in-memory synthetic image transforms. Model bytes hashed as input, never executed.",
+    "trust_boundary": "Trusted callbacks are not a sandbox. Local writable-file hashes provide integrity binding, not signatures or hostile-writer race resistance."
+  },
+  "deferred_gates": {
+    "owner": "parent / later authorized phases",
+    "task_acceptance": "Parent must read this complete report, match its frozen inputs/source hashes and adjudicate; reviewer grants no task acceptance.",
+    "real_campaigns": "Real fit-only diagnostic and full extraction, all-class real eligible support and real-source tiny-overfit remain unestablished.",
+    "research_and_live": "Human tracking/anatomical handedness, linguistic/nonmanual sufficiency, signer independence, model training/evaluation/metrics, live/physical performance and participant-study acceptance remain open. These are not silently passed or waived by this bounded software verdict.",
+    "separate_B": "Concurrent B recovery/source review and human webcam acceptance are outside C; no B verdict granted."
+  },
+  "recovery_notes": [
+    "Early in_progress/all-verdicts-false checkpoint was written before source judgments, then refreshed after bindings, and replaced only after complete current coverage/evidence verification.",
+    "One initial review-harness assertion incorrectly required intermediate GREEN test hashes to equal later expanded tests. It stopped without changing source; corrected stage-specific pairing and final-postimage checks passed. This was a verifier assumption issue, not a product defect or failing suite.",
+    "Interrupted prior review was treated only as leads; neither its partial successful calls nor its historical rate-limit/reset message supplied a verdict or a present blocker."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "status": "accepted_bounded_task_b_software",
+  "accepted_at": "2026-11-13T20:17:47.016252+08:00",
+  "source_commit": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+  "review": "docs/holistic-migration/task-b-review-3.json",
+  "review_sha256": "998b23d6ae1297ad43c70442fe448f6e73e1949518473f35dd7bfce7532520f1",
+  "review_manifest": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-fix2-parent-20261113/manifest.json",
+  "review_manifest_sha256": "c674bc8bc14ee5ae4f57159adf7e9f3850d9b59bea79a152738e66a90356f6ea",
+  "accepted_source_sha256": {
+    "training/holistic_migration/camera.py": "bf1f77ce2b67e8611f659f3a6589a10937a8c78753849232b920819a7197a2c4",
+    "training/holistic_migration/tests/test_camera.py": "6136d9da96210997be89448b687e42df841797a0cc1dceb34d79192ce48bab55",
+    "training/holistic_migration/camera.swift": "4837c7723ef484fcc05856be62240e3aaf85e6a685c5ff79d6709840b6701825",
+    "training/holistic_migration/webcam.py": "f484a43d36dec7acd9d3cbdf30d231154fe8079aede571822c72e6991bd17e7c",
+    "training/holistic_migration/tests/test_webcam.py": "c077161772a1d08c16ad7028ef4cd126ae51ccda3c729a030f59ad318c899231"
+  },
+  "verified_input_bindings": 249,
+  "parent_verification": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-b-fix2-parent-20261113/verification.json",
+  "parent_verification_sha256": "60217bb461fea2b1275a5009fc432eb8bd2d6d6969aef143de1ff84d142f3bc8",
+  "closed_findings": [
+    "MR01",
+    "L01",
+    "L02",
+    "MR02",
+    "L03",
+    "L03a"
+  ],
+  "scope": "Built-in-only tracking preview/capture software, not current physical/human tracking or sign recognition",
+  "human_webcam_acceptance": "owner_deferred",
+  "no_camera_relaunch_authorized": true,
+  "remaining": [
+    "Owner readiness and actual representative human tracking/handedness checks",
+    "Separately trained50-class candidate and reviewed classifier integration",
+    "Owner-performed Mac sign trials; phone excluded"
+  ]
+}

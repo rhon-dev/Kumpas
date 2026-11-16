@@ -1,0 +1,472 @@
+{
+  "passed": false,
+  "spec_compliant": false,
+  "quality_approved": false,
+  "review_status": "complete_changes_required",
+  "missing_requirements": [
+    {
+      "id": "MR-C01",
+      "blocking": true,
+      "finding": "L-C01",
+      "requirement": "task-c-brief.md:45-47,63 and README.md:98-104: lossless numeric raw storage; reject rather than silently convert values not exactly representable in Float64.",
+      "disposition": "Not met for accepted int64/uint64 extrema. Current Float64 SDK-shaped positive controls pass; that narrower fact does not waive the public numeric codec requirement."
+    }
+  ],
+  "security_concerns": [],
+  "logic_errors": [
+    {
+      "id": "L-C01",
+      "blocking": true,
+      "severity": "important",
+      "file": "training/holistic_migration/dataset.py",
+      "lines": [
+        34,
+        41
+      ],
+      "related_paths": [
+        "training/holistic_migration/tests/test_dataset.py:366-375",
+        "training/holistic_migration/README.md:98-104"
+      ],
+      "description": "The Float64 losslessness guard converts back to the input integer dtype and uses array_equal. On the required macOS arm64 NumPy 2.1.3 runtime, an out-of-range Float64 value can saturate back to that dtype's maximum, so this check passes even though the stored Float64 is a different integer. write_raw then succeeds and read_raw returns the changed number.",
+      "reproduced_values": [
+        {
+          "dtype": "int64",
+          "input_integer": 9223372036854775807,
+          "decoded_integer": 9223372036854775808,
+          "castback_array_equal": true
+        },
+        {
+          "dtype": "uint64",
+          "input_integer": 18446744073709551615,
+          "decoded_integer": 18446744073709551616,
+          "castback_array_equal": true
+        }
+      ],
+      "evidence": "Fresh production write_raw/read_raw calls with an in-memory NPZ transport reproduced both silent +1 changes. File opening/loading/hash functions were redirected only for an absent scratch sentinel; actual validation, packing, numeric serialization, array validation and reconstruction executed. No source or on-disk raw file was changed. Confirmatory probe exited 0 after asserting both mismatches; the initial expectation-of-losslessness probe exited 1 on the actual defect. Separate 11-case integer probes distinguished representable positive controls from rejected nonrepresentable values and these two false acceptances.",
+      "impact": "Violates required exact raw preservation and allows a corrupted raw observation to pass digest/schema readback. Normalized-output equality does not catch face-only loss because face is excluded from hm153; both examples retained equal pack_frame outputs. This does not demonstrate corruption of the actual SDK Float64 outputs or any real FSL source.",
+      "requested_change": "Use a genuinely exact value/representability test that cannot be satisfied by saturating integer cast-back. Retain valid representable integers and Float64 SDK values; add signed/unsigned extrema regressions asserting rejection before publication and compare raw numeric values using exact scalar semantics, not mixed float/integer NumPy equality. Re-review the full affected codec/test/documentation scope with refreshed bindings; do not weaken the lossless contract.",
+      "reproduction_runtime": "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/rv2-holistic-tf-20261101/bin/python -E -B",
+      "reproduction_source": "import io, hashlib, json\nfrom pathlib import Path\nfrom dataclasses import replace\nfrom unittest.mock import patch\nimport numpy as np\nfrom training.holistic_migration import dataset as d\nfrom training.holistic_migration.tests.test_sequence import frames\np = Path('/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/scratch/task-c-review-memory-only.npz')\nassert not p.exists()\nstored = {}\noriginal_open, original_load, original_sha = Path.open, np.load, d.sha256\nclass MemoryWrite(io.BytesIO):\n    def __exit__(self, *args):\n        stored['bytes'] = self.getvalue()\n        self.close()\ndef opened(path, mode='r', *args, **kwargs):\n    if path == p:\n        assert mode == 'xb'\n        return MemoryWrite()\n    return original_open(path, mode, *args, **kwargs)\ndef loaded(path, *args, **kwargs):\n    if isinstance(path, Path) and path == p:\n        path = io.BytesIO(stored['bytes'])\n    return original_load(path, *args, **kwargs)\ndef checksum(path):\n    return hashlib.sha256(stored['bytes']).hexdigest() if path == p else original_sha(path)\nwith patch.object(Path, 'open', opened), patch.object(np, 'load', loaded), patch.object(d, 'sha256', checksum):\n    for dtype, value in [('int64', 2**63-1), ('uint64', 2**64-1)]:\n        f = replace(frames()[0], face=np.array([[value, 0, 0]], dtype=dtype))\n        digest = d.write_raw(p, [f])\n        back = d.read_raw(p, digest)\n        actual = int(back[0].face[0, 0])\n        print(json.dumps({'dtype': dtype, 'input_integer': value, 'decoded_integer': actual, 'lossless': actual == value}))\n        assert actual == value, 'lossless raw codec violation'\nassert not p.exists()\n",
+      "reproduction_note": "The supplied red-capable reproduction stops at the first violated invariant. The actual confirmatory run evaluated both types and asserted actual == input + 1, recording both outcomes."
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "S-C01",
+      "blocking": false,
+      "kind": "test_resource_retention",
+      "file": "training/holistic_migration/tests/test_extract.py",
+      "lines": [
+        15,
+        47
+      ],
+      "related_paths": [
+        "training/holistic_migration/tests/test_dataset.py:227-430"
+      ],
+      "description": "SyntheticDetector.instances retains every closed fake detector, whose calls list retains full RGB copies. The clearing autouse fixture is local to test_extract.py; test_dataset.py invokes synthetic_campaign/weak_campaign without that fixture. Two fresh extract_one calls left 5,529,600 then 11,059,200 image bytes reachable despite successful close/release. The defined full 150-source fixture computes to 829,440,000 image bytes per campaign before registry cleanup, and repeated dataset helper calls accumulate them.",
+      "recommendation": "Make registry cleanup apply to all helper callers, use an explicit fixture/context with teardown, and/or retain compact image assertions rather than every RGB frame. Keep sufficient evidence for cadence/geometry assertions.",
+      "adjudication": "Nonblocking test-isolation/resource improvement, not a reproduced native-detector leak or an observed OOM. Hash-bound parent suites completed successfully. Byte totals are ndarray nbytes, not measured process RSS. The earlier transcript's failed expectation about inherited fixture state is only a lead; the fresh bounded probe independently confirmed retention and then cleared its own in-process registries."
+    }
+  ],
+  "summary": "Complete independent integrated specification and quality review of exactly all nine frozen Task C files. Both verdicts are false because the promised lossless raw codec silently changes accepted signed/unsigned integer extrema. All nine source, package, supporting, accepted-A and protected20 bindings match; sequence/data integration and retained synthetic bundle readback are covered. One nonblocking synthetic-fixture memory-retention suggestion remains. No earlier checkpoint was treated as approval.",
+  "covered_paths": [
+    "training/holistic_migration/README.md",
+    "training/holistic_migration/build_dataset.py",
+    "training/holistic_migration/dataset.py",
+    "training/holistic_migration/extract.py",
+    "training/holistic_migration/requirements.txt",
+    "training/holistic_migration/sequence.py",
+    "training/holistic_migration/tests/test_dataset.py",
+    "training/holistic_migration/tests/test_extract.py",
+    "training/holistic_migration/tests/test_sequence.py"
+  ],
+  "reviewed_source_sha256": {
+    "training/holistic_migration/README.md": "e8e6db92d516d4f8f9e10f263619d3e10e9b998db890b573536c56ec62afad66",
+    "training/holistic_migration/build_dataset.py": "fb59c1c78c4f892f75c372fe84fe62b5c93473997e50321fa8b803618cd92401",
+    "training/holistic_migration/dataset.py": "b54c4fb235fa1b2836414e615e9e5bdcc140c918efddc503acd59e9010c172fd",
+    "training/holistic_migration/extract.py": "126641cacc8f91032ca21efd032d6af821b94c755ba52ed8534f35a68fac6631",
+    "training/holistic_migration/requirements.txt": "e75ed2df1ab04bc8284229eb7b95169e9e20b7d35ff453a71b9abff7bdc25778",
+    "training/holistic_migration/sequence.py": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+    "training/holistic_migration/tests/test_dataset.py": "700d072ec170f5f4a222ccf7c3361c5292338bc265108e1a6da3b87d2ef814ff",
+    "training/holistic_migration/tests/test_extract.py": "f3dea999568c70fda291621068a6b74aa08260f80e821c0196e9f519c9adb32a",
+    "training/holistic_migration/tests/test_sequence.py": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331"
+  },
+  "coverage": {
+    "expected_files": 9,
+    "complete_files_read": 9,
+    "group_union_exact": true,
+    "groups_disjoint": true,
+    "sequence_group": [
+      "training/holistic_migration/sequence.py",
+      "training/holistic_migration/tests/test_sequence.py"
+    ],
+    "data_group": [
+      "training/holistic_migration/README.md",
+      "training/holistic_migration/build_dataset.py",
+      "training/holistic_migration/dataset.py",
+      "training/holistic_migration/extract.py",
+      "training/holistic_migration/requirements.txt",
+      "training/holistic_migration/tests/test_dataset.py",
+      "training/holistic_migration/tests/test_extract.py"
+    ],
+    "complete_line_ranges": {
+      "training/holistic_migration/README.md": [
+        1,
+        193
+      ],
+      "training/holistic_migration/build_dataset.py": [
+        1,
+        23
+      ],
+      "training/holistic_migration/dataset.py": [
+        1,
+        502
+      ],
+      "training/holistic_migration/extract.py": [
+        1,
+        183
+      ],
+      "training/holistic_migration/requirements.txt": [
+        1,
+        7
+      ],
+      "training/holistic_migration/sequence.py": [
+        1,
+        80
+      ],
+      "training/holistic_migration/tests/test_dataset.py": [
+        1,
+        430
+      ],
+      "training/holistic_migration/tests/test_extract.py": [
+        1,
+        179
+      ],
+      "training/holistic_migration/tests/test_sequence.py": [
+        1,
+        146
+      ]
+    },
+    "accepted_A_interfaces_read_completely": [
+      "training/holistic_migration/features.py:1-94",
+      "training/holistic_migration/detector.py:1-98"
+    ],
+    "requirements_read": [
+      "AGENTS.md",
+      "docs/PRD.md",
+      "docs/phase-gates.md",
+      "docs/holistic-migration/task-c-brief.md",
+      "docs/holistic-migration/CAPTURE_CANDIDATE.md",
+      "docs/holistic-migration/FEATURES.md"
+    ],
+    "handoff_read": "docs/holistic-migration/task-c-report.md:1372-1415 (the earlier ledger was also read)",
+    "earlier_reviews": "task-c-sequence-review-1.json explicitly checkpoint_not_final with both verdicts false; task-1.log is an interrupted partial transcript, not a report or approval. All nine files and accepted interfaces were independently reread in this recovery."
+  },
+  "input_hashes": {
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/manifest.json": "0c9f41e397ab035caabba385c510403e92a9aa340de1828a786fef2eff979992",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/task-c.diff": "26bd733ec6ed05aa4f65b64645000775b2fc2ace5e506b125f4045203ef1caf1",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/sequence.diff": "406e4cc51628c2edfb7197c939b2d4005caac7996a4f11ac4e3c50af9ac2e7ba",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/data.diff": "d21b1a8d5af4d73300c71a863dca5326439ccd27a69730076aab887bce7bb5c5",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-review-17292f00faaf47d2b96d74d43b8d3a7b/task-b-fix-protection.json": "696639567e04259295fc4eedce4fb32086934c37fbc627d4d764717b1432b4a0",
+    "docs/holistic-migration/task-c-brief.md": "b0621d59d3fb9efaea87c50aadae23bae6963667bfa4f857f41a3c5631c6a95c",
+    "docs/holistic-migration/CAPTURE_CANDIDATE.md": "f27ae050887a411a72a445f2ae1891f1899a665e082f617a746b88b054cfcea4",
+    "docs/holistic-migration/FEATURES.md": "aa3776bc9c2cb1d94e5dde88e83e20410e64f877ff95e3aff5bea9f9b45752c2",
+    "docs/holistic-migration/task-c-report.md": "b58d02dd4b6407d125238c2dbca261c4b83355285a8a00144e02483fee053f3f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/handoff.json": "d90783c79b816ee60260a26516432e90125f0875d5eaab990ea4c30599e34088",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/verification.json": "d382b49ce322a68b12890dd0e2b10ffc1c964190a4f7f3a206be098788c11b73",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/migration.log": "9e85b77d6a7d84e289afa9c6c3885142706c61b7ba520d479c9ef7be6ef9e5ba",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/migration.xml": "cf9e043e9b33a76fa994179c060822f0e5fc0891206127982583f44678df0f73",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/original.log": "828f66041cb8640a4cbfa61a5f6a4a95aec6a3f25e384c9bda80a2680178efe3",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-parent-112aa7d74d3d43f39490016844009645/original.xml": "c28653fcee47b01e44b98fd467f25b3abe26c30814b5c114aa767e9277df19b4",
+    "docs/holistic-migration/task-a-acceptance.json": "d3645f51a24493040d7b131b6df7790497b01159038862d1ef1c28a7a3413eca",
+    "docs/holistic-migration/task-a-review-2.json": "d11ba81793e0cfae572f2d9a94799501e9be01e08b9e83ef27a7cf7c2c3b412d",
+    "docs/holistic-migration/task-c-sequence-review-1.json": "939381084798b3c641fce1867c3ffac834a6ac471c19950715c241ceec82bbb3",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/cache/delegation/live/deleg_daf45e6e/task-1.log": "5198d0572d80bd0c7a4c0fdc3267c4d9b808627895d447df6b266f2366d568e7",
+    "training/holistic_migration/__init__.py": "7ed3f3c320c0550817cd33c425d442b68ecc7edeb3890d86ce3dc4c91a62a9e0",
+    "training/holistic_migration/detector.py": "f1d110acd4681eb138b41c96e0dffcb116a1a7168b3743558a519260a1dd7f8c",
+    "training/holistic_migration/features.py": "9d6436a316d70abcace9bde0108761e19263782bdff0ccf76196d650e5e36656",
+    "training/holistic_migration/tests/__init__.py": "cac0b6f1ba14c5703c188a5e24947664da2bf934ddbc35a7195910ba388d9450",
+    "training/holistic_migration/tests/test_detector.py": "1d5f6892f81d7c3a10ed83a61521917500f9a9e00683c651ec69ce2e190ec1dc",
+    "training/holistic_migration/tests/test_features.py": "80ef827bf28099addc53415d8930ea0eaf04f4bf57d892362fc6e4995ab74304",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/candidate-partitions-v1.json": "a80620494894701c9f4f2dfde5a3050f4f80b5532b04004c0761c7945300275f",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/verified-video-byte-inventory.json": "0ff0c09c7df877c860258049427243aacc03d5f35ef11526715366f28940d41e",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/selected-source-inventory.json": "23697b80445fe1daedd9dfb1d1127e02e1a474eb13144ff5fcad9e4d589701ca",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/decoded-source-audit-v1/summary.json": "57c5e676fab823a5d96d2cedf44bb4b69f03b6530dc557817553a383f1b44035",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/decoded-source-audit-v1/records.jsonl": "a1926b7f0d3ecc7788db4126fd435a287c867519e642ff9770aeddcc74f63e3b",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/holistic_landmarker.task": "e2dab61191e2dcd0a15f943d8e3ed1dce13c82dfa597b9dd39f562975a50c3f8",
+    "training/preprocessing/selected_classes.json": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/synthetic-smoke/campaign/extraction_manifest.json": "dee7566cc7f4e50f8a5828650ac5450ca6e862a9153d53d0cd3fad5135f0ae49",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/synthetic-smoke/bundle/data_manifest.json": "431a00ad729a0ec8a5038de50e6eca01099b5ac6cb47532cd47a28180184cab9",
+    "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-20261113T044844/synthetic-smoke/diagnostic/extraction_manifest.json": "bd7bceb52240bd917ebcc3beaeec6a4a0eff1102ccfcf430b82ee7aabd3133af"
+  },
+  "inventory_and_preservation": {
+    "task_base": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+    "current_head": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+    "branch": "holistic-migration",
+    "package_checks": "Parsed every addition in task-c.diff and each group diff, verified new-file mode 100644, exact path sets, no duplicate sections, and reconstructed added bytes equal current files and manifest hashes. Nine-file group union is exact. Task report is supporting evidence, not a tenth source file in this review.",
+    "support_checks": "All four supporting hashes and parent verification hash match manifest; parent verification binds the exact handoff; accepted A acceptance binds review2 and all six current A source/test hashes.",
+    "protected20_match": true,
+    "protected20_count": 20,
+    "later_B_repair_boundary": "All 20 paths in task-b-fix-protection.json still match. Four B Python/test files now differ from the historical eleven-file C handoff guard; camera.swift and all A/C/contract files remain unchanged. This is the separately authorized B-only repair, not an unexplained C mutation. Historical C receipts were not rehashed to imply they executed later B source. No B approval is granted here.",
+    "C_dependency_graph": {
+      "sequence.py": [
+        "features.py"
+      ],
+      "dataset.py": [
+        "features.py",
+        "sequence.py"
+      ],
+      "extract.py": [
+        "dataset.py",
+        "sequence.py",
+        "detector.py (lazy)"
+      ],
+      "build_dataset.py": [
+        "dataset.py"
+      ]
+    },
+    "camera_or_preview_dependency": false,
+    "tracked_diff_bytes": 0,
+    "staged_diff_bytes": 0,
+    "static_scan": "No eval/exec, shell=True/os.system, unsafe pickle load/allow_pickle=True, private-key or checked secret-prefix matches in the complete nine-file scope. Inspection is bounded, not a comprehensive security audit.",
+    "review_writes": [
+      "docs/holistic-migration/task-c-review-recovery-1.json"
+    ]
+  },
+  "cross_part_requirements": [
+    {
+      "id": "CP-C01",
+      "requirement": "Accepted A semantics, 15Hz clock, unmirrored RGB preparation and bounded capture/missingness shared by producer and consumer",
+      "status": "verified",
+      "paths": [
+        "sequence.py",
+        "extract.py",
+        "dataset.py",
+        "tests/test_sequence.py",
+        "tests/test_extract.py",
+        "tests/test_dataset.py"
+      ],
+      "evidence": "Read complete A implementations and C call graph. Every timestamp including skipped frames validates before mutation; missed slots do not invent observations. Capture validates all frames before trimming, preserves internal handless rows, rejects internal invalid pose/gaps, enforces 8/4 observations, 400-5000ms and <=250ms, and calls accepted resample_frames. Fresh asymmetric read-only/strided RGB and trimmed semantic-array controls passed; retained bundle has 150 tensors exactly equal to the shared preparation output."
+    },
+    {
+      "id": "CP-C02",
+      "requirement": "Complete source/class/partition/decode/schema graph and immutable identities",
+      "status": "verified",
+      "paths": [
+        "dataset.py",
+        "extract.py",
+        "tests/test_dataset.py",
+        "requirements.txt"
+      ],
+      "evidence": "Fresh metadata-only public preflight: 1016 sources, fit663/validation150/test203, 50 classes, dense25 original49/TODAY; all seven graph binding hashes match. Source inspection and fully rebound tamper tests cover exact built-in IDs/counts, literal tokens, duplicate/source/partition coverage, class ordering, archive/source/decode companions, original-test isolation and legitimate descriptive OpenCV floats. Runtime pins exactly match installed metadata. No raw source video was opened by this preflight; real media byte/digest and full pixel-audit checks remain enforced at extraction execution."
+    },
+    {
+      "id": "CP-C03",
+      "requirement": "Numeric raw codec is lossless before and after producer/consumer serialization",
+      "status": "blocked",
+      "blocking_findings": [
+        "L-C01"
+      ],
+      "paths": [
+        "dataset.py",
+        "extract.py",
+        "tests/test_dataset.py",
+        "README.md"
+      ],
+      "evidence": "Explicit None, zero absent blocks, present-empty face, 478-point and variable faces, finite shapes/offsets and allow_pickle=False are implemented and positive controls pass. Exact integer extrema are falsely accepted and changed; see L-C01. Normalized equality alone cannot establish raw face equality."
+    },
+    {
+      "id": "CP-C04",
+      "requirement": "Extraction defaults, fit-only diagnostic and ledger/completion policy",
+      "status": "verified_except_CP_C03",
+      "paths": [
+        "extract.py",
+        "dataset.py",
+        "tests/test_extract.py",
+        "README.md"
+      ],
+      "evidence": "Default native path enforces frozen source/model identities before native import/output, uses actual rounded presentation time with no fallback, full decoded H/W/C int32+BGR digest/count/shapes, and one fresh accepted tracker per clip. Diagnostic literal-first selection is persisted before inference, opens only fit selections, and separates declared/selected/processed/errors. Retained diagnostic:150/50/50/0, qualification false; builder rejected it. Error paths retain partial attempts, progress/stderr and nonzero disposition. Four fresh in-memory open/constructor/detect/close fault controls confirm video release and applicable detector close; no real detector executed."
+    },
+    {
+      "id": "CP-C05",
+      "requirement": "Bundle graph/raw/capture readback, tensor/label/ID mapping, denominators and class support",
+      "status": "verified_except_CP_C03",
+      "paths": [
+        "dataset.py",
+        "build_dataset.py",
+        "tests/test_dataset.py",
+        "README.md"
+      ],
+      "evidence": "Fresh read-only consumer validation of retained complete synthetic campaign:150 sources, 150 exact Float32[30,153] tensors, correct ordered IDs/int64 dense labels in each [50,30,153] partition, 13 artifact digests verified. Complete tests and bound parent execution cover rebound ledger/raw/capture/count/current-contract tamper, unsupported fit/validation class, and all-ineligible test empty [0,30,153] instead of placeholders. Eligibility reports retain every declared source and all 50 classes; no split, augmentation or predictions occur. Staged/exclusive manifest publication and failed readback withholding were inspected with their regressions."
+    },
+    {
+      "id": "CP-C06",
+      "requirement": "Parent acceptance and separately authorized B repair stay distinct",
+      "status": "pending_parent_acceptance",
+      "owner": "parent",
+      "outstanding": "Parent must adjudicate this complete failing C report and authorize any bounded C codec repair; refreshed affected-scope evidence/review is required after changes. Separate B software repair/re-review and deferred human webcam acceptance remain outside C. C does not depend on B."
+    },
+    {
+      "id": "CP-C07",
+      "requirement": "Real-source feasibility and later research/live gates",
+      "status": "deferred_not_accepted",
+      "owner": "parent / later authorized phases",
+      "outstanding": "Real fit-only diagnostic, full real extraction, all-class real eligible support, real-source tiny-overfit proof, training/model evaluation, anatomical/linguistic/signer-independent/live/physical acceptance remain unestablished. These are explicitly deferred campaign/research gates, not silently waived software requirements or additional reasons for this review failure."
+    }
+  ],
+  "verification_evidence": {
+    "inherited_not_rerun": {
+      "source": "Hash-matched parent verification.json and its complete log/XML readback; source bindings matched frozen C/A bytes. These executions precede later B-only source repair.",
+      "migration": {
+        "exit": 0,
+        "passed": 186,
+        "subtests_passed": 252,
+        "xml_testcases": 186,
+        "xml_tests_including_subtests": 438,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "C_cases": {
+          "test_dataset": 71,
+          "test_extract": 18,
+          "test_sequence": 36
+        },
+        "C_total": 125
+      },
+      "original": {
+        "exit": 0,
+        "passed": 51,
+        "subtests_passed": 289,
+        "warnings": 3,
+        "xml_testcases": 51,
+        "xml_tests_including_subtests": 340,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0
+      },
+      "warning_scope": "Two existing Keras/NumPy copy-keyword deprecations and one TensorFlow Lite interpreter deprecation. No suppression or claim of a fresh full-suite run."
+    },
+    "fresh_focused_probes": [
+      {
+        "name": "current_metadata_preflight",
+        "exit": 0,
+        "result": "1016/663/150/203 sources and 50 classes; dense25=49/TODAY; exact graph/runtime/model/contract bindings; no media decode/native inference."
+      },
+      {
+        "name": "initial_lossless_expectation",
+        "exit": 1,
+        "result": "AssertionError encountered because accepted integer-extreme roundtrip changed a value; diagnosed rather than counted as a harness-only failure."
+      },
+      {
+        "name": "eleven_integer_boundary_cases",
+        "exit": 0,
+        "result": "Seven uint64 and four int64 cases differentiated representable values, expected ValueError rejection, and two false acceptances at signed/unsigned maxima."
+      },
+      {
+        "name": "confirmed_raw_integer_extrema_loss_and_Float64_controls",
+        "exit": 0,
+        "result": "Both maxima changed by +1 while cast-back equality passed; normalized face-excluding pack output remained equal. Float64, None, empty/478/variable-face, missing-hand/pose controls were exact. NPZ transport was memory-only; positive-control NPZ was 5300 bytes. An explicit diagnostic cast emitted RuntimeWarning outside write_raw; the production guard suppresses that warning and still accepts the lossy values."
+      },
+      {
+        "name": "sequence_edge_controls",
+        "exit": 0,
+        "result": {
+          "clock_admitted": [
+            true,
+            false,
+            false,
+            true,
+            true,
+            true,
+            false
+          ],
+          "invalid_clock_inputs_rejected_without_mutation": 6,
+          "asymmetric_strided_readonly_RGB_exact": true,
+          "internal_missing_hand_blocks_zero": true,
+          "internal_invalid_pose_rejected": true,
+          "four_trimmed_semantic_arrays_rejected": true,
+          "counts": {
+            "source": 12,
+            "bounded": 8,
+            "hands": 6
+          }
+        }
+      },
+      {
+        "name": "retained_synthetic_consumer_readback",
+        "exit": 0,
+        "result": {
+          "validated_sources": 150,
+          "exact_tensors": 150,
+          "artifact_digests_verified": 13,
+          "partition_shapes": {
+            "fit": [
+              50,
+              30,
+              153
+            ],
+            "validation": [
+              50,
+              30,
+              153
+            ],
+            "test": [
+              50,
+              30,
+              153
+            ]
+          },
+          "diagnostic_counts": {
+            "declared": 150,
+            "selected": 50,
+            "processed": 50,
+            "errors": 0
+          },
+          "diagnostic_builder_refused": true
+        }
+      },
+      {
+        "name": "synthetic_fixture_retention",
+        "exit": 0,
+        "result": {
+          "retained_image_bytes_after_one_clip": 5529600,
+          "retained_image_bytes_after_two_clips": 11059200,
+          "all_detectors_closed": true,
+          "all_videos_released": true,
+          "computed_bytes_per_150_source_campaign": 829440000,
+          "own_in_process_registries_cleared_after_probe": true
+        }
+      },
+      {
+        "name": "bounded_resource_and_path_faults",
+        "exit": 0,
+        "result": {
+          "open": "ClipFailure/decode_error",
+          "constructor": "ClipFailure/detection_error",
+          "detect": "ClipFailure/detection_error",
+          "close": "RuntimeError/cleanup_error",
+          "all_videos_released": true,
+          "all_returned_detector_objects_closed": true,
+          "relative_traversal_and_raw_overlap_rejected": true
+        }
+      }
+    ],
+    "runtime": {
+      "executable": "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/rv2-holistic-tf-20261101/bin/python",
+      "flags": [
+        "-E",
+        "-B"
+      ],
+      "python": "3.11.15",
+      "numpy": "2.1.3",
+      "opencv-contrib-python": "5.0.0.93",
+      "mediapipe": "1.2.0",
+      "pytest": "9.2.0",
+      "platform": "macOS-26.6-arm64-arm-64bit",
+      "runtime_sha256": "0b6e143ada7a2be0599379004980aa0ec15a06f7edbb7d10b8415a552ed5d7f9",
+      "contract_sha256": "355f8c0b62741920d8e54ad56f0e175d5a91cbc7f4967b50eb8dcf0d5adb899e"
+    },
+    "execution_limits": "No redundant full suite rerun, real source-video decode/detector inference, real dataset/model fitting, camera/GUI, app/phone, installation, commit/index/source edit or provider change. Native cv2 was used only for synthetic array color/resize operations. Actual model bytes were hashed as a preflight input, not executed. Only assigned JSON was written; all new synthetic codec/producer probe storage was in memory. Existing retained synthetic artifacts were read, not changed.",
+    "trust_boundary": "Trusted Python callbacks and a locally writable filesystem are not a sandbox. Digests are integrity bindings, not signatures or hostile-writer race protection. No signer/anatomical/linguistic/recognition/performance inference follows from synthetic tests."
+  }
+}

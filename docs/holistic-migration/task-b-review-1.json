@@ -1,0 +1,71 @@
+{
+  "passed": false,
+  "spec_compliant": false,
+  "quality_approved": false,
+  "missing_requirements": [
+    {
+      "id": "MR01",
+      "requirement": "Task B brief required design 9: honest terminal disposition and failure reporting; required design 5: native failure diagnostics.",
+      "finding": "L01: a fatal native source failure already recorded by the production reader can be followed by terminal=quit, window_closed or deadline and a normal return from run_preview. The nonzero native_exit and stderr are retained, but the overall terminal disposition and CLI success status do not identify the failed source. This is a terminal-status reconciliation gap, not a claim that all native diagnostics are lost."
+    }
+  ],
+  "security_concerns": [],
+  "logic_errors": [
+    {
+      "id": "L01",
+      "title": "An already-observed native failure can be reported as a normal session termination",
+      "locations": [
+        "training/holistic_migration/camera.py:270-284",
+        "training/holistic_migration/camera.py:290-302",
+        "training/holistic_migration/webcam.py:185-219",
+        "training/holistic_migration/webcam.py:237-247",
+        "training/holistic_migration/webcam.py:260-262"
+      ],
+      "explanation": "The frame reader records fatal framing/EOF/timeout errors independently. run_preview observes them only when it calls next_frame again. If the child fails during the current detector/packing/display operation, q/Escape, window close or the loop deadline can end the session before another next_frame call. Finalization reads native_exit but never reconciles capture.error or an unexpected pre-cleanup child exit with terminal or primary. Consequently the module can return successfully after the source has failed. The parent-observed successful 60-second session does not contradict this fault-path reproduction.",
+      "reproduction": {
+        "interpreter": "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/rv2-holistic-tf-20261101/bin/python",
+        "flags": ["-E", "-B", "-c"],
+        "cwd": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration",
+        "method": "Executed production OwnedCapture and run_preview with an ordinary Python subprocess as the synthetic binary-pipe producer. The producer emitted a valid built-in BGRA handshake and one >dI frame, then waited on an inherited synchronization pipe. An injected detector released that pipe, waited for producer exit 7 and waited until the production capture.error contained EOFError before returning. GUI operations were inert injected methods. Model/path admission, hashing, native binding verification and pixel rendering were replaced only to avoid any real model, build, camera, GUI or file operations. The production reader, queue, next_frame, preview-loop decisions and cleanup were not replaced.",
+        "observed": [
+          {"end_condition": "q", "terminal": "quit", "native_exit": 7, "background_error": "EOFError", "returned_normally": true, "processed": 1, "child_reaped": true},
+          {"end_condition": "window visibility false", "terminal": "window_closed", "native_exit": 7, "background_error": "EOFError", "returned_normally": true, "processed": 1, "child_reaped": true},
+          {"end_condition": "deadline elapsed during injected processing", "terminal": "deadline", "native_exit": 7, "background_error": "EOFError", "returned_normally": true, "processed": 1, "child_reaped": true},
+          {"end_condition": "healthy q control", "terminal": "quit", "native_exit": -15, "background_error": null, "returned_normally": true, "processed": 1, "child_reaped": true}
+        ],
+        "stderr": "The three fault cases retained 'native stderr tail: synthetic native fault'.",
+        "execution": "All corrected focused probes exited 0 after printing their observations. An initial probe-only string-escaping error caused a synthetic-child SyntaxError; it was corrected before these observations and is not counted as a product failure."
+      },
+      "required_change": "Reconcile a capture failure or unexpected child exit that occurred before owned shutdown with the final session outcome, including normal quit/window-close/deadline paths. Preserve the original failure and cleanup attempts; keep deliberate termination of a healthy owned child distinct from unexpected native failure. Add deterministic regressions for these three ordering cases and the healthy-quit control."
+    },
+    {
+      "id": "L02",
+      "title": "Thread-start acquisition failure aborts pipe cleanup and replaces the primary exception",
+      "locations": [
+        "training/holistic_migration/camera.py:237-248",
+        "training/holistic_migration/camera.py:304-329"
+      ],
+      "explanation": "Both Thread objects are published on self before start() succeeds. Constructor rollback calls close(), which unconditionally joins every non-None thread. Joining a never-started thread raises RuntimeError. This exits the finally block before either stdout or stderr is closed and replaces the intended capture diagnostic with the join exception. _closed has already been set, so another close() cannot complete cleanup. The specifically owned child was terminated and reaped in both reproductions: this finding concerns open pipe handles and failed rollback/diagnostic semantics, not an observed surviving camera process.",
+      "reproduction": {
+        "interpreter": "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/rv2-holistic-tf-20261101/bin/python",
+        "flags": ["-E", "-B", "-c"],
+        "method": "Injected RuntimeError('synthetic thread start failure') at threading.Thread.start for each named production thread in turn, while using the real OwnedCapture constructor/close and a synthetic Python pipe child. Native binding verification alone was bypassed. The frame-reader case received a valid handshake before its thread start was faulted. No real camera, GUI, model, compiler or filesystem writes were involved.",
+        "observed": [
+          {"failed_thread": "owned-camera-stderr", "exception": "RuntimeError", "message": "cannot join thread before it is started", "child_reaped": true, "stdout_closed": false, "stderr_closed": false},
+          {"failed_thread": "owned-camera-frames", "exception": "RuntimeError", "message": "cannot join thread before it is started", "child_reaped": true, "stdout_closed": false, "stderr_closed": false}
+        ],
+        "execution": "Probe exited 0 after recording both cases. The harness explicitly closed the remaining synthetic handles afterward."
+      },
+      "required_change": "Track successful thread acquisition or guard joining unstarted threads. Ensure pipe closes are attempted even if a thread join or another teardown step fails, preserve the original acquisition error, and do not make incomplete cleanup permanently non-retryable. Cover failure of each thread start through the production constructor."
+    }
+  ],
+  "suggestions": [],
+  "summary": "CHANGES REQUIRED for specification and quality because of L01/MR01 and L02. Reviewed all five complete Task B source/test files and all 1,263 lines of the supplied diff, the brief, full implementation RED/GREEN report, accepted Task A interfaces, manifest and referenced parent evidence. Verified the exact five-file inventory, added-file postimages, modes, package SHA-256, every manifest source/supporting hash, parent verification/log hashes, unchanged HEAD 4d901693642af5f572455b2c75ba095b0ec65c7f, empty original tracked diff and all six preserved Task A source hashes. Source inspection confirms built-in-only exact-device selection with no Continuity/default-index fallback; metadata-only discovery; production native selection/row-padding/framing/reconfiguration/timestamp self-tests; bounded pipe framing/deadlines, latest-only delivery and stderr; exact-source compilation and launch digest checks; shared detector/packer use; actual BGRA dimensions with explicit unmirrored RGB resize; display-only mirroring; no frame/video/landmark persistence; and exclusive structured reports with live_acceptance=false. Retained native source/binary hashes and compiler receipt match the executed self-test evidence. Read and hash-verified the parent's 61-test package and 51-test original-suite successes; did not rerun them. Also read TASK_B_PARENT_VERIFICATION.md and its actual preview.json/stdout/stderr, matched its production-source and native binary bindings, and retained its exit-0, 1,279-processed-frame empty-detection runtime/GUI result as evidence of that successful path only. preview.json SHA-256 is ebe36c95127d4091c6e37e36201012da93153947b28d84db503a7359d0a8b0cf; parent note SHA-256 is 1c396efa02e7bcddeda0572206183880a22cdd9a903d71a6fb937e21ebdf13c2. The limited added-line shell/dynamic-execution/pickle/private-key scan found no listed patterns. Independently executed only focused synthetic pipe/in-memory fault probes; no real camera, GUI, model or dataset operations, installs, source edits, commits or configuration changes. This review writes only this report. Physical/human tracking, anatomy/handedness, sign recognition, representative performance and study/mobile acceptance remain separate and unverified.",
+  "reviewed_source_sha256": {
+    "training/holistic_migration/camera.py": "f0c90ee6fab40bd75bd68ee3ff95a7a3d49b87d33f61e60574d85e7abc83836f",
+    "training/holistic_migration/camera.swift": "4837c7723ef484fcc05856be62240e3aaf85e6a685c5ff79d6709840b6701825",
+    "training/holistic_migration/webcam.py": "01a2a9f0f0d52e8d8aa10ee070d0142df5ed228fface2891ca260f55fa70556f",
+    "training/holistic_migration/tests/test_camera.py": "762bef9f81128de7d60fd1145f55d0d8d8e2a97833f7a525faa772a68f606086",
+    "training/holistic_migration/tests/test_webcam.py": "022cf22a09b2e6334bf62d3629ad1a7aa0d9cb0d37e25893e7ae999ff1a59a5b"
+  }
+}

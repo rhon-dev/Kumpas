@@ -1,0 +1,24 @@
+{
+  "status": "accepted_bounded_task_a_foundation",
+  "source_commit": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+  "review": "docs/holistic-migration/task-a-review-2.json",
+  "review_sha256": "d11ba81793e0cfae572f2d9a94799501e9be01e08b9e83ef27a7cf7c2c3b412d",
+  "review_manifest_sha256": "a952b8392ca053845846067abd9d69bc23f24c516491edaf1c69ff505b203a09",
+  "reviewed_source_sha256": {
+    "training/holistic_migration/__init__.py": "7ed3f3c320c0550817cd33c425d442b68ecc7edeb3890d86ce3dc4c91a62a9e0",
+    "training/holistic_migration/detector.py": "f1d110acd4681eb138b41c96e0dffcb116a1a7168b3743558a519260a1dd7f8c",
+    "training/holistic_migration/features.py": "9d6436a316d70abcace9bde0108761e19263782bdff0ccf76196d650e5e36656",
+    "training/holistic_migration/tests/__init__.py": "cac0b6f1ba14c5703c188a5e24947664da2bf934ddbc35a7195910ba388d9450",
+    "training/holistic_migration/tests/test_detector.py": "1d5f6892f81d7c3a10ed83a61521917500f9a9e00683c651ec69ce2e190ec1dc",
+    "training/holistic_migration/tests/test_features.py": "80ef827bf28099addc53415d8930ea0eaf04f4bf57d892362fc6e4995ab74304"
+  },
+  "parent_verification": {
+    "package_tests_passed": 40,
+    "same_observation_real_fit_pack_parity": 62,
+    "max_absolute_difference": 0.0,
+    "original_tracked_diff": "empty"
+  },
+  "retained_minor": "S01 unused importlib in test_detector.py, nonblocking and not fixed",
+  "limits": "No classifier training/accuracy, anatomical/linguistic/all-gesture/live/phone acceptance. New candidate incompatible with old258-feature weights/references.",
+  "next_authorized_slice": "Task B visible built-in-only Mac tracking preview under its brief; no phone work"
+}

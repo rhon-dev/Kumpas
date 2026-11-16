@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "status": "accepted_bounded_canonical_dataset_evidence_with_nonblocking_concern",
+  "accepted_at": "2026-11-14T05:38:24.451850+08:00",
+  "repository": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration",
+  "source_head": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+  "review": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/docs/holistic-migration/task-c-campaign-review.json",
+    "sha256": "12e91cfce34c4bc5c594fb75aadb4bccbd90736c1e581321883f0373a0133d3d",
+    "delegation": "deleg_50ecf3a8",
+    "specification": "pass",
+    "evidence_quality": "pass_with_concerns"
+  },
+  "parent_verification": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/campaign-acceptance-parent-20261114/verification.json",
+    "sha256": "dd48825e53b979ca8676daf03acf8e2e79aa4e4fe7a4fa8437e23fc6b2afd53f"
+  },
+  "dataset_admission": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/canonical-dataset-parent-20261113-c1/dataset-admission.json",
+    "sha256": "f2c86737e2895b323bebe57363faf9ba0d61752285ed0a19ecb3a2729c9593e0",
+    "purpose": "fit_validation_only"
+  },
+  "campaign_manifest_sha256": "0171ff543c9986c1a9d08590f5dcd1e88a2c7eb4ae9e5eddfda0933e59f82a4a",
+  "bundle_manifest_sha256": "3f9377f11abdd5a2055b5cd099761579a5579f97f1d4fcc8492043f004ba6667",
+  "classes": 50,
+  "declared": 1016,
+  "eligible": 1016,
+  "partitions": {
+    "fit": 663,
+    "validation": 150,
+    "test": 203
+  },
+  "minimum_class_support": {
+    "fit": 11,
+    "validation": 3,
+    "test": 4
+  },
+  "tensor_contract": "Float32[N,30,153] hm153-v1; unaugmented canonical sources",
+  "nonblocking_findings": [
+    {
+      "id": "C-CAMPAIGN-E01",
+      "disposition": "accepted_as_nonperformance_historical_metadata_limit",
+      "observed": {
+        "ISO_wall_delta_seconds": 3605.192175,
+        "reported_monotonic_seconds_in_misnamed_field": 2761.1450687920005,
+        "difference_seconds": 844.0471062079996,
+        "cause": "unestablished",
+        "performance_use_allowed": false
+      },
+      "followup": "For the next separately authorized long run, name and retain UTC/ISO wall interval and monotonic interval separately. Preserve historical source/receipts; no extraction rerun merely to repair timing metadata."
+    }
+  ],
+  "limits": [
+    "Bounded execution-artifact evidence review, not a new C software review or parent task acceptance; concurrent D evaluator repair excluded from C immutable bindings.",
+    "No extraction, pipeline rerun, test suite, SDK invocation, video decoding, classifier training/inference/evaluation, camera/GUI/phone, installs, commits, provider/config/model changes or source/data writes performed.",
+    "All1016 raw NPZ were byte-rehashed without numerical reconstruction. All1016 exact raw/capture/tensor recomputation remains retained parent evidence, bound by current unchanged raw and artifact digests.",
+    "Actual source videos were stat-checked only for regular resident files and exact lengths; prior per-video hashes/decode/pixel checks are retained, not repeated. Archive and detector weights were not opened. Download metadata and graph agreement are not a new publisher/network verification or legal/consent acceptance.",
+    "Recorded runtime identity/contract canonical hashes were verified; no SDK/current environment parity run. Read-only array checks used /Users/ahronjanl.rafaelahron.0804icloudcom/.hermes/tools/python-3.14.9+20261021-darwin-arm64/bin/python3 with NumPy 2.5.4 rather than the historical producer runtime.",
+    "Fifty-class eligible support is an observability/canonicalization result, not a guarantee of adequate sign boundaries, semantics, anatomy, detector recall or classifier learnability. Left/right names are SDK semantics, not independent anatomical adjudication.",
+    "Faces retained in raw data do not approve excluding nonmanual FSL features from hm153. Face omission and linguistic sufficiency remain expert/model-validation gates.",
+    "All signer IDs unknown. Exact clip/pixel/tensor uniqueness does not prove independent signers, semantic dissimilarity, no near-duplicates or generalization. Previously consulted official test sources remain exploratory/reused.",
+    "Mask absences and internal hand loss are not annotated idle/negative/OOD examples; no unknown-rejection/FAR claim. Original sources, raw observations, bounded observations and derived rows must not share a denominator.",
+    "C training_qualified=false preserved; dataset fit/validation admission does not authorize optimization, waive reviewed D/real-source tiny-proof requirements, or grant model/export/activation acceptance.",
+    "Native warnings and historical timing discrepancy are retained. No inference latency, camera FPS, end-to-end throughput, physical performance, human webcam, participant-study or research gate is passed.",
+    "Hashes are integrity bindings under a trusted local filesystem, not signatures/hostile-writer protection. Historical startup/postimage provenance is corroborated, not retrospectively preregistered."
+  ],
+  "C_training_qualified_remains_false": true,
+  "D_accepted": false,
+  "real_training_started": false,
+  "real_tiny_proof_required_before_full_fit": true,
+  "model_physical_research_acceptance": false,
+  "owner_deferred_webcam_gate_open": true,
+  "no_phone_or_activation_authorized": true
+}

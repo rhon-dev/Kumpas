@@ -1,0 +1,39 @@
+{
+  "status": "accepted_bounded_task_c_software",
+  "accepted_at": "2026-11-13T19:37:38.765329+08:00",
+  "repository": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration",
+  "source_commit": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+  "review": "docs/holistic-migration/task-c-review-2.json",
+  "review_sha256": "7ddda03f5754516153a11ab3e7a83dfc64632c3e7c6e173f549034a685751759",
+  "review_manifest": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/manifest.json",
+  "review_manifest_sha256": "162f1a708425ba0a9b9c020be101cad615f00b74c036374db6b2a078f31803f1",
+  "accepted_source_sha256": {
+    "training/holistic_migration/README.md": "6750c2ed933dd76cc5b05129758063e46931844ad16b31fb06cbefd398ac1c46",
+    "training/holistic_migration/build_dataset.py": "fb59c1c78c4f892f75c372fe84fe62b5c93473997e50321fa8b803618cd92401",
+    "training/holistic_migration/dataset.py": "741a3f8c12d6fe3fd80f56f930c066237662b9fde58075bbb46facb4adfd3809",
+    "training/holistic_migration/extract.py": "126641cacc8f91032ca21efd032d6af821b94c755ba52ed8534f35a68fac6631",
+    "training/holistic_migration/requirements.txt": "e75ed2df1ab04bc8284229eb7b95169e9e20b7d35ff453a71b9abff7bdc25778",
+    "training/holistic_migration/sequence.py": "782e441e2c3a821c29215b36fdb0619c0956bfb932d163d5795555774a3d3f8d",
+    "training/holistic_migration/tests/test_dataset.py": "b72df50ad53f86261decaf92e3340e7366e26f1261c65fe6bfecee0a20505099",
+    "training/holistic_migration/tests/test_extract.py": "729f38aecad2d53d4875508b1443fb6f89bea4f92e6dc33de007eb02eea55fd3",
+    "training/holistic_migration/tests/test_sequence.py": "3c831bb7560ae340078f6a20519e09bcb2997b1819e04903a4cbffa0571a4331"
+  },
+  "verified_input_bindings": 124,
+  "verified_worker_artifacts": 427,
+  "verified_protected_paths": 22,
+  "parent_execution_receipt": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/task-c-fix1-parent-b-review2/verification.json",
+  "parent_execution_receipt_sha256": "5c76ff0ab8beb9450a64ebc89738c2d0fee3c77ad401334bf80ec72a6c08629f",
+  "resolved_findings": [
+    "L-C01",
+    "MR-C01",
+    "S-C01"
+  ],
+  "scope": "Reviewed offline sequence/extractor/raw codec/canonical-builder software only; not real data, training, B camera software, physical or research acceptance",
+  "remaining_gates": [
+    "Real fit-only diagnostic and reviewed feasibility",
+    "Full50-class source-bound extraction/canonical bundle and real fit/validation support",
+    "Reviewed trainer plus retained real-source tiny-overfit before full fitting",
+    "Validation selection and separately frozen held-out evaluation",
+    "Owner-deferred human webcam/anatomical/live acceptance; no phone work"
+  ]
+}

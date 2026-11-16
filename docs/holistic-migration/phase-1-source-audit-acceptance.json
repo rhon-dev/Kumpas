@@ -1,0 +1,115 @@
+{
+  "status": "complete_published_source_audit_only",
+  "phase": 1,
+  "phase_name": "Current state audit",
+  "plan": {
+    "path": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration/HOLISTIC_MIGRATION_PLAN.md",
+    "sha256": "2b9a1668588938d20d0b51504206fba71bbc07a5fb0cda307e1b22079673bc1a",
+    "section": "1"
+  },
+  "completed_at": "2026-11-16T00:12:54.832336+08:00",
+  "HEAD": "4d901693642af5f572455b2c75ba095b0ec65c7f",
+  "branch": "holistic-migration",
+  "source_sha256": {
+    "HOLISTIC_MIGRATION_PLAN.md": "2b9a1668588938d20d0b51504206fba71bbc07a5fb0cda307e1b22079673bc1a",
+    "docs/holistic-migration/CURRENT_STATE_AUDIT.md": "11ea12607a33e6925366cedaf84c74035effedb72886e642a2692ddb2771df68",
+    "training/preprocessing/extract_landmarks.py": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+    "training/preprocessing/build_sequences.py": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+    "training/preprocessing/selected_classes.json": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5",
+    "training/models/train_cnn_lstm.py": "a5560e5dec1e8ef68d46a7e1ed739c864b98f68b8575f0c491a7a9f3d02536c1",
+    "app/android/app/src/main/assets/label_map.json": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+    "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt": "a86071c63501ae63fcd96a3527b5c978f7b0e81ac990e2b95ef348b17941ddd8"
+  },
+  "unconditional_requirements": [
+    {
+      "requirement": "Read import/extraction, sequence, model/training/export and native inference contracts",
+      "status": "complete",
+      "evidence": "Existing source-backed CURRENT_STATE_AUDIT.md and unchanged published baseline, plus current accepted D review; no entire-cloud-folder claim"
+    },
+    {
+      "requirement": "All50 original IDs/literal labels/categories and application dense mapping",
+      "status": "complete",
+      "evidence": "Fresh exact selected/app/official-CSV inventory comparisons"
+    },
+    {
+      "requirement": "Historical sequence/features/normalization/sampling contract",
+      "status": "complete",
+      "evidence": "Source audit:30 rows,1662 full/258 no-face, hip/torso normalization and whole-clip sampling"
+    },
+    {
+      "requirement": "Historical CNN-LSTM architecture and50-output source contract",
+      "status": "complete",
+      "evidence": "Source audit: Conv1D64/128, BatchNorm/MaxPool2, LSTM128/64, Dense128/Dense50, dropout0.4; not binary attestation"
+    },
+    {
+      "requirement": "Existing training regression baseline",
+      "status": "complete",
+      "evidence": {
+        "command": [
+          "/Users/ahronjanl.rafaelahron.0804icloudcom/.kumpas-venvs/rv2-holistic-tf-20261101/bin/python",
+          "-E",
+          "-B",
+          "-m",
+          "pytest",
+          "-p",
+          "no:cacheprovider",
+          "training/tests",
+          "-v",
+          "--basetemp=/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/phase1-source-audit-20261116-27c6b913/synthetic-fixtures",
+          "--junitxml=/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/phase1-source-audit-20261116-27c6b913/baseline.xml"
+        ],
+        "exit": 0,
+        "collected_parent_cases": 51,
+        "xml_suite_counts": {
+          "tests": 340,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "summary": "============= 51 passed, 3 warnings, 289 subtests passed in 9.75s ==============",
+        "source_sha256": {
+          "HOLISTIC_MIGRATION_PLAN.md": "2b9a1668588938d20d0b51504206fba71bbc07a5fb0cda307e1b22079673bc1a",
+          "docs/holistic-migration/CURRENT_STATE_AUDIT.md": "11ea12607a33e6925366cedaf84c74035effedb72886e642a2692ddb2771df68",
+          "training/preprocessing/extract_landmarks.py": "305ea1592092c2822b544f81d440aebccd62ee2f7de0bd0c417806dcab78831f",
+          "training/preprocessing/build_sequences.py": "08beb5910a39b1c7e65f769d9b613adddf18a15f862972a273d30171d26c8ee0",
+          "training/preprocessing/selected_classes.json": "e8089f5c0186bfe6fd9ec63a5150f8094645c1686509f23c1716453b5f9ce0d5",
+          "training/models/train_cnn_lstm.py": "a5560e5dec1e8ef68d46a7e1ed739c864b98f68b8575f0c491a7a9f3d02536c1",
+          "app/android/app/src/main/assets/label_map.json": "4fff4f4bf4df480d257a04f4d125fca5fc2c3c1f3c86970857fb815f239fffb0",
+          "app/android/app/src/main/kotlin/com/kumpas/kumpas_app/VisionEngine.kt": "a86071c63501ae63fcd96a3527b5c978f7b0e81ac990e2b95ef348b17941ddd8"
+        },
+        "actual_source_execution": false,
+        "log_sha256": "9a21e017e7f0c6bf0e598884dce9ab8302ad2d93e4e45e0fc6e13635f701cba9",
+        "xml_sha256": "8b3c6bcada708cfa4ceee402fd7799c2ff9eacf27902343e52b99ad9c122832d"
+      }
+    }
+  ],
+  "unconditional_requirement_count": 5,
+  "conditional_historical_binary_signatures": {
+    "condition_triggered": false,
+    "scope": "Isolated published clone only; metadata census found no historical classifier binaries",
+    "binary_signature_verified": false,
+    "follow_up": "Inspect exact historical classifier signatures if such assets are later recovered; unpublished/cloud binaries remain outside this completion"
+  },
+  "tests": {
+    "cases": 51,
+    "subtests": 289,
+    "warnings": 3,
+    "exit": 0,
+    "xml": {
+      "tests": 340,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "receipt": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/phase1-source-audit-20261116-27c6b913/baseline.command.json"
+  },
+  "D_software_acceptance_unchanged": true,
+  "other_phase_scope": "This closes section1 only. Other accepted software/data work is retained; it does not close all six migration sections.",
+  "human_tracking_confirmation_still_pending": true,
+  "real_training_or_evaluation_started": false,
+  "trained_model_accepted": false,
+  "camera_relaunched": false,
+  "phone_or_participant_work": false,
+  "original_cloud_folder_readiness_not_established": true,
+  "evidence": "/Users/ahronjanl.rafaelahron.0804icloudcom/KumpasBuilds/holistic-migration-data/evidence/phase1-source-audit-20261116-27c6b913"
+}

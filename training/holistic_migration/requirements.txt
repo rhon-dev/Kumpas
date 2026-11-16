@@ -1,0 +1,7 @@
+# Observed installed runtime, not an installation instruction/lock of transitive packages.
+# Python 3.11.15; existing rv2-holistic-tf-20261101 interpreter, -E -B.
+numpy==2.1.3
+opencv-contrib-python==5.0.0.93
+mediapipe==1.2.0
+# Test-only dependency already installed:
+pytest==9.2.0

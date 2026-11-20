@@ -212,7 +212,7 @@ class OwnedCapture:
 
     def __init__(self, binding, *, duration, startup_timeout=10.0, frame_timeout=3.0,
                  shutdown_timeout=.75, popen=subprocess.Popen):
-        for name, value, maximum in (("duration", duration, 300),
+        for name, value, maximum in (("duration", duration, 900),
                                      ("startup_timeout", startup_timeout, 30),
                                      ("frame_timeout", frame_timeout, 30),
                                      ("shutdown_timeout", shutdown_timeout, 5)):

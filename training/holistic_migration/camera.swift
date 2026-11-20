@@ -128,6 +128,12 @@ final class Receiver: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         } catch { fail(error) }
     }
 }
+func captureDuration(_ token: String) throws -> Double {
+    guard let duration = Double(token), duration.isFinite, duration > 0, duration <= 900 else {
+        throw CameraError.invalid("invalid-duration")
+    }
+    return duration
+}
 func fail(_ error: Error) -> Never {
     FileHandle.standardError.write(Data("native-camera: \(error)\n".utf8))
     exit(1)
@@ -138,7 +144,11 @@ do {
     else if args == ["--discover"] {
         let (_, descriptor) = try discovery()
         try emitJSON(["device_type":descriptor.type, "continuity":descriptor.continuity, "device_sha256":identityDigest(descriptor)])
-    } else if args.count == 2 && args[0] == "--capture", let duration = Double(args[1]), duration.isFinite, duration > 0, duration <= 300 {
+    } else if args.count == 2 && args[0] == "--check-duration" {
+        let duration = try captureDuration(args[1])
+        try emitJSON(["status":"ok", "duration_s":duration, "camera_access":false])
+    } else if args.count == 2 && args[0] == "--capture" {
+        let duration = try captureDuration(args[1])
         let (device, descriptor) = try discovery()
         guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized else { throw CameraError.invalid("camera-permission-not-authorized; allow camera access for the launching application") }
         let session = AVCaptureSession()
@@ -165,5 +175,5 @@ do {
         output.setSampleBufferDelegate(nil, queue: nil)
         session.stopRunning()
         withExtendedLifetime(receiver) {}
-    } else { throw CameraError.invalid("usage: --self-test | --discover | --capture SECONDS(0,300]") }
+    } else { throw CameraError.invalid("usage: --self-test | --discover | --check-duration SECONDS(0,900] | --capture SECONDS(0,900]") }
 } catch { fail(error) }
